@@ -36,9 +36,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <!-- <div class="card-header">
-                                    <a type="button" class="btn btn-sm btn-primary col-md-1" href="<?= base_url('Admin/TambahDataPembelian'); ?>" style="float:right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</a>
-                                </div> -->
+                                <div class="card-header">
+                                    <a type="button" class="btn btn-sm btn-primary col-md-1" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float:right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</a>
+                                </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="tableDataBarang" class="table table-bordered table-hover">

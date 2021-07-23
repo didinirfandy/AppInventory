@@ -37,8 +37,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <button type="button" id="kirimGudang" class="btn btn-sm btn-success" style="float: right; margin-left: 1%;" disabled><i class="fas fa-arrow-right"></i> Kirim Ke Gudang</button>
-                                    <a type="button" class="btn btn-sm btn-primary col-md-1" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float:right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</a>                                    
+                                    <button type="button" id="kirimGudang" class="btn btn-sm btn-success" style="float: right; margin-left: 1%;" disabled><i class="fas fa-arrow-right"></i>&nbsp;&nbsp; Kirim Ke Gudang</button>      
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
