@@ -32,9 +32,9 @@ class DataPenjualan extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Data Pembelian";
+        $data['title'] = "Data Penjualan";
 
         $this->load->view('Template/Head', $data);
-        $this->load->view('PageAdmin/Pembelian/DataPembelian');
+        $this->load->view('PageAdmin/Penjualan/DataPenjualan');
     }
 }

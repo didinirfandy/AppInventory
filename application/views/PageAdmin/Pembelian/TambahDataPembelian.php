@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-header bg-gray">
-                                        <button class="btn btn-md btn-block btn-primary col-md-3" style="float: right;" disabled><i class="fa fa-save"></i> Simpan</button>
+                                        <button class="btn btn-md btn-block btn-primary col-sm-1" style="float: right;" disabled><i class="fa fa-save"></i> Simpan</button>
                                     </div>
                                     <div class="card-body">
                                         <table class="table table-bordered">

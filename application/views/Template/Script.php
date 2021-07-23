@@ -32,3 +32,5 @@
 <script src="<?= base_url(); ?>assetsApp/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= base_url(); ?>assetsApp/dist/js/pages/dashboard.js"></script>
+<!-- Select2 -->
+<script src="<?= base_url(); ?>assetsApp/plugins/select2/js/select2.full.min.js"></script>
