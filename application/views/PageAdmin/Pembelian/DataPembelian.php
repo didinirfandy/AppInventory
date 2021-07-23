@@ -37,7 +37,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a type="button" class="btn btn-block btn-primary" href="<?= base_url(); ?>Admin/TambahDataPembelian" style="width: 25%; float:right;">Tambah Data</a>
+                                    <a type="button" class="btn btn-sm btn-primary col-md-1" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float:right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -46,23 +46,26 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kode Pembelian</th>
-                                                <th>Nama Barang</th>
-                                                <th>Satuan</th>
-                                                <th>Harga Beli</th>
-                                                <th>Item</th>
+                                                <th>Tgl Pembelian</th>
+                                                <th>Kd Supplier</th>
+                                                <th>Nama Supplier</th>
+                                                <th>Quantity</th>
+                                                <th>Total Pembelian</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
+                                             
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kode Pembelian</th>
-                                                <th>Nama Barang</th>
-                                                <th>Satuan</th>
-                                                <th>Harga Beli</th>
-                                                <th>Item</th>
+                                                <th>Tgl Pembelian</th>
+                                                <th>Kd Supplier</th>
+                                                <th>Nama Supplier</th>
+                                                <th>Quantity</th>
+                                                <th>Total Pembelian</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </tfoot>
@@ -109,13 +112,17 @@
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr> 
-                            <td>` + (i + 1) + `</td> 
-                            <td>` + data[i].kd_pembelian + `</td>
-                            <td>` + data[i].nama_barang_beli + `</td>
-                            <td>` + data[i].satuan + `</td>
-                            <td>` + data[i].harga_beli + `</td>
-                            <td>` + data[i].item + `</td>
-                            <td style="text-align: center;"><input type="checkbox"></td> 
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>                                            
+                                    <a href="#" class="btn btn-primary"><i class="fas fa-search"></i> Detail</a>
+                                    <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                </td> 
                             </tr>`;
                     }
                     $('#databarang').html(row);
