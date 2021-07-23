@@ -26,8 +26,6 @@
     <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/summernote/summernote-bs4.min.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/toastr/toastr.min.css">
 </head>
