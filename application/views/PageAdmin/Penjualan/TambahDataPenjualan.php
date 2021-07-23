@@ -163,7 +163,7 @@
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
-        </div>
+        </div> 
         <!-- /.content-wrapper -->
         <?php $this->load->view('Template/Footer') ?>        
     </div>
