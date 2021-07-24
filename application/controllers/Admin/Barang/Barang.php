@@ -23,7 +23,7 @@ class Barang extends CI_Controller
     {
         $data['title'] = "Data Barang";
 
-        $this->load->view('Template/Head', $data);
-        $this->load->view('PageAdmin/Barang');
+        $this->load->view('Template/HeadDataTablesJS', $data);
+        $this->load->view('PageAdmin/Barang/Barang', $data);
     }
 }

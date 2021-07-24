@@ -120,8 +120,8 @@
                                 <td></td>
                                 <td></td>
                                 <td>                                            
-                                    <a href="#" class="btn btn-primary"><i class="fas fa-search"></i> Detail</a>
-                                    <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
+                                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
                                 </td> 
                             </tr>`;
                     }

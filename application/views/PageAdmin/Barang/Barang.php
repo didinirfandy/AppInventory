@@ -37,16 +37,20 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a href="<?= base_url()?>Admin/Supplier/TambahDataSupplier" class="btn btn-sm btn-primary" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Supplier</a>      
+                                    <a href="<?= base_url()?>Admin/Barang/TambahDataBarang" class="btn btn-sm btn-primary" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Barang</a>      
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataSupplier" class="table table-bordered table-hover">
+                                    <table id="tableDataBarang" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Supplier</th>
-                                                <th>Alamat</th>
+                                                <th>Kode Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Satuan</th>
+                                                <th>Harga Jual</th>
+                                                <th>Harga Beli</th>
+                                                <th>Stok</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -56,8 +60,12 @@
                                         <tfoot>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Supplier</th>
-                                                <th>Alamat</th>
+                                                <th>Kode Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Satuan</th>
+                                                <th>Harga Jual</th>
+                                                <th>Harga Beli</th>
+                                                <th>Stok</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </tfoot>
@@ -84,13 +92,13 @@
     <script type="text/javascript">
         $(function() {
             displayData()
-            $("#tableDataSupplier").DataTable({
+            $("#tableDataBarang").DataTable({
                 "responsive": true,
                 // "lengthChange": false,
                 "autoWidth": false,
                 "buttons": ["excel", "pdf"],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
-            }).buttons().container().appendTo('#tableDataSupplier_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
         });
 
         function displayData() {
@@ -105,6 +113,10 @@
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr>
                                     <td></td>                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td>

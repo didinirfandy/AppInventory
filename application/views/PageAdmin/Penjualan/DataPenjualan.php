@@ -114,7 +114,7 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <a href="#" class="btn btn-primary"><i class="fas fa-search"></i> Detail</a></td> 
+                                <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a></td> 
                             </tr>`;
                     }
                     $('#databarang').html(row);
