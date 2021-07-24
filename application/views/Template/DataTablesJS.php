@@ -19,3 +19,5 @@
 <script src="<?= base_url(); ?>assetsApp/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url(); ?>assetsApp/dist/js/demo.js"></script>
+<!-- SweetAlert2 -->
+<script src="<?= base_url(); ?>assetsApp/plugins/sweetalert2/sweetalert2.min.js"></script>

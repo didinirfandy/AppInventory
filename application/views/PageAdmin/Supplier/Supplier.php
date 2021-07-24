@@ -37,35 +37,27 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a class="btn btn-sm btn-primary" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah Data</a>
+                                    <a href="<?= base_url()?>Admin/Supplier/TambahDataSupplier" class="btn btn-sm btn-primary" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Supplier</a>      
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataBarang" class="table table-bordered table-hover">
+                                    <table id="tableDataSupplier" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Kode Pembelian</th>
-                                                <th>Tgl Pembelian</th>
-                                                <th>Kd Supplier</th>
                                                 <th>Nama Supplier</th>
-                                                <th>Quantity</th>
-                                                <th>Total Pembelian</th>
+                                                <th>Alamat</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="databarang">
-                                             
+                                        <tbody id="datasuplier">
+                                            
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Kode Pembelian</th>
-                                                <th>Tgl Pembelian</th>
-                                                <th>Kd Supplier</th>
                                                 <th>Nama Supplier</th>
-                                                <th>Quantity</th>
-                                                <th>Total Pembelian</th>
+                                                <th>Alamat</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </tfoot>
@@ -92,42 +84,59 @@
     <script type="text/javascript">
         $(function() {
             displayData()
-            $("#tableDataBarang").DataTable({
+            $("#tableDataSupplier").DataTable({
                 "responsive": true,
                 // "lengthChange": false,
                 "autoWidth": false,
                 "buttons": ["excel", "pdf"],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
-            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#tableDataSupplier_wrapper .col-md-6:eq(0)');
         });
 
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/DataBarangPembelian/GetData') ?>",
+                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
                 dataType: "json",
                 async: false,
                 success: function(data) {
                     console.log(data);
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
-                        row += `<tr> 
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>                                            
-                                    <a href="#" class="btn btn-primary"><i class="fas fa-search"></i> Detail</a>
-                                    <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
-                                </td> 
-                            </tr>`;
+                        row += `<tr>
+                                    <td></td>                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                                        <button class="btn btn-danger" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                    </td>
+                                </tr>`;
                     }
                     $('#databarang').html(row);
                 }
             })
+        }
+
+        function validateHapus(a)
+        {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+            });
         }
     </script>
 

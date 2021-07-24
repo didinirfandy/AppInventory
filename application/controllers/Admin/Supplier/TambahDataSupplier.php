@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Supplier extends CI_Controller
+class TambahDataSupplier extends CI_Controller
 {
 
     /**
@@ -21,9 +21,9 @@ class Supplier extends CI_Controller
      */
     public function index()
     {
-        $data['title'] = "Data Supplier";
+        $data['title'] = "Tambah Data Supplier";
 
         $this->load->view('Template/Head', $data);
-        $this->load->view('PageAdmin/Supplier');
+        $this->load->view('PageAdmin/Supplier/TambahDataSupplier', $data);
     }
 }

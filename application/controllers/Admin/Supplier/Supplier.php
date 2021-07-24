@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class DataPenjualan extends CI_Controller
+class Supplier extends CI_Controller
 {
 
     /**
@@ -19,22 +19,11 @@ class DataPenjualan extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Pembelian');
-
-        // if (empty($_SESSION['username'])) {
-        //     redirect('Welcome/index');
-        // }
-    }
-
     public function index()
     {
-        $data['title'] = "Data Penjualan";
+        $data['title'] = "Data Supplier";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
-        $this->load->view('PageAdmin/Penjualan/DataPenjualan');
+        $this->load->view('PageAdmin/Supplier/Supplier', $data);
     }
 }

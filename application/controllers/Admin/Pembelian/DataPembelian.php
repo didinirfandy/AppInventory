@@ -34,7 +34,7 @@ class DataPembelian extends CI_Controller
     {
         $data['title'] = "Data Pembelian";
 
-        $this->load->view('Template/Head', $data);
+        $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Pembelian/DataPembelian');
     }
 }
