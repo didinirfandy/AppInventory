@@ -37,7 +37,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a type="button" class="btn btn-sm btn-primary col-md-1" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float:right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</a>
+                                    <a class="btn btn-sm btn-primary" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah Data</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -120,8 +120,8 @@
                                 <td></td>
                                 <td></td>
                                 <td>                                            
-                                    <a href="#" class="btn btn-primary"><i class="fas fa-search"></i> Detail</a>
-                                    <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
+                                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
                                 </td> 
                             </tr>`;
                     }

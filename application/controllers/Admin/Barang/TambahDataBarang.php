@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Barang extends CI_Controller
+class TambahDataBarang extends CI_Controller
 {
 
     /**
@@ -21,9 +21,9 @@ class Barang extends CI_Controller
      */
     public function index()
     {
-        $data['title'] = "Data Barang";
+        $data['title'] = "Tambah Data Barang";
 
         $this->load->view('Template/Head', $data);
-        $this->load->view('PageAdmin/Barang');
+        $this->load->view('PageAdmin/Barang/TambahDataBarang', $data);
     }
 }
