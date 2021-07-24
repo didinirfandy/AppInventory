@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>INMAN :: Login </title>
+    <title>INVENTORY :: Login </title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,7 +23,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="<?= base_url(); ?>assetsApp/index2.html" class="h1"><b>Admin</b>Infentory</a>
+                <a href="<?= base_url(); ?>assetsApp/index2.html" class="h1"><b>Admin</b>Inventory</a>
             </div>
             <div class="card-body">
                 <!-- <p class="login-box-msg">Sign in to start your session</p> -->
@@ -76,10 +76,13 @@
         $(function() {
             $("input[name='username']").focus();
 
-            let status = "<?= $this->session->flashdata('notif'); ?>";
-            console.log(status);
-            if (status) {
-                toastr.success(status);
+            let statusSuccess = "<?= $this->session->flashdata('notif'); ?>";
+            let statusError = "<?= $this->session->flashdata('notifError'); ?>";
+
+            if (statusSuccess) {
+                toastr.success(statusSuccess);
+            } else if (statusError) {
+                toastr.warning(statusError);
             }
 
             $('#checkLogin').validate({

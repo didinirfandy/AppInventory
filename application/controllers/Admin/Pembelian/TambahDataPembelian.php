@@ -34,6 +34,7 @@ class TambahDataPembelian extends CI_Controller
     {
         $data['title'] = "Tambah Data Pembelian";
         $data['supplierData'] = $this->Pembelian->getSupplier();
+        $data['kodePembelian'] = $this->Pembelian->kodeOtomatis();
 
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Pembelian/TambahDataPembelian', $data);
