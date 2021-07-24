@@ -35,7 +35,7 @@ class HistoriGudang extends CI_Controller
         $data['title'] = "Data Histori Kirim Gudang";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
-        $this->load->view('PageAdmin/Pembelian/DataBarangPembelian', $data);
+        $this->load->view('PageAdmin/Pembelian/HistoriGudang', $data);
     }
 
     public function GetData()

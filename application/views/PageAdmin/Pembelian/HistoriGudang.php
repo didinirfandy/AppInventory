@@ -36,9 +36,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
+                                <!-- <div class="card-header">
                                     <button type="button" id="kirimGudang" class="btn btn-sm btn-success" style="float: right; margin-left: 1%;" disabled><i class="fas fa-arrow-right"></i>&nbsp;&nbsp; Kirim Ke Gudang</button>      
-                                </div>
+                                </div> -->
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="tableDataBarang" class="table table-bordered table-hover">
@@ -49,8 +49,10 @@
                                                 <th>Nama Barang</th>
                                                 <th>Satuan</th>
                                                 <th>Harga Beli</th>
-                                                <th>Item</th>
-                                                <th>Aksi</th>
+                                                <th>Harga Jual</th>
+                                                <th>Quantity</th>
+                                                <th>Tgk Beli</th>
+                                                <th>Tgk Jual</th>
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
@@ -62,8 +64,10 @@
                                                 <th>Nama Barang</th>
                                                 <th>Satuan</th>
                                                 <th>Harga Beli</th>
-                                                <th>Item</th>
-                                                <th>Aksi</th>
+                                                <th>Harga Jual</th>
+                                                <th>Quantity</th>
+                                                <th>Tgk Beli</th>
+                                                <th>Tgk Jual</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -109,14 +113,16 @@
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr> 
-                            <td>` + (i + 1) + `</td> 
-                            <td>` + data[i].kd_pembelian + `</td>
-                            <td>` + data[i].nama_barang_beli + `</td>
-                            <td>` + data[i].satuan + `</td>
-                            <td>` + data[i].harga_beli + `</td>
-                            <td>` + data[i].item + `</td>
-                            <td style="text-align: center;"><input type="checkbox"></td> 
-                            </tr>`;
+                                    <td>` + (i + 1) + `</td> 
+                                    <td>` + data[i].kd_pembelian + `</td>
+                                    <td>` + data[i].nama_barang_beli + `</td>
+                                    <td>` + data[i].satuan + `</td>
+                                    <td>` + data[i].harga_beli + `</td>
+                                    <td>` + data[i].item + `</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td> 
+                                </tr>`;
                     }
                     $('#databarang').html(row);
                 }

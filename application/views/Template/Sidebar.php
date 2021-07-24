@@ -38,9 +38,9 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Pembelian/DataBarangPembelian'); ?>" class="nav-link <?= $this->uri->segment(3) == "DataBarangPembelian" ? 'active' : ''; ?>">
+                            <a href="<?= base_url('Admin/Pembelian/HistoriGudang'); ?>" class="nav-link <?= $this->uri->segment(3) == "HistoriGudang" ? 'active' : ''; ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Barang Pembelian</p>
+                                <p>Histori Kirim Gudang</p>
                             </a>
                         </li>
                         <li class="nav-item">
