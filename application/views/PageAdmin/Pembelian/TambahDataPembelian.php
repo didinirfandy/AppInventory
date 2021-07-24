@@ -49,11 +49,12 @@
                                                 <form action="" method="post" id="formDatBarang">
                                                     <div class="form-group">
                                                         <label for="namaBarang">Nama Barang</label>
-                                                        <input type="text" class="form-control" id="namaBarang" placeholder="Nama Barang">
+                                                        <input type="text" class="form-control" id="namaBarang" placeholder="Nama Barang" autocapitalize="off">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="satuanBarang">Satuan Barang</label>
                                                         <select name="satuanBarang" class="form-control" id="satuanBarang">
+                                                            <option value="">-- PILIH --</option>
                                                             <option value="pcs">PCS</option>
                                                             <option value="lsn">Lusin</option>
                                                             <option value="dus">Dus</option>
@@ -61,16 +62,16 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="hargaBarang">Harga Beli</label>
-                                                        <input type="number" class="form-control" id="hargaBarang" placeholder="Harga Beli">
+                                                        <input type="number" class="form-control" min="0" id="hargaBarang" placeholder="Harga Beli">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="jumlahBarang">Quantity</label>
-                                                        <input type="number" class="form-control" id="jumlahBarang" placeholder="Quantity">
+                                                        <input type="number" class="form-control" max="10000" min="0" id="jumlahBarang" placeholder="Quantity">
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="card-footer">
-                                                <button class="btn btn-md btn-block btn-primary col-md-3" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-plus-square"></i> Tambah Data</button>
+                                                <button class="btn btn-sm btn-block btn-primary col-md-2" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</button>
                                             </div>
                                         </div>
                                     </div>
@@ -82,15 +83,16 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label for="kodePembelian">Kode Pembelian</label>
-                                                    <input type="text" class="form-control" id="kodePembelian" placeholder="Nama Barang" readonly>
+                                                    <input type="text" class="form-control" id="kodePembelian" value="<?= $kodePembelian ?>" readonly>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tglPembelian">Tanggal Pembelian</label>
-                                                    <input type="date" class="form-control" id="tglPembelian" placeholder="Tanggal Barang">
+                                                    <input type="date" class="form-control" id="tglPembelian">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="supplierBarang">Supplier</label>
                                                     <select name="supplierBarang" class="form-control" id="supplierBarang">
+                                                        <option value="">-- PILIH --</option>
                                                         <?php
                                                         foreach ($supplierData as $data) {
                                                         ?>
@@ -106,7 +108,7 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-header bg-gray">
-                                        <button class="btn btn-md btn-block btn-primary col-sm-1" style="float: right;" disabled><i class="fa fa-save"></i> Simpan</button>
+                                        <button class="btn btn-sm btn-block btn-primary col-sm-1" style="float: right;" disabled><i class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
                                     </div>
                                     <div class="card-body">
                                         <table class="table table-bordered">
@@ -128,8 +130,8 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="5" align="center"><strong>Sub Total</strong></td>
-                                                    <td colspan="2" align="right"><strong>0000000</strong></td>
+                                                    <th colspan="5" align="center"><strong>Sub Total</strong></th>
+                                                    <th colspan="2" align="right"><strong>0000000</strong></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
