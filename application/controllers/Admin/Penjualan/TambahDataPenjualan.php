@@ -32,10 +32,10 @@ class TambahDataPenjualan extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Tambah Data Pembelian";
+        $data['title'] = "Tambah Data Penjualan";
         $data['supplierData'] = $this->Pembelian->getSupplier();
 
         $this->load->view('Template/Head', $data);
-        $this->load->view('PageAdmin/Pembelian/TambahDataPembelian', $data);
+        $this->load->view('PageAdmin/Penjualan/TambahDataPenjualan', $data);
     }
 }

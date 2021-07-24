@@ -19,6 +19,17 @@ class IndexAdmin extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+    function __construct()
+    {
+        parent::__construct();
+        // $this->load->model('Login_model');
+
+        if (empty($_SESSION['username'])) {
+            $this->session->set_flashdata('notif', 'Gagal Login');
+            redirect('Login/index');
+        }
+    }
+
     public function index()
     {
         $data['title'] = "Dashboard";

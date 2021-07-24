@@ -615,6 +615,15 @@
 
     <?php $this->load->view('Template/Script') ?>
 
+    <script type="text/javascript">
+        $(function() {
+            let status = "<?= $this->session->flashdata('notif'); ?>";
+            if (status) {
+                toastr.success(status);
+            }
+        });
+    </script>
+
 </body>
 
 </html>
