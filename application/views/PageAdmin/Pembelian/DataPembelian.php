@@ -47,25 +47,35 @@
                                                 <th>No</th>
                                                 <th>Kode Pembelian</th>
                                                 <th>Tgl Pembelian</th>
-                                                <th>Kd Supplier</th>
                                                 <th>Nama Supplier</th>
                                                 <th>Quantity</th>
-                                                <th>Total Pembelian</th>
+                                                <th>Total Harga</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
-                                             
+                                             <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>                                            
+                                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
+                                                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                                    <button type="button" data-toggle="modal" data-target="#modal-kirimGudang" class="btn btn-sm btn-success"><i class="fas fa-share"></i> Kirim</button>
+                                                </td> 
+                                             </tr>
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kode Pembelian</th>
                                                 <th>Tgl Pembelian</th>
-                                                <th>Kd Supplier</th>
                                                 <th>Nama Supplier</th>
                                                 <th>Quantity</th>
-                                                <th>Total Pembelian</th>
+                                                <th>Total Harga</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </tfoot>
