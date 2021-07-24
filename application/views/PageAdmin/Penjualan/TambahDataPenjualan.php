@@ -67,7 +67,8 @@
                                                 </form>
                                             </div>
                                             <div class="card-footer">
-                                                <button class="btn btn-md btn-block btn-primary col-md-3" type="button" id="tmbDataPenjualan" style="float: left;"><i class="fas fa-plus-square"></i> Tambah Data</button>
+                                                <button class="btn btn-md btn-primary col-md-3" type="button" id="tmbDataPenjualan"><i class="fas fa-plus-square"></i> Tambah Data</button>
+                                                <button class="btn btn-md btn-success col-md-3" type="button" data-toggle="modal" data-target="#modal-dataBarang"><i class="fas fa-clipboard"></i> Pilih Barang</button>
                                             </div>
                                         </div>
                                     </div>
@@ -124,7 +125,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="card">
+                                <!-- <div class="card">
                                     <div class="card-header bg-gray">
                                         Data Barang
                                     </div>
@@ -155,7 +156,7 @@
                                         </tfoot>
                                     </table>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -168,11 +169,59 @@
         <?php $this->load->view('Template/Footer') ?>        
     </div>
     <!-- ./wrapper -->
+    <div class="modal fade" id="modal-dataBarang">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Daftar Barang</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <table id="tableDataBarang" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode Barang</th>
+                            <th>Nama Barang</th>
+                            <th>Satuan</th>
+                            <th>Harga Jual</th>
+                            <th>Harga Beli</th>
+                            <th>Stok</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="databarang">
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode Barang</th>
+                            <th>Nama Barang</th>
+                            <th>Satuan</th>
+                            <th>Harga Jual</th>
+                            <th>Harga Beli</th>
+                            <th>Stok</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
     <?php $this->load->view('Template/DataTablesJS') ?>
 
-    <script type="text/javascript">
-
+    <script>
         $(function() {
             displayData()
             $("#tableDataBarang").DataTable({
@@ -187,7 +236,7 @@
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/DataBarangPembelian/GetData') ?>",
+                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
                 dataType: "json",
                 async: false,
                 success: function(data) {
@@ -195,15 +244,17 @@
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-warning" style="color: white;"><i class="fas fa-download"></i> Proses</a>
-                                </td>
-                            </tr>`;
+                                    <td></td>                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button class="btn bt-sm btn-primary" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-plus-square"></i></button>
+                                    </td>
+                                </tr>`;
                     }
                     $('#databarang').html(row);
                 }
