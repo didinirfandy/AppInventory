@@ -23,7 +23,7 @@ class LaporanProfit extends CI_Controller
     {
         $data['title'] = "Laporan Profit";
 
-        $this->load->view('Template/Head', $data);
+        $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Laporan/LaporanProfit', $data);
     }
 }
