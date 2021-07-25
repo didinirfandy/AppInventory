@@ -45,11 +45,11 @@ class Login extends CI_Controller
                 $this->session->set_flashdata('notif', 'Login Berhasil');
                 redirect(base_url() . "User/IndexUser");
             } else {
-                $this->session->set_flashdata('notif', 'Username atau Password Salah');
+                $this->session->set_flashdata('notifError', 'Username atau Password Salah');
                 redirect(base_url() . "Login/index");
             }
         } else {
-            $this->session->set_flashdata('notif', 'Gagal Login');
+            $this->session->set_flashdata('notifError', 'Gagal Login');
             redirect(base_url() . "Login/index");
         }
     }

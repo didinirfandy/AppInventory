@@ -37,7 +37,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a type="button" class="btn btn-sm btn-primary col-md-1" href="<?= base_url('Admin/Penjualan/TambahDataPenjualan'); ?>" style="float:right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</a>
+                                    <a class="btn btn-sm btn-primary" href="<?= base_url('Admin/Penjualan/TambahDataPenjualan'); ?>" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah Data</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -114,7 +114,7 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <a href="#" class="btn btn-primary"><i class="fas fa-search"></i> Detail</a></td> 
+                                <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a></td> 
                             </tr>`;
                     }
                     $('#databarang').html(row);

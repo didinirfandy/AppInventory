@@ -49,11 +49,12 @@
                                                 <form action="" method="post" id="formDatBarang">
                                                     <div class="form-group">
                                                         <label for="namaBarang">Nama Barang</label>
-                                                        <input type="text" class="form-control" id="namaBarang" placeholder="Nama Barang">
+                                                        <input type="text" class="form-control" id="namaBarang" placeholder="Nama Barang" autocapitalize="off">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="satuanBarang">Satuan Barang</label>
                                                         <select name="satuanBarang" class="form-control" id="satuanBarang">
+                                                            <option value="">-- PILIH --</option>
                                                             <option value="pcs">PCS</option>
                                                             <option value="lsn">Lusin</option>
                                                             <option value="dus">Dus</option>
@@ -61,16 +62,16 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="hargaBarang">Harga Beli</label>
-                                                        <input type="number" class="form-control" id="hargaBarang" placeholder="Harga Beli">
+                                                        <input type="number" class="form-control" min="0" id="hargaBarang" placeholder="Harga Beli">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="jumlahBarang">Quantity</label>
-                                                        <input type="number" class="form-control" id="jumlahBarang" placeholder="Quantity">
+                                                        <input type="number" class="form-control" max="10000" min="0" id="jumlahBarang" placeholder="Quantity">
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="card-footer">
-                                                <button class="btn btn-md btn-block btn-primary col-md-3" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-plus-square"></i> Tambah Data</button>
+                                                <button class="btn btn-sm btn-block btn-primary col-md-2" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</button>
                                             </div>
                                         </div>
                                     </div>
@@ -82,15 +83,16 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label for="kodePembelian">Kode Pembelian</label>
-                                                    <input type="text" class="form-control" id="kodePembelian" placeholder="Nama Barang" readonly>
+                                                    <input type="text" class="form-control" id="kodePembelian" value="<?= $kodePembelian ?>" readonly>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tglPembelian">Tanggal Pembelian</label>
-                                                    <input type="date" class="form-control" id="tglPembelian" placeholder="Tanggal Barang">
+                                                    <input type="date" class="form-control" id="tglPembelian">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="supplierBarang">Supplier</label>
                                                     <select name="supplierBarang" class="form-control" id="supplierBarang">
+                                                        <option value="">-- PILIH --</option>
                                                         <?php
                                                         foreach ($supplierData as $data) {
                                                         ?>
@@ -106,7 +108,7 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-header bg-gray">
-                                        <button class="btn btn-md btn-block btn-primary col-sm-1" style="float: right;" disabled><i class="fa fa-save"></i> Simpan</button>
+                                        <button class="btn btn-sm btn-block btn-primary col-sm-1" style="float: right;" disabled><i class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
                                     </div>
                                     <div class="card-body">
                                         <table class="table table-bordered">
@@ -128,8 +130,8 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="5" align="center"><strong>Sub Total</strong></td>
-                                                    <td colspan="2" align="right"><strong>0000000</strong></td>
+                                                    <th colspan="5" align="center"><strong>Sub Total</strong></th>
+                                                    <th colspan="2" align="right"><strong>0000000</strong></th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -146,9 +148,100 @@
         <!-- /.content-wrapper -->
         <?php $this->load->view('Template/Footer') ?>
     </div>
+
+    <div class="modal fade" id="modal-dataBarang">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Daftar Barang</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="tableDataBarang" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
+                                <th>Satuan</th>
+                                <th>Harga Jual</th>
+                                <th>Harga Beli</th>
+                                <th>Stok</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="databarang">
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>No</th>
+                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
+                                <th>Satuan</th>
+                                <th>Harga Jual</th>
+                                <th>Harga Beli</th>
+                                <th>Stok</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view('Template/Script') ?>
+    <?php $this->load->view('Template/DataTablesJS') ?>
+
+    <script>
+        $(function() {
+            displayData()
+            $("#tableDataBarang").DataTable({
+                "responsive": true,
+                // "lengthChange": false,
+                "autoWidth": false,
+                // "buttons": ["excel", "pdf"],
+                "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
+            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
+        });
+
+        function displayData() {
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
+                dataType: "json",
+                async: false,
+                success: function(data) {
+                    console.log(data);
+                    let row = '';
+                    for (let i = 0; i < data.length; i++) {
+                        row += `<tr>
+                                    <td></td>                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button class="btn bt-sm btn-primary" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-plus-square"></i></button>
+                                    </td>
+                                </tr>`;
+                    }
+                    $('#databarang').html(row);
+                }
+            })
+        }
+    </script>
 
 </body>
 

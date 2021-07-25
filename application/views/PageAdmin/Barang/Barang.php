@@ -20,7 +20,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item">Laporan</li>
+                                <li class="breadcrumb-item">Pembelian</li>
                                 <li class="breadcrumb-item active"><?= $title; ?></li>
                             </ol>
                         </div><!-- /.col -->
@@ -37,47 +37,21 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="row col-12">
-                                        <div class="col-2">
-                                            <div class="form-group">
-                                                <!-- <label for="tglPenjualanDari">Dari</label> -->
-                                                <input type="date" class="form-control" id="tglPenjualanDari" placeholder="Dari">
-                                            </div>
-                                        </div>
-                                        <p><b>Sampai</b></p>
-                                        <div class="col-2">                                            
-                                            <div class="form-group">
-                                                <!-- <label for="tglPenjualanSampai">Sampai</label> -->
-                                                <input type="date" class="form-control" id="tglPenjualanSampai" placeholder="Sampai">
-                                            </div>
-                                        </div>
-                                        <div class="col-3" style="margin-right: auto;">
-                                            <div>
-                                                <a href="#" class="btn btn-sm btn-primary" id="cariByTgl"><i class="fas fa-search"></i> Proccess</a>
-                                                <a href="#" class="btn btn-sm btn-success" id="cariSemua"><i class="fas fa-search"></i> Semua Data</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-4" style="margin-left: auto;">
-                                            <div>
-                                                <a href="" class="btn btn-sm btn-primary" style="float: right;"><i class="fas fa-print"></i> Cetak</a>
-                                            </div> 
-                                        </div>
-                                    </div>                                    
+                                    <a href="<?= base_url()?>Admin/Barang/TambahDataBarang" class="btn btn-sm btn-primary" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Barang</a>      
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataSupplier" class="table table-bordered table-hover">
+                                    <table id="tableDataBarang" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Kode Pembelian</th>
-                                                <th>Tgl Pembelian</th>
-                                                <th>Supplier</th>
-                                                <th>Barang</th>
+                                                <th>Kode Barang</th>
+                                                <th>Nama Barang</th>
                                                 <th>Satuan</th>
-                                                <th>Jumlah</th>
-                                                <th>Harga</th>
-                                                <th>Total</th>
+                                                <th>Harga Jual</th>
+                                                <th>Harga Beli</th>
+                                                <th>Stok</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="datasuplier">
@@ -85,8 +59,14 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th colspan="8">Total</th>
-                                                <th></th>
+                                                <th>No</th>
+                                                <th>Kode Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Satuan</th>
+                                                <th>Harga Jual</th>
+                                                <th>Harga Beli</th>
+                                                <th>Stok</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -112,13 +92,13 @@
     <script type="text/javascript">
         $(function() {
             displayData()
-            $("#tableDataSupplier").DataTable({
+            $("#tableDataBarang").DataTable({
                 "responsive": true,
                 // "lengthChange": false,
                 "autoWidth": false,
                 "buttons": ["excel", "pdf"],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
-            }).buttons().container().appendTo('#tableDataSupplier_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
         });
 
         function displayData() {
@@ -132,20 +112,43 @@
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr>
+                                    <td></td>                                    
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        <a href="#" class="btn bt-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                                        <button class="btn bt-sm btn-danger" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                    </td>
                                 </tr>`;
                     }
                     $('#databarang').html(row);
                 }
             })
+        }
+
+        function validateHapus(a)
+        {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+            });
         }
     </script>
 

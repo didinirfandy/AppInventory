@@ -5,6 +5,13 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
+
+    $(".welcome").Toasts('create', {
+        title: 'Welcome',
+        autohide: true,
+        delay: 3000,
+        body: 'Aplikasi Inventory'
+    });
 </script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url(); ?>assetsApp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -36,3 +43,7 @@
 <script src="<?= base_url(); ?>assetsApp/plugins/toastr/toastr.min.js"></script>
 <!-- Select2 -->
 <script src="<?= base_url(); ?>assetsApp/plugins/select2/js/select2.full.min.js"></script>
+<!-- Reload Page -->
+<script src="<?= base_url(); ?>assetsApp/dist/js/custom/reloadPage.js"></script>
+<!-- Time active -->
+<script src="<?= base_url(); ?>assetsApp/dist/js/custom/time.js"></script>
