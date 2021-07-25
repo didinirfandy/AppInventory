@@ -10,6 +10,7 @@ class LoginModel extends CI_Model
         foreach ($get->result_array() as $q) {
             $data = array(
                 'user_id'       => $q['user_id'],
+                'nik'           => $q['nik'],
                 'username'      => $q['username'],
                 'nama'          => $q['nama'],
                 'user_level'    => $q['user_level'],
