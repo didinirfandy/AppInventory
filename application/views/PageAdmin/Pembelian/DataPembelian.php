@@ -62,9 +62,9 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>                                            
-                                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
+                                                    <a href="<?= base_url('Admin/Pembelian/DataBarangPembelian')?>" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
                                                     <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
-                                                    <button type="button" data-toggle="modal" data-target="#modal-kirimGudang" class="btn btn-sm btn-success"><i class="fas fa-share"></i> Kirim</button>
+                                                    <!-- <button type="button" data-toggle="modal" data-target="#modal-kirimGudang" class="btn btn-sm btn-success"><i class="fas fa-share"></i> Kirim</button> -->
                                                 </td> 
                                              </tr>
                                         </tbody>
