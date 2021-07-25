@@ -45,3 +45,5 @@
 <script src="<?= base_url(); ?>assetsApp/plugins/select2/js/select2.full.min.js"></script>
 <!-- Reload Page -->
 <script src="<?= base_url(); ?>assetsApp/dist/js/custom/reloadPage.js"></script>
+<!-- Time active -->
+<script src="<?= base_url(); ?>assetsApp/dist/js/custom/time.js"></script>
