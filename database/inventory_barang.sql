@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 25/07/2021 11:48:48
+ Date: 25/07/2021 20:55:53
 */
 
 SET NAMES utf8mb4;
@@ -29,6 +29,7 @@ CREATE TABLE `activity_log_barang`  (
   `kd_barang` varchar(8) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `item_in` int NOT NULL,
   `item_out` int NOT NULL,
+  `item_cancel` int NOT NULL,
   `remark` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_log_barang`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
@@ -196,8 +197,10 @@ CREATE TABLE `master_penjualan`  (
   `kd_penjualan` char(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `tgl_penjualan` datetime NOT NULL,
   `nik_admin` int NOT NULL,
-  `kd_supplier` int NOT NULL,
+  `nama_pelanggan` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `alamat_tujuan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `total_penjualan` double NOT NULL,
+  `remark` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_penjualan`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 

@@ -1,10 +1,3 @@
-$(".welcome").Toasts('create', {
-    title: 'Welcome',
-    autohide: true,
-    delay: 3000,
-    body: 'Aplikasi Inventory'
-});
-
 var refresh_rate = 120; //<-- In seconds, change to your needs
 var last_user_action = 0;
 var lost_focus = true;
