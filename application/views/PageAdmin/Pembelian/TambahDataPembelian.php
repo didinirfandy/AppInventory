@@ -40,7 +40,7 @@
 
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="card card-primary">
                                             <div class="card-header">
                                                 <h3 class="card-title">Barang</h3>
@@ -48,93 +48,72 @@
                                             <div class="card-body">
                                                 <form action="" method="post" id="formDatBarang">
                                                     <div class="form-group">
-                                                        <label for="namaBarang">Nama Barang</label>
-                                                        <input type="text" class="form-control" id="namaBarang" placeholder="Nama Barang" autocapitalize="off">
+                                                        <label for="kodePembelian">Kode Pembelian</label>
+                                                        <input type="text" class="form-control" id="kodePembelian" placeholder="Kode Pembelian" autocapitalize="off">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="satuanBarang">Satuan Barang</label>
-                                                        <select name="satuanBarang" class="form-control" id="satuanBarang">
-                                                            <option value="">-- PILIH --</option>
-                                                            <option value="pcs">PCS</option>
-                                                            <option value="lsn">Lusin</option>
-                                                            <option value="dus">Dus</option>
-                                                        </select>
+                                                        <label for="tglBeli">Tanggal Beli</label>
+                                                        <input type="text" class="form-control" id="tglBeli" placeholder="Tanggal Beli">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="hargaBarang">Harga Beli</label>
-                                                        <input type="number" class="form-control" min="0" id="hargaBarang" placeholder="Harga Beli">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="jumlahBarang">Quantity</label>
-                                                        <input type="number" class="form-control" max="10000" min="0" id="jumlahBarang" placeholder="Quantity">
+                                                        <label for="supplierBarang">Supplier</label>
+                                                        <input type="text" class="form-control" id="supplierBarang" placeholder="Supplier">
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="card-footer">
-                                                <button class="btn btn-sm btn-block btn-primary col-md-2" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</button>
+                                                <button class="btn btn-sm btn-block btn-warning" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <div class="card card-primary">
                                             <div class="card-header">
                                                 <h3 class="card-title">Pembelian dan Supplier</h3>
                                             </div>
                                             <div class="card-body">
-                                                <div class="form-group">
-                                                    <label for="kodePembelian">Kode Pembelian</label>
-                                                    <input type="text" class="form-control" id="kodePembelian" value="<?= $kodePembelian ?>" readonly>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="tglPembelian">Tanggal Pembelian</label>
-                                                    <input type="date" class="form-control" id="tglPembelian">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="supplierBarang">Supplier</label>
-                                                    <select name="supplierBarang" class="form-control" id="supplierBarang">
-                                                        <option value="">-- PILIH --</option>
-                                                        <?php
-                                                        foreach ($supplierData as $data) {
-                                                        ?>
-                                                            <option value="<?= $data['kd_supplier']; ?>"><?= $data['nama_supplier']; ?></option>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                                <table class="table table-bordered" style="overflow-x: auto;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Nama Barang</th>
+                                                            <th>Satuan</th>
+                                                            <th>Harga</th>
+                                                            <th>Qty Beli</th>
+                                                            <th>Qty Gd</th>
+                                                            <th>Status</th>
+                                                            <th>Total Harga</th>
+                                                            <th>Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody style="overflow-y: auto;">
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <span class="badge badge-primary">Kirim</span>
+                                                            </td>
+                                                            <td></td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-sm btn-danger" ><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th colspan="6" align="center"><strong>Sub Total</strong></th>
+                                                            <th colspan="1" align="right"><strong>0000000</strong></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header bg-gray">
-                                        <button class="btn btn-sm btn-block btn-primary col-sm-1" style="float: right;" disabled><i class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
-                                    </div>
-                                    <div class="card-body">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Satuan</th>
-                                                    <th>Harga</th>
-                                                    <th>Jumlah</th>
-                                                    <th>Total Harga</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colspan="5" align="center"><strong>Sub Total</strong></th>
-                                                    <th colspan="2" align="right"><strong>0000000</strong></th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -159,35 +138,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="tableDataBarang" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Kode Barang</th>
-                                <th>Nama Barang</th>
-                                <th>Satuan</th>
-                                <th>Harga Jual</th>
-                                <th>Harga Beli</th>
-                                <th>Stok</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="databarang">
-
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>Kode Barang</th>
-                                <th>Nama Barang</th>
-                                <th>Satuan</th>
-                                <th>Harga Jual</th>
-                                <th>Harga Beli</th>
-                                <th>Stok</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <div class="form-group">
+                        <label for="kodePembelian">Kode Pembelian</label>
+                        <input type="text" class="form-control" id="kodePembelian" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="tglPembelian">Tanggal Pembelian</label>
+                        <input type="date" class="form-control" id="tglPembelian">
+                    </div>
+                    <div class="form-group">
+                        <label for="supplierBarang">Supplier</label>
+                        <select name="supplierBarang" class="form-control" id="supplierBarang">
+                            <option value="">-- PILIH --</option>
+                            <?php
+                            foreach ($supplierData as $data) {
+                            ?>
+                                <option value="<?= $data['kd_supplier']; ?>"><?= $data['nama_supplier']; ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
