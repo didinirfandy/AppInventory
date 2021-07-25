@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>INVENTORY :: Login </title>
 
+    <!-- Icon Aplication -->
+    <link rel="shortcut icon" type="image/ico" href="<?= base_url(); ?>assetsApp/dist/img/clipart.png">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -48,7 +50,7 @@
                     <div class="row">
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" id="submit" name="submit" class="btn btn-primary btn-block">Login</button>
+                            <button type="submit" id="submit" name="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -75,6 +77,13 @@
     <script type="text/javascript">
         $(function() {
             $("input[name='username']").focus();
+
+            $(".welcome").Toasts('create', {
+                title: 'Welcome',
+                autohide: true,
+                delay: 3000,
+                body: 'Aplikasi Inventory'
+            });
 
             let statusSuccess = "<?= $this->session->flashdata('notif'); ?>";
             let statusError = "<?= $this->session->flashdata('notifError'); ?>";
