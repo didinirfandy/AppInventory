@@ -43,7 +43,7 @@
                                     <div class="col-md-4">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title">Barang</h3>
+                                                <h3 class="card-title">Pembelian</h3>
                                             </div>
                                             <div class="card-body">
                                                 <form action="" method="post" id="formDatBarang">
@@ -69,10 +69,10 @@
                                     <div class="col-md-8">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title">Pembelian dan Supplier</h3>
+                                                <h3 class="card-title">Daftar Barang</h3>
                                             </div>
                                             <div class="card-body">
-                                                <table class="table table-bordered" style="overflow-x: auto;">
+                                                <table class="table table-bordered" style="overflow-x: auto;" id="tableDataBarang">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>

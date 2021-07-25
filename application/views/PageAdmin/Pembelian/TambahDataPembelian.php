@@ -48,70 +48,61 @@
                                             <div class="card-body">
                                                 <form action="" method="post" id="formDatBarang">
                                                     <div class="form-group">
-                                                        <label for="kodePembelian">Kode Pembelian</label>
-                                                        <input type="text" class="form-control" id="kodePembelian" placeholder="Kode Pembelian" autocapitalize="off">
+                                                        <label for="namaBarang">Nama Barang</label>
+                                                        <input type="text" class="form-control" id="namaBarang" name="namaBarang" placeholder="Nama Barang" autocapitalize="off" autocomplete="off">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="tglBeli">Tanggal Beli</label>
-                                                        <input type="text" class="form-control" id="tglBeli" placeholder="Tanggal Beli">
+                                                        <label for="satuanBarang">Satuan</label>
+                                                        <input type="text" min="0" class="form-control" id="satuanBarang" name="satuanBarang" placeholder="Satuan" autocapitalize="off" autocomplete="off">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="supplierBarang">Supplier</label>
-                                                        <input type="text" class="form-control" id="supplierBarang" placeholder="Supplier">
+                                                        <label for="hargaBeli">Harga</label>
+                                                        <input type="number" min="0" class="form-control" id="hargaBeli" name="hargaBeli" placeholder="Harga Beli" autocapitalize="off" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="qty">Quantity</label>
+                                                        <input type="number" min="0" class="form-control" id="qty" name="qty" placeholder="Quantity" autocapitalize="off" autocomplete="off">
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="card-footer">
-                                                <button class="btn btn-sm btn-block btn-warning" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</button>
+                                                <button class="btn btn-sm btn-block btn-primary" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title">Pembelian dan Supplier</h3>
+                                                <h3 class="card-title">Daftar Barang</h3>
                                             </div>
                                             <div class="card-body">
-                                                <table class="table table-bordered" style="overflow-x: auto;">
+                                                <table class="table table-bordered" style="overflow-x: auto;" id="tableDataBarang">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
                                                             <th>Nama Barang</th>
                                                             <th>Satuan</th>
                                                             <th>Harga</th>
-                                                            <th>Qty Beli</th>
-                                                            <th>Qty Gd</th>
-                                                            <th>Status</th>
+                                                            <th>Quantity</th>
                                                             <th>Total Harga</th>
                                                             <th>Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody style="overflow-y: auto;">
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>
-                                                                <span class="badge badge-primary">Kirim</span>
-                                                            </td>
-                                                            <td></td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-sm btn-danger" ><i class="fas fa-trash-alt"></i> Hapus</button>
-                                                            </td>
-                                                        </tr>
+                                                        
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
                                                             <th></th>
-                                                            <th colspan="6" align="center"><strong>Sub Total</strong></th>
+                                                            <th colspan="4" align="center"><strong>Sub Total</strong></th>
                                                             <th colspan="1" align="right"><strong>0000000</strong></th>
                                                             <th></th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
+                                            </div>
+                                            <div class="card-footer">
+                                                <button class="btn btn-sm btn-primary" style="float:right;" data-toggle="modal" data-target="#modal-simpanBeli"><i class="fas fa-save"></i> Simpan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -128,11 +119,11 @@
         <?php $this->load->view('Template/Footer') ?>
     </div>
 
-    <div class="modal fade" id="modal-dataBarang">
-        <div class="modal-dialog modal-xl">
+    <div class="modal fade" id="modal-simpanBeli">
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Daftar Barang</h4>
+                    <h4 class="modal-title">Kode Pembelian</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -161,8 +152,8 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                    <button type="button" class="btn btn-primary" id="simpanPembelian"><i class="fas fa-share"></i>Save</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -196,7 +187,6 @@
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr>
-                                    <td></td>                                    
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -204,7 +194,7 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <button class="btn bt-sm btn-primary" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-plus-square"></i></button>
+                                        <button type="button" class="btn btn-sm btn-danger" ><i class="fas fa-trash-alt"></i> Hapus</button>
                                     </td>
                                 </tr>`;
                     }
