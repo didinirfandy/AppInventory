@@ -4,7 +4,7 @@ class Pembelian extends CI_Model
 {
     public function tampil_barang_pembelian()
     {
-        $data = $this->db->query("SELECT * FROM barang_pembelian WHERE status = '0'")->result_array();
+        $data = $this->db->query("SELECT * FROM detail_pembelian WHERE status = '0'")->result_array();
         return $data;
     }
 
@@ -16,7 +16,7 @@ class Pembelian extends CI_Model
 
     public function kodeOtomatis()
     {
-        $qry = $this->db->query("SELECT MAX(kd_penjualan) AS kode FROM penjualan")->num_rows();
+        $qry = $this->db->query("SELECT MAX(kd_pembelian) AS kode FROM master_pembelian")->num_rows();
         $kode = substr($qry['kode'], 3, 5);
         $jum = $kode + 1;
         if ($jum < 10) {

@@ -53,16 +53,25 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="tglBeli">Tanggal Beli</label>
-                                                        <input type="text" class="form-control" id="tglBeli" placeholder="Tanggal Beli">
+                                                        <!-- <input type="text" class="form-control" id="tglBeli" placeholder="Tanggal Beli"> -->
+                                                        <!-- <div class="input-group date" id="tglBeli" data-target-input="nearest">
+                                                            <input type="text" class="form-control datetimepicker-input" data-target="#tglBeli" />
+                                                            <div class="input-group-append" data-target="#tglBeli" data-toggle="datetimepicker">
+                                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                            </div>
+                                                        </div> -->
+                                                        <input type="text" class="form-control datetimepicker-input" id="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" />
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="supplierBarang">Supplier</label>
-                                                        <input type="text" class="form-control" id="supplierBarang" placeholder="Supplier">
+                                                        <select class="form-control" id="supplierBarang">
+                                                            <option value="">-- PILIH --</option>
+                                                        </select>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="card-footer">
-                                                <button class="btn btn-sm btn-block btn-warning" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</button>
+                                                <button class="btn btn-sm btn-block btn-primary col-md-3" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</button>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +89,6 @@
                                                             <th>Satuan</th>
                                                             <th>Harga</th>
                                                             <th>Qty Beli</th>
-                                                            <th>Qty Gd</th>
                                                             <th>Status</th>
                                                             <th>Total Harga</th>
                                                             <th>Aksi</th>
@@ -93,21 +101,23 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
-                                                            <td></td>
                                                             <td>
-                                                                <span class="badge badge-primary">Kirim</span>
+                                                                <span class="badge badge-info">Pembelian</span>
+                                                                <!-- <span class="badge badge-success">Gudang</span> -->
+                                                                <!-- <span class="badge badge-danger">Batal</span> -->
                                                             </td>
                                                             <td></td>
                                                             <td>
-                                                                <button type="button" class="btn btn-sm btn-danger" ><i class="fas fa-trash-alt"></i> Hapus</button>
+                                                                <button type="button" class="btn btn-xs btn-success"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
+                                                                <button type="button" class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
                                                             <th></th>
-                                                            <th colspan="6" align="center"><strong>Sub Total</strong></th>
-                                                            <th colspan="1" align="right"><strong>0000000</strong></th>
+                                                            <th colspan="5" align="center"><strong>Sub Total</strong></th>
+                                                            <th colspan="1" align="right"><strong>0</strong></th>
                                                             <th></th>
                                                         </tr>
                                                     </tfoot>
@@ -173,9 +183,14 @@
 
     <?php $this->load->view('Template/DataTablesJS') ?>
 
-    <script>
+    <script type="text/javascript">
         $(function() {
-            displayData()
+            // displayData()
+            //Date picker
+            $('#tglBeli').datetimepicker({
+                format: 'DD-MM-YYYY'
+            });
+
             $("#tableDataBarang").DataTable({
                 "responsive": true,
                 // "lengthChange": false,
@@ -185,33 +200,33 @@
             }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
         });
 
-        function displayData() {
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
-                dataType: "json",
-                async: false,
-                success: function(data) {
-                    console.log(data);
-                    let row = '';
-                    for (let i = 0; i < data.length; i++) {
-                        row += `<tr>
-                                    <td></td>                                    
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn bt-sm btn-primary" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-plus-square"></i></button>
-                                    </td>
-                                </tr>`;
-                    }
-                    $('#databarang').html(row);
-                }
-            })
-        }
+        // function displayData() {
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
+        //         dataType: "json",
+        //         async: false,
+        //         success: function(data) {
+        //             console.log(data);
+        //             let row = '';
+        //             for (let i = 0; i < data.length; i++) {
+        //                 row += `<tr>
+        //                             <td></td>                                    
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td>
+        //                                 <button class="btn bt-sm btn-primary" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-plus-square"></i></button>
+        //                             </td>
+        //                         </tr>`;
+        //             }
+        //             $('#databarang').html(row);
+        //         }
+        //     })
+        // }
     </script>
 
 </body>

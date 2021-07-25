@@ -44,13 +44,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Pembelian/DataPembelian') ?>" class="nav-link <?= $this->uri->segment(3) == "DataPembelian" ? 'active' : ''; ?>">
+                            <a href="<?= base_url('Admin/Pembelian/DataPembelian') ?>" class="nav-link <?= $this->uri->segment(3) == "DataPembelian" ? 'active' : ''; ?> <?= $this->uri->segment(3) == "DataBarangPembelian" ? 'active' : ''; ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pembelian</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Pembelian/TambahDataPembelian') ?>" class="nav-link <?= $this->uri->segment(3) == "TambahDataBarang" ? 'active' : ''; ?>">
+                            <a href="<?= base_url('Admin/Pembelian/TambahDataPembelian') ?>" class="nav-link <?= $this->uri->segment(3) == "TambahDataPembelian" ? 'active' : ''; ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tambah</p>
                             </a>
