@@ -53,13 +53,6 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="tglBeli">Tanggal Beli</label>
-                                                        <!-- <input type="text" class="form-control" id="tglBeli" placeholder="Tanggal Beli"> -->
-                                                        <!-- <div class="input-group date" id="tglBeli" data-target-input="nearest">
-                                                            <input type="text" class="form-control datetimepicker-input" data-target="#tglBeli" />
-                                                            <div class="input-group-append" data-target="#tglBeli" data-toggle="datetimepicker">
-                                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                            </div>
-                                                        </div> -->
                                                         <input type="text" class="form-control datetimepicker-input" id="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" />
                                                     </div>
                                                     <div class="form-group">
