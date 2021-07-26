@@ -36,9 +36,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <a class="btn btn-sm btn-primary" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah Data</a>
-                                </div>
+                                <!-- <div class="card-header">
+                                    <button type="button" id="kirimGudang" class="btn btn-sm btn-success" style="float: right; margin-left: 1%;" disabled><i class="fas fa-arrow-right"></i>&nbsp;&nbsp; Kirim Ke Gudang</button>      
+                                </div> -->
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="tableDataBarang" class="table table-bordered table-hover">
@@ -46,37 +46,28 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kode Pembelian</th>
-                                                <th>Tgl Pembelian</th>
-                                                <th>Nama Supplier</th>
+                                                <th>Nama Barang</th>
+                                                <th>Satuan</th>
+                                                <th>Harga Beli</th>
+                                                <th>Harga Jual</th>
                                                 <th>Quantity</th>
-                                                <th>Total Harga</th>
-                                                <th>Aksi</th>
+                                                <th>Tgk Beli</th>
+                                                <th>Tgk Jual</th>
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <a href="<?= base_url('Admin/Pembelian/DataBarangPembelian') ?>" class="btn btn-sm btn-primary"><i class="fas fa-search"></i>&nbsp;&nbsp;Detail</a>&nbsp;&nbsp;
-                                                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</a>
-                                                    <!-- <button type="button" data-toggle="modal" data-target="#modal-kirimGudang" class="btn btn-sm btn-success"><i class="fas fa-share"></i> Kirim</button> -->
-                                                </td>
-                                            </tr>
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kode Pembelian</th>
-                                                <th>Tgl Pembelian</th>
-                                                <th>Nama Supplier</th>
+                                                <th>Nama Barang</th>
+                                                <th>Satuan</th>
+                                                <th>Harga Beli</th>
+                                                <th>Harga Jual</th>
                                                 <th>Quantity</th>
-                                                <th>Total Harga</th>
-                                                <th>Aksi</th>
+                                                <th>Tgk Beli</th>
+                                                <th>Tgk Jual</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -114,7 +105,7 @@
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/DataBarangPembelian/GetData') ?>",
+                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
                 dataType: "json",
                 async: false,
                 success: function(data) {
@@ -122,18 +113,16 @@
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr> 
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>                                            
-                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
-                                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
-                                </td> 
-                            </tr>`;
+                                    <td>` + (i + 1) + `</td> 
+                                    <td>` + data[i].kd_pembelian + `</td>
+                                    <td>` + data[i].nama_barang_beli + `</td>
+                                    <td>` + data[i].satuan + `</td>
+                                    <td>` + data[i].harga_beli + `</td>
+                                    <td>` + data[i].item + `</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td> 
+                                </tr>`;
                     }
                     $('#databarang').html(row);
                 }

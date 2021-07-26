@@ -33,4 +33,6 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/daterangepicker/daterangepicker.css">
 </head>
