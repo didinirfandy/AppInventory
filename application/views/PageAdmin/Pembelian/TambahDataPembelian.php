@@ -86,7 +86,7 @@
                                                 </form>
                                             </div>
                                             <div class="card-footer">
-                                                <button class="btn btn-sm btn-block btn-primary col-md-3" type="submit" id="tmbDataPembelian" style="float: left;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</button>
+                                                <button class="btn btn-sm btn-primary" type="submit" id="tmbDataPembelian"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</button>
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                                 <h3 class="card-title">Pembelian Barang</h3>
                                             </div>
                                             <div class="card-body">
-                                                <table class="table table-striped" style="overflow-x: auto;" id="beliBarang">
+                                                <table class="table table-bordered table-striped" id="beliBarang">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
@@ -113,6 +113,10 @@
                                                     <tfoot id="subTotal">
                                                     </tfoot>
                                                 </table>
+                                            </div>
+                                            <div class="card-footer">
+                                                <input type="hidden" id="getSubTotal">
+                                                <button type="button" class="btn btn-sm btn-success" id="simpan" data-toggle="modal" data-target="#modal-simpan"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -168,7 +172,7 @@
     </div>
     <!-- Modal -->
     <div class="modal fade" id="modal-simpan">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Daftar Barang</h4>
@@ -180,22 +184,22 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="tglBeli">Tanggal</label>
-                            <input type="text" class="form-control datetimepicker-input" id="tglBeli" name="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" required>
+                            <input type="text" class="form-control datetimepicker-input" id="tglBeli" name="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off" required>
                         </div>
                         <div class="form-group">
-                            <label for="supplierBarang">Supplier</label>
-                            <select class="form-control" id="supplierBarang" name="supplierBarang" required>
+                            <label for="kdSupplier">Supplier</label>
+                            <select class="form-control" id="kdSupplier" name="kdSupplier" required>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="remark">Remark</label>
+                            <textarea class="form-control" id="remark" name="remark" rows="2" required></textarea>
+                        </div>
+                        <input type="text" style="display: none;" name="kdPembelian" value="<?= $getKdBeli; ?>">
                     </div>
-                    <div class="form-group">
-                        <label for="remark">Remark</label>
-                        <textarea class="form-control" id="remark" name="remark" rows="2" required></textarea>
-                    </div>
-                    <input type="text" style="display: none;" name="kdPembelian" value="<?= $getKdBeli; ?>">
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>
-                        <button type="submit" class="btn btn-primary" id="simpanBarang"><i class="fa fa-save"></i> Ok</button>
+                        <button type="button" class="btn btn-primary" id="simpanBarang"><i class="fa fa-save"></i> Ok</button>
                     </div>
                 </form>
             </div>
@@ -212,9 +216,12 @@
             displayKodeBarang()
             getDataSupplier()
 
+            endDate = moment();
+
             //Date picker
             $('#tglBeli').datetimepicker({
-                format: 'DD-MM-YYYY'
+                format: 'DD-MM-YYYY',
+                maxDate: endDate
             });
 
             $("#beliBarang").DataTable({
@@ -267,19 +274,55 @@
             });
 
             $("#simpanBarang").click(function() {
-                let data = $('#formSimpanBarang').serialize();
+                let kodeBeli = "<?= $getKdBeli; ?>";
+                let tglBeli = $("#tglBeli").val();
+                let kdSupplier = $("#kdSupplier").val();
+                let remark = $("#remark").val();
+                let subTotal = $("#getSubTotal").val();
+
+                // console.log("kodeBeli : " + kodeBeli);
+                // console.log("tglBeli : " + tglBeli);
+                // console.log("kdSupplier : " + kdSupplier);
+                // console.log("remark : " + remark);
+                // console.log("subTotal : " + subTotal);
+
                 $.ajax({
                     type: "POST",
-                    data: data,
+                    data: {
+                        kodeBeli: kodeBeli,
+                        tglBeli: tglBeli,
+                        kdSupplier: kdSupplier,
+                        remark: remark,
+                        subTotal: subTotal
+                    },
                     url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/insertDataPembelian') ?>",
                     dataType: "JSON",
                     success: function(hasil) {
-                        location.reload("<?= base_url('Admin/Pembelian/TambahDataPembelian') ?>");
+                        // console.log(hasil);
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Berhasil Simpan Pembelian Barang!'
+                        });
+                        setInterval(function() {
+                            location.reload("<?= base_url('Admin/Pembelian/TambahDataPembelian') ?>");
+                        }, 5000);
                     }
                 });
             });
 
         });
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
         function formatRupiah(angka, prefix) {
             var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -310,39 +353,40 @@
                 async: false,
                 success: function(dt) {
                     // console.log(dt);
+                    if (!dt) {
+                        $("#simpan").addClass("disabled");
+                    } else {
+                        $("#simpan").removeClass("disabled");
+                    }
+
                     let row = rows = '';
+                    let sum = 0;
                     for (let i = 0; i < dt.length; i++) {
 
                         row += `<tr>
                                     <td>` + (i + 1) + `</td>
                                     <td>` + dt[i].nama + `</td>
                                     <td>` + dt[i].satuan + `</td>
-                                    <td>` + dt[i].harga + `</td>
+                                    <td>` + formatRupiah(dt[i].harga, '') + `</td>
                                     <td>` + dt[i].item + `</td>
                                     <td>` + formatRupiah(dt[i].total, '') + `</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal-simpan"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                                         <button type="button" class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
                                     </td>
                                 </tr>`;
 
-                        // Array.prototype.sum = function(prop) {
-                        //     var total = 0
-                        //     for (var i = 0, _len = this.length; i < _len; i++) {
-                        //         total += this[i][prop]
-                        //     }
-                        //     return total
-                        // }
+                        sum += parseInt(dt[i].total);
 
-                        // console.log(dt[i].sum("total"));
-
-                        // rows += `<tr>
-                        //             <th colspan="5" align="center"><strong>Sub Total</strong></th>
-                        //             <th colspan="2" align="right"><strong>0</strong></th>
-                        //         </tr>`;
                     }
+
+                    $("#getSubTotal").val(sum);
+
+                    rows += `<tr>
+                                <th colspan="5" style="text-align: right;"><strong>Sub Total</strong></th>
+                                <th colspan="2" style="text-align: left;"><strong>` + formatRupiah(sum.toString(), '') + `</strong></th>
+                            </tr>`;
                     $('#bliBarang').html(row);
-                    // $('#bliBarang').html(row);
+                    $('#subTotal').html(rows);
                 }
             });
             return false;
@@ -361,6 +405,8 @@
                     for (let i = 0; i < dt.length; i++) {
                         if (dt[i].sub_kode != "*") {
                             subKode = dt[i].sub_kode;
+                        } else {
+                            subKode = " ";
                         }
                         kode_barang = dt[i].kode + subKode;
 
@@ -392,7 +438,7 @@
                         row += '<option value="' + dt[i].kd_supplier + '">' + dt[i].nama_supplier + '</option>';
                     }
                     // console.log(row);
-                    $("#supplierBarang").html(row);
+                    $("#kdSupplier").html(row);
                 }
             });
             return false;

@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 30/07/2021 04:03:25
+ Date: 29/07/2021 19:23:44
 */
 
 SET NAMES utf8mb4;
@@ -25,15 +25,14 @@ CREATE TABLE `activity_log_barang`  (
   `id_log_barang` int NOT NULL AUTO_INCREMENT,
   `date_log` datetime NOT NULL,
   `nik_admin` int NOT NULL,
-  `kd_pembelian` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `kd_supplier` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_supplier` char(6) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `kd_barang` varchar(8) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `item_in` int NOT NULL,
   `item_out` int NOT NULL,
   `item_cancel` int NOT NULL,
   `remark` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_log_barang`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of activity_log_barang
@@ -51,7 +50,7 @@ CREATE TABLE `activity_log_user`  (
   `log_aksi` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `log_item` varchar(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`log_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of activity_log_user
@@ -92,7 +91,6 @@ INSERT INTO `activity_log_user` VALUES (33, '2021-07-26 22:35:41', 'Admin', 'log
 INSERT INTO `activity_log_user` VALUES (34, '2021-07-28 14:24:50', 'Admin', 'login', 'Masuk', '');
 INSERT INTO `activity_log_user` VALUES (35, '2021-07-28 23:16:31', 'Admin', 'login', 'Masuk', '');
 INSERT INTO `activity_log_user` VALUES (36, '2021-07-29 11:51:18', 'Admin', 'login', 'Masuk', '');
-INSERT INTO `activity_log_user` VALUES (37, '2021-07-30 02:55:58', 'Admin', 'login', 'Masuk', '');
 
 -- ----------------------------
 -- Table structure for detail_pembelian
@@ -100,7 +98,7 @@ INSERT INTO `activity_log_user` VALUES (37, '2021-07-30 02:55:58', 'Admin', 'log
 DROP TABLE IF EXISTS `detail_pembelian`;
 CREATE TABLE `detail_pembelian`  (
   `id_detail` int NOT NULL AUTO_INCREMENT,
-  `kd_pembelian` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_pembelian` char(8) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `kd_barang` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nama` varchar(225) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `satuan` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
@@ -109,7 +107,7 @@ CREATE TABLE `detail_pembelian`  (
   `total` double NOT NULL,
   `status` enum('1','0') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_detail`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of detail_pembelian
@@ -230,7 +228,7 @@ CREATE TABLE `master_login`  (
 -- ----------------------------
 -- Records of master_login
 -- ----------------------------
-INSERT INTO `master_login` VALUES (1, 123, 'Admin', '202cb962ac59075b964b07152d234b70', 'Rista Nursolihah', '1', '2', '2021-07-30 02:55:58', '0', '1', 'default_cewe.png');
+INSERT INTO `master_login` VALUES (1, 123, 'Admin', '202cb962ac59075b964b07152d234b70', 'Rista Nursolihah', '1', '2', '2021-07-29 11:51:18', '0', '1', 'default_cewe.png');
 INSERT INTO `master_login` VALUES (2, 123456, 'User', '202cb962ac59075b964b07152d234b70', 'Martin', '2', '1', '0000-00-00 00:00:00', '0', '1', 'default_cewe.png');
 
 -- ----------------------------
@@ -239,13 +237,13 @@ INSERT INTO `master_login` VALUES (2, 123456, 'User', '202cb962ac59075b964b07152
 DROP TABLE IF EXISTS `master_pembelian`;
 CREATE TABLE `master_pembelian`  (
   `id_pembelian` int NOT NULL AUTO_INCREMENT,
-  `kd_pembelian` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_pembelian` char(8) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `tgl_pembelian` datetime NOT NULL,
   `nik_admin` int NOT NULL,
   `kd_supplier` int NOT NULL,
-  `total_pembelian` int NOT NULL,
+  `total_pembelian` double NOT NULL,
   PRIMARY KEY (`id_pembelian`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of master_pembelian
@@ -324,11 +322,12 @@ CREATE TABLE `tem_pembelian`  (
   `item` int NOT NULL,
   `total` double NOT NULL,
   PRIMARY KEY (`id_tem`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tem_pembelian
 -- ----------------------------
+INSERT INTO `tem_pembelian` VALUES (5, 'BLI29072100001', '01.02.', 'Sofa U minimalis living fulset meja', 'SET', 1000000, 10, 10000000);
 
 -- ----------------------------
 -- Table structure for tem_penjualan

@@ -25,20 +25,9 @@ class Pembelian extends CI_Model
 
     public function kodeOtomatis()
     {
-        $qry    = $this->db->query("SELECT MAX(kd_pembelian) AS kd_pembelian FROM master_pembelian")->num_rows();
-        $urutan = (int) substr($qry['kd_pembelian'], 9, 5);
-        // $hari   = (int) substr($qry['kd_pembelian'], 3, 2);
-        // $bulan  = (int) substr($qry['kd_pembelian'], 5, 2);
-        // $tahun  = (int) substr($qry['kd_pembelian'], 7, 4);
-
+        $qry    = $this->db->query("SELECT MAX(kd_pembelian) AS kode FROM master_pembelian")->result_array();
+        $urutan = (int) substr($qry[0]['kode'], 9, 5);
         $urutan++;
-
-        // $dateNow  = date("Y-m-d");
-        // $tgl_kode = $tahun . "-" . $bulan . "-" . $hari;
-
-        // if ($tgl_kode != $dateNow) {
-        //     $urutan = "";
-        // }
 
         $kodeBeli = "BLI";
         $day   = date("d");
@@ -85,7 +74,7 @@ class Pembelian extends CI_Model
         }
     }
 
-    public function insertDataPembelian($nik_admin, $tgl_pembelian, $kd_supplier, $kd_pembelian, $remark)
+    public function insertDataPembelian($nik_admin, $tgl_pembelian, $kd_supplier, $kd_pembelian, $remark, $subTotal)
     {
         $getTem = $this->db->query("SELECT 
                                         kd_pembelian
@@ -95,44 +84,43 @@ class Pembelian extends CI_Model
                                         , harga
                                         , item
                                         , total
-                                        , sum(total) AS total_beli 
                                     FROM 
                                         tem_pembelian 
-                                    WHERE kd_pemebelian = $kd_pembelian")->result_array();
+                                    WHERE kd_pembelian = '$kd_pembelian'")->result_array();
 
-        $dataMaster = array();
+        $dataMaster = array(
+            'kd_pembelian'    => $kd_pembelian,
+            'tgl_pembelian'   => $tgl_pembelian,
+            'nik_admin'       => $nik_admin,
+            'kd_supplier'     => $kd_supplier,
+            'total_pembelian' => $subTotal
+        );
+
         $datadetail = array();
-
         for ($i = 0; $i < count($getTem); $i++) {
-            $master = array(
-                'kd_pembelian'    => $getTem[$i]['kd_pembelian'],
-                'tgl_pembelian'   => $tgl_pembelian,
-                'nik_admin'       => $nik_admin,
-                'kd_supplier'     => $kd_supplier,
-                'total_pembelian' => $getTem[$i]['total_beli']
-            );
-            array_push($dataMaster, $master);
-
             $detail = array(
                 'kd_pembelian' => $getTem[$i]['kd_pembelian'],
                 'kd_barang'    => $getTem[$i]['kd_barang'],
                 'nama'         => $getTem[$i]['nama'],
                 'satuan'       => $getTem[$i]['satuan'],
-                'harga'        => $getTem[$i]['harga'],
+                'harga_beli'   => $getTem[$i]['harga'],
                 'item'         => $getTem[$i]['item'],
                 'total'        => $getTem[$i]['total']
             );
             array_push($datadetail, $detail);
-
-            if ($master != "" && $detail != "") {
-                activity_log_barang($kd_supplier, $getTem[$i]['satuan'], $getTem[$i]['item'], '0', '0', $remark);
-            }
         }
 
-        $insMater  = $this->db->insert("master_pemebelian", $dataMaster);
-        $insdetail = $this->db->insert("detail_pembelian", $datadetail);
+        $insMater  = $this->db->insert("master_pembelian", $dataMaster); // insert ke tabel master
+        $insdetail = $this->db->insert_batch("detail_pembelian", $datadetail); // insert ke tabel detail
 
         if ($insMater && $insdetail) {
+            if ($this->db->affected_rows() > 0) {
+                for ($i = 0; $i < count($getTem); $i++) {
+                    activity_log_barang($kd_pembelian, $kd_supplier, $getTem[$i]['kd_barang'], $getTem[$i]['item'], '0', '0', $remark);
+                }
+            }
+
+            $this->db->delete("tem_pembelian", array('kd_pembelian' => $kd_pembelian)); // hapus data di tabel sementara
             return true;
         } else {
             return false;

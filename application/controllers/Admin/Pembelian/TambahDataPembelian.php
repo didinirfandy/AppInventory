@@ -92,13 +92,14 @@ class TambahDataPembelian extends CI_Controller
 
     public function insertDataPembelian()
     {
-        $tgl_pembelian = $this->input->post('tglbeli');
-        $kd_supplier   = $this->input->post('supplierBarang');
-        $kd_pembelian  = $this->input->post('kdPembelian');
-        $remark        = $this->input->post('remark');
-        $nik_admin     = $this->session->userdata('nik');
+        $kodeBeli   = $this->input->post('kodeBeli');
+        $tglBeli    = date("Y-m-d", strtotime($this->input->post('tglBeli')));
+        $kdSupplier = $this->input->post('kdSupplier');
+        $remark     = $this->input->post('remark');
+        $subTotal   = $this->input->post('subTotal');
+        $nik_admin  = $this->session->userdata('nik');
 
-        $hasil = $this->Pembelian->insertDataPembelian($nik_admin, $tgl_pembelian, $kd_supplier, $kd_pembelian, $remark);
+        $hasil = $this->Pembelian->insertDataPembelian($nik_admin, $tglBeli, $kdSupplier, $kodeBeli, $remark, $subTotal);
 
         echo json_encode($hasil);
     }
