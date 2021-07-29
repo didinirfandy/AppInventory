@@ -25,14 +25,15 @@ class HistoriGudang extends CI_Controller
         parent::__construct();
         $this->load->model('Pembelian');
 
-        // if (empty($_SESSION['username'])) {
-        //     redirect('Welcome/index');
-        // }
+        if (empty($_SESSION['username'])) {
+            $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
+            redirect('Login/index');
+        }
     }
 
     public function index()
     {
-        $data['title'] = "Data Histori Kirim Gudang";
+        $data['title'] = "Histori Gudang";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Pembelian/HistoriGudang', $data);

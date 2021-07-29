@@ -40,7 +40,7 @@
                         <li class="nav-item">
                             <a href="<?= base_url('Admin/Pembelian/HistoriGudang'); ?>" class="nav-link <?= $this->uri->segment(3) == "HistoriGudang" ? 'active' : ''; ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Histori Kirim Gudang</p>
+                                <p>Histori Gudang</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -87,13 +87,13 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Admin/Barang/Barang') ?>" class="nav-link <?= $this->uri->segment(2) == "Barang" ? 'active' : ''; ?>">
+                    <a href="<?= base_url('Admin/Barang/DataBarang') ?>" class="nav-link <?= $this->uri->segment(3) == "DataBarang" ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-qrcode"></i>
                         <p>Barang</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Admin/Supplier/Supplier') ?>" class="nav-link <?= $this->uri->segment(2) == "Supplier" ? 'active' : ''; ?>">
+                    <a href="<?= base_url('Admin/Supplier/DataSupplier') ?>" class="nav-link <?= $this->uri->segment(2) == "DataSupplier" ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-book"></i>
                         <p>Supplier</p>
                     </a>

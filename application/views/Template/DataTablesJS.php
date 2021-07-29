@@ -27,6 +27,10 @@
 <script src="<?= base_url(); ?>assetsApp/plugins/moment/moment.min.js"></script>
 <!-- bootstrap color picker -->
 <script src="<?= base_url(); ?>assetsApp/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!--  -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<!-- MagciSuggest -->
+<!-- <script src="<?= base_url(); ?>assetsApp/MagicSuggest/magicsuggest-min.js"></script> -->
 
 <!-- Reload Page -->
 <script type="text/javascript">
@@ -58,7 +62,7 @@
 
         function reset() {
             last_user_action = 0;
-            console.log("Reset");
+            // console.log("Reset");
         }
 
         function windowHasFocus() {
@@ -90,7 +94,7 @@
                 window.location.reload(); // If this is called no reset is needed
                 reset(); // We want to reset just to make sure the location reload is not called.
             } else {
-                console.log("Timer");
+                // console.log("Timer");
             }
         }
 
