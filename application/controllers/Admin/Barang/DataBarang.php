@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Supplier extends CI_Controller
+class DataBarang extends CI_Controller
 {
 
     /**
@@ -19,11 +19,22 @@ class Supplier extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Barang');
+
+        if (empty($_SESSION['username'])) {
+            $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
+            redirect('Login/index');
+        }
+    }
+
     public function index()
     {
-        $data['title'] = "Data Supplier";
+        $data['title'] = "Data Barang";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
-        $this->load->view('PageAdmin/Supplier/Supplier', $data);
+        $this->load->view('PageAdmin/Barang/DataBarang', $data);
     }
 }

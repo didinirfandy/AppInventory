@@ -20,6 +20,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item">Pembelian</li>
                                 <li class="breadcrumb-item active"><?= $title ?></li>
                             </ol>
                         </div><!-- /.col -->
@@ -80,6 +81,7 @@
                                                             <th>Satuan</th>
                                                             <th>Harga</th>
                                                             <th>Qty Beli</th>
+                                                            <th>Status</th>
                                                             <th>Total Harga</th>
                                                             <th>Aksi</th>
                                                         </tr>
@@ -92,6 +94,11 @@
                                                             <td></td>
                                                             <!-- <td><button class="btn btn-sm btn-transparant" rel="popover" id="infoQty"><i class="fas fa-info-circle"></i></button></td> -->
                                                             <td><button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Qty Beli = 100 <br> Qty Gudang = 10 <br> Qty Batal = 0" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button></td>
+                                                            <td>
+                                                                <span class="badge badge-info">Pembelian</span>
+                                                                <!-- <span class="badge badge-success">Gudang</span> -->
+                                                                <!-- <span class="badge badge-danger">Batal</span> -->
+                                                            </td>
                                                             <td></td>
                                                             <td>
                                                                 <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal-dataBarang"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Terima</button>
@@ -102,7 +109,7 @@
                                                     <tfoot>
                                                         <tr>
                                                             <th></th>
-                                                            <th colspan="4" align="center"><strong>Sub Total</strong></th>
+                                                            <th colspan="5" align="center"><strong>Sub Total</strong></th>
                                                             <th colspan="1" align="right"><strong>0</strong></th>
                                                             <th></th>
                                                         </tr>
@@ -137,7 +144,7 @@
                     <form method="post" action="">
                         <div class="form-group">
                             <label for="qtyBeli">Quantity Pembelian</label>
-                            <span class="form-control" id="qtyBeli" style="background-color: #e9ecef">01-07-2021</span>
+                            <input type="text" name="qtyBeli" class="form-control" id="qtyBeli">
                         </div>
                         <div class="form-group">
                             <label for="qtyKirim">Quantity Kirim</label>

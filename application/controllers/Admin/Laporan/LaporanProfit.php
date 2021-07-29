@@ -19,6 +19,17 @@ class LaporanProfit extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Laporan');
+
+        if (empty($_SESSION['username'])) {
+            $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
+            redirect('Login/index');
+        }
+    }
+
     public function index()
     {
         $data['title'] = "Laporan Profit";

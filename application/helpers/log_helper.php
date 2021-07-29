@@ -20,6 +20,29 @@ function activity_log($menu, $aksi, $item)
     $CI->Activity_log->save_log($param);
 }
 
+function activity_log_barang($kd_supplier, $kd_barang, $item_in, $item_out, $item_cancel, $remark)
+{
+    $CI = &get_instance();
+
+    date_default_timezone_set('Asia/Jakarta');
+    $time   = date("Y-m-d H:i:s");
+
+    $param['date_log']      = $time;
+    $param['nik_admin']     = $CI->session->userdata('nik');
+    $param['kd_supplier']   = $kd_supplier;
+    $param['kd_barang']     = $kd_barang;
+    $param['item_in']       = $item_in;
+    $param['item_out']      = $item_out;
+    $param['item_cancel']   = $item_cancel;
+    $param['remark']        = $remark;
+
+    //load model log
+    $CI->load->model('activity_log');
+
+    //save to database
+    $CI->Activity_log->insertDataLog($param);
+}
+
 function tgl_indo($tanggal)
 {
     $bulan = array(
