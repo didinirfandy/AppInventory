@@ -25,18 +25,82 @@ class TambahDataPembelian extends CI_Controller
         parent::__construct();
         $this->load->model('Pembelian');
 
-        // if (empty($_SESSION['username'])) {
-        //     redirect('Welcome/index');
-        // }
+        if (empty($_SESSION['username'])) {
+            $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
+            redirect('Login/index');
+        }
     }
 
     public function index()
     {
-        $data['title'] = "Tambah Data Pembelian";
-        $data['supplierData'] = $this->Pembelian->getSupplier();
-        $data['kodePembelian'] = $this->Pembelian->kodeOtomatis();
+        $data['title'] = "Tambah Pembelian";
+        $data['getKdBeli'] = $this->Pembelian->kodeOtomatis();
 
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Pembelian/TambahDataPembelian', $data);
+    }
+
+    public function GetDataSupplier()
+    {
+        $data = $this->Pembelian->getSupplier();
+        echo json_encode($data);
+    }
+
+    public function GetKodeBarang()
+    {
+        $data = $this->Pembelian->GetKodeBarang();
+        echo json_encode($data);
+    }
+
+    public function GetBeliBarang()
+    {
+        $kodeBeli = $this->input->post("kode_pembelian");
+        $data = $this->Pembelian->GetBeliBarang($kodeBeli);
+        echo json_encode($data);
+    }
+
+    public function insertDataDetail()
+    {
+        $kodePembelian  = $this->input->post('kodePembelian');
+        $kdBarang       = $this->input->post('kdBarang');
+        $nmBarang       = $this->input->post('nmBarang');
+        $satuan         = strtoupper($this->input->post('satuan'));
+        $hrgBeli        = $this->input->post('hrgBeli');
+        $qtyBeli        = $this->input->post('qtyBeli');
+
+        $pecah      = explode(".", $hrgBeli);
+        $pch1       = (array_key_exists('1', $pecah) ? $pecah[1] : null);
+        $pch2       = (array_key_exists('2', $pecah) ? $pecah[2] : null);
+        $pch3       = (array_key_exists('3', $pecah) ? $pecah[3] : null);
+        $hargaBeli  = $pecah[0] . $pch1 . $pch2 . $pch3;
+        $total      = $qtyBeli * $hargaBeli;
+
+        $data   = array(
+            'kd_pembelian'  => $kodePembelian,
+            'kd_barang'     => $kdBarang,
+            'nama'          => $nmBarang,
+            'satuan'        => $satuan,
+            'harga'         => $hargaBeli,
+            'item'          => $qtyBeli,
+            'total'         => $total,
+        );
+
+        $hasil = $this->Pembelian->insertDataDetail('tem_pembelian', $data);
+
+        echo json_encode($hasil);
+    }
+
+    public function insertDataPembelian()
+    {
+        $kodeBeli   = $this->input->post('kodeBeli');
+        $tglBeli    = date("Y-m-d", strtotime($this->input->post('tglBeli')));
+        $kdSupplier = $this->input->post('kdSupplier');
+        $remark     = $this->input->post('remark');
+        $subTotal   = $this->input->post('subTotal');
+        $nik_admin  = $this->session->userdata('nik');
+
+        $hasil = $this->Pembelian->insertDataPembelian($nik_admin, $tglBeli, $kdSupplier, $kodeBeli, $remark, $subTotal);
+
+        echo json_encode($hasil);
     }
 }

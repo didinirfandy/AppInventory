@@ -54,19 +54,19 @@
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
-                                             <tr>
+                                            <tr>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td>                                            
-                                                    <a href="<?= base_url('Admin/Pembelian/DataBarangPembelian')?>" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
-                                                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
+                                                <td>
+                                                    <a href="<?= base_url('Admin/Pembelian/DataBarangPembelian') ?>" class="btn btn-sm btn-primary"><i class="fas fa-search"></i>&nbsp;&nbsp;Detail</a>&nbsp;&nbsp;
+                                                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</a>
                                                     <!-- <button type="button" data-toggle="modal" data-target="#modal-kirimGudang" class="btn btn-sm btn-success"><i class="fas fa-share"></i> Kirim</button> -->
-                                                </td> 
-                                             </tr>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                         <tfoot>
                                             <tr>

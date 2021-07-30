@@ -51,11 +51,11 @@
                                                 <th>Harga Beli</th>
                                                 <th>Harga Jual</th>
                                                 <th>Quantity</th>
-                                                <th>Tgk Beli</th>
-                                                <th>Tgk Jual</th>
+                                                <th>Tgl Beli</th>
+                                                <th>Tgl Jual</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="databarang">
+                                        <tbody id="dataGudang">
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -66,8 +66,8 @@
                                                 <th>Harga Beli</th>
                                                 <th>Harga Jual</th>
                                                 <th>Quantity</th>
-                                                <th>Tgk Beli</th>
-                                                <th>Tgk Jual</th>
+                                                <th>Tgl Beli</th>
+                                                <th>Tgl Jual</th>
                                             </tr>
                                         </tfoot>
                                     </table>

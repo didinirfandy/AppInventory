@@ -20,6 +20,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item">Pembelian</li>
                                 <li class="breadcrumb-item active"><?= $title ?></li>
                             </ol>
                         </div><!-- /.col -->
@@ -49,20 +50,20 @@
                                                 <form action="" method="post" id="formDatBarang">
                                                     <div class="form-group">
                                                         <label for="kodePembelian">Kode Pembelian</label>
-                                                        <input type="text" class="form-control" id="kodePembelian" placeholder="Kode Pembelian" autocapitalize="off">
+                                                        <span class="form-control" id="kodePembelian" style="background-color: #e9ecef">PEM0000001</span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="tglBeli">Tanggal Pembelian</label>
-                                                        <input type="text" class="form-control" id="tglBeli" placeholder="Tanggal Beli">
+                                                        <span class="form-control" id="tglBeli" style="background-color: #e9ecef">01-07-2021</span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="supplierBarang">Supplier</label>
-                                                        <input type="text" class="form-control" id="supplierBarang" placeholder="Supplier">
+                                                        <span class="form-control" id="supplierBarang" style="background-color: #e9ecef">Toko Anjas</span>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="card-footer">
-                                                <a href="<?= base_url('Admin/Pembelian/DataPembelian')?>" class="btn btn-sm btn-block btn-warning" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a>
+                                                <a href="<?= base_url('Admin/Pembelian/DataPembelian') ?>" class="btn btn-sm btn-block btn-warning col-md-3" type="button" id="tmbDataPembelian" style="float: left;"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</a>
                                             </div>
                                         </div>
                                     </div>
@@ -80,6 +81,7 @@
                                                             <th>Satuan</th>
                                                             <th>Harga</th>
                                                             <th>Qty Beli</th>
+                                                            <th>Status</th>
                                                             <th>Total Harga</th>
                                                             <th>Aksi</th>
                                                         </tr>
@@ -90,19 +92,25 @@
                                                             <td></td>
                                                             <td></td>
                                                             <td></td>
-                                                            <td><button class="btn btn-sm btn-transparant" rel="popover"><i class="fas fa-info-circle"></i></button></td>
+                                                            <!-- <td><button class="btn btn-sm btn-transparant" rel="popover" id="infoQty"><i class="fas fa-info-circle"></i></button></td> -->
+                                                            <td><button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Qty Beli = 100 <br> Qty Gudang = 10 <br> Qty Batal = 0" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button></td>
+                                                            <td>
+                                                                <span class="badge badge-info">Pembelian</span>
+                                                                <!-- <span class="badge badge-success">Gudang</span> -->
+                                                                <!-- <span class="badge badge-danger">Batal</span> -->
+                                                            </td>
                                                             <td></td>
                                                             <td>
-                                                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-dataBarang"> Kirim Gudang</button>
-                                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-batalBarang"> Batal</button>
+                                                                <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal-dataBarang"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Terima</button>
+                                                                <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal-batalBarang"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Batal</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
                                                             <th></th>
-                                                            <th colspan="4" align="center"><strong>Sub Total</strong></th>
-                                                            <th colspan="1" align="right"><strong>0000000</strong></th>
+                                                            <th colspan="5" align="center"><strong>Sub Total</strong></th>
+                                                            <th colspan="1" align="right"><strong>0</strong></th>
                                                             <th></th>
                                                         </tr>
                                                     </tfoot>
@@ -136,11 +144,15 @@
                     <form method="post" action="">
                         <div class="form-group">
                             <label for="qtyBeli">Quantity Pembelian</label>
-                            <input type="text" name="qtyBeli" class="form-control" id="qtyBeli" readonly>
+                            <input type="text" name="qtyBeli" class="form-control" id="qtyBeli">
                         </div>
                         <div class="form-group">
                             <label for="qtyKirim">Quantity Kirim</label>
                             <input type="text" name="qtyKirim" class="form-control" id="qtyKirim">
+                        </div>
+                        <div class="form-group">
+                            <label for="tglBeli">Tanggal</label>
+                            <input type="text" class="form-control datetimepicker-input" id="tglGudangTerima" data-toggle="datetimepicker" data-target="#datetimepicker5" />
                         </div>
                         <div class="form-group">
                             <label for="remark">Deskripsi</label>
@@ -148,8 +160,8 @@
                         </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
-                        <button type="submit" class="btn btn-primary" id="sendBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
+                    <button type="submit" class="btn btn-primary" id="sendBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
                     </form>
                 </div>
             </div>
@@ -178,13 +190,17 @@
                             <input type="text" name="qtyKirim" class="form-control" id="qtyKirim">
                         </div>
                         <div class="form-group">
+                            <label for="tglBeli">Tanggal</label>
+                            <input type="text" class="form-control datetimepicker-input" id="tglGudangBatal" data-toggle="datetimepicker" data-target="#datetimepicker5" />
+                        </div>
+                        <div class="form-group">
                             <label for="remark">Deskripsi</label>
                             <textarea name="remark" class="form-control" id="remark"></textarea>
                         </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
-                        <button type="submit" class="btn btn-primary" id="sendBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
+                    <button type="submit" class="btn btn-primary" id="sendBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
                     </form>
                 </div>
             </div>
@@ -196,9 +212,16 @@
 
     <?php $this->load->view('Template/DataTablesJS') ?>
 
-    <script>
+    <script type="text/javascript">
         $(function() {
-            displayData()
+            // displayData()
+            $('#tglGudangTerima').datetimepicker({
+                format: 'DD-MM-YYYY'
+            });
+            $('#tglGudangBatal').datetimepicker({
+                format: 'DD-MM-YYYY'
+            });
+
             $("#tableDataBarang").DataTable({
                 "responsive": true,
                 // "lengthChange": false,
@@ -207,45 +230,43 @@
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
 
-            $('#infoQty').popover({
-                placement : 'right',
-                html : true,
-                delay: { 
-                        show: 500, 
-                        hide: 500
-                },
-                title:'old_title',
-                content: 'QTY Beli: 0'
-            });
+
         });
 
-        function displayData() {
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
-                dataType: "json",
-                async: false,
-                success: function(data) {
-                    console.log(data);
-                    let row = '';
-                    for (let i = 0; i < data.length; i++) {
-                        row += `<tr>
-                                    <td></td>                                    
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn bt-sm btn-primary" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-plus-square"></i></button>
-                                    </td>
-                                </tr>`;
-                    }
-                    $('#databarang').html(row);
-                }
-            })
+        function showInfoQty(obj) {
+            $(obj).popover({
+                html: true
+            });
+            $(obj).popover('show');
         }
+
+        // function displayData() {
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
+        //         dataType: "json",
+        //         async: false,
+        //         success: function(data) {
+        //             console.log(data);
+        //             let row = '';
+        //             for (let i = 0; i < data.length; i++) {
+        //                 row += `<tr>
+        //                             <td></td>                                    
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td></td>
+        //                             <td>
+        //                                 <button class="btn bt-sm btn-primary" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-plus-square"></i></button>
+        //                             </td>
+        //                         </tr>`;
+        //             }
+        //             $('#databarang').html(row);
+        //         }
+        //     })
+        // }
     </script>
 
 </body>

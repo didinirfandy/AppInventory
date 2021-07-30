@@ -78,12 +78,12 @@
         $(function() {
             $("input[name='username']").focus();
 
-            $(".welcome").Toasts('create', {
-                title: 'Welcome',
-                autohide: true,
-                delay: 3000,
-                body: 'Aplikasi Inventory'
-            });
+            // $(".welcome").Toasts('create', {
+            //     title: 'Welcome',
+            //     autohide: true,
+            //     delay: 3000,
+            //     body: 'Aplikasi Inventory'
+            // });
 
             let statusSuccess = "<?= $this->session->flashdata('notif'); ?>";
             let statusError = "<?= $this->session->flashdata('notifError'); ?>";
