@@ -66,4 +66,28 @@ class DataMasterBarang extends CI_Controller
         $data = $this->Barang->getNewKodeBrg($kode);
         echo json_encode($data);
     }
+
+    public function insertMasterBarang()
+    {
+        // print_r($_POST['data']);
+        $opt        = isset($_POST['optTambah']) ? $_POST['optTambah'] : '';
+        $kodeHead   = $_POST['kodeHeader'];
+        $namaHead   = $_POST['namaHeader'];
+        $kodeDetail = $_POST['kodeDetail'];
+        $namaDetail = $_POST['namaDetail'];
+
+        $insert = $this->Barang->insertMasterBarang($opt,$kodeHead,$namaHead,$kodeDetail,$namaDetail);
+
+        echo json_encode($insert);
+    }
+
+    public function editMasterBarang()
+    {
+        $idBrg = $_POST['idBrgEdit'];
+        $namaBrg = $_POST['namaBrgEdit'];
+        $statusBrg = isset($_POST['statusBrgEdit']) && $_POST['statusBrgEdit'] == 'on' ? '1' : '0';
+
+        $editBrg = $this->Barang->editMasterBrg($idBrg,$namaBrg,$statusBrg);
+        echo json_encode($editBrg);
+    }
 }
