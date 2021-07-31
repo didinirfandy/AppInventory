@@ -37,4 +37,51 @@ class DataSupplier extends CI_Controller
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Supplier/DataSupplier', $data);
     }
+
+    public function getDataSupplier()
+    {
+        $data = $this->Supplier->getSupplier();
+        echo json_encode($data);
+    }
+
+    public function getDataSupplierKode()
+    {
+        $kodeSupp = $_POST["kode"];
+
+        $data = $this->Supplier->getSupplierKode($kodeSupp);
+        echo json_encode($data);
+    }
+
+    public function deleteDataSupplier()
+    {
+        $kode = $_POST["kode"];
+
+        $data = $this->Supplier->deleteSupplier($kode);
+        echo json_encode(true);
+    }
+
+    public function tambahSupplier()
+    { 
+        $namaSupp   = $_POST["namaSupp"];
+        $alamatSupp = $_POST["alamatSupp"];
+        $deskSupp = $_POST["deskSupp"];
+
+        $kodeSupp = $this->Supplier->getKodeSupp();
+        
+        $insertData = $this->Supplier->insertSupplier($kodeSupp, $namaSupp, $alamatSupp, $deskSupp);
+
+        echo json_encode($insertData);
+    }
+
+    public function updateSupplier()
+    {
+        $kodeSupp   = $_POST["kodeSupp"];
+        $namaSupp   = $_POST["namaSupp"];
+        $alamatSupp = $_POST["alamatSupp"];
+        $deskSupp   = $_POST["deskSupp"];
+
+        $updateData = $this->Supplier->updateSupplier($kodeSupp, $namaSupp, $alamatSupp, $deskSupp);
+
+        echo json_encode($updateData);
+    }
 }

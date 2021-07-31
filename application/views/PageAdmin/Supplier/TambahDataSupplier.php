@@ -48,12 +48,20 @@
                                             <div class="card-body">
                                                 <form action="" method="post" id="formDatSupplier">
                                                     <div class="form-group">
+                                                        <label for="kodeSupplier">Kode Supplier</label>
+                                                        <input type="text" class="form-control" id="kodeSupplier" placeholder="Kode Supplier">
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="namaSupplier">Nama Supplier</label>
                                                         <input type="text" class="form-control" id="namaSupplier" placeholder="Nama Supplier">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="alamatSupplier">Alamat Supplier</label>
                                                         <input type="text" class="form-control" id="alamatSupplier" placeholder="Alamat Supplier">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="deskripsiSupp">Deskripsi</label>
+                                                        <textarea name="deskripsiSupp" id="deskripsiSupp" class="form-control" placeholder="Deskripsi Supplier"></textarea>
                                                     </div>
                                                 </form>
                                             </div>
