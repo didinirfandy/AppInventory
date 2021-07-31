@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 30/07/2021 04:03:25
+ Date: 31/07/2021 14:59:42
 */
 
 SET NAMES utf8mb4;
@@ -33,10 +33,34 @@ CREATE TABLE `activity_log_barang`  (
   `item_cancel` int NOT NULL,
   `remark` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_log_barang`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of activity_log_barang
+-- ----------------------------
+INSERT INTO `activity_log_barang` VALUES (15, '2021-07-30 15:10:45', 123, 'BLI30072100001', 'SUP000001', '01.03.', 15, 0, 0, '');
+INSERT INTO `activity_log_barang` VALUES (16, '2021-07-30 15:10:45', 123, 'BLI30072100001', 'SUP000001', '02.01.', 20, 0, 0, '');
+INSERT INTO `activity_log_barang` VALUES (17, '2021-07-30 15:10:45', 123, 'BLI30072100001', 'SUP000001', '01.04.', 16, 0, 0, '');
+
+-- ----------------------------
+-- Table structure for activity_log_harga
+-- ----------------------------
+DROP TABLE IF EXISTS `activity_log_harga`;
+CREATE TABLE `activity_log_harga`  (
+  `id_log_harga` int NOT NULL AUTO_INCREMENT,
+  `kd_pembelian` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_gudang` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_barang` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `harga_start` double NOT NULL,
+  `harga_now` double NOT NULL,
+  `tgl_masuk_gudang` date NOT NULL,
+  `tgl_harga_naik` date NULL DEFAULT NULL,
+  `tgl_harga_turun` date NOT NULL,
+  PRIMARY KEY (`id_log_harga`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of activity_log_harga
 -- ----------------------------
 
 -- ----------------------------
@@ -51,7 +75,7 @@ CREATE TABLE `activity_log_user`  (
   `log_aksi` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `log_item` varchar(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`log_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of activity_log_user
@@ -93,6 +117,13 @@ INSERT INTO `activity_log_user` VALUES (34, '2021-07-28 14:24:50', 'Admin', 'log
 INSERT INTO `activity_log_user` VALUES (35, '2021-07-28 23:16:31', 'Admin', 'login', 'Masuk', '');
 INSERT INTO `activity_log_user` VALUES (36, '2021-07-29 11:51:18', 'Admin', 'login', 'Masuk', '');
 INSERT INTO `activity_log_user` VALUES (37, '2021-07-30 02:55:58', 'Admin', 'login', 'Masuk', '');
+INSERT INTO `activity_log_user` VALUES (38, '2021-07-30 13:09:19', 'Admin', 'login', 'Masuk', '');
+INSERT INTO `activity_log_user` VALUES (39, '2021-07-30 15:08:56', 'Admin', 'Tambah Pembelian', 'Delete', 'BLI30072100001');
+INSERT INTO `activity_log_user` VALUES (40, '2021-07-30 15:09:58', 'Admin', 'Tambah Pembelian', 'Delete', 'BLI30072100001');
+INSERT INTO `activity_log_user` VALUES (41, '2021-07-30 17:37:53', 'Admin', 'login', 'Masuk', '');
+INSERT INTO `activity_log_user` VALUES (42, '2021-07-31 00:09:17', 'Admin', 'logout', 'Keluar', '');
+INSERT INTO `activity_log_user` VALUES (43, '2021-07-31 00:09:22', 'Admin', 'login', 'Masuk', '');
+INSERT INTO `activity_log_user` VALUES (44, '2021-07-31 02:15:16', 'Admin', 'logout', 'Keluar', '');
 
 -- ----------------------------
 -- Table structure for detail_pembelian
@@ -102,18 +133,21 @@ CREATE TABLE `detail_pembelian`  (
   `id_detail` int NOT NULL AUTO_INCREMENT,
   `kd_pembelian` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `kd_barang` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nama` varchar(225) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `satuan` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `harga_beli` double NOT NULL,
   `item` int NOT NULL,
   `total` double NOT NULL,
-  `status` enum('1','0') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0',
+  `status_pembelian` enum('0','1','2') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '2=batal;1=gudang;0=pembelian',
+  `status` enum('1','0') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '1=TidakAktif;0=Aktif',
   PRIMARY KEY (`id_detail`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of detail_pembelian
 -- ----------------------------
+INSERT INTO `detail_pembelian` VALUES (12, 'BLI30072100001', '01.03.', 'SET', 1200000, 15, 18000000, '0', '0');
+INSERT INTO `detail_pembelian` VALUES (13, 'BLI30072100001', '02.01.', 'UNIT', 1120000, 20, 22400000, '0', '0');
+INSERT INTO `detail_pembelian` VALUES (14, 'BLI30072100001', '01.04.', 'SET', 1600000, 16, 25600000, '0', '0');
 
 -- ----------------------------
 -- Table structure for detail_penjualan
@@ -123,7 +157,6 @@ CREATE TABLE `detail_penjualan`  (
   `id_detail_penjualan` int NOT NULL AUTO_INCREMENT,
   `kd_penjualan` char(8) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `kd_barang` varchar(8) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nama` varchar(225) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `satuan` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `harga` double NOT NULL,
   `item` int NOT NULL,
@@ -194,10 +227,12 @@ INSERT INTO `kode_barang` VALUES (36, '06.', '05.', 'Kitchen set bawah 3 pintu m
 DROP TABLE IF EXISTS `master_barang`;
 CREATE TABLE `master_barang`  (
   `id_barang` int NOT NULL AUTO_INCREMENT,
-  `kd_barang` char(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `nama` varchar(60) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `satuan` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `harga_jual` int NOT NULL,
+  `kd_pembelian` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_gudang` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_barang` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `tgl_masuk_gudang` datetime NOT NULL,
+  `harga_jual_start` int NOT NULL,
+  `harga_jual_now` int NULL DEFAULT NULL,
   `harga_beli` int NOT NULL,
   `stok` int NOT NULL,
   `status` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '1=b=Belum Terjual;2=Sudah Terjual',
@@ -230,7 +265,7 @@ CREATE TABLE `master_login`  (
 -- ----------------------------
 -- Records of master_login
 -- ----------------------------
-INSERT INTO `master_login` VALUES (1, 123, 'Admin', '202cb962ac59075b964b07152d234b70', 'Rista Nursolihah', '1', '2', '2021-07-30 02:55:58', '0', '1', 'default_cewe.png');
+INSERT INTO `master_login` VALUES (1, 123, 'Admin', '202cb962ac59075b964b07152d234b70', 'Rista Nursolihah', '1', '2', '2021-07-31 00:09:22', '', '1', 'default_cewe.png');
 INSERT INTO `master_login` VALUES (2, 123456, 'User', '202cb962ac59075b964b07152d234b70', 'Martin', '2', '1', '0000-00-00 00:00:00', '0', '1', 'default_cewe.png');
 
 -- ----------------------------
@@ -242,14 +277,16 @@ CREATE TABLE `master_pembelian`  (
   `kd_pembelian` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `tgl_pembelian` datetime NOT NULL,
   `nik_admin` int NOT NULL,
-  `kd_supplier` int NOT NULL,
+  `kd_supplier` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `total_pembelian` int NOT NULL,
+  `status` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0' COMMENT '1=tidak aktif;0=aktif',
   PRIMARY KEY (`id_pembelian`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of master_pembelian
 -- ----------------------------
+INSERT INTO `master_pembelian` VALUES (13, 'BLI30072100001', '2021-07-30 00:00:00', 123, 'SUP000001', 66000000, '0');
 
 -- ----------------------------
 -- Table structure for master_penjualan
@@ -259,6 +296,7 @@ CREATE TABLE `master_penjualan`  (
   `id_penjualan` int NOT NULL AUTO_INCREMENT,
   `kd_penjualan` char(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `tgl_penjualan` datetime NOT NULL,
+  `kd_barang` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nik_admin` int NOT NULL,
   `nama_pelanggan` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `alamat_tujuan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
@@ -296,7 +334,7 @@ INSERT INTO `perusahaan` VALUES (1, 'PUTRA SOURCE', 'Condong Catur, Sleman Yogya
 DROP TABLE IF EXISTS `supplier`;
 CREATE TABLE `supplier`  (
   `id_supplier` int NOT NULL AUTO_INCREMENT,
-  `kd_supplier` char(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `kd_supplier` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nama_supplier` varchar(60) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `alamat` varchar(60) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `deskripsi` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
@@ -324,11 +362,12 @@ CREATE TABLE `tem_pembelian`  (
   `item` int NOT NULL,
   `total` double NOT NULL,
   PRIMARY KEY (`id_tem`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tem_pembelian
 -- ----------------------------
+INSERT INTO `tem_pembelian` VALUES (29, 'BLI30072100002', '01.03.', 'Set sofa rotan sintesis minimalis azura', 'SET', 500000, 123, 61500000);
 
 -- ----------------------------
 -- Table structure for tem_penjualan
