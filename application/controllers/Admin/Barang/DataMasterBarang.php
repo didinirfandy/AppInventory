@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class DataBarang extends CI_Controller
+class DataMasterBarang extends CI_Controller
 {
 
     /**
@@ -32,16 +32,9 @@ class DataBarang extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Data Barang";
+        $data['title'] = "Data Master Barang";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
-        $this->load->view('PageAdmin/Barang/DataBarang', $data);
-    }
-
-    public function getDataStokBarang()
-    {
-        $getData = $this->Barang->getDataStokBarang();
-
-        echo json_encode($getData);
+        $this->load->view('PageAdmin/Barang/DataMasterBarang', $data);
     }
 }

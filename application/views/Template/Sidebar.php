@@ -96,7 +96,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Penjualan/DataPelanggan') ?>" class="nav-link <?= $this->uri->segment(3) == "DataPelanggan" ? 'active' : ''; ?>">
+                            <a href="<?= base_url('Admin/Barang/DataMasterBarang') ?>" class="nav-link <?= $this->uri->segment(3) == "DataMasterBarang" ? 'active' : ''; ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Master Barang</p>
                             </a>

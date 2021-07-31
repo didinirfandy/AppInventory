@@ -37,45 +37,39 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <!-- <a href="<?= base_url()?>Admin/Barang/TambahDataBarang" class="btn btn-sm btn-primary" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Barang</a>       -->
+                                    <a href="<?= base_url()?>Admin/Barang/TambahDataBarang" class="btn btn-sm btn-primary" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Barang</a>      
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <div style="overflow-y: auto;">
-                                        <table id="tableDataBarang" class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Kode Pembelian</th>
-                                                    <th>Kode Masuk</th>
-                                                    <th>Kode Barang</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Tgl Masuk Gudang</th>
-                                                    <th>Harga Jual Awal</th>
-                                                    <th>Harga Jual Sekarang</th>
-                                                    <th>Harga Beli</th>
-                                                    <th>Stok</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="dataBarang">
-                                                
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Kode Pembelian</th>
-                                                    <th>Kode Masuk</th>
-                                                    <th>Kode Barang</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Tgl Masuk Gudang</th>
-                                                    <th>Harga Jual Awal</th>
-                                                    <th>Harga Jual Sekarang</th>
-                                                    <th>Harga Beli</th>
-                                                    <th>Stok</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
+                                    <table id="tableDataBarang" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kode Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Satuan</th>
+                                                <th>Harga Jual</th>
+                                                <th>Harga Beli</th>
+                                                <th>Stok</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="datasuplier">
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kode Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Satuan</th>
+                                                <th>Harga Jual</th>
+                                                <th>Harga Beli</th>
+                                                <th>Stok</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -110,7 +104,7 @@
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/Barang/DataBarang/getDataStokBarang') ?>",
+                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
                 dataType: "json",
                 async: false,
                 success: function(data) {
@@ -118,19 +112,20 @@
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr>
-                                    <td>`+ (i + 1) +`</td>                                    
-                                    <td>`+ data[i].kd_pembelian +`</td>
-                                    <td>`+ data[i].kd_gudang +`</td>
-                                    <td>`+ data[i].kd_barang +`</td>
-                                    <td>`+ data[i].nama_barang +`</td>
-                                    <td>`+ data[i].tgl_masuk_barang +`</td>
-                                    <td>`+ data[i].harga_jual_start +`</td>                                    
-                                    <td>`+ data[i].harga_jual_now +`</td>                                    
-                                    <td>`+ data[i].harga_beli +`</td>                                    
-                                    <td>`+ data[i].stok +`</td>                                    
+                                    <td></td>                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <a href="#" class="btn bt-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                                        <button class="btn bt-sm btn-danger" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                    </td>
                                 </tr>`;
                     }
-                    $('#dataBarang').html(row);
+                    $('#databarang').html(row);
                 }
             })
         }
