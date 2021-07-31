@@ -53,4 +53,17 @@ class DataMasterBarang extends CI_Controller
 
         echo json_encode($data);
     }
+
+    public function getDataHeaderBarang()
+    {
+        $data = $this->Barang->getKodeHeader();
+        echo json_encode($data);
+    }
+
+    public function getNewKodeBrg()
+    {
+        $kode = $_POST['kode'];
+        $data = $this->Barang->getNewKodeBrg($kode);
+        echo json_encode($data);
+    }
 }

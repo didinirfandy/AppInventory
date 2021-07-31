@@ -37,7 +37,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a href="<?= base_url()?>Admin/Barang/TambahDataBarang" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-barang" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Barang</a>      
+                                    <button type="button" class="btn btn-sm btn-primary" id="tambahDataMasterBarang" data-toggle="modal" data-target="#modal-barang" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Barang</button>      
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -84,30 +84,38 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Tambah Data Supplier</h4>
+                    <h4 class="modal-title">Tambah Data Barang</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form action="" method="post" id="formDatSupplier">
-                        <div class="form-group" id="kodeSuppCont">
-                            <label for="kodeSupplier">Kode Supplier</label>
+                        <div class="row">
+                            <select name="optTambah" class="form-control col-lg-5" id="optTambah">
+                                <!-- <option value="pcs">PCS</option>
+                                <option value="lsn">Lusin</option>
+                                <option value="dus">Dus</option> -->
+                            </select>
+                        </div><br>
+                        <div class="form-group">
+                            <label for="kodeHeader">Barang Header</label>
                             <input type="hidden" class="form-control" id="idSupp" placeholder="idSupp" value="">
-                            <input type="text" class="form-control" id="kodeSupplier" placeholder="Kode Supplier" value="">
+                            <div class="row">
+                                <input type="text" class="form-control col-lg-5" id="kodeHeader" name="kodeHeader" placeholder="Kode Header Barang" value="" readonly>
+                                &nbsp;&nbsp;&nbsp;
+                                <input type="text" class="form-control col-lg-6" id="namaHeader" name="namaHeader" placeholder="Nama Header Barang" value="">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="namaSupplier">Nama Supplier</label>
-                            <input type="text" class="form-control" id="namaSupplier" placeholder="Nama Supplier" value="">
+                            <label for="kodeDetail">Barang Detail</label>
+                            <input type="hidden" class="form-control" id="idSupp" placeholder="idSupp" value="">
+                            <div class="row">
+                                <input type="text" class="form-control col-lg-5" id="kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="" readonly> &nbsp;&nbsp;&nbsp;
+                                <input type="text" class="form-control col-lg-6" id="namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="alamatSupplier">Alamat Supplier</label>
-                            <input type="text" class="form-control" id="alamatSupplier" placeholder="Alamat Supplier" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="deskripsiSupp">Deskripsi</label>
-                            <textarea name="deskripsiSupp" id="deskripsiSupp" class="form-control" placeholder="Deskripsi Supplier" value=""></textarea>
-                        </div>
+                        <button class="btn btn-sm btn-success">Tambah Detail</button>
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -132,7 +140,60 @@
                 "buttons": ["excel", "pdf"],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
+
+            $("#tambahDataMasterBarang").click(function(){
+                displayKodeHeader();
+                getNewKodeBarang();
+                $('.modal-title').text("Tambah Data Barang");
+                $("#modal-barang #namaHeader").focus(); 
+            })
+
+            $("#optTambah").change(function(){
+                let kodeHeadBrg = $("#optTambah").val()
+
+                if (kodeHeadBrg == '') {
+                    getNewKodeBarang();
+                }else{
+                    getNewKodeBarang(kodeHeadBrg);
+                }
+            })
         });
+
+        function displayKodeHeader()
+        {
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('Admin/Barang/DataMasterBarang/getDataHeaderBarang') ?>",
+                dataType: "json",
+                async: false,
+                success: function(data) {
+                    // console.log(data);
+                    let row = '<option value="" selected>Tambah Header Baru</option>';
+                    for (let i = 0; i < data.length; i++) {
+
+                        row += `<option value="`+ data[i].kode +`">`+ data[i].kode +` `+ data[i].nama_barang +`</option>`;
+                    }
+                    $('#optTambah').html(row);
+                }
+            })
+        }
+
+        function getNewKodeBarang(kodeHead = '')
+        {  
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('Admin/Barang/DataMasterBarang/getNewKodeBrg') ?>",
+                data: {kode : kodeHead},
+                dataType: "json",
+                async: false,
+                success: function(data) {
+                    // console.log(data);
+                    $("#kodeHeader").val(data.kodeHeader);
+                    $("#kodeDetail").val(data.kodeDetail);
+                }
+            })
+            
+        }
 
         function displayData() {
             $.ajax({
@@ -141,7 +202,7 @@
                 dataType: "json",
                 async: false,
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         let kode = data[i].kode;
