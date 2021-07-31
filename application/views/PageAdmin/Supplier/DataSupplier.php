@@ -146,6 +146,7 @@
 
             $("#tambahSuppBtn").click(function(){
                 $("#kodeSuppCont").hide();
+                $('.modal-title').text("Tambah Data Supplier"); 
             })
 
             $("#addSupp").click(function(){
@@ -248,6 +249,7 @@
                 success: function(data){
                     // console.log(data.kd_supplier)
                     $("#modal-supplier").modal("show")
+                    $('.modal-title').text("Edit Data Supplier"); 
                     $("#kodeSupplier").prop('readonly', true);
                     $("#idSupp").val(data.id_supplier);
                     $("#kodeSupplier").val(data.kd_supplier)

@@ -44,4 +44,13 @@ class DataMasterBarang extends CI_Controller
 
         echo json_encode($data);
     }
+
+    public function deleteMasterBarang()
+    {
+        $id = $_POST['id'];
+
+        $data = $this->Barang->deleteDataMasterBarang($id);
+
+        echo json_encode($data);
+    }
 }

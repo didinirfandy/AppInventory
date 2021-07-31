@@ -14,6 +14,17 @@ class Barang extends CI_Model
         }
     }
 
+    public function deleteDataMasterBarang($id)
+    {
+        $qry = $this->db->query("DELETE FROM kode_barang WHERE id_kd_barang = '$id'");
+
+        if ($qry) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function getDataStokBarang()
     {
         $qry = $this->db->query("SELECT a.*, b.nama_barang, c.satuan 

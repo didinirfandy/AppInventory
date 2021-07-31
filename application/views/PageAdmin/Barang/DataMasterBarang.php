@@ -37,7 +37,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a href="<?= base_url()?>Admin/Barang/TambahDataBarang" class="btn btn-sm btn-primary" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Barang</a>      
+                                    <a href="<?= base_url()?>Admin/Barang/TambahDataBarang" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-barang" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Barang</a>      
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -79,6 +79,47 @@
     </div>
     <!-- ./wrapper -->
 
+    <!-- Modal Kode Barang -->
+    <div class="modal fade" id="modal-barang">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Data Supplier</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" id="formDatSupplier">
+                        <div class="form-group" id="kodeSuppCont">
+                            <label for="kodeSupplier">Kode Supplier</label>
+                            <input type="hidden" class="form-control" id="idSupp" placeholder="idSupp" value="">
+                            <input type="text" class="form-control" id="kodeSupplier" placeholder="Kode Supplier" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="namaSupplier">Nama Supplier</label>
+                            <input type="text" class="form-control" id="namaSupplier" placeholder="Nama Supplier" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="alamatSupplier">Alamat Supplier</label>
+                            <input type="text" class="form-control" id="alamatSupplier" placeholder="Alamat Supplier" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="deskripsiSupp">Deskripsi</label>
+                            <textarea name="deskripsiSupp" id="deskripsiSupp" class="form-control" placeholder="Deskripsi Supplier" value=""></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="addSupp" class="btn btn-primary addSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <?php $this->load->view('Template/DataTablesJS') ?>
 
     <script type="text/javascript">
@@ -111,7 +152,7 @@
                                     <td>`+ data[i].nama_barang +`</td>
                                     <td>
                                         <a href="#" class="btn bt-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>
-                                        <button class="btn bt-sm btn-danger" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                        <button class="btn bt-sm btn-danger" id="hapusData" onClick="validateHapus('`+ data[i].id_kd_barang +`')"><i class="fas fa-trash-alt"></i> Hapus</button>
                                     </td>
                                 </tr>`;
                     }
@@ -132,11 +173,23 @@
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('Admin/Barang/DataMasterBarang/deleteMasterBarang') ?>",
+                        data: {id : a},
+                        dataType: "json",
+                        async: false,
+                        success: function(data) {
+                            if (data) {                                
+                                Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                                )
+                            }
+                            displayData()
+                        }
+                    })
                 }
             });
         }
