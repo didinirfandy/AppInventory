@@ -50,6 +50,7 @@
                                                     <th>Kode Masuk</th>
                                                     <th>Kode Barang</th>
                                                     <th>Nama Barang</th>
+                                                    <th>Satuan</th>
                                                     <th>Tgl Masuk Gudang</th>
                                                     <th>Harga Jual Awal</th>
                                                     <th>Harga Jual Sekarang</th>
@@ -67,6 +68,7 @@
                                                     <th>Kode Masuk</th>
                                                     <th>Kode Barang</th>
                                                     <th>Nama Barang</th>
+                                                    <th>Satuan</th>
                                                     <th>Tgl Masuk Gudang</th>
                                                     <th>Harga Jual Awal</th>
                                                     <th>Harga Jual Sekarang</th>
@@ -123,6 +125,7 @@
                                     <td>`+ data[i].kd_gudang +`</td>
                                     <td>`+ data[i].kd_barang +`</td>
                                     <td>`+ data[i].nama_barang +`</td>
+                                    <td>`+ data[i].satuan +`</td>
                                     <td>`+ data[i].tgl_masuk_barang +`</td>
                                     <td>`+ data[i].harga_jual_start +`</td>                                    
                                     <td>`+ data[i].harga_jual_now +`</td>                                    
