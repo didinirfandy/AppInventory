@@ -47,14 +47,10 @@
                                                 <th>No</th>
                                                 <th>Kode Barang</th>
                                                 <th>Nama Barang</th>
-                                                <th>Satuan</th>
-                                                <th>Harga Jual</th>
-                                                <th>Harga Beli</th>
-                                                <th>Stok</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="datasuplier">
+                                        <tbody id="databarang">
                                             
                                         </tbody>
                                         <tfoot>
@@ -62,10 +58,6 @@
                                                 <th>No</th>
                                                 <th>Kode Barang</th>
                                                 <th>Nama Barang</th>
-                                                <th>Satuan</th>
-                                                <th>Harga Jual</th>
-                                                <th>Harga Beli</th>
-                                                <th>Stok</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </tfoot>
@@ -104,21 +96,19 @@
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
+                url: "<?= base_url('Admin/Barang/DataMasterBarang/getDataBarang') ?>",
                 dataType: "json",
                 async: false,
                 success: function(data) {
                     console.log(data);
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
+                        let kode = data[i].kode;
+                        let subKode = data[i].sub_kode
                         row += `<tr>
-                                    <td></td>                                    
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>`+ (i + 1) +`</td>                                    
+                                    <td>`+ kode +``+ subKode +`</td>
+                                    <td>`+ data[i].nama_barang +`</td>
                                     <td>
                                         <a href="#" class="btn bt-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>
                                         <button class="btn bt-sm btn-danger" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-trash-alt"></i> Hapus</button>

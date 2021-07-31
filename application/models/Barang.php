@@ -3,6 +3,17 @@ date_default_timezone_set('Asia/Jakarta');
 
 class Barang extends CI_Model
 {
+    public function getDataBarang()
+    {
+        $qry = $this->db->query("SELECT * FROM kode_barang WHERE status = '1'")->result_array();
+
+        if ($qry) {
+            return $qry;
+        }else{
+            return false;
+        }
+    }
+
     public function getDataStokBarang()
     {
         $qry = $this->db->query("SELECT a.*, b.nama_barang, c.satuan 
