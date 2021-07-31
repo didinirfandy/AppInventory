@@ -248,7 +248,7 @@
                 success: function(data){
                     // console.log(data.kd_supplier)
                     $("#modal-supplier").modal("show")
-                    $("#kodeSupplier").prop('readonly', true)
+                    $("#kodeSupplier").prop('readonly', true);
                     $("#idSupp").val(data.id_supplier);
                     $("#kodeSupplier").val(data.kd_supplier)
                     $("#namaSupplier").val(data.nama_supplier)

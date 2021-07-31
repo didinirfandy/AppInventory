@@ -86,14 +86,37 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item <?= $this->uri->segment(2) == "Barang" ? 'menu-open' : ''; ?>">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-qrcode"></i>
+                        <p>
+                            Barang
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= base_url('Admin/Penjualan/DataPelanggan') ?>" class="nav-link <?= $this->uri->segment(3) == "DataPelanggan" ? 'active' : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Master Barang</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('Admin/Barang/DataBarang') ?>" class="nav-link <?= $this->uri->segment(3) == "DataBarang" ? 'active' : ''; ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Stock Barang</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- <li class="nav-item">
                     <a href="<?= base_url('Admin/Barang/DataBarang') ?>" class="nav-link <?= $this->uri->segment(3) == "DataBarang" ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-qrcode"></i>
                         <p>Barang</p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
-                    <a href="<?= base_url('Admin/Supplier/DataSupplier') ?>" class="nav-link <?= $this->uri->segment(2) == "DataSupplier" ? 'active' : ''; ?>">
+                    <a href="<?= base_url('Admin/Supplier/DataSupplier') ?>" class="nav-link <?= $this->uri->segment(3) == "DataSupplier" ? 'active' : ''; ?>">
                         <i class="nav-icon fas fa-book"></i>
                         <p>Supplier</p>
                     </a>
