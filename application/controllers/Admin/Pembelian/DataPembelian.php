@@ -38,4 +38,10 @@ class DataPembelian extends CI_Controller
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Pembelian/DataPembelian');
     }
+
+    public function GetData()
+    {
+        $data = $this->Pembelian->GetDataPembelian();
+        echo json_encode($data);
+    }
 }

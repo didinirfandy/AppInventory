@@ -22,7 +22,7 @@ function activity_log($menu, $aksi, $item)
     $CI->Activity_log->save_log($param);
 }
 
-function activity_log_barang($kd_pembelian, $kd_supplier, $kd_barang, $item_in, $item_out, $item_cancel, $remark)
+function activity_log_barang($kd_pembelian, $kd_supplier, $kd_barang, $qty_in, $qty_out, $qty_cancel, $remark)
 {
     $CI = &get_instance();
 
@@ -31,13 +31,13 @@ function activity_log_barang($kd_pembelian, $kd_supplier, $kd_barang, $item_in, 
 
     $param = array(
         'date_log'      => $time,
-        'nik_admin'     => (string) $CI->session->userdata('nik'),
+        'nik_admin'     => (int) $CI->session->userdata('nik'),
         'kd_pembelian'  => $kd_pembelian,
         'kd_supplier'   => $kd_supplier,
         'kd_barang'     => $kd_barang,
-        'item_in'       => $item_in,
-        'item_out'      => $item_out,
-        'item_cancel'   => $item_cancel,
+        'qty_in'        => $qty_in,
+        'qty_out'       => $qty_out,
+        'qty_cancel'    => $qty_cancel,
         'remark'        => $remark,
     );
 

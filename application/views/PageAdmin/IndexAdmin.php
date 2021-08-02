@@ -2,11 +2,11 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php $this->load->view('Template/Navbar') ?>
+        <?php $this->load->view('Template/Navbar'); ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php $this->load->view('Template/Sidebar') ?>
+        <?php $this->load->view('Template/Sidebar'); ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -33,13 +33,13 @@
                 <div class="container-fluid">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-3 col-6">
+                        <div class="col-md-4 col-5">
                             <!-- small box -->
                             <div class="small-box bg-info">
                                 <div class="inner">
                                     <h3>150</h3>
 
-                                    <p>New Orders</p>
+                                    <p>Pembelian</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
@@ -48,13 +48,13 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-3 col-6">
+                        <div class="col-md-4 col-5">
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                    <h3>53</h3>
 
-                                    <p>Bounce Rate</p>
+                                    <p>Penjualan</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
@@ -63,31 +63,16 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-3 col-6">
+                        <div class="col-md-4 col-6">
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     <h3>44</h3>
 
-                                    <p>User Registrations</p>
+                                    <p>Supplier</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-3 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-danger">
-                                <div class="inner">
-                                    <h3>65</h3>
-
-                                    <p>Unique Visitors</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
                                 </div>
                                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
@@ -150,16 +135,21 @@
                         <!-- right col -->
                     </div>
                     <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
+            <?php
+            // echo '<h4 style="margin:0">Session Value</h4>';
+            // print_r($this->session->userdata());
+            ?>
         </div>
         <!-- /.content-wrapper -->
-        <?php $this->load->view('Template/Footer') ?>
+        <?php $this->load->view('Template/Footer'); ?>
     </div>
     <!-- ./wrapper -->
 
-    <?php $this->load->view('Template/Script') ?>
+    <?php $this->load->view('Template/Script'); ?>
 
     <script type="text/javascript">
         $(function() {

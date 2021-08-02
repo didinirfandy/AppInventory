@@ -37,7 +37,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a class="btn btn-sm btn-primary" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Tambah Data</a>
+                                    <a class="btn btn-sm btn-primary" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float: right; margin-left: 1%;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Data</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -54,19 +54,6 @@
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <a href="<?= base_url('Admin/Pembelian/DataBarangPembelian') ?>" class="btn btn-sm btn-primary"><i class="fas fa-search"></i>&nbsp;&nbsp;Detail</a>&nbsp;&nbsp;
-                                                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</a>
-                                                    <!-- <button type="button" data-toggle="modal" data-target="#modal-kirimGudang" class="btn btn-sm btn-success"><i class="fas fa-share"></i> Kirim</button> -->
-                                                </td>
-                                            </tr>
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -104,40 +91,69 @@
             displayData()
             $("#tableDataBarang").DataTable({
                 "responsive": true,
-                // "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["excel", "pdf"],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
-            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
+            });
         });
+
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
+        }
 
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/DataBarangPembelian/GetData') ?>",
+                url: "<?= base_url('Admin/Pembelian/DataPembelian/GetData') ?>",
                 dataType: "json",
                 async: false,
-                success: function(data) {
-                    console.log(data);
+                success: function(dt) {
+                    // console.log(dt);
                     let row = '';
-                    for (let i = 0; i < data.length; i++) {
+                    for (let i = 0; i < dt.length; i++) {
+
+                        if (dt[i].tgl_pembelian != "") {
+                            var date = new Date(dt[i].tgl_pembelian);
+                            var tgl_pembelian = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
+                        } else {
+                            tgl_pembelian = "";
+                        }
+
                         row += `<tr> 
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>                                            
-                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
-                                    <a href="#" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
-                                </td> 
+                                <td>` + (i + 1) + `</td>
+                                <td>` + dt[i].kd_pembelian + `</td>
+                                <td>` + tgl_pembelian + `</td>
+                                <td>` + dt[i].nama_supplier + `</td>
+                                <td>` + dt[i].qty + `</td>
+                                <td>` + formatRupiah(dt[i].total_pembelian, '') + `</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" onclick="openDetail('` + dt[i].kd_pembelian + `')"><i class="fas fa-search"></i>&nbsp;&nbsp;Detail</button>&nbsp;&nbsp;
+                                    <button class="btn btn-sm btn-danger" onclick=""><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
+                                </td>
                             </tr>`;
                     }
                     $('#databarang').html(row);
                 }
             })
+        }
+
+        function openDetail(kd_pembelian) {
+            if (kd_pembelian) {
+                sessionStorage.setItem("kd_pembelian", kd_pembelian);
+                location.href = "<?= base_url("Admin/Pembelian/DataBarangPembelian/index") ?>";
+            }
         }
     </script>
 

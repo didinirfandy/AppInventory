@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/dist/css/adminlte.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/toastr/toastr.min.css">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
