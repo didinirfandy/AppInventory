@@ -159,7 +159,7 @@
                                                         </div>
                                                      </div>                                                    
                                                 </div>                                                
-                                                <button type="button" class="btn btn-sm btn-success" id="simpan" style="float: right"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
+                                                <button type="button" class="btn btn-sm btn-success" id="simpan" data-toggle="modal" data-target="#modal-simpan" style="float: right"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -226,25 +226,14 @@
                 <form method="post" id="formSimpanBarang">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="tglBeli">Tanggal</label>
-                            <input type="text" class="form-control datetimepicker-input" id="tglBeli" name="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off" required>
+                            <label for="namaPelanggan">Nama Pelanggan</label>
+                            <input type="text" class="form-control" name="namaPelanggan" id="namaPelanggan" value="" require>
                         </div>
                         <div class="form-group">
-                            <label for="kdSupplier">Harga Total</label>
-                            <select class="form-control" id="kdSupplier" name="kdSupplier" required>
-                            </select>
+                            <label for="alamatPelanggan">Alamat Pelanggan</label>
+                            <textarea name="alamatPelanggan" class="form-control" id="alamatPelanggan" require></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="kdSupplier">Bayar</label>
-                            <select class="form-control" id="kdSupplier" name="kdSupplier" required>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="kdSupplier">Kembalian</label>
-                            <select class="form-control" id="kdSupplier" name="kdSupplier" required>
-                            </select>
-                        </div>
-                        <input type="text" style="display: none;" name="kdPembelian" value="<?= $getKdBeli; ?>">
+                        <input type="text" style="display: none;" name="kdPembelian" value="">
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>

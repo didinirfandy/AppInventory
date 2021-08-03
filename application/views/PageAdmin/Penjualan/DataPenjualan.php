@@ -53,7 +53,16 @@
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
-                                            
+                                            <tr> 
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
+                                                </td> 
+                                            </tr>
                                         </tbody>
                                         <tfoot>
                                             <tr>
