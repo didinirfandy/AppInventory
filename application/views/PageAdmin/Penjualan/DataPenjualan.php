@@ -60,7 +60,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
+                                                    <a href="<?= base_url('Admin/Penjualan/DetailDataPenjualan')?>" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
                                                 </td> 
                                             </tr>
                                         </tbody>
