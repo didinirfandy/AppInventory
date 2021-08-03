@@ -26,7 +26,7 @@ class TambahDataPembelian extends CI_Controller
         $this->load->model('Pembelian');
 
         if (empty($_SESSION['username'])) {
-            $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
+            $this->session->set_flashdata('notifError', 'Anda Harus Login Terlebih Dahulu');
             redirect('Login/index');
         }
     }
@@ -64,7 +64,7 @@ class TambahDataPembelian extends CI_Controller
         $kodePembelian  = $this->input->post('kodePembelian');
         $kdBarang       = $this->input->post('kdBarang');
         $nmBarang       = $this->input->post('nmBarang');
-        $satuan         = strtoupper($this->input->post('satuan'));
+        $satuan         = $this->input->post('satuan');
         $hrgBeli        = $this->input->post('hrgBeli');
         $qtyBeli        = $this->input->post('qtyBeli');
 
@@ -81,13 +81,20 @@ class TambahDataPembelian extends CI_Controller
             'nama'          => $nmBarang,
             'satuan'        => $satuan,
             'harga'         => $hargaBeli,
-            'item'          => $qtyBeli,
+            'qty'           => $qtyBeli,
             'total'         => $total,
         );
 
         $hasil = $this->Pembelian->insertDataDetail('tem_pembelian', $data);
 
         echo json_encode($hasil);
+    }
+
+    public function delDetailPembelian()
+    {
+        $idTem = $this->input->post("id_tem");
+        $data = $this->Pembelian->delDetailPembelian('tem_pembelian', $idTem);
+        echo json_encode($data);
     }
 
     public function insertDataPembelian()
