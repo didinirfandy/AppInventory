@@ -44,4 +44,14 @@ class DataPembelian extends CI_Controller
         $data = $this->Pembelian->GetDataPembelian();
         echo json_encode($data);
     }
+
+    public function CencelPembelian()
+    {
+        $kd_pembelian   = $this->input->post('kd_pembelian');
+        $tglcencel      = $this->input->post('tglcencel');
+        $remarkCencel   = $this->input->post('remarkCencel');
+        $data = $this->Pembelian->CencelPembelian($kd_pembelian, $tglcencel, $remarkCencel);
+
+        echo json_encode($data);
+    }
 }

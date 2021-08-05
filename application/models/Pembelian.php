@@ -170,6 +170,7 @@ class Pembelian extends CI_Model
                 a.kd_pembelian
                 , date(a.tgl_pembelian) tgl_pembelian
                 , c.nama_supplier
+                , sum(b.qty_sisa) qty_sisa
                 , sum(b.qty) qty
                 , a.total_pembelian
             FROM 
@@ -222,7 +223,7 @@ class Pembelian extends CI_Model
                 , a.qty_sisa
                 , a.qty_gudang
                 , a.qty_batal
-                , a.status_pembelian
+                , a.status_beli
                 , a.total
             FROM 
                 detail_pembelian a
@@ -246,6 +247,50 @@ class Pembelian extends CI_Model
 
         if ($qry) {
             return $qry;
+        } else {
+            return false;
+        }
+    }
+
+    public function CencelPembelian($kd_pembelian, $tglcencel, $remark)
+    {
+        $qry = "SELECT 
+                    a.kd_pembelian
+                    , a.kd_barang
+                    , a.harga_beli
+                    , sum(a.qty_sisa) qty_sisa
+                    , sum(a.qty_gudang) qty_gudang
+                    , sum(a.qty_batal) qty_batal
+                    , b.kd_supplier
+                FROM 
+                    detail_pembelian a
+                    LEFT JOIN master_pembelian b ON b.kd_pembelian = a.kd_pembelian
+                WHERE
+                    a.status != ?
+                    AND a.kd_pembelian = ?";
+        $res = $this->db->query($qry, array('1', $kd_pembelian))->row();
+
+        $kdBarang   = $res->kd_barang;
+        $kdSupplier = $res->kd_supplier;
+        $qtySisa    = $res->qty_sisa;
+        $qtyGudang  = $res->qty_gudang;
+        $qtyBatal   = $res->qty_batal;
+        $datecencel = $tglcencel . " " . date("H:i:s");
+
+        if ($qtySisa != '0' && $qtyGudang == '0' && $qtyBatal == '0') {
+            $data = array('status' => '1', 'created_at'    => $datecencel);
+            $this->db->where('kd_pembelian', $kd_pembelian);
+            $req = $this->db->update('master_pembelian', $data);
+            if ($req) {
+                if ($this->db->affected_rows() > 0) {
+                    activity_log_barang($kd_pembelian, $kdSupplier, $kdBarang, $qtySisa, '0', '0', $remark);
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                false;
+            }
         } else {
             return false;
         }

@@ -48,6 +48,10 @@
                                             <div class="card-body">
                                                 <form action="" method="post" id="formDatSupplier">
                                                     <div class="form-group">
+                                                        <label for="kodeSupplier">Kode Supplier</label>
+                                                        <input type="text" class="form-control" id="kodeSupplier" placeholder="Kode Supplier">
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="namaSupplier">Nama Supplier</label>
                                                         <input type="text" class="form-control" id="namaSupplier" placeholder="Nama Supplier">
                                                     </div>
@@ -55,11 +59,15 @@
                                                         <label for="alamatSupplier">Alamat Supplier</label>
                                                         <input type="text" class="form-control" id="alamatSupplier" placeholder="Alamat Supplier">
                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="deskripsiSupp">Deskripsi</label>
+                                                        <textarea name="deskripsiSupp" id="deskripsiSupp" class="form-control" placeholder="Deskripsi Supplier"></textarea>
+                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="card-footer">
                                                 <a class="btn btn-md btn-primary " id="tmbhDataSupplier" style="float: left;"><i class="fas fa-save"></i> Simpan</a>
-                                                <a class="btn btn-md btn-danger " href="<?= base_url()?>Admin/Supplier/Supplier" id="btlTambahData" style="float: left; margin-left: 1%;"><i class="fas fa-times"></i> Batal</a>
+                                                <a class="btn btn-md btn-danger " href="<?= base_url() ?>Admin/Supplier/Supplier" id="btlTambahData" style="float: left; margin-left: 1%;"><i class="fas fa-times"></i> Batal</a>
                                             </div>
                                         </div>
                                     </div>

@@ -74,4 +74,15 @@ class DataBarangPembelian extends CI_Controller
         $data = $this->Barang->insertGudang($id_detail, $qty, $tgl_gudang, $remark);
         echo json_encode($data);
     }
+
+    public function batalGudang()
+    {
+        $id_detail  = $this->input->post('id_detail_btl');
+        $qty        = $this->input->post('qtyBatal');
+        $tgl        = date("Y-m-d", strtotime($this->input->post('tglGudangBatal')));
+        $remark     = $this->input->post('remarkBatal');
+
+        $data = $this->Barang->batalGudang($id_detail, $qty, $tgl, $remark);
+        echo json_encode($data);
+    }
 }

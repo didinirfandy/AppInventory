@@ -41,24 +41,24 @@
 
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title">Barang</h3>
+                                                <h3 class="card-title">Pembelian</h3>
                                             </div>
                                             <div class="card-body">
                                                 <form action="" method="post" id="formDatBarang">
                                                     <div class="form-group">
                                                         <label for="kd_pembelian">Kode Pembelian</label>
-                                                        <input type="text" class="form-control" id="kd_pembelian" disabled>
+                                                        <input type="text" class="form-control" id="kd_pembelian" readonly>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="tglBeli">Tanggal Pembelian</label>
-                                                        <input type="text" class="form-control" id="tglBeli" disabled>
+                                                        <input type="text" class="form-control" id="tglBeli" readonly>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="nm_supplier">Supplier</label>
-                                                        <input type="text" class="form-control" id="nm_supplier" disabled>
+                                                        <input type="text" class="form-control" id="nm_supplier" readonly>
                                                     </div>
                                                 </form>
                                             </div>
@@ -67,10 +67,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
-                                        <div class="card card-primary">
+                                    <div class="col-md-9">
+                                        <div class="card card-secondary">
                                             <div class="card-header">
-                                                <h3 class="card-title">Pembelian dan Supplier</h3>
+                                                <h3 class="card-title">Daftar Barang</h3>
                                             </div>
                                             <div class="card-body">
                                                 <table class="table table-bordered table-striped" id="formDataDetail">
@@ -106,83 +106,90 @@
         <!-- /.content-wrapper -->
         <?php $this->load->view('Template/Footer') ?>
     </div>
+    <!-- ./wrapper -->
 
     <div class="modal fade" id="modal-kirimBarang">
         <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Kirim Barang Ke Gudang</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="overlay-wrapper">
+                <span id="loadingKirim"></span>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Kirim Barang Ke Gudang</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="post" id="formMasuk">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="qtyBeli_br">Quantity Pembelian</label>
+                                <input type="number" class="form-control" name="qtyBeli_br" id="qtyBeli_br" disabled>
+                                <input type="hidden" id="id_detail_br">
+                            </div>
+                            <div class="form-group">
+                                <label for="qtyBeli_to_gd">Quantity Masuk Gudang</label>
+                                <input type="number" class="form-control" name="qtyBeli_to_gd" id="qtyBeli_to_gd" autocomplete="off" placeholder="Masukkan Quantity">
+                            </div>
+                            <div class="form-group">
+                                <label for="tglGudangTerima">Tanggal</label>
+                                <input type="text" class="form-control datetimepicker-input" name="tglGudangTerima" id="tglGudangTerima" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy">
+                            </div>
+                            <div class="form-group">
+                                <label for="remarkGudangTerima">Deskripsi <span style="font-size: 11px;">(Opsional)</span></label>
+                                <textarea class="form-control" name="remarkGudangTerima" id="remarkGudangTerima" placeholder="Masukkan Deskripsi"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" id="closeSendBarang" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
+                            <button type="submit" class="btn btn-primary" id="sendBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
+                        </div>
+                    </form>
                 </div>
-                <form method="post" id="formMasuk">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="qtyBeli_br">Quantity Pembelian</label>
-                            <input type="number" class="form-control" name="qtyBeli_br" id="qtyBeli_br" disabled>
-                            <input type="hidden" id="id_detail_br">
-                        </div>
-                        <div class="form-group">
-                            <label for="qtyBeli_to_gd">Quantity Masuk Gudang</label>
-                            <input type="number" class="form-control" name="qtyBeli_to_gd" id="qtyBeli_to_gd" placeholder="Masukkan Quantity">
-                        </div>
-                        <div class="form-group">
-                            <label for="tglGudangTerima">Tanggal</label>
-                            <input type="text" class="form-control datetimepicker-input" name="tglGudangTerima" id="tglGudangTerima" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy">
-                        </div>
-                        <div class="form-group">
-                            <label for="remarkGudangTerima">Deskripsi</label>
-                            <textarea class="form-control" name="remarkGudangTerima" id="remarkGudangTerima"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
-                        <button type="submit" class="btn btn-primary" id="sendBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
-                    </div>
-                </form>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
 
     <div class="modal fade" id="modal-batalBarang">
         <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Barang Batal</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="overlay-wrapper">
+                <span id="loadingBatal"></span>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Barang Batal</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="post" id="formBatal">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="qtyBeli_btl">Quantity Pembelian</label>
+                                <input type="number" class="form-control" name="qtyBeli_btl" id="qtyBeli_btl" readonly>
+                                <input type="hidden" id="id_detail_btl">
+                            </div>
+                            <div class="form-group">
+                                <label for="qtyBatal">Quantity Batal</label>
+                                <input type="number" class="form-control" name="qtyBatal" id="qtyBatal" autocomplete="off" placeholder="Masukkan Quantity" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tglGudangBatal">Tanggal</label>
+                                <input type="text" class="form-control datetimepicker-input" id="tglGudangBatal" data-toggle="datetimepicker" data-target="#datetimepicker5" />
+                            </div>
+                            <div class="form-group">
+                                <label for="remarkBatal">Deskripsi <span style="font-size: 11px;">(Opsional)</span></label>
+                                <textarea class="form-control" name="remarkBatal" id="remarkBatal" placeholder="Masukkan Deskripsi"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" id="closeBtlBarang" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
+                            <button type="submit" class="btn btn-primary" id="btlBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
+                        </div>
+                    </form>
                 </div>
-                <form method="post" id="formBatal">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="qtyBeli_btl">Quantity Pembelian</label>
-                            <input type="text" class="form-control" name="qtyBeli_btl" id="qtyBeli_btl" disabled>
-                            <input type="hidden" id="id_detail_btl">
-                        </div>
-                        <div class="form-group">
-                            <label for="qtyBatal">Quantity Batal</label>
-                            <input type="text" name="qtyBatal" class="form-control" id="qtyBatal">
-                        </div>
-                        <div class="form-group">
-                            <label for="tglGudangBatal">Tanggal</label>
-                            <input type="text" class="form-control datetimepicker-input" id="tglGudangBatal" data-toggle="datetimepicker" data-target="#datetimepicker5" />
-                        </div>
-                        <div class="form-group">
-                            <label for="remarkBatal">Deskripsi</label>
-                            <textarea class="form-control" name="remarkBatal" id="remarkBatal"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
-                        <button type="submit" class="btn btn-primary" id="btlBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
-                    </div>
-                </form>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
@@ -201,6 +208,7 @@
                 format: 'DD-MM-YYYY',
                 maxDate: dateStart
             });
+
             $('#tglGudangBatal').datetimepicker({
                 format: 'DD-MM-YYYY',
                 maxDate: dateStart
@@ -212,74 +220,18 @@
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
 
-            $("#formMasuk").validate({
-                rules: {
-                    qtyBeli_to_gd: {
-                        required: true,
-                    },
-                    tglGudangTerima: {
-                        required: true,
-                        date: true
-                    },
-                    remarkGudangTerima: {
-                        required: true,
-                    },
-                },
-                messages: {
-                    qtyBeli_to_gd: {
-                        required: "Quantity Masuk Gudang Tidak Boleh Kosong",
-                    },
-                    tglGudangTerima: {
-                        required: "Tanggal Tidak Boleh Kosong",
-                    },
-                    remarkGudangTerima: {
-                        required: "Deskripsi Tidak Boleh Kosong",
-                    },
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                },
-                submitHandler: function(form) {
-                    let id_detail_br = $("#id_detail_br").val();
-                    let qtyBeli_to_gd = $("#qtyBeli_to_gd").val();
-                    let tglGudangTerima = $("#tglGudangTerima").val();
-                    let remarkGudangTerima = $("#remarkGudangTerima").val();
+        });
 
-                    $.ajax({
-                        type: "POST",
-                        data: {
-                            id_detail_br: id_detail_br,
-                            qtyBeli_to_gd: qtyBeli_to_gd,
-                            tglGudangTerima: tglGudangTerima,
-                            remarkGudangTerima: remarkGudangTerima
-                        },
-                        url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/insertGudang') ?>",
-                        dataType: "JSON",
-                        beforeSend: function() {
-                            $("#simpanBarang").addClass('disabled');
-                        },
-                        success: function(hasil) {
-                            console.log(hasil);
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Berhasil Simpan Pembelian Barang!'
-                            });
-                            setInterval(function() {
-                                location.reload();
-                            }, 3000);
-                        }
-                    });
-                }
-            });
-
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
         });
 
         function showInfoQty(obj) {
@@ -357,28 +309,39 @@
                                     <td>` + dt[i].satuan + `</td>
                                     <td>` + formatRupiah(dt[i].harga_beli, '') + `</td>
                                     <td>` + dt[i].qty_sisa + `&nbsp;<button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Qty Beli = ` + dt[i].qty + ` <br> Qty Gudang = ` + dt[i].qty_gudang + ` <br> Qty Batal = ` + dt[i].qty_batal + `" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button></td>
-                                    <td>`;
-                        if (dt[i].status_pembelian == '0') {
-                            row += `<span class="badge badge-info">Pembelian</span>`;
-                        } else if (dt[i].status_pembelian == '1') {
-                            row += `<span class="badge badge-warning">Masih Ada Sisa</span>`;
-                        } else if (dt[i].status_pembelian == '2') {
-                            row += `<span class="badge badge-success">Terpenuhi</span>`;
-                        } else {
-                            row += `<span class="badge badge-danger">Batal</span>`;
+                                    <td style="width: 10%; text-align: center;">`;
+                        if (dt[i].status_beli == '0') {
+                            row += `<span class="badge badge-info">Pengiriman</span>`;
                         }
+                        if (dt[i].status_beli == '1') {
+                            row += `<span class="badge badge-warning">Masih Ada Sisa</span>`;
+                        }
+                        if (dt[i].status_beli == '2') {
+                            row += `<span class="badge badge-success">Terpenuhi</span>`;
+                        }
+                        if (dt[i].status_beli == '3') {
+                            row += `<span class="badge badge-warning">Cancel Sebagian</span>`;
+                        }
+                        if (dt[i].status_beli == '4') {
+                            row += `<span class="badge badge-danger">Cancel</span>`;
+                        }
+                        if (dt[i].status_beli == '5') {
+                            row += `<span class="badge badge-warning">Masih Ada Sisa</span>`;
+                            row += `<span class="badge badge-warning">Cancel Sebagian</span>`;
+                        }
+
                         row += `</td>
-                                    <td>` + formatRupiah(dt[i].total, '') + `</td>
-                                    <td>
-                                        <button type="button" class="btn btn-xs btn-success" onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-kirimBarang"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Terima</button>
-                                        <button type="button" class="btn btn-xs btn-danger" onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-batalBarang"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Batal</button>
+                                    <td>Rp.` + formatRupiah(dt[i].total, '') + `</td>
+                                    <td style="width: 15%; text-align: center;">
+                                        <button type="button" class="btn btn-xs btn-success" onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-kirimBarang"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Terima</button>&nbsp;
+                                        <button type="button" class="btn btn-xs btn-danger" onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-batalBarang"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancel</button>
                                     </td>
                                 </tr>`;
                         sum += parseInt(dt[i].total);
                     }
                     rows += `<tr>
                                 <th colspan="6" style="text-align: right;"><strong>Sub Total</strong></th>
-                                <th colspan="2" style="text-align: left;"><strong>` + formatRupiah(sum.toString(), '') + `</strong></th>
+                                <th colspan="2" style="text-align: left;"><strong>Rp.` + formatRupiah(sum.toString(), '') + `</strong></th>
                             </tr>`;
                     $('#dataDetail').html(row);
                     $('#dataTotal').html(rows);
@@ -396,11 +359,165 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt);
-                    $("#qtyBeli_br").val(dt[0].qty);
+                    // console.log(dt[0].qty_sisa);
+                    $("#qtyBeli_br").val(dt[0].qty_sisa);
                     $("#id_detail_br").val(dt[0].id_detail);
-                    $("#qtyBeli_btl").val(dt[0].qty);
+                    $("#qtyBeli_btl").val(dt[0].qty_sisa);
                     $("#id_detail_btl").val(dt[0].id_detail);
+
+                    let qtySisa = parseInt(dt[0].qty_sisa);
+
+                    $("#formMasuk").validate({
+                        rules: {
+                            qtyBeli_to_gd: {
+                                required: true,
+                                min: 1,
+                                max: qtySisa
+                            },
+                            tglGudangTerima: {
+                                required: true,
+                                date: true
+                            },
+                            remarkGudangTerima: {
+                                required: true,
+                            },
+                        },
+                        messages: {
+                            qtyBeli_to_gd: {
+                                required: "Quantity Masuk Gudang Tidak Boleh Kosong",
+                                min: "Harus Mengisi Mulai dari Angka 1",
+                                max: "Jagan Melebihi Quantity Pembelian " + qtySisa
+                            },
+                            tglGudangTerima: {
+                                required: "Tanggal Tidak Boleh Kosong",
+                            },
+                            remarkGudangTerima: {
+                                required: "Deskripsi Tidak Boleh Kosong",
+                            },
+                        },
+                        errorElement: 'span',
+                        errorPlacement: function(error, element) {
+                            error.addClass('invalid-feedback');
+                            element.closest('.form-group').append(error);
+                        },
+                        highlight: function(element, errorClass, validClass) {
+                            $(element).addClass('is-invalid');
+                        },
+                        unhighlight: function(element, errorClass, validClass) {
+                            $(element).removeClass('is-invalid');
+                        },
+                        submitHandler: function(form) {
+                            let id_detail_br = $("#id_detail_br").val();
+                            let qtyBeli_to_gd = $("#qtyBeli_to_gd").val();
+                            let tglGudangTerima = $("#tglGudangTerima").val();
+                            let remarkGudangTerima = $("#remarkGudangTerima").val();
+
+                            $.ajax({
+                                type: "POST",
+                                data: {
+                                    id_detail_br: id_detail_br,
+                                    qtyBeli_to_gd: qtyBeli_to_gd,
+                                    tglGudangTerima: tglGudangTerima,
+                                    remarkGudangTerima: remarkGudangTerima
+                                },
+                                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/insertGudang') ?>",
+                                dataType: "JSON",
+                                beforeSend: function() {
+                                    $("#sendBarang").prop("disabled", true);
+                                    $("#closeSendBarang").prop("disabled", true);
+
+                                    var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                                    $("#loadingKirim").html(loading);
+                                },
+                                success: function(hasil) {
+                                    console.log(hasil);
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil Simpan Pembelian Barang!'
+                                    });
+                                    setInterval(function() {
+                                        location.reload();
+                                    }, 3000);
+                                }
+                            });
+                        }
+                    });
+
+                    $("#formBatal").validate({
+                        rules: {
+                            qtyBatal: {
+                                required: true,
+                                min: 1,
+                                max: qtySisa
+                            },
+                            tglGudangBatal: {
+                                required: true,
+                                date: true
+                            },
+                            remarkBatal: {
+                                required: true,
+                            },
+                        },
+                        messages: {
+                            qtyBatal: {
+                                required: "Quantity Masuk Gudang Tidak Boleh Kosong",
+                                min: "Harus Mengisi Mulai dari Angka 1",
+                                max: "Jangan Melebihi Quantity Pembelian " + qtySisa
+                            },
+                            tglGudangBatal: {
+                                required: "Tanggal Tidak Boleh Kosong",
+                            },
+                            remarkBatal: {
+                                required: "Deskripsi Tidak Boleh Kosong",
+                            },
+                        },
+                        errorElement: 'span',
+                        errorPlacement: function(error, element) {
+                            error.addClass('invalid-feedback');
+                            element.closest('.form-group').append(error);
+                        },
+                        highlight: function(element, errorClass, validClass) {
+                            $(element).addClass('is-invalid');
+                        },
+                        unhighlight: function(element, errorClass, validClass) {
+                            $(element).removeClass('is-invalid');
+                        },
+                        submitHandler: function(form) {
+                            let id_detail_btl = $("#id_detail_btl").val();
+                            let qtyBatal = $("#qtyBatal").val();
+                            let tglGudangBatal = $("#tglGudangBatal").val();
+                            let remarkBatal = $("#remarkBatal").val();
+
+                            $.ajax({
+                                type: "POST",
+                                data: {
+                                    id_detail_btl: id_detail_btl,
+                                    qtyBatal: qtyBatal,
+                                    tglGudangBatal: tglGudangBatal,
+                                    remarkBatal: remarkBatal
+                                },
+                                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/batalGudang') ?>",
+                                dataType: "JSON",
+                                beforeSend: function() {
+                                    $("#btlBarang").prop("disabled", true);
+                                    $("#closeBtlBarang").prop("disabled", true);
+
+                                    var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                                    $("#loadingBatal").html(loading);
+                                },
+                                success: function(hasil) {
+                                    console.log(hasil);
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil Cencel Pembelian Barang!'
+                                    });
+                                    setInterval(function() {
+                                        location.reload();
+                                    }, 3000);
+                                }
+                            });
+                        }
+                    });
                 }
             })
 

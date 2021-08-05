@@ -37,4 +37,10 @@ class DataBarang extends CI_Controller
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Barang/DataBarang', $data);
     }
+
+    public function getDataStokBarang()
+    {
+        $getData = $this->Barang->getDataStokBarang();
+        echo json_encode($getData);
+    }
 }

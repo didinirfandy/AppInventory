@@ -50,12 +50,12 @@
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <label for="kodePembelian">Kode Pembelian</label>
-                                                        <input type="text" class="form-control" id="kodePembelian" name="kodePembelian" disabled value="<?= $getKdBeli; ?>">
+                                                        <input type="text" class="form-control" id="kodePembelian" name="kodePembelian" readonly value="<?= $getKdBeli; ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="kdBarang">Kode Barang</label>
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" id="kdBarang" name="kdBarang" placeholder="Kode Barang" autocomplete="off" disabled required>
+                                                            <input type="text" class="form-control" id="kdBarang" name="kdBarang" placeholder="Kode Barang" autocomplete="off" readonly required>
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-sm btn-default" type="button" data-toggle="modal" data-target="#modal-kodeBarang" style="float: left;"><i class="fas fa-ellipsis-v"></i></button>
                                                             </div>
@@ -63,7 +63,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="nmBarang">Nama Barang</label>
-                                                        <textarea class="form-control" id="nmBarang" name="nmBarang" rows="2" placeholder="Nama Barang" disabled required></textarea>
+                                                        <textarea class="form-control" id="nmBarang" name="nmBarang" rows="2" placeholder="Nama Barang" readonly required></textarea>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -97,7 +97,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <div class="card card-primary">
+                                        <div class="card card-secondary">
                                             <div class="card-header">
                                                 <h3 class="card-title">Pembelian Barang</h3>
                                             </div>
@@ -406,7 +406,7 @@
                 toast.addEventListener('mouseenter', Swal.stopTimer)
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
-        })
+        });
 
         function formatRupiah(angka, prefix) {
             var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -448,7 +448,6 @@
                     let row = rows = '';
                     let sum = 0;
                     for (let i = 0; i < dt.length; i++) {
-
                         row += `<tr>
                                     <td>` + (i + 1) + `</td>
                                     <td>` + dt[i].nama + `</td>
@@ -460,13 +459,9 @@
                                         <button type="button" class="btn btn-xs btn-danger" onclick="delPembelian('` + dt[i].id_tem + `')"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
                                     </td>
                                 </tr>`;
-
                         sum += parseInt(dt[i].total);
-
                     }
-
                     $("#getSubTotal").val(sum);
-
                     rows += `<tr>
                                 <th colspan="5" style="text-align: right;"><strong>Sub Total</strong></th>
                                 <th colspan="2" style="text-align: left;"><strong>` + formatRupiah(sum.toString(), '') + `</strong></th>

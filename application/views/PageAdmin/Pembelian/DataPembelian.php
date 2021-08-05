@@ -84,11 +84,53 @@
     </div>
     <!-- ./wrapper -->
 
+    <div class="modal fade" id="modal-cencel">
+        <div class="modal-dialog modal-md">
+            <div class="overlay-wrapper">
+                <span id="loadingCencel"></span>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Barang Cencel</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="post" id="formCencel">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="tglcencel">Tanggal</label>
+                                <input type="text" class="form-control datetimepicker-input" name="tglcencel" id="tglcencel" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy">
+                            </div>
+                            <div class="form-group">
+                                <label for="remarkCencel">Deskripsi <span style="font-size: 11px;">(Opsional)</span></label>
+                                <textarea class="form-control" name="remarkCencel" id="remarkCencel" placeholder="Masukkan Deskripsi"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" id="closeCencel" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
+                            <button type="submit" class="btn btn-primary" id="btnCencel"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <?php $this->load->view('Template/DataTablesJS') ?>
 
     <script type="text/javascript">
         $(function() {
             displayData()
+
+            let dateStart = moment();
+
+            $('#tglcencel').datetimepicker({
+                format: 'DD-MM-YYYY',
+                maxDate: dateStart
+            });
+
             $("#tableDataBarang").DataTable({
                 "responsive": true,
                 "autoWidth": false,
@@ -111,6 +153,25 @@
 
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
+        }
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        function showInfoQty(obj) {
+            $(obj).popover({
+                html: true
+            });
+            $(obj).popover('show');
         }
 
         function displayData() {
@@ -136,11 +197,11 @@
                                 <td>` + dt[i].kd_pembelian + `</td>
                                 <td>` + tgl_pembelian + `</td>
                                 <td>` + dt[i].nama_supplier + `</td>
-                                <td>` + dt[i].qty + `</td>
+                                <td>` + dt[i].qty_sisa + `&nbsp;<button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Total Beli = ` + dt[i].qty + ` <br> Total Sisa = ` + dt[i].qty_sisa + `" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button></td>
                                 <td>` + formatRupiah(dt[i].total_pembelian, '') + `</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary" onclick="openDetail('` + dt[i].kd_pembelian + `')"><i class="fas fa-search"></i>&nbsp;&nbsp;Detail</button>&nbsp;&nbsp;
-                                    <button class="btn btn-sm btn-danger" onclick=""><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
+                                    <button class="btn btn-xs btn-primary" onclick="openDetail('` + dt[i].kd_pembelian + `')"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</button>&nbsp;&nbsp;
+                                    <button class="btn btn-xs btn-danger" onclick="cencelAll('` + dt[i].kd_pembelian + `')" data-toggle="modal" data-target="#modal-cencel"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Cencel</button>
                                 </td>
                             </tr>`;
                     }
@@ -154,6 +215,71 @@
                 sessionStorage.setItem("kd_pembelian", kd_pembelian);
                 location.href = "<?= base_url("Admin/Pembelian/DataBarangPembelian/index") ?>";
             }
+        }
+
+        function cencelAll(kd_pembelian) {
+
+            $("#formCencel").validate({
+                rules: {
+                    tglcencel: {
+                        required: true
+                    },
+                    remarkCencel: {
+                        required: true
+                    }
+                },
+                messages: {
+                    tglcencel: {
+                        required: "Tanggal Tidak Boleh Kosong"
+                    },
+                    remarkCencel: {
+                        required: "Deskripsi Tidak Boleh Kosong"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                },
+                submitHandler: function(form) {
+                    let tglcencel = $("#tglcencel").val();
+                    let remarkCencel = $("#remarkCencel").val();
+
+                    $.ajax({
+                        type: "POST",
+                        data: {
+                            kd_pembelian: kd_pembelian,
+                            tglcencel: tglcencel,
+                            remarkCencel: tglGudangTerima
+                        },
+                        url: "<?= base_url('Admin/Pembelian/DataPembelian/CencelPembelian') ?>",
+                        dataType: "JSON",
+                        beforeSend: function() {
+                            $("#btnCencel").prop("disabled", true);
+                            $("#closeCencel").prop("disabled", true);
+
+                            var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                            $("#loadingCencel").html(loading);
+                        },
+                        success: function(hasil) {
+                            console.log(hasil);
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Berhasil Cencel Pembelian Barang!'
+                            });
+                            setInterval(function() {
+                                location.reload();
+                            }, 3000);
+                        }
+                    });
+                }
+            });
         }
     </script>
 

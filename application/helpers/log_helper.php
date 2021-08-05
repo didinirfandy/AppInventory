@@ -22,7 +22,7 @@ function activity_log($menu, $aksi, $item)
     $CI->Activity_log->save_log($param);
 }
 
-function activity_log_barang($kd_pembelian, $kd_supplier, $kd_barang, $qty_in, $qty_out, $qty_cancel, $remark)
+function activity_log_barang($kd_pembelian, $kd_supplier, $kd_barang, $qty_sisa, $qty_gudang, $qty_batal, $remark)
 {
     $CI = &get_instance();
 
@@ -35,9 +35,9 @@ function activity_log_barang($kd_pembelian, $kd_supplier, $kd_barang, $qty_in, $
         'kd_pembelian'  => $kd_pembelian,
         'kd_supplier'   => $kd_supplier,
         'kd_barang'     => $kd_barang,
-        'qty_in'        => $qty_in,
-        'qty_out'       => $qty_out,
-        'qty_cancel'    => $qty_cancel,
+        'qty_sisa'      => $qty_sisa,
+        'qty_gudang'    => $qty_gudang,
+        'qty_batal'     => $qty_batal,
         'remark'        => $remark,
     );
 
@@ -46,6 +46,34 @@ function activity_log_barang($kd_pembelian, $kd_supplier, $kd_barang, $qty_in, $
 
     //save to database
     $CI->Activity_log->insertDataLog($param);
+}
+
+function activity_log_harga($kd_pembelian, $kd_supplier, $kd_gudang, $kd_barang, $harga_start, $harga_now, $tgl_masuk_gudang, $tgl_harga_naik, $tgl_harga_turun)
+{
+    $CI = &get_instance();
+
+    date_default_timezone_set('Asia/Jakarta');
+    $time   = date("Y-m-d H:i:s");
+
+    $param = array(
+        'date_log'          => $time,
+        'nik_admin'         => (int) $CI->session->userdata('nik'),
+        'kd_pembelian'      => $kd_pembelian,
+        'kd_barang'         => $kd_barang,
+        'kd_gudang'         => $kd_gudang,
+        'kd_supplier'       => $kd_supplier,
+        'harga_start'       => $harga_start,
+        'harga_now'         => $harga_now,
+        'tgl_masuk_gudang'  => $tgl_masuk_gudang,
+        'tgl_harga_naik'    => $tgl_harga_naik,
+        'tgl_harga_turun'   => $tgl_harga_turun,
+    );
+
+    //load model log
+    $CI->load->model('Activity_log');
+
+    //save to database
+    $CI->Activity_log->saveLogHarga($param);
 }
 
 function tgl_indo($tanggal)
