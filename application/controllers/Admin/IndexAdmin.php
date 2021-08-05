@@ -25,7 +25,7 @@ class IndexAdmin extends CI_Controller
         // $this->load->model('Login_model');
 
         if (empty($_SESSION['username'])) {
-            $this->session->set_flashdata('notif', 'Gagal Login');
+            $this->session->set_flashdata('notifError', 'Anda Harus Login Terlebih Dahulu');
             redirect('Login/index');
         }
     }

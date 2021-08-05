@@ -25,10 +25,9 @@ class LoginModel extends CI_Model
         }
 
         if ($valid == 1) {
-            $row = $get->row_array();
             if ($get->num_rows() > 0) {
                 $date = date("Y-m-d H:i:s");
-                $data = array('date_login' => $date, 'status_login' => 1);
+                $data = array('date_login' => $date, 'status_login' => '1');
 
                 $this->db->where('username', $username);
                 $this->db->update('master_login', $data);

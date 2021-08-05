@@ -34,7 +34,7 @@ class TambahDataBarang extends CI_Controller
     {
         $data['title'] = "Tambah Data Barang";
 
-        $this->load->view('Template/Head', $data);
+        $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Barang/TambahDataBarang', $data);
     }
 }

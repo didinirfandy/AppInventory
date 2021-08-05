@@ -24,6 +24,7 @@ class DataBarangPembelian extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Pembelian');
+        $this->load->model('Barang');
 
         if (empty($_SESSION['username'])) {
             $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
@@ -34,14 +35,54 @@ class DataBarangPembelian extends CI_Controller
     public function index()
     {
         $data['title'] = "Data Barang Pembelian";
+        $kd_pembelian = $this->uri->segment(5);
+
+        $data['master'] = $this->Pembelian->getMasterpembelian($kd_pembelian);
 
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Pembelian/DataBarangPembelian', $data);
     }
 
+    public function getMaster()
+    {
+        $kd_pembelian = $this->input->post("kd_pembelian");
+        $data = $this->Pembelian->getMasterpembelian($kd_pembelian);
+        echo json_encode($data);
+    }
+
     public function GetData()
     {
-        $data = $this->Pembelian->tampil_barang_pembelian();
+        $kd_pembelian = $this->input->post("kd_pembelian");
+        $data = $this->Pembelian->GetDetailPembelian($kd_pembelian);
+        echo json_encode($data);
+    }
+
+    public function GetQtyBli()
+    {
+        $id_detail = $this->input->post('id_detail');
+        $data = $this->Pembelian->GetQtyBli($id_detail);
+        echo json_encode($data);
+    }
+
+    public function insertGudang()
+    {
+        $id_detail   = $this->input->post('id_detail_br');
+        $qty         = $this->input->post('qtyBeli_to_gd');
+        $tgl_gudang  = date("Y-m-d", strtotime($this->input->post('tglGudangTerima')));
+        $remark      = $this->input->post('remarkGudangTerima');
+
+        $data = $this->Barang->insertGudang($id_detail, $qty, $tgl_gudang, $remark);
+        echo json_encode($data);
+    }
+
+    public function batalGudang()
+    {
+        $id_detail  = $this->input->post('id_detail_btl');
+        $qty        = $this->input->post('qtyBatal');
+        $tgl        = date("Y-m-d", strtotime($this->input->post('tglGudangBatal')));
+        $remark     = $this->input->post('remarkBatal');
+
+        $data = $this->Barang->batalGudang($id_detail, $qty, $tgl, $remark);
         echo json_encode($data);
     }
 }

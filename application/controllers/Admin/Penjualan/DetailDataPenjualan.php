@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class DataPembelian extends CI_Controller
+class DetailDataPenjualan extends CI_Controller
 {
 
     /**
@@ -33,25 +33,9 @@ class DataPembelian extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Data Pembelian";
+        $data['title'] = "Detail Data Penjualan";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
-        $this->load->view('PageAdmin/Pembelian/DataPembelian');
-    }
-
-    public function GetData()
-    {
-        $data = $this->Pembelian->GetDataPembelian();
-        echo json_encode($data);
-    }
-
-    public function CencelPembelian()
-    {
-        $kd_pembelian   = $this->input->post('kd_pembelian');
-        $tglcencel      = $this->input->post('tglcencel');
-        $remarkCencel   = $this->input->post('remarkCencel');
-        $data = $this->Pembelian->CencelPembelian($kd_pembelian, $tglcencel, $remarkCencel);
-
-        echo json_encode($data);
+        $this->load->view('PageAdmin/Penjualan/DetailDataPenjualan');
     }
 }

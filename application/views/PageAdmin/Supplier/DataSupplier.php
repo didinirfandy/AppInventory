@@ -37,7 +37,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <a href="<?= base_url()?>Admin/Supplier/TambahDataSupplier" class="btn btn-sm btn-primary" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Supplier</a>      
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-supplier" id="tambahSuppBtn" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Supplier</button>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -45,19 +45,23 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Kode Supplier</th>
                                                 <th>Nama Supplier</th>
                                                 <th>Alamat</th>
+                                                <th>Deksripsi</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="datasuplier">
-                                            
+
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Kode Supplier</th>
                                                 <th>Nama Supplier</th>
                                                 <th>Alamat</th>
+                                                <th>Deksripsi</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </tfoot>
@@ -79,47 +83,192 @@
     </div>
     <!-- ./wrapper -->
 
+    <!-- Modal Kode Barang -->
+    <div class="modal fade" id="modal-supplier">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Data Supplier</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" id="formDatSupplier">
+                        <div class="form-group" id="kodeSuppCont">
+                            <label for="kodeSupplier">Kode Supplier</label>
+                            <input type="hidden" class="form-control" id="idSupp" placeholder="idSupp" value="">
+                            <input type="text" class="form-control" id="kodeSupplier" placeholder="Kode Supplier" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="namaSupplier">Nama Supplier</label>
+                            <input type="text" class="form-control" id="namaSupplier" placeholder="Nama Supplier" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="alamatSupplier">Alamat Supplier</label>
+                            <input type="text" class="form-control" id="alamatSupplier" placeholder="Alamat Supplier" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="deskripsiSupp">Deskripsi</label>
+                            <textarea name="deskripsiSupp" id="deskripsiSupp" class="form-control" placeholder="Deskripsi Supplier" value=""></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="addSupp" class="btn btn-primary addSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <?php $this->load->view('Template/DataTablesJS') ?>
 
     <script type="text/javascript">
         $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
             displayData()
             $("#tableDataSupplier").DataTable({
                 "responsive": true,
                 // "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["excel", "pdf"],
+                // "buttons": ["excel", "pdf"],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             }).buttons().container().appendTo('#tableDataSupplier_wrapper .col-md-6:eq(0)');
+
+            $("#tambahSuppBtn").click(function() {
+                $("#kodeSuppCont").hide();
+                $('.modal-title').text("Tambah Data Supplier");
+            })
+
+            $("#addSupp").click(function() {
+                let idSupp = $("#idSupp").val();
+                let kodeSupp = $("#kodeSupplier").val();
+                let namaSupp = $("#namaSupplier").val();
+                let alamatSupp = $("#alamatSupplier").val();
+                let deskSupp = $("#deskripsiSupp").val();
+
+                if (idSupp == '') { // UNTUK ADD                    
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('Admin/Supplier/DataSupplier/tambahSupplier') ?>",
+                        data: {
+                            namaSupp,
+                            alamatSupp,
+                            deskSupp
+                        },
+                        dataType: "json",
+                        async: false,
+                        success: function(data) {
+                            if (data) {
+                                $("#kodeSupplier").val('')
+                                $("#namaSupplier").val('')
+                                $("#alamatSupplier").val('')
+                                $("#deskripsiSupp").val('')
+                                $("#modal-supplier").modal("hide")
+                                displayData()
+
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Data Supplier Berhasil Disimpan.'
+                                })
+                            }
+                        }
+                    })
+                } else {
+                    //UNTUK EDIT
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('Admin/Supplier/DataSupplier/updateSupplier') ?>",
+                        data: {
+                            kodeSupp,
+                            namaSupp,
+                            alamatSupp,
+                            deskSupp
+                        },
+                        dataType: "json",
+                        async: false,
+                        success: function(data) {
+                            if (data) {
+                                $("#idSupp").val('')
+                                $("#kodeSupplier").val('')
+                                $("#namaSupplier").val('')
+                                $("#alamatSupplier").val('')
+                                $("#deskripsiSupp").val('')
+                                $("#modal-supplier").modal("hide")
+                                displayData()
+
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Data Supplier Berhasil Disimpan.'
+                                })
+                            }
+                        }
+                    })
+                }
+            });
         });
 
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
+                url: "<?= base_url('Admin/Supplier/DataSupplier/getDataSupplier') ?>",
                 dataType: "json",
                 async: false,
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);                    
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
+                        let deskripsi = data[i].deskripsi == null ? '' : data[i].deskripsi;
                         row += `<tr>
-                                    <td></td>                                    
-                                    <td></td>
-                                    <td></td>
+                                    <td>` + (i + 1) + `</td>                                    
+                                    <td>` + data[i].kd_supplier + `</td>
+                                    <td>` + data[i].nama_supplier + `</td>
+                                    <td>` + data[i].alamat + `</td>
+                                    <td>` + deskripsi + `</td>
                                     <td>
-                                        <a href="#" class="btn bt-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>
-                                        <button class="btn bt-sm btn-danger" id="hapusData" onClick="validateHapus(this)"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                        <button class="btn bt-sm btn-primary updateSupp" name="updateSupp" id="updateSupp" onClick="editSupp('` + data[i].kd_supplier + `')"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn bt-sm btn-danger" type="button" id="hapusData" onClick="validateHapus('` + data[i].kd_supplier + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
                                     </td>
                                 </tr>`;
                     }
-                    $('#databarang').html(row);
+                    $('#datasuplier').html(row);
                 }
             })
         }
 
-        function validateHapus(a)
-        {
+        function editSupp(a) {
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('Admin/Supplier/DataSupplier/getDataSupplierKode') ?>",
+                data: {
+                    kode: a
+                },
+                dataType: "json",
+                async: false,
+                success: function(data) {
+                    // console.log(data.kd_supplier)
+                    $("#modal-supplier").modal("show")
+                    $('.modal-title').text("Edit Data Supplier");
+                    $("#kodeSupplier").prop('readonly', true);
+                    $("#idSupp").val(data.id_supplier);
+                    $("#kodeSupplier").val(data.kd_supplier)
+                    $("#namaSupplier").val(data.nama_supplier)
+                    $("#alamatSupplier").val(data.alamat)
+                    $("#deskripsiSupp").val(data.deskripsi)
+                }
+            })
+        }
+
+        function validateHapus(a) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -128,13 +277,25 @@
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('Admin/Supplier/DataSupplier/deleteDataSupplier') ?>",
+                        data: {
+                            kode: a
+                        },
+                        dataType: "json",
+                        async: false,
+                        success: function(data) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            displayData()
+                        }
+                    })
                 }
             });
         }

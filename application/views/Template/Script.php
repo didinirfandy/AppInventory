@@ -2,19 +2,8 @@
 <script src="<?= base_url(); ?>assetsApp/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?= base_url(); ?>assetsApp/plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-    $.widget.bridge('uibutton', $.ui.button)
-
-    $(".welcome").Toasts('create', {
-        title: 'Welcome',
-        autohide: true,
-        delay: 3000,
-        body: 'Aplikasi Inventory'
-    });
-</script>
 <!-- Bootstrap 4 -->
-<script src="<?= base_url(); ?>assetsApp/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="<?= base_url(); ?>assetsApp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
 <script src="<?= base_url(); ?>assetsApp/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -33,14 +22,12 @@
 <script src="<?= base_url(); ?>assetsApp/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="<?= base_url(); ?>assetsApp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?= base_url(); ?>assetsApp/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url(); ?>assetsApp/dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?= base_url(); ?>assetsApp/dist/js/pages/dashboard.js"></script>
 <!-- Toastr -->
 <script src="<?= base_url(); ?>assetsApp/plugins/toastr/toastr.min.js"></script>
+<!-- AdminLTE App -->
+<script src="<?= base_url(); ?>assetsApp/dist/js/adminlte.min.js"></script>
 <!-- Select2 -->
 <script src="<?= base_url(); ?>assetsApp/plugins/select2/js/select2.full.min.js"></script>
 <!-- Time active -->

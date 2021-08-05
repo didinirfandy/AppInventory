@@ -19,6 +19,8 @@
 <script src="<?= base_url(); ?>assetsApp/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url(); ?>assetsApp/dist/js/demo.js"></script>
+<!-- Toastr -->
+<script src="<?= base_url(); ?>assetsApp/plugins/toastr/toastr.min.js"></script>
 <!-- SweetAlert2 -->
 <script src="<?= base_url(); ?>assetsApp/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Time active -->
@@ -27,10 +29,11 @@
 <script src="<?= base_url(); ?>assetsApp/plugins/moment/moment.min.js"></script>
 <!-- bootstrap color picker -->
 <script src="<?= base_url(); ?>assetsApp/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!--  -->
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<!-- jquery-validation -->
+<script src="<?= base_url(); ?>assetsApp/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="<?= base_url(); ?>assetsApp/plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- MagciSuggest -->
-<!-- <script src="<?= base_url(); ?>assetsApp/MagicSuggest/magicsuggest-min.js"></script> -->
+<!-- <script src="assetsApp/MagicSuggest/magicsuggest-min.js"></script> -->
 
 <!-- Reload Page -->
 <script type="text/javascript">
