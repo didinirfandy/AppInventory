@@ -108,7 +108,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <div class="modal fade" id="modal-kirimBarang">
+    <div class="modal fade" id="modal-kirimBarang" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-md">
             <div class="overlay-wrapper">
                 <span id="loadingKirim"></span>
@@ -140,8 +140,8 @@
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" id="closeSendBarang" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
-                            <button type="submit" class="btn btn-primary" id="sendBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
+                            <button type="button" class="btn btn-sm btn-default" id="closeSendBarang" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="sendBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
                         </div>
                     </form>
                 </div>
@@ -151,7 +151,7 @@
         <!-- /.modal-dialog -->
     </div>
 
-    <div class="modal fade" id="modal-batalBarang">
+    <div class="modal fade" id="modal-batalBarang" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-md">
             <div class="overlay-wrapper">
                 <span id="loadingBatal"></span>
@@ -183,8 +183,8 @@
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" id="closeBtlBarang" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
-                            <button type="submit" class="btn btn-primary" id="btlBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
+                            <button type="button" class="btn btn-sm btn-default" id="closeBtlBarang" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="btlBarang"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
                         </div>
                     </form>
                 </div>
@@ -378,9 +378,7 @@
                                 required: true,
                                 date: true
                             },
-                            remarkGudangTerima: {
-                                required: true,
-                            },
+                            remarkGudangTerima: "required",
                         },
                         messages: {
                             qtyBeli_to_gd: {
@@ -390,10 +388,9 @@
                             },
                             tglGudangTerima: {
                                 required: "Tanggal Tidak Boleh Kosong",
+                                date: "Harus menginputkan tanggal"
                             },
-                            remarkGudangTerima: {
-                                required: "Deskripsi Tidak Boleh Kosong",
-                            },
+                            remarkGudangTerima: "Deskripsi Tidak Boleh Kosong",
                         },
                         errorElement: 'span',
                         errorPlacement: function(error, element) {
@@ -454,9 +451,7 @@
                                 required: true,
                                 date: true
                             },
-                            remarkBatal: {
-                                required: true,
-                            },
+                            remarkBatal: "required",
                         },
                         messages: {
                             qtyBatal: {
@@ -466,10 +461,9 @@
                             },
                             tglGudangBatal: {
                                 required: "Tanggal Tidak Boleh Kosong",
+                                date: "Harus menginputkan tanggal"
                             },
-                            remarkBatal: {
-                                required: "Deskripsi Tidak Boleh Kosong",
-                            },
+                            remarkBatal: "Deskripsi Tidak Boleh Kosong",
                         },
                         errorElement: 'span',
                         errorPlacement: function(error, element) {

@@ -54,48 +54,19 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="tglBeli">Tanggal Penjualan</label>
-                                                        <input type="text" class="form-control datetimepicker-input" id="tglBeli" name="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off" required>
+                                                        <input type="text" class="form-control datetimepicker-input" id="tglBeli" name="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off" readonly>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="kdBarang">Kode Barang</label>
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" id="kdBarang" name="kdBarang" placeholder="Kode Barang" autocomplete="off" disabled required>
-                                                            <div class="input-group-append">
-                                                                <button class="btn btn-sm btn-default" type="button" data-toggle="modal" data-target="#modal-kodeBarang" style="float: left;"><i class="fas fa-ellipsis-v"></i></button>
-                                                            </div>
-                                                        </div>
+                                                        <label for="namaPelanggan">Nama Pelanggan</label>
+                                                        <input type="text" class="form-control" name="namaPelanggan" id="namaPelanggan" value="" readonly>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="nmBarang">Nama Barang</label>
-                                                        <textarea class="form-control" id="nmBarang" name="nmBarang" rows="2" placeholder="Nama Barang" disabled required></textarea>
+                                                        <label for="alamatPelanggan">Alamat Pelanggan</label>
+                                                        <textarea name="alamatPelanggan" class="form-control" id="alamatPelanggan" readonly></textarea>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <label for="qtyBeli">Quantity</label>
-                                                                <input type="number" class="form-control" id="qtyBeli" name="qtyBeli" placeholder="Masukkan Quantity" min="1" max="1000" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <label for="satuan">Satuan</label>
-                                                                <!-- <input type="text" class="form-control" id="satuan" name="satuan" placeholder="Masukkan Satuan" autocomplete="off" required> -->
-                                                                <select class="form-control" name="satuan" id="satuan" required>
-                                                                    <option value="">-- PILIH --</option>
-                                                                    <option value="SET">SET</option>
-                                                                    <option value="UNIT">UNIT</option>
-                                                                    <option value="PCS">PCS</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- <div class="form-group">
-                                                        <label for="hrgBeli">Harga</label>
-                                                        <input type="text" class="form-control" id="hrgBeli" name="hrgBeli" placeholder="Masukkan Harga" autocomplete="off" required>
-                                                    </div> -->
                                                 </div>
                                                 <div class="card-footer">
-                                                    <button type="submit" class="btn btn-sm btn-primary" id="tmbDataPembelian"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</button>
+                                                    <button class="btn btn-sm btn-info" type="button" onclick="btnrRturn()"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Kembali</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -133,7 +104,7 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="hargaTot" id="hargaTot">
+                                                            <input type="text" class="form-control" name="hargaTot" id="hargaTot" readonly>
                                                         </div>
                                                      </div>                                                    
                                                 </div>   
@@ -144,7 +115,7 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja" require>
+                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja" readonly>
                                                         </div>
                                                      </div>                                                    
                                                 </div>
@@ -155,11 +126,10 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="kembalianBelanja" id="kembalianBelanja" require>
+                                                            <input type="text" class="form-control" name="kembalianBelanja" id="kembalianBelanja" readonly>
                                                         </div>
                                                      </div>                                                    
-                                                </div>                                                
-                                                <button type="button" class="btn btn-sm btn-success" id="simpan" data-toggle="modal" data-target="#modal-simpan" style="float: right"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
+                                                </div> 
                                             </div>
                                         </div>
                                     </div>
@@ -176,75 +146,6 @@
         <?php $this->load->view('Template/Footer') ?>
     </div>
     <!-- ./wrapper -->
-
-    <!-- Modal Kode Barang -->
-    <div class="modal fade" id="modal-kodeBarang">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Daftar Kode Barang</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-striped" id="kodeBarang">
-                        <thead>
-                            <th>No</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
-                            <th>Action</th>
-                        </thead>
-                        <tbody id="datakode">
-                        </tbody>
-                        <tfoot>
-                            <th>No</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
-                            <th>Action</th>
-                        </tfoot>
-                    </table>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="modal-simpan">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Simpan Daftar Barang</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="post" id="formSimpanBarang">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="namaPelanggan">Nama Pelanggan</label>
-                            <input type="text" class="form-control" name="namaPelanggan" id="namaPelanggan" value="" require>
-                        </div>
-                        <div class="form-group">
-                            <label for="alamatPelanggan">Alamat Pelanggan</label>
-                            <textarea name="alamatPelanggan" class="form-control" id="alamatPelanggan" require></textarea>
-                        </div>
-                        <input type="text" style="display: none;" name="kdPembelian" value="">
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>
-                        <button type="submit" class="btn btn-primary" id="simpanBarang"><i class="fa fa-save"></i> Ok</button>
-                    </div>
-                </form>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
 
     <?php $this->load->view('Template/DataTablesJS') ?>
 

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class DataBarang extends CI_Controller
+class DetailDataPenjualan extends CI_Controller
 {
 
     /**
@@ -19,10 +19,11 @@ class DataBarang extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Barang');
+        $this->load->model('Pembelian');
 
         if (empty($_SESSION['username'])) {
             $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
@@ -32,15 +33,9 @@ class DataBarang extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Data Stock Barang";
+        $data['title'] = "Detail Data Penjualan";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
-        $this->load->view('PageAdmin/Barang/DataBarang', $data);
-    }
-
-    public function getDataStokBarang()
-    {
-        $getData = $this->Barang->getDataStokBarang();
-        echo json_encode($getData);
+        $this->load->view('PageAdmin/Penjualan/DetailDataPenjualan');
     }
 }

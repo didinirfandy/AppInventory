@@ -229,23 +229,17 @@
                         min: 1,
                         max: 1000
                     },
-                    satuan: {
-                        required: true,
-                    },
-                    hrgBeli: {
-                        required: true,
-                    },
+                    satuan: "required",
+                    hrgBeli: "required",
                 },
                 messages: {
                     qtyBeli: {
                         required: "Quantity Tidak Boleh Kosong",
+                        min: "Harus Mengisi Mulai dari Angka 1",
+                        max: "Jangan Melebihi 1000"
                     },
-                    satuan: {
-                        required: "Satuan Tidak Boleh Kosong",
-                    },
-                    hrgBeli: {
-                        required: "Harga Tidak Boleh Kosong"
-                    },
+                    satuan: "Satuan Tidak Boleh Kosong",
+                    hrgBeli: "Harga Tidak Boleh Kosong",
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
@@ -305,23 +299,16 @@
                         required: true,
                         date: true
                     },
-                    kdSupplier: {
-                        required: true,
-                    },
-                    remark: {
-                        required: true,
-                    },
+                    kdSupplier: "required",
+                    remark: "required",
                 },
                 messages: {
                     tglBeli: {
                         required: "Tanggal Tidak Boleh Kosong",
+                        date: "Harus menginput tanggal"
                     },
-                    kdSupplier: {
-                        required: "Supplier Tidak Boleh Kosong",
-                    },
-                    remark: {
-                        required: "Remark Tidak Boleh Kosong",
-                    },
+                    kdSupplier: "Supplier Tidak Boleh Kosong",
+                    remark: "Remark Tidak Boleh Kosong",
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

@@ -91,36 +91,60 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" id="formDataBarang">
+                    <form action="" method="post" id="formMstrBarang">
                         <div class="row">
-                            <select name="optTambah" class="form-control col-lg-5" id="optTambah">
-                                <!-- <option value="pcs">PCS</option>
-                                <option value="lsn">Lusin</option>
-                                <option value="dus">Dus</option> -->
+                            <select name="optTambah" class="form-control col-lg-6" id="optTambah">
                             </select>
                         </div><br>
-                        <div class="form-group">
-                            <label for="kodeHeader">Barang Header</label>
-                            <input type="hidden" class="form-control" id="idSupp" placeholder="idSupp" value="">
-                            <div class="row">
-                                <input type="text" class="form-control col-lg-5" id="kodeHeader" name="kodeHeader" placeholder="Kode Header Barang" value="" readonly>
-                                &nbsp;&nbsp;&nbsp;
-                                <input type="text" class="form-control col-lg-6" id="namaHeader" name="namaHeader" placeholder="Nama Header Barang" value="">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="kodeHeader">Barang Header</label>
+                                    <input type="hidden" class="form-control" id="idSupp" placeholder="idSupp" value="">
+                                    <input type="text" class="form-control" id="kodeHeader" name="kodeHeader" placeholder="Kode Header Barang" value="" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="namaHeader">&nbsp;</label>
+                                    <input type="text" class="form-control" id="namaHeader" name="namaHeader" placeholder="Nama Header Barang" value="">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group detailBrg">
-                            <label for="kodeDetail">Barang Detail</label>
-                            <div class="row">
-                                <input type="text" class="form-control col-lg-5 kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="" readonly> &nbsp;&nbsp;&nbsp;
-                                <input type="text" class="form-control col-lg-6 namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="naikHeader">Persentase Barang</label>
+                                    <input type="text" class="form-control" id="naikHeader" name="naikHeader" placeholder="Persentase Kenaikan Harga" value="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="turunHeader">&nbsp;</label>
+                                    <input type="text" class="form-control" id="turunHeader" name="turunHeader" placeholder="Persentase Turun Harga" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group detailBrg">
+                                    <label for="kodeDetail">Barang Detail</label>
+                                    <input type="text" class="form-control kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="" readonly> &nbsp;&nbsp;&nbsp;
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group detailBrg">
+                                    <label for="kodeDetail">&nbsp;</label>
+                                    <input type="text" class="form-control namaDetail" id="namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
+                                </div>
                             </div>
                         </div>
                     </form>
-                    <button class="btn btn-sm btn-success" id="multiDetail">Tambah Detail</button>
+                    <button class="btn btn-sm btn-success" id="multiDetail"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Detail</button>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="addSupp" class="btn btn-primary addSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="addSupp" class="btn btn-sm btn-primary addSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -157,11 +181,22 @@
                                 <input type="text" class="form-control col-lg-6" id="namaBrgEdit" name="namaBrgEdit" placeholder="Nama Barang" value="">
                             </div>
                         </div>
+                        <div class="row" id="rowPersenHeader">
+                            <div class="form-group col-lg-5">
+                                <label for="naikHeaderEdit">Persentase Turun</label>
+                                <input type="text" class="form-control" id="naikHeaderEdit" name="naikHeaderEdit" placeholder="Persentase Kenaikan Harga" value="">
+                            </div>
+                            &nbsp;&nbsp;&nbsp;
+                            <div class="form-group col-lg-6">
+                                <label for="turunHeaderEdit">Persentase Naik</label>
+                                <input type="text" class="form-control" id="turunHeaderEdit" name="turunHeaderEdit" placeholder="Persentase Turun Harga" value="">
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="editSupp" class="btn btn-primary editSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="editSupp" class="btn btn-sm btn-primary editSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -195,11 +230,9 @@
 
             $("#tableDataBarang").DataTable({
                 "responsive": true,
-                // "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["excel", "pdf"],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
-            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
+            });
 
             $("#tambahDataMasterBarang").click(function() {
                 displayKodeHeader();
@@ -220,7 +253,7 @@
                 kodeDetail = String(parseInt(kodeDetail) + 1).padStart(2, '0') + '.';
 
                 let formDetail = `<div class="form-group detailBrg newDetailBrg ` + newDetail + `">
-                            <label for="kodeDetail">Barang Detail</label>
+                            
                             <div class="row">
                                 <input type="text" class="form-control col-lg-5 kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="` + kodeDetail + `" readonly> &nbsp;&nbsp;&nbsp;
                                 <div class="input-group col-lg-6 pl-0 pr-0">
@@ -232,9 +265,37 @@
                             </div>
                         </div>`;
                 $("#formDataBarang").append(formDetail)
-            })
+            });
+
+            $("#formMstrBarang").validate({
+                rules: {
+                    namaHeader: "required",
+                    naikHeader: "required",
+                    turunHeader: "required",
+                    "namaDetail[]": "required",
+                },
+                messages: {
+                    namaHeader: "Nama Header Tidak Boleh Kosong",
+                    naikHeader: "Persentase Naik Tidak Boleh Kosong",
+                    turunHeader: "Persentase Turun Tidak Boleh Kosong",
+                    "namaDetail[]": "Nama Detail Tidak Boleh Kosong",
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
 
             $("#addSupp").click(function() {
+                let formValid = $("#formMstrBarang").valid();
+                if (!formValid) return;
                 let optBrg = $("#optTambah").val()
                 let kodeHeadBrg = $("#kodeHeader").val()
                 let namaHeadBrg = $("#namaHeader").val()
@@ -303,10 +364,16 @@
                 if (kodeHeadBrg == '') {
                     getNewKodeBarang();
                     $('#namaHeader').val('')
+                    $('#naikHeader').val('')
+                    $('#turunHeader').val('')
+                    $('#naikHeader').attr('readonly', false)
+                    $('#turunHeader').attr('readonly', false)
                     $('#namaHeader').attr('readonly', false)
                 } else {
                     getNewKodeBarang(kodeHeadBrg);
                     $('#namaHeader').attr('readonly', true)
+                    $('#naikHeader').attr('readonly', true)
+                    $('#turunHeader').attr('readonly', true)
                     $('#namaHeader').val(namaBarangHead)
                 }
             })
@@ -345,10 +412,12 @@
                 dataType: "json",
                 async: false,
                 success: function(data) {
-                    // console.log(data);
+                    console.log(data);
                     $("#kodeHeader").val(data.kodeHeader);
                     $(".kodeDetail").val(data.kodeDetail);
                     $(".namaHeader").val(data.namaHead);
+                    $('#naikHeader').val(data.persenNaik);
+                    $('#turunHeader').val(data.persenTurun);
                 }
             })
 
@@ -375,8 +444,8 @@
                                     <td>` + data[i].nama_barang + `</td>
                                     <td align="center">` + statusBrgChar + `</td>
                                     <td>
-                                        <button type="button" class="btn bt-sm btn-primary" onClick="editDataBarang('` + kode + `','` + subKode + `','` + data[i].nama_barang + `','` + idBrg + `','` + statusBrg + `')"><i class="fas fa-edit"></i> Edit</button>
-                                        <button class="btn bt-sm btn-danger" id="hapusData" onClick="validateHapus('` + data[i].id_kd_barang + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                        <button type="button" class="btn btn-sm btn-primary" onClick="editDataBarang('` + kode + `','` + subKode + `','` + data[i].nama_barang + `','` + idBrg + `','` + statusBrg + `','` + data[i].persen_naik + `','` + data[i].persen_turun + `')"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn btn-sm btn-danger" id="hapusData" onClick="validateHapus('` + data[i].id_kd_barang + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
                                     </td>
                                 </tr>`;
                     }
@@ -385,11 +454,22 @@
             })
         }
 
-        function editDataBarang(kode, subKode, namaBrg, idBrg, statusBrg) {
+        function editDataBarang(kode, subKode, namaBrg, idBrg, statusBrg, persen_naik, persen_turun) {
             $("#modal-editBarang").modal('show');
             $("#kodeBrgEdit").val(kode + subKode)
             $("#namaBrgEdit").val(namaBrg)
             $("#idBrgEdit").val(idBrg)
+
+            console.log(persen_naik)
+
+            if (subKode != "*") {
+                $("#rowPersenHeader").hide()
+            } else {
+                $("#rowPersenHeader").show()
+                $("#naikHeaderEdit").val(persen_naik)
+                $("#turunHeaderEdit").val(persen_turun)
+            }
+
             if (statusBrg == '1') {
                 $("#customSwitch3").prop('checked', true)
             } else {

@@ -221,20 +221,12 @@
 
             $("#formCencel").validate({
                 rules: {
-                    tglcencel: {
-                        required: true
-                    },
-                    remarkCencel: {
-                        required: true
-                    }
+                    tglcencel: "required",
+                    remarkCencel: "required"
                 },
                 messages: {
-                    tglcencel: {
-                        required: "Tanggal Tidak Boleh Kosong"
-                    },
-                    remarkCencel: {
-                        required: "Deskripsi Tidak Boleh Kosong"
-                    }
+                    tglcencel: "Tanggal Tidak Boleh Kosong",
+                    remarkCencel: "Deskripsi Tidak Boleh Kosong"
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

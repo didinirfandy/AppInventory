@@ -72,20 +72,36 @@ class DataMasterBarang extends CI_Controller
         $opt        = isset($_POST['optTambah']) ? $_POST['optTambah'] : '';
         $kodeHead   = $_POST['kodeHeader'];
         $namaHead   = $_POST['namaHeader'];
+        $naikHead   = $_POST['naikHeader'];
+        $turunHead  = $_POST['turunHeader'];
         $kodeDetail = $_POST['kodeDetail'];
         $namaDetail = $_POST['namaDetail'];
 
-        $insert = $this->Barang->insertMasterBarang($opt, $kodeHead, $namaHead, $kodeDetail, $namaDetail);
+        $insert = $this->Barang->insertMasterBarang($opt, $kodeHead, $namaHead, $kodeDetail, $namaDetail, $naikHead, $turunHead);
+
         echo json_encode($insert);
     }
 
     public function editMasterBarang()
     {
-        $idBrg      = $_POST['idBrgEdit'];
-        $namaBrg    = $_POST['namaBrgEdit'];
-        $statusBrg  = isset($_POST['statusBrgEdit']) && $_POST['statusBrgEdit'] == 'on' ? '1' : '0';
+        $idBrg = $_POST['idBrgEdit'];
+        $namaBrg = $_POST['namaBrgEdit'];
+        $statusBrg = isset($_POST['statusBrgEdit']) && $_POST['statusBrgEdit'] == 'on' ? '1' : '0';
+        $persenNaik = $_POST['naikHeaderEdit'];
+        $persenTurun = $_POST['turunHeaderEdit'];
 
-        $editBrg = $this->Barang->editMasterBrg($idBrg, $namaBrg, $statusBrg);
+        $data = [
+            'nama_barang' => $namaBrg,
+            'status'      => $statusBrg
+        ];
+        if ($persenNaik && $persenTurun) {
+            $data['persen_turun'] = $persenTurun;
+            $data['persen_naik'] = $persenNaik;
+        }
+
+        $id = ['id_kd_barang' => $idBrg];
+
+        $editBrg = $this->Barang->editMasterBrg($data, $id);
         echo json_encode($editBrg);
     }
 }

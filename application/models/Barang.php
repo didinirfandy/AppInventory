@@ -27,7 +27,7 @@ class Barang extends CI_Model
 
     public function getKodeHeader()
     {
-        $qry = $this->db->query("SELECT kode, nama_barang FROM kode_barang WHERE sub_kode = '*' AND `status` = '1'")->result_array();
+        $qry = $this->db->query("SELECT kode, nama_barang, persen_naik, persen_turun FROM kode_barang WHERE sub_kode = '*' AND `status` = '1'")->result_array();
         if ($qry) {
             return $qry;
         } else {
@@ -39,7 +39,7 @@ class Barang extends CI_Model
     {
         $where = $kode != '' ? " WHERE kode = '$kode' " : "";
         $orderBy = $kode != '' ? " ORDER BY sub_kode DESC " : " ORDER BY kode DESC ";
-        $qry = $this->db->query("SELECT kode, sub_kode, nama_barang FROM kode_barang $where $orderBy LIMIT 1");
+        $qry = $this->db->query("SELECT kode, sub_kode, nama_barang, persen_naik, persen_turun FROM kode_barang $where $orderBy LIMIT 1");
         $data = $qry->row_array();
         if (count($data) > 0) {
             $subKode = $data['sub_kode'] == '*' ? '00.' : $data['sub_kode'];
@@ -49,12 +49,19 @@ class Barang extends CI_Model
                 $data['kodeHeader']  = sprintf('%02d', $newKode) . '.';
                 $data['kodeDetail']  = '01.';
                 $data['namaHead']  = '';
+                $data['persenNaik'] = '';
+                $data['persenTurun'] = '';
             } else {
                 $data['kodeHeader'] = $kode;
                 $lastKode = trim($subKode, '.');
                 $newKode  = $lastKode + 1;
                 $data['kodeDetail']  = sprintf('%02d', $newKode) . '.';
                 $data['namaHead']  = $data['nama_barang'];
+
+                $qryPersen = $this->db->query("SELECT kode, sub_kode, nama_barang, persen_naik, persen_turun FROM kode_barang WHERE kode = '$kode' ORDER BY kode DESC LIMIT 1");
+                $dataPersen = $qryPersen->row_array();
+                $data['persenNaik'] = $dataPersen['persen_naik'];
+                $data['persenTurun'] = $dataPersen['persen_turun'];
             }
             return $data;
         } else {
@@ -62,10 +69,10 @@ class Barang extends CI_Model
         }
     }
 
-    public function insertMasterBarang($opt, $kodeHead, $namaHead, $kodeDetail, $namaDetail)
+    public function insertMasterBarang($opt, $kodeHead, $namaHead, $kodeDetail, $namaDetail, $naikHead, $turunHead)
     {
         if ($opt == '') {
-            $qry = $this->db->query("INSERT INTO kode_barang (kode, sub_kode, nama_barang, `status`) VALUES ('$kodeHead', '*', '$namaHead', '1')");
+            $qry = $this->db->query("INSERT INTO kode_barang (kode, sub_kode, nama_barang, persen_naik, persen_turun, `status`) VALUES ('$kodeHead', '*', '$namaHead', $naikHead, $turunHead, '1')");
             if ($qry) {
                 for ($i = 0; $i < count($kodeDetail); $i++) {
                     $detQry = $this->db->query("INSERT INTO kode_barang (kode, sub_kode, nama_barang, `status`) VALUES ('$kodeHead', '$kodeDetail[$i]', '$namaDetail[$i]', '1')");
@@ -98,9 +105,11 @@ class Barang extends CI_Model
         }
     }
 
-    public function editMasterBrg($idBrg, $namaBrg, $statusBrg)
+    public function editMasterBrg($data, $id)
     {
-        $qry = $this->db->query("UPDATE kode_barang SET nama_barang='$namaBrg', `status`='$statusBrg' WHERE id_kd_barang='$idBrg'");
+        $this->db->set($data);
+        $this->db->where($id);
+        $qry = $this->db->update('kode_barang');
 
         if ($qry) {
             return true;
