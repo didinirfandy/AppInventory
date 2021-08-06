@@ -50,11 +50,11 @@
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <label for="kodePembelian">Kode Penjualan</label>
-                                                        <input type="text" class="form-control" id="kodePembelian" name="kodePembelian" disabled value="">
+                                                        <input type="text" class="form-control" id="kodePembelian" name="kodePembelian" disabled value="<?= $getKdJual; ?>">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="tglBeli">Tanggal Penjualan</label>
-                                                        <input type="text" class="form-control datetimepicker-input" id="tglBeli" name="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off" required>
+                                                        <label for="tglJual">Tanggal Penjualan</label>
+                                                        <input type="text" class="form-control datetimepicker-input" id="tglJual" name="tglJual" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" readonly required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="kdBarang">Kode Barang</label>
@@ -101,7 +101,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <div class="card card-primary">
+                                        <div class="card card-secondary">
                                             <div class="card-header">
                                                 <h3 class="card-title">Penjualan Barang</h3>
                                             </div>
@@ -133,7 +133,7 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="hargaTot" id="hargaTot">
+                                                            <input type="text" class="form-control" name="hargaTot" id="hargaTot" readonly>
                                                         </div>
                                                      </div>                                                    
                                                 </div>   
@@ -144,7 +144,7 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja" require>
+                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja"  readonly require>
                                                         </div>
                                                      </div>                                                    
                                                 </div>
@@ -155,7 +155,7 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="kembalianBelanja" id="kembalianBelanja" require>
+                                                            <input type="text" class="form-control" name="kembalianBelanja" id="kembalianBelanja" readonly require>
                                                         </div>
                                                      </div>                                                    
                                                 </div>                                                
@@ -250,10 +250,19 @@
 
     <script type="text/javascript">
         $(function() {
+            let dateStart = moment();
+
+            $('#tglJual').datetimepicker({
+                format: 'DD-MM-YYYY',
+                maxDate: dateStart
+            });
+
+            $("#tglJual").attr( 'readonly' , 'true' );
+
             displayBeliBarang()
             displayKodeBarang()
             getDataSupplier()
-
+            
             $("#formDataBarang").validate({
                 rules: {
                     qtyBeli: {
@@ -367,7 +376,7 @@
                     $(element).removeClass('is-invalid');
                 },
                 submitHandler: function(form) {
-                    let kodeBeli = "<?= $getKdBeli; ?>";
+                    let kodeBeli = "<?= $getKdJual; ?>";
                     let tglBeli = $("#tglBeli").val();
                     let kdSupplier = $("#kdSupplier").val();
                     let remark = $("#remark").val();
@@ -458,7 +467,7 @@
         }
 
         function displayBeliBarang() {
-            let kodeBeli = "<?= $getKdBeli; ?>";
+            let kodeBeli = "<?= $getKdJual; ?>";
             $.ajax({
                 type: "POST",
                 url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/GetBeliBarang') ?>",

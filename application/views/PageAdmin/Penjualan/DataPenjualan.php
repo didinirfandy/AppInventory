@@ -47,7 +47,7 @@
                                                 <th>No</th>
                                                 <th>Kode Penjualan</th>
                                                 <th>Tgl Penjualan</th>
-                                                <th>Item</th>
+                                                <th>Quantity</th>
                                                 <th>Total Penjualan</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -60,7 +60,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <a href="<?= base_url('Admin/Penjualan/DetailDataPenjualan')?>" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
+                                                    <a href="<?= base_url('Admin/Penjualan/DetailDataPenjualan')?>" class="btn btn-xs btn-primary"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</a>
                                                 </td> 
                                             </tr>
                                         </tbody>
@@ -69,7 +69,7 @@
                                                 <th>No</th>
                                                 <th>Kode Penjualan</th>
                                                 <th>Tgl Penjualan</th>
-                                                <th>Item</th>
+                                                <th>Quantity</th>
                                                 <th>Total Penjualan</th>
                                                 <th>Aksi</th>
                                             </tr>

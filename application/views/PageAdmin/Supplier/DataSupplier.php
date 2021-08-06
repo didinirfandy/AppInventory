@@ -235,8 +235,8 @@
                                     <td>` + data[i].alamat + `</td>
                                     <td>` + deskripsi + `</td>
                                     <td>
-                                        <button class="btn bt-sm btn-primary updateSupp" name="updateSupp" id="updateSupp" onClick="editSupp('` + data[i].kd_supplier + `')"><i class="fas fa-edit"></i> Edit</button>
-                                        <button class="btn bt-sm btn-danger" type="button" id="hapusData" onClick="validateHapus('` + data[i].kd_supplier + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                        <button class="btn bt-xs btn-primary updateSupp" name="updateSupp" id="updateSupp" onClick="editSupp('` + data[i].kd_supplier + `')"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn bt-xs btn-danger" type="button" id="hapusData" onClick="validateHapus('` + data[i].kd_supplier + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
                                     </td>
                                 </tr>`;
                     }

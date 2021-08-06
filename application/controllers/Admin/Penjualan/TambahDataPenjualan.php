@@ -23,7 +23,7 @@ class TambahDataPenjualan extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Pembelian');
+        $this->load->model('Penjualan');
 
         if (empty($_SESSION['username'])) {
             $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
@@ -34,7 +34,7 @@ class TambahDataPenjualan extends CI_Controller
     public function index()
     {
         $data['title'] = "Tambah Data Penjualan";
-        $data['supplierData'] = $this->Pembelian->getSupplier();
+        $data['getKdJual'] = $this->Penjualan->kodeOtomatis();
 
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Penjualan/TambahDataPenjualan', $data);
