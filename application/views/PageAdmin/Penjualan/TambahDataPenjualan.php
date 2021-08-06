@@ -144,7 +144,7 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja"  readonly require>
+                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja"  require>
                                                         </div>
                                                      </div>                                                    
                                                 </div>
@@ -479,10 +479,10 @@
                 success: function(dt) {
                     // console.log(dt);
                     if (!dt) {
-                        $("#simpan").addClass("disabled");
-                        $("#simpan").removeAttr("data-toggle");
+                        // $("#simpan").addClass("disabled");
+                        // $("#simpan").removeAttr("data-toggle");
                     } else {
-                        $("#simpan").removeClass("disabled");
+                        // $("#simpan").removeClass("disabled");
                         $("#simpan").attr("data-toggle", "modal");
                     }
 
