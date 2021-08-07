@@ -193,6 +193,8 @@
                             <th>No</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
+                            <th>Qty</th>
+                            <th>Harga</th>
                             <th>Action</th>
                         </thead>
                         <tbody id="datakode">
@@ -201,6 +203,8 @@
                             <th>No</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
+                            <th>Qty</th>
+                            <th>Harga</th>
                             <th>Action</th>
                         </tfoot>
                     </table>
@@ -410,14 +414,6 @@
                 }
             });
 
-            let endDate = moment();
-
-            //Date picker
-            $('#tglBeli').datetimepicker({
-                format: 'DD-MM-YYYY',
-                maxDate: endDate
-            });
-
             $("#beliBarang").DataTable({
                 "responsive": true,
                 "autoWidth": false,
@@ -522,7 +518,7 @@
         function displayKodeBarang() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/GetKodeBarang') ?>",
+                url: "<?= base_url('Admin/Penjualan/TambahDataPenjualan/GetKodeBarang') ?>",
                 dataType: "json",
                 async: false,
                 success: function(dt) {
@@ -530,21 +526,14 @@
                     let btnAdd = subKode = kode_barang = "";
                     let row = '';
                     for (let i = 0; i < dt.length; i++) {
-                        if (dt[i].sub_kode != "*") {
-                            subKode = dt[i].sub_kode;
-                            kode_barang = dt[i].kode + subKode;
-                            btnAdd = '<button type="submit" class="btn btn-sm btn-success" onclick="getDisplayData(\'' + kode_barang + '\', \'' + dt[i].nama_barang + '\')"><i class="fa fa-plus"></i></button>';
-                        } else {
-                            kode_barang = dt[i].kode;
-                            subKode = " ";
-                            btnAdd = " ";
-                        }
 
                         row += '<tr>' +
                             '<td>' + (i + 1) + '</td>' +
-                            '<td>' + kode_barang + '</td>' +
+                            '<td>' + dt[i].kd_barang + '</td>' +
                             '<td>' + dt[i].nama_barang + '</td>' +
-                            '<td style="text-align: center;">' + btnAdd + '</td>' +
+                            '<td>' + dt[i].qty + '</td>' +
+                            '<td>' + dt[i].harga_jual_now + '</td>' +
+                            '<td style="text-align: center;"><button type="submit" class="btn btn-sm btn-success" onclick="getDisplayData(\'' + kode_barang + '\', \'' + dt[i].nama_barang + '\')"><i class="fa fa-plus"></i></button></td>' +
                             '</tr>';
                     }
                     $('#datakode').html(row);

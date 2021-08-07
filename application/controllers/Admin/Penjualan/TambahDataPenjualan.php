@@ -39,4 +39,10 @@ class TambahDataPenjualan extends CI_Controller
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Penjualan/TambahDataPenjualan', $data);
     }
+
+    public function GetKodeBarang()
+    {
+        $data = $this->Penjualan->GetKodeBarang();
+        echo json_encode($data);
+    }
 }

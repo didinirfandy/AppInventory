@@ -50,4 +50,16 @@ class Penjualan extends CI_Model
             return false;
         }
     }
+
+    public function GetKodeBarang()
+    {
+        $qry = $this->db->query("SELECT b.kd_barang, c.nama_barang, b.qty, b.harga_jual_now FROM `master_barang` b
+                                LEFT JOIN kode_barang c ON CONCAT(c.kode,c.sub_kode) = b.kd_barang
+                                WHERE b.`status` = '0' AND b.qty > 0")->result_array();
+        if ($qry) {
+            return $qry;
+        } else {
+            return false;
+        }
+    }
 }
