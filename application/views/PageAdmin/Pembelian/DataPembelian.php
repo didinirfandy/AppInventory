@@ -249,6 +249,9 @@
                     let tglcencel = $("#tglcencel").val();
                     let remarkCencel = $("#remarkCencel").val();
 
+                    console.log(remarkCencel);
+                    return;
+
                     $.ajax({
                         type: "POST",
                         data: {

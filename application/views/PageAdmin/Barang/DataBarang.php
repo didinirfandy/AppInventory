@@ -42,7 +42,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kode Pembelian</th>
-                                                <th>Kode Masuk</th>
+                                                <th>Kode Gudang</th>
                                                 <th>Kode Barang</th>
                                                 <th>Nama Barang</th>
                                                 <th>Satuan</th>
@@ -54,7 +54,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="dataBarang">
-                                            <tr>
+                                            <!-- <tr>
                                                 <td>1</td>
                                                 <td id="idPembelian">BL213123</td>
                                                 <td>ASD</td>
@@ -66,7 +66,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -234,6 +234,23 @@
             })
         });
 
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
+        }
+
         function displayData() {
             $.ajax({
                 type: "POST",
@@ -243,6 +260,7 @@
                 success: function(data) {
                     console.log(data);
                     let row = '';
+                    console.log(data)
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr>
                                     <td>` + (i + 1) + `</td>                                    
@@ -251,37 +269,37 @@
                                     <td>` + data[i].kd_barang + `</td>
                                     <td>` + data[i].nama_barang + `</td>
                                     <td>` + data[i].satuan + `</td>
-                                    <td>` + data[i].tgl_masuk_barang + `</td>
-                                    <td>` + data[i].harga_jual_start + `</td>                                    
-                                    <td>` + data[i].harga_jual_now + `</td>                                    
-                                    <td>` + data[i].harga_beli + `</td>                                    
-                                    <td>` + data[i].stok + `</td>                                    
+                                    <td>` + data[i].tgl_masuk_gudang + `</td>
+                                    <td>` + formatRupiah(data[i].harga_jual_start, '') + `</td>                                    
+                                    <td>` + formatRupiah(data[i].harga_jual_now, '') + `</td>                                    
+                                    <td>` + formatRupiah(data[i].harga_beli, '') + `</td>                                    
+                                    <td>` + data[i].qty + `</td>                                    
                                 </tr>`;
                     }
-                    // $('#dataBarang').html(row);
+                    $('#dataBarang').html(row);
                 }
             })
         }
 
-        function validateHapus(a) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            });
-        }
+        // function validateHapus(a) {
+        //     Swal.fire({
+        //         title: 'Are you sure?',
+        //         text: "You won't be able to revert this!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Yes, delete it!'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             Swal.fire(
+        //                 'Deleted!',
+        //                 'Your file has been deleted.',
+        //                 'success'
+        //             )
+        //         }
+        //     });
+        // }
     </script>
 
 </body>
