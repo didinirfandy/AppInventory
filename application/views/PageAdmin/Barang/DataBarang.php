@@ -54,35 +54,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="dataBarang">
-                                            <!-- <tr>
-                                                <td>1</td>
-                                                <td id="idPembelian">BL213123</td>
-                                                <td>ASD</td>
-                                                <td>DFH</td>
-                                                <td>DFSDF</td>
-                                                <td>DFD</td>
-                                                <td>ADFSDF</td>
-                                                <td>ASDA</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr> -->
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Kode Pembelian</th>
-                                                <th>Kode Masuk</th>
-                                                <th>Kode Barang</th>
-                                                <th>Nama Barang</th>
-                                                <th>Satuan</th>
-                                                <th>Tgl Masuk Gudang</th>
-                                                <th>Harga Jual Awal</th>
-                                                <th>Harga Jual Sekarang</th>
-                                                <th>Harga Beli</th>
-                                                <th>Stok</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                                 <!-- /.card-body -->

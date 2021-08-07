@@ -280,7 +280,7 @@ class Pembelian extends CI_Model
         $datecencel = $tglcencel . " " . date("H:i:s");
 
         if ($qtySisa != '0' && $qtyGudang == '0' && $qtyBatal == '0') {
-            $data = array('status' => '1', 'created_at'    => $datecencel);
+            $data = array('status' => '1', 'created_at' => $datecencel);
             $this->db->where('kd_pembelian', $kd_pembelian);
             $req = $this->db->update('master_pembelian', $data);
             if ($req) {

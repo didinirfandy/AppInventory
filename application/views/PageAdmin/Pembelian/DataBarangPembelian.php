@@ -387,7 +387,7 @@
                             qtyBeli_to_gd: {
                                 required: "Quantity Masuk Gudang Tidak Boleh Kosong",
                                 min: "Harus Mengisi Mulai dari Angka 1",
-                                max: "Jagan Melebihi Quantity Pembelian " + qtySisa
+                                max: "Jangan Melebihi Quantity Pembelian " + qtySisa
                             },
                             tglGudangTerima: {
                                 required: "Tanggal Tidak Boleh Kosong",
