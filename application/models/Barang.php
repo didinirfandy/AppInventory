@@ -257,7 +257,7 @@ class Barang extends CI_Model
         $tglmasukcencel = $tgl . " " . date("H:i:s");
         $dateNow        = date("Y-m-d H:i:s");
         $qtyAwal        = $getBatal->qty;
-        $qtyBatal       = ($getBatal->qty_batal == 0) ? $getBatal->qty_batal : $getBatal->qty_batal + $qty;
+        $qtyBatal       = ($getBatal->qty_batal == 0) ? $qty : $getBatal->qty_batal + $qty;
         $qtyGudang      = $getBatal->qty_gudang;
 
         if ($qtyBatal != '0' && $qtyGudang != '0') {
