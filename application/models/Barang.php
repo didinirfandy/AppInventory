@@ -147,6 +147,7 @@ class Barang extends CI_Model
                     a.kd_pembelian
                     , a.kd_barang
                     , a.harga_beli
+                    , a.qty
                     , a.qty_sisa
                     , a.qty_gudang
                     , a.qty_batal
@@ -165,9 +166,10 @@ class Barang extends CI_Model
         $kdPembelian    = $getBeli->kd_pembelian;
         $kdBarang       = $getBeli->kd_barang;
         $kdSupplier     = $getBeli->kd_supplier;
-        $qtyGudang      = $getBeli->qty_gudang;
+        $qtyAwal        = $getBeli->qty;
         $qtyBatal       = $getBeli->qty_batal;
         $qtySisa        = $getBeli->qty_sisa - $qty;
+        $qtyGudang      = $getBeli->qty_gudang + $qty;
         $hargaBeli      = $getBeli->harga_beli;
         $persen_naik    = $getBeli->persen_naik;
         $hargaJual      = $hargaBeli + ($persen_naik / 100 * $hargaBeli);
@@ -188,11 +190,11 @@ class Barang extends CI_Model
         $insert = $this->db->insert("master_barang", $data);
 
         if ($insert) {
-            if ($qtySisa != '0' && $qtyBatal != '0') {
+            if ($qtyBatal != '0' && $qtyGudang != '0') {
                 $statusBeli = '5'; // ada barang yang di batal dan barang masuk gudang
-            } else if ($qtyBatal != '0' && $qtyGudang != '0') {
+            } else if ($qtyGudang != $qtyAwal) {
                 $statusBeli = '1'; // masuk gudang sebagian
-            } else if ($qtySisa == '0' && $qtyBatal == '0') {
+            } else if ($qtyGudang == $qtyAwal) {
                 $statusBeli = '2'; // masuk gudang semua barang
             } else {
                 $statusBeli = "6"; // logika error
@@ -200,7 +202,7 @@ class Barang extends CI_Model
 
             $data = array(
                 'qty_sisa'      => $qtySisa,
-                'qty_gudang'    => $qty,
+                'qty_gudang'    => $qtyGudang,
                 'status_beli'   => $statusBeli
             );
             $this->db->where('id_detail', $id_detail);
@@ -208,10 +210,8 @@ class Barang extends CI_Model
 
             if ($qry3) {
                 if ($this->db->affected_rows() > 0) {
-                    // log barang
-                    activity_log_barang($kdPembelian, $kdSupplier, $kdBarang, $qtySisa, $qty, '0', $remark);
-                    // log harga barang
-                    activity_log_harga($kdPembelian, $kdSupplier, $kdBarang, $kdGudang, $hargaJual, $hargaJual, $tglmasukGudang, '', '');
+                    activity_log_barang($kdPembelian, $kdSupplier, $kdBarang, $qtySisa, $qty, '0', $remark); // log barang
+                    activity_log_harga($kdPembelian, $kdSupplier, $kdBarang, $kdGudang, $hargaJual, $hargaJual, $tglmasukGudang, '', ''); // log harga barang
 
                     return true;
                 } else {
@@ -232,6 +232,7 @@ class Barang extends CI_Model
                     a.kd_pembelian
                     , a.kd_barang
                     , a.harga_beli
+                    , a.qty
                     , a.qty_sisa
                     , a.qty_gudang
                     , a.qty_batal
@@ -251,28 +252,29 @@ class Barang extends CI_Model
         $kdBarang       = $getBatal->kd_barang;
         $kdSupplier     = $getBatal->kd_supplier;
         $hargaBeli      = $getBatal->harga_beli;
-        $qtyGudang      = $getBatal->qty_gudang;
-        $qtyBatal       = $getBatal->qty_batal;
         $qtySisa        = $getBatal->qty_sisa - $qty;
         $totDetail      = $qtySisa * $hargaBeli;
         $tglmasukcencel = $tgl . " " . date("H:i:s");
         $dateNow        = date("Y-m-d H:i:s");
+        $qtyAwal        = $getBatal->qty;
+        $qtyBatal       = ($getBatal->qty_batal == 0) ? $getBatal->qty_batal : $getBatal->qty_batal + $qty;
+        $qtyGudang      = $getBatal->qty_gudang;
 
-        if ($qtySisa != '0' && $qtyGudang != '0') {
+        if ($qtyBatal != '0' && $qtyGudang != '0') {
             $statusBeli = '5'; // ada barang yang di batal dan barang masuk gudang
-        } else if ($qtyGudang != '0' && $qtyBatal != '0') {
-            $statusBeli = '3'; // masuk cencel sebagian
-        } else if ($qtySisa == '0' && $qtyGudang == '0') {
-            $statusBeli = '4'; // batal semua barang
+        } else if ($qtyBatal != $qtyAwal) {
+            $statusBeli = '3'; // cencel sebagian
+        } else if ($qtyBatal == $qtyAwal) {
+            $statusBeli = '4'; // cencel semua barang
         } else {
             $statusBeli = '6'; // logika error
         }
 
         $data = array(
-            'qty_sisa' => $qtySisa,
-            'qty_batal' => $qty,
-            'status_beli' => $statusBeli,
-            'total' => $totDetail
+            'qty_sisa'      => $qtySisa,
+            'qty_batal'     => $qtyBatal,
+            'status_beli'   => $statusBeli,
+            'total'         => $totDetail
         );
         $this->db->where('id_detail', $id_detail);
         $updDetail = $this->db->update('detail_pembelian', $data);
