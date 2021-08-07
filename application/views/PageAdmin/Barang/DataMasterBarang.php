@@ -125,17 +125,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row detailBrg">
                             <div class="col-lg-6">
-                                <div class="form-group detailBrg">
+                                <div class="form-group">
                                     <label for="kodeDetail">Barang Detail</label>
-                                    <input type="text" class="form-control kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="" readonly> &nbsp;&nbsp;&nbsp;
+                                    <input type="text" class="form-control kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="form-group detailBrg">
-                                    <label for="kodeDetail">&nbsp;</label>
-                                    <input type="text" class="form-control namaDetail" id="namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
+                                <div class="form-group">
+                                    <label for="namaDetail">&nbsp;</label>
+                                    <input type="text" class="form-control namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
                                 </div>
                             </div>
                         </div>
@@ -143,7 +143,7 @@
                     <button class="btn btn-sm btn-success" id="multiDetail"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Detail</button>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
                     <button type="submit" id="addSupp" class="btn btn-sm btn-primary addSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
                 </div>
             </div>
@@ -245,6 +245,7 @@
                 let indexForm = $(".detailBrg").length
                 let newDetail = "newDetail-" + indexForm;
                 let kodeDetail = $(".detailBrg .kodeDetail").val()
+                console.log(kodeDetail);
                 if (indexForm > 1) {
                     let indexDetail = indexForm - 1
                     kodeDetail = $(".newDetail-" + indexDetail + " .kodeDetail").val()
@@ -252,19 +253,24 @@
                 kodeDetail = kodeDetail.replace('.', '')
                 kodeDetail = String(parseInt(kodeDetail) + 1).padStart(2, '0') + '.';
 
-                let formDetail = `<div class="form-group detailBrg newDetailBrg ` + newDetail + `">
-                            
-                            <div class="row">
-                                <input type="text" class="form-control col-lg-5 kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="` + kodeDetail + `" readonly> &nbsp;&nbsp;&nbsp;
-                                <div class="input-group col-lg-6 pl-0 pr-0">
-                                    <input type="text" class="form-control namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-sm btn-default" onClick="removeDetail('` + newDetail + `')"><i class="fas fa-times"></i></button>
+                let formDetail = `<div class="row detailBrg newDetailBrg ` + newDetail + `">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="` + kodeDetail + `" readonly>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>`;
-                $("#formDataBarang").append(formDetail)
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-sm btn-default" onClick="removeDetail('` + newDetail + `')"><i class="fas fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+                $("#formMstrBarang").append(formDetail)
             });
 
             $("#formMstrBarang").validate({
@@ -302,7 +308,7 @@
                 let kodeDetailBrg = $(".kodeDetail").val()
                 let namaDetailBrg = $(".namaDetail").val()
 
-                let data = $("#formDataBarang").serialize();
+                let data = $("#formMstrBarang").serialize();
 
                 $.ajax({
                     type: "POST",

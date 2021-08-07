@@ -69,7 +69,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <label for="qtyBeli">Quantity</label>
-                                                                <input type="number" class="form-control" id="qtyBeli" name="qtyBeli" placeholder="Masukkan Quantity" min="1" max="1000" required>
+                                                                <input type="number" class="form-control" id="qtyBeli" name="qtyBeli" placeholder="Masukkan Quantity" autocomplete="off" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
@@ -179,35 +179,38 @@
     <!-- Modal -->
     <div class="modal fade" id="modal-simpan">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Simpan Daftar Barang</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="overlay-wrapper">
+                <span id="loadingSImpan"></span>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Simpan Daftar Barang</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="post" id="formSimpanBarang">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="tglBeli">Tanggal</label>
+                                <input type="text" class="form-control datetimepicker-input" id="tglBeli" name="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="kdSupplier">Supplier</label>
+                                <select class="form-control" id="kdSupplier" name="kdSupplier" required>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="remark">Remark</label>
+                                <textarea class="form-control" id="remark" name="remark" rows="2" required></textarea>
+                            </div>
+                            <input type="text" style="display: none;" name="kdPembelian" value="<?= $getKdBeli; ?>">
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" id="closeSimpan" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>
+                            <button type="submit" class="btn btn-primary" id="simpanBarang"><i class="fa fa-save"></i> SImpan</button>
+                        </div>
+                    </form>
                 </div>
-                <form method="post" id="formSimpanBarang">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="tglBeli">Tanggal</label>
-                            <input type="text" class="form-control datetimepicker-input" id="tglBeli" name="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="kdSupplier">Supplier</label>
-                            <select class="form-control" id="kdSupplier" name="kdSupplier" required>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="remark">Remark</label>
-                            <textarea class="form-control" id="remark" name="remark" rows="2" required></textarea>
-                        </div>
-                        <input type="text" style="display: none;" name="kdPembelian" value="<?= $getKdBeli; ?>">
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>
-                        <button type="submit" class="btn btn-primary" id="simpanBarang"><i class="fa fa-save"></i> Ok</button>
-                    </div>
-                </form>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -227,7 +230,7 @@
                     qtyBeli: {
                         required: true,
                         min: 1,
-                        max: 1000
+                        max: 10000
                     },
                     satuan: "required",
                     hrgBeli: "required",
@@ -340,7 +343,11 @@
                         url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/insertDataPembelian') ?>",
                         dataType: "JSON",
                         beforeSend: function() {
-                            $("#simpanBarang").addClass('disabled');
+                            $("#simpanBarang").prop("disabled", true);
+                            $("#closeSimpan").prop("disabled", true);
+
+                            var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                            $("#loadingSImpan").html(loading);
                         },
                         success: function(hasil) {
                             console.log(hasil);
@@ -373,7 +380,7 @@
             $("#kodeBarang").DataTable({
                 "responsive": true,
                 "autoWidth": false,
-                "lengthMenu": [10, 15, 20, 30, 50, 100],
+                "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
 
             $("#hrgBeli").keyup(function() {

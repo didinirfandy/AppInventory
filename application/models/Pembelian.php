@@ -170,8 +170,10 @@ class Pembelian extends CI_Model
                 a.kd_pembelian
                 , date(a.tgl_pembelian) tgl_pembelian
                 , c.nama_supplier
-                , sum(b.qty_sisa) qty_sisa
                 , sum(b.qty) qty
+                , sum(b.qty_gudang) qty_gudang
+                , sum(b.qty_batal) qty_batal
+                , sum(b.qty_sisa) qty_sisa
                 , a.total_pembelian
             FROM 
                 master_pembelian a

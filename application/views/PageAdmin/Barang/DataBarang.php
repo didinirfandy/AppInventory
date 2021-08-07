@@ -36,68 +36,67 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <!-- <a href="<?= base_url()?>Admin/Barang/TambahDataBarang" class="btn btn-sm btn-primary" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Barang</a>       -->
-                                </div>
-                                <!-- /.card-header -->
                                 <div class="card-body">
-                                    <div style="overflow-y: auto;">
-                                        <table id="tableDataBarang" class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Kode Pembelian</th>
-                                                    <th>Kode Masuk</th>
-                                                    <th>Kode Barang</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Satuan</th>
-                                                    <th>Tgl Masuk Gudang</th>
-                                                    <th>Harga Jual Awal</th>
-                                                    <th>Harga Jual Sekarang</th>
-                                                    <th>Harga Beli</th>
-                                                    <th>Stok</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="dataBarang">
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td id="idPembelian">BL213123</td>
-                                                    <td>ASD</td>
-                                                    <td>DFH</td>
-                                                    <td>DFSDF</td>
-                                                    <td>DFD</td>
-                                                    <td>ADFSDF</td>
-                                                    <td>ASDA</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Kode Pembelian</th>
-                                                    <th>Kode Masuk</th>
-                                                    <th>Kode Barang</th>
-                                                    <th>Nama Barang</th>
-                                                    <th>Satuan</th>
-                                                    <th>Tgl Masuk Gudang</th>
-                                                    <th>Harga Jual Awal</th>
-                                                    <th>Harga Jual Sekarang</th>
-                                                    <th>Harga Beli</th>
-                                                    <th>Stok</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
+                                    <table class="table table-bordered table-striped" id="tableDataBarang">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kode Pembelian</th>
+                                                <th>Kode Masuk</th>
+                                                <th>Kode Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Satuan</th>
+                                                <th>Tgl Masuk Gudang</th>
+                                                <th>Harga Jual Awal</th>
+                                                <th>Harga Jual Sekarang</th>
+                                                <th>Harga Beli</th>
+                                                <th>Stok</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dataBarang">
+                                            <tr>
+                                                <td>1</td>
+                                                <td id="idPembelian">BL213123</td>
+                                                <td>ASD</td>
+                                                <td>DFH</td>
+                                                <td>DFSDF</td>
+                                                <td>DFD</td>
+                                                <td>ADFSDF</td>
+                                                <td>ASDA</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kode Pembelian</th>
+                                                <th>Kode Masuk</th>
+                                                <th>Kode Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Satuan</th>
+                                                <th>Tgl Masuk Gudang</th>
+                                                <th>Harga Jual Awal</th>
+                                                <th>Harga Jual Sekarang</th>
+                                                <th>Harga Beli</th>
+                                                <th>Stok</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                            <div class="card" id="timeLineBrg">
+                                <div class="card-header">
+                                    <button type="button" class="btn btn-sm btn-warning" style="float: right; margin-left: 1%;" id="closeTimeline"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Close</button>
+                                </div>
+                                <div class="card-body">
                                     <!-- Timelime example  -->
-                                    <br>
-                                    <div class="row" id="timeLineBrg">
+                                    <div class="row">
                                         <div class="col-md-12">
                                             <!-- The time line -->
-                                            <div style="margin-left: 93%">
-                                                <button type="button" class="btn btn-sm btn-danger" id="closeTimeline"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Close</button>
-                                            </div>
                                             <div class="timeline">
                                                 <!-- timeline time label -->
                                                 <div class="time-label col-md-8">
@@ -108,19 +107,19 @@
                                                 <div>
                                                     <i class="fas fa-envelope bg-blue"></i>
                                                     <div class="timeline-item">
-                                                    <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                                                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                                                        <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                                                        <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
 
-                                                    <div class="timeline-body">
-                                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                                        quora plaxo ideeli hulu weebly balihoo...
-                                                    </div>
-                                                    <div class="timeline-footer">
-                                                        <a class="btn btn-primary btn-sm">Read more</a>
-                                                        <a class="btn btn-danger btn-sm">Delete</a>
-                                                    </div>
+                                                        <div class="timeline-body">
+                                                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                                            quora plaxo ideeli hulu weebly balihoo...
+                                                        </div>
+                                                        <div class="timeline-footer">
+                                                            <a class="btn btn-primary btn-sm">Read more</a>
+                                                            <a class="btn btn-danger btn-sm">Delete</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- END timeline item -->
@@ -128,8 +127,8 @@
                                                 <div>
                                                     <i class="fas fa-user bg-green"></i>
                                                     <div class="timeline-item">
-                                                    <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                                                    <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                                                        <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
+                                                        <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
                                                     </div>
                                                 </div>
                                                 <!-- END timeline item -->
@@ -137,16 +136,16 @@
                                                 <div>
                                                     <i class="fas fa-comments bg-yellow"></i>
                                                     <div class="timeline-item">
-                                                    <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                                                    <div class="timeline-body">
-                                                        Take me to your leader!
-                                                        Switzerland is small and neutral!
-                                                        We are more like Germany, ambitious and misunderstood!
-                                                    </div>
-                                                    <div class="timeline-footer">
-                                                        <a class="btn btn-warning btn-sm">View comment</a>
-                                                    </div>
+                                                        <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                                                        <div class="timeline-body">
+                                                            Take me to your leader!
+                                                            Switzerland is small and neutral!
+                                                            We are more like Germany, ambitious and misunderstood!
+                                                        </div>
+                                                        <div class="timeline-footer">
+                                                            <a class="btn btn-warning btn-sm">View comment</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- END timeline item -->
@@ -159,15 +158,15 @@
                                                 <div>
                                                     <i class="fa fa-camera bg-purple"></i>
                                                     <div class="timeline-item">
-                                                    <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
-                                                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                                                    <div class="timeline-body">
-                                                        <!-- <img src="https://placehold.it/150x100" alt="...">
+                                                        <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
+                                                        <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                                                        <div class="timeline-body">
+                                                            <!-- <img src="https://placehold.it/150x100" alt="...">
                                                         <img src="https://placehold.it/150x100" alt="...">
                                                         <img src="https://placehold.it/150x100" alt="...">
                                                         <img src="https://placehold.it/150x100" alt="...">
                                                         <img src="https://placehold.it/150x100" alt="..."> -->
-                                                    </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- END timeline item -->
@@ -176,18 +175,18 @@
                                                     <i class="fas fa-video bg-maroon"></i>
 
                                                     <div class="timeline-item">
-                                                    <span class="time"><i class="fas fa-clock"></i> 5 days ago</span>
+                                                        <span class="time"><i class="fas fa-clock"></i> 5 days ago</span>
 
-                                                    <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
+                                                        <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
 
-                                                    <div class="timeline-body">
-                                                        <div class="embed-responsive embed-responsive-16by9">
-                                                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" allowfullscreen></iframe>
+                                                        <div class="timeline-body">
+                                                            <!-- <div class="embed-responsive embed-responsive-16by9">
+                                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" allowfullscreen></iframe>
+                                                            </div> -->
                                                         </div>
-                                                    </div>
-                                                    <div class="timeline-footer">
-                                                        <a href="#" class="btn btn-sm bg-maroon">See comments</a>
-                                                    </div>
+                                                        <div class="timeline-footer">
+                                                            <a href="#" class="btn btn-sm bg-maroon">See comments</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- END timeline item -->
@@ -196,12 +195,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    <!-- /.col -->
+                                        <!-- /.col -->
                                     </div>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
                         </div>
                         <!-- /.col -->
                     </div>
@@ -219,15 +216,14 @@
 
     <script type="text/javascript">
         $(function() {
-            $("#timeLineBrg").hide()
             displayData()
+            $("#timeLineBrg").hide()
+
             $("#tableDataBarang").DataTable({
                 "responsive": true,
-                // "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["excel", "pdf"],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
-            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
+            });
 
             $("#tableDataBarang tbody td").on("click", function() {
                 $("#timeLineBrg").show()
@@ -249,17 +245,17 @@
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         row += `<tr>
-                                    <td>`+ (i + 1) +`</td>                                    
-                                    <td>`+ data[i].kd_pembelian +`</td>
-                                    <td>`+ data[i].kd_gudang +`</td>
-                                    <td>`+ data[i].kd_barang +`</td>
-                                    <td>`+ data[i].nama_barang +`</td>
-                                    <td>`+ data[i].satuan +`</td>
-                                    <td>`+ data[i].tgl_masuk_barang +`</td>
-                                    <td>`+ data[i].harga_jual_start +`</td>                                    
-                                    <td>`+ data[i].harga_jual_now +`</td>                                    
-                                    <td>`+ data[i].harga_beli +`</td>                                    
-                                    <td>`+ data[i].stok +`</td>                                    
+                                    <td>` + (i + 1) + `</td>                                    
+                                    <td>` + data[i].kd_pembelian + `</td>
+                                    <td>` + data[i].kd_gudang + `</td>
+                                    <td>` + data[i].kd_barang + `</td>
+                                    <td>` + data[i].nama_barang + `</td>
+                                    <td>` + data[i].satuan + `</td>
+                                    <td>` + data[i].tgl_masuk_barang + `</td>
+                                    <td>` + data[i].harga_jual_start + `</td>                                    
+                                    <td>` + data[i].harga_jual_now + `</td>                                    
+                                    <td>` + data[i].harga_beli + `</td>                                    
+                                    <td>` + data[i].stok + `</td>                                    
                                 </tr>`;
                     }
                     // $('#dataBarang').html(row);
@@ -267,8 +263,7 @@
             })
         }
 
-        function validateHapus(a)
-        {
+        function validateHapus(a) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -277,12 +272,12 @@
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
                     )
                 }
             });
