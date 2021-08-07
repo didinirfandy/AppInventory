@@ -80,7 +80,6 @@
                                                             <th>Nama Barang</th>
                                                             <th>Satuan</th>
                                                             <th>Harga</th>
-                                                            <th>Qty</th>
                                                             <th>Status</th>
                                                             <th>Total Harga</th>
                                                             <th>Aksi</th>
@@ -300,47 +299,51 @@
                 async: false,
                 success: function(dt) {
                     // console.log(dt);
-                    let row = rows = '';
+                    let row = rows = btnHide = "";
                     let sum = 0;
                     for (let i = 0; i < dt.length; i++) {
+                        if (dt[i].qty_sisa == '0') {
+                            btnHide = "disabled";
+                        }
+
                         row += `<tr>
                                     <td>` + (i + 1) + `</td>
                                     <td>` + dt[i].nama_barang + `</td>
                                     <td>` + dt[i].satuan + `</td>
                                     <td>` + formatRupiah(dt[i].harga_beli, '') + `</td>
-                                    <td>` + dt[i].qty_sisa + `&nbsp;<button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Qty Beli = ` + dt[i].qty + ` <br> Qty Gudang = ` + dt[i].qty_gudang + ` <br> Qty Batal = ` + dt[i].qty_batal + `" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button></td>
-                                    <td style="width: 10%; text-align: center;">`;
+                                    <td style="width: 30%;">`;
                         if (dt[i].status_beli == '0') {
                             row += `<span class="badge badge-info">Pengiriman</span>`;
                         }
                         if (dt[i].status_beli == '1') {
-                            row += `<span class="badge badge-warning">Masih Ada Sisa</span>`;
+                            row += `<span class="badge badge-warning">Masih ada sisa</span>`;
                         }
                         if (dt[i].status_beli == '2') {
                             row += `<span class="badge badge-success">Terpenuhi</span>`;
                         }
                         if (dt[i].status_beli == '3') {
-                            row += `<span class="badge badge-warning">Cancel Sebagian</span>`;
+                            row += `<span class="badge badge-warning">Cancel sebagian</span>`;
                         }
                         if (dt[i].status_beli == '4') {
                             row += `<span class="badge badge-danger">Cancel</span>`;
                         }
                         if (dt[i].status_beli == '5') {
-                            row += `<span class="badge badge-warning">Masih Ada Sisa</span>`;
-                            row += `<span class="badge badge-warning">Cancel Sebagian</span>`;
+                            row += `<span class="badge badge-warning">Masih ada sisa dan cancel sebagian</span>`;
                         }
+
+                        row += `&nbsp;[` + dt[i].qty + `/` + dt[i].qty_gudang + `/` + dt[i].qty_batal + `/` + dt[i].qty_sisa + `]&nbsp;<button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Qty Beli = ` + dt[i].qty + `<br> Qty Gudang = ` + dt[i].qty_gudang + `<br> Qty Batal = ` + dt[i].qty_batal + `<br> Qty Sisa = ` + dt[i].qty_sisa + `" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button>`;
 
                         row += `</td>
                                     <td>Rp.` + formatRupiah(dt[i].total, '') + `</td>
                                     <td style="width: 15%; text-align: center;">
-                                        <button type="button" class="btn btn-xs btn-success" onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-kirimBarang"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Terima</button>&nbsp;
-                                        <button type="button" class="btn btn-xs btn-danger" onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-batalBarang"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancel</button>
+                                        <button type="button" class="btn btn-xs btn-success" ` + btnHide + ` onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-kirimBarang"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Terima</button>&nbsp;
+                                        <button type="button" class="btn btn-xs btn-danger" ` + btnHide + ` onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-batalBarang"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancel</button>
                                     </td>
                                 </tr>`;
                         sum += parseInt(dt[i].total);
                     }
                     rows += `<tr>
-                                <th colspan="6" style="text-align: right;"><strong>Sub Total</strong></th>
+                                <th colspan="5" style="text-align: right;"><strong>Sub Total</strong></th>
                                 <th colspan="2" style="text-align: left;"><strong>Rp.` + formatRupiah(sum.toString(), '') + `</strong></th>
                             </tr>`;
                     $('#dataDetail').html(row);

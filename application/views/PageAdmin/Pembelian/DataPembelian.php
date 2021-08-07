@@ -182,7 +182,7 @@
                 async: false,
                 success: function(dt) {
                     // console.log(dt);
-                    let row = '';
+                    let row = "";
                     for (let i = 0; i < dt.length; i++) {
 
                         if (dt[i].tgl_pembelian != "") {
@@ -190,6 +190,12 @@
                             var tgl_pembelian = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
                         } else {
                             tgl_pembelian = "";
+                        }
+
+                        if (dt[i].qty != dt[i].qty_sisa) {
+                            btnHide = "disabled";
+                        } else {
+                            btnHide = "";
                         }
 
                         row += `<tr> 
@@ -201,7 +207,7 @@
                                 <td>` + formatRupiah(dt[i].total_pembelian, '') + `</td>
                                 <td>
                                     <button class="btn btn-xs btn-primary" onclick="openDetail('` + dt[i].kd_pembelian + `')"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</button>&nbsp;&nbsp;
-                                    <button class="btn btn-xs btn-danger" onclick="cencelAll('` + dt[i].kd_pembelian + `')" data-toggle="modal" data-target="#modal-cencel"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Cencel</button>
+                                    <button class="btn btn-xs btn-danger" ` + btnHide + ` onclick="cencelAll('` + dt[i].kd_pembelian + `')" data-toggle="modal" data-target="#modal-cencel"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Cencel</button>
                                 </td>
                             </tr>`;
                     }
@@ -242,6 +248,9 @@
                 submitHandler: function(form) {
                     let tglcencel = $("#tglcencel").val();
                     let remarkCencel = $("#remarkCencel").val();
+
+                    console.log(remarkCencel);
+                    return;
 
                     $.ajax({
                         type: "POST",
