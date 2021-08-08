@@ -299,11 +299,13 @@
                 async: false,
                 success: function(dt) {
                     // console.log(dt);
-                    let row = rows = btnHide = "";
+                    let row = rows = "";
                     let sum = 0;
                     for (let i = 0; i < dt.length; i++) {
                         if (dt[i].qty_sisa == '0') {
                             btnHide = "disabled";
+                        } else {
+                            btnHide = "";
                         }
 
                         row += `<tr>
