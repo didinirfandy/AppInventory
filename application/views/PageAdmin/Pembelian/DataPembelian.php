@@ -55,17 +55,6 @@
                                         </thead>
                                         <tbody id="databarang">
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Kode Pembelian</th>
-                                                <th>Tgl Pembelian</th>
-                                                <th>Nama Supplier</th>
-                                                <th>Quantity</th>
-                                                <th>Total Harga</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                                 <!-- /.card-body -->
@@ -84,7 +73,7 @@
     </div>
     <!-- ./wrapper -->
 
-    <div class="modal fade" id="modal-cencel">
+    <div class="modal fade" id="modal-cencel" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-md">
             <div class="overlay-wrapper">
                 <span id="loadingCencel"></span>
@@ -95,7 +84,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="post" id="formCencel">
+                    <form method="post" id="formCencelMaster">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="tglcencel">Tanggal</label>
@@ -108,7 +97,7 @@
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" id="closeCencel" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
-                            <button type="submit" class="btn btn-primary" id="btnCencel"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
+                            <button type="submit" class="btn btn-primary" id="btnCencelSend"><i class="fas fa-share"></i>&nbsp;&nbsp;Send</button>
                         </div>
                     </form>
                 </div>
@@ -212,6 +201,12 @@
                             </tr>`;
                     }
                     $('#databarang').html(row);
+                },
+                error: function(jqXHR, textStatus, e) {
+                    console.log('fail');
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(e);
                 }
             })
         }
@@ -225,14 +220,14 @@
 
         function cencelAll(kd_pembelian) {
 
-            $("#formCencel").validate({
+            $("#formCencelMaster").validate({
                 rules: {
                     tglcencel: "required",
-                    remarkCencel: "required"
+                    remarkCencel: "required",
                 },
                 messages: {
                     tglcencel: "Tanggal Tidak Boleh Kosong",
-                    remarkCencel: "Deskripsi Tidak Boleh Kosong"
+                    remarkCencel: "Deskripsi Tidak Boleh Kosong",
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
@@ -249,27 +244,27 @@
                     let tglcencel = $("#tglcencel").val();
                     let remarkCencel = $("#remarkCencel").val();
 
-                    console.log(remarkCencel);
-                    return;
+                    console.log(kd_pembelian);
 
                     $.ajax({
-                        type: "POST",
+                        type: "post",
                         data: {
                             kd_pembelian: kd_pembelian,
                             tglcencel: tglcencel,
-                            remarkCencel: tglGudangTerima
+                            remarkCencel: remarkCencel
                         },
                         url: "<?= base_url('Admin/Pembelian/DataPembelian/CencelPembelian') ?>",
-                        dataType: "JSON",
+                        dataType: "json",
+                        async: false,
                         beforeSend: function() {
-                            $("#btnCencel").prop("disabled", true);
+                            $("#btnCencelSend").prop("disabled", true);
                             $("#closeCencel").prop("disabled", true);
 
                             var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
                             $("#loadingCencel").html(loading);
                         },
                         success: function(hasil) {
-                            console.log(hasil);
+                            // console.log(hasil);
                             Toast.fire({
                                 icon: 'success',
                                 title: 'Berhasil Cencel Pembelian Barang!'
@@ -277,6 +272,17 @@
                             setInterval(function() {
                                 location.reload();
                             }, 3000);
+                        },
+                        error: function(jqXHR, textStatus, e) {
+                            console.log('fail');
+                            console.log(jqXHR);
+                            console.log(textStatus);
+                            console.log(e);
+                            $("#btnCencel").prop("disabled", true);
+                            $("#closeCencel").prop("disabled", true);
+
+                            var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                            $("#loadingCencel").html(loading);
                         }
                     });
                 }

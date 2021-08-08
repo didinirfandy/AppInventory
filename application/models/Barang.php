@@ -202,11 +202,11 @@ class Barang extends CI_Model
         $insert = $this->db->insert("master_barang", $data);
 
         if ($insert) {
-            if ($qtyBatal != '0' && $qtyGudang != '0') {
+            if ($qtyBatal != '0' && $qtyGudang != '0' && $qtySisa != '0') {
                 $statusBeli = '5'; // ada barang yang di batal dan barang masuk gudang
-            } else if ($qtyGudang != $qtyAwal) {
+            } else if ($qtyGudang != $qtyAwal && $qtySisa != '0') {
                 $statusBeli = '1'; // masuk gudang sebagian
-            } else if ($qtyGudang == $qtyAwal) {
+            } else if ($qtyGudang == $qtyAwal && $qtySisa == '0' || $qtyBatal != '0' && $qtyGudang != '0' && $qtySisa == '0') {
                 $statusBeli = '2'; // masuk gudang semua barang
             } else {
                 $statusBeli = "6"; // logika error
@@ -265,19 +265,21 @@ class Barang extends CI_Model
         $kdSupplier     = $getBatal->kd_supplier;
         $hargaBeli      = $getBatal->harga_beli;
         $qtySisa        = $getBatal->qty_sisa - $qty;
-        $totDetail      = $qtySisa * $hargaBeli;
+        $totDetail      = $qty * $hargaBeli;
         $tglmasukcencel = $tgl . " " . date("H:i:s");
         $dateNow        = date("Y-m-d H:i:s");
         $qtyAwal        = $getBatal->qty;
         $qtyBatal       = ($getBatal->qty_batal == 0) ? $qty : $getBatal->qty_batal + $qty;
         $qtyGudang      = $getBatal->qty_gudang;
 
-        if ($qtyBatal != '0' && $qtyGudang != '0') {
+        if ($qtyBatal != '0' && $qtyGudang != '0' && $qtySisa != '0') {
             $statusBeli = '5'; // ada barang yang di batal dan barang masuk gudang
-        } else if ($qtyBatal != $qtyAwal) {
+        } else if ($qtyBatal != $qtyAwal && $qtySisa != '0') {
             $statusBeli = '3'; // cencel sebagian
-        } else if ($qtyBatal == $qtyAwal) {
+        } else if ($qtyBatal == $qtyAwal && $qtySisa == '0') {
             $statusBeli = '4'; // cencel semua barang
+        } else if ($qtyBatal != '0' && $qtyGudang != '0' && $qtySisa == '0') {
+            $statusBeli = '2'; // ada barang yang di batal dan barang masuk gudang
         } else {
             $statusBeli = '6'; // logika error
         }
