@@ -264,13 +264,13 @@ class Barang extends CI_Model
         $kdBarang       = $getBatal->kd_barang;
         $kdSupplier     = $getBatal->kd_supplier;
         $hargaBeli      = $getBatal->harga_beli;
-        $qtySisa        = $getBatal->qty_sisa - $qty;
-        $totDetail      = $qty * $hargaBeli;
-        $tglmasukcencel = $tgl . " " . date("H:i:s");
-        $dateNow        = date("Y-m-d H:i:s");
         $qtyAwal        = $getBatal->qty;
         $qtyBatal       = ($getBatal->qty_batal == 0) ? $qty : $getBatal->qty_batal + $qty;
         $qtyGudang      = $getBatal->qty_gudang;
+        $qtySisa        = $getBatal->qty_sisa - $qty;
+        $totDetail      = ($qtyGudang == 0) ? $qtySisa * $hargaBeli : $qtyGudang * $hargaBeli;
+        $tglmasukcencel = $tgl . " " . date("H:i:s");
+        $dateNow        = date("Y-m-d H:i:s");
 
         if ($qtyBatal != '0' && $qtyGudang != '0' && $qtySisa != '0') {
             $statusBeli = '5'; // ada barang yang di batal dan barang masuk gudang

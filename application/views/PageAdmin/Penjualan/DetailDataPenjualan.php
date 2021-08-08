@@ -40,6 +40,11 @@
                             </div> -->
 
                             <div class="card-body">
+                                <div class="row mb-3" >
+                                    <div class="col-12">                                        
+                                        <button class="btn btn-sm btn-info" id="btnCetakNota" style="float: right;"><i class="fas fa-print"></i>&nbsp;&nbsp;&nbsp;Cetak Nota</button>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="card card-primary">
@@ -49,8 +54,8 @@
                                             <form method="post" id="formDataBarang">
                                                 <div class="card-body">
                                                     <div class="form-group">
-                                                        <label for="kodePembelian">Kode Penjualan</label>
-                                                        <input type="text" class="form-control" id="kodePembelian" name="kodePembelian" disabled value="">
+                                                        <label for="kodePenjualan">Kode Penjualan</label>
+                                                        <input type="text" class="form-control" id="kodePenjualan" name="kodePenjualan" disabled value="">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="tglBeli">Tanggal Penjualan</label>
@@ -77,21 +82,28 @@
                                                 <h3 class="card-title">Penjualan Barang</h3>
                                             </div>
                                             <div class="card-body">
-                                                <table class="table table-bordered table-striped" id="beliBarang">
+                                                <table class="table table-bordered table-striped" id="tblJualBarang">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
                                                             <th>Nama Barang</th>
                                                             <th>Satuan</th>
                                                             <th>Harga</th>
-                                                            <th>Jumlah</th>
+                                                            <th>Quantity</th>
                                                             <th>Total Harga</th>
-                                                            <th>Aksi</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="bliBarang">
+                                                    <tbody id="barangJual">
                                                     </tbody>
-                                                    <tfoot id="subTotal">
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Nama Barang</th>
+                                                            <th>Satuan</th>
+                                                            <th>Harga</th>
+                                                            <th>Quantity</th>
+                                                            <th>Total Harga</th>
+                                                        </tr>
                                                     </tfoot>
                                                 </table>
                                             </div>
@@ -151,181 +163,19 @@
 
     <script type="text/javascript">
         $(function() {
-            displayBeliBarang()
-            displayKodeBarang()
-            getDataSupplier()
-
-            $("#formDataBarang").validate({
-                rules: {
-                    qtyBeli: {
-                        required: true,
-                        min: 1,
-                        max: 1000
-                    },
-                    satuan: {
-                        required: true,
-                    },
-                    hrgBeli: {
-                        required: true,
-                    },
-                },
-                messages: {
-                    qtyBeli: {
-                        required: "Quantity Tidak Boleh Kosong",
-                    },
-                    satuan: {
-                        required: "Satuan Tidak Boleh Kosong",
-                    },
-                    hrgBeli: {
-                        required: "Harga Tidak Boleh Kosong"
-                    },
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                },
-                submitHandler: function(form) {
-                    let kodePembelian = $("#kodePembelian").val();
-                    let kdBarang = $("#kdBarang").val();
-                    let nmBarang = $("#nmBarang").val();
-                    let qtyBeli = $("#qtyBeli").val();
-                    let satuan = $("#satuan").val();
-                    let hrgBeli = $("#hrgBeli").val();
-
-                    console.log("kdBarang : " + kdBarang);
-                    console.log("nmBarang : " + nmBarang);
-
-                    if (kdBarang == "" && nmBarang == "") {
-                        toastr.error('Kode barang dan nama barang harus di pilih!')
-                    } else {
-                        $.ajax({
-                            type: "POST",
-                            data: {
-                                kodePembelian: kodePembelian,
-                                kdBarang: kdBarang,
-                                nmBarang: nmBarang,
-                                satuan: satuan,
-                                qtyBeli: qtyBeli,
-                                hrgBeli: hrgBeli,
-                            },
-                            url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/insertDataDetail') ?>",
-                            dataType: "JSON",
-                            success: function(hasil) {
-                                displayBeliBarang();
-                                $('#kdBarang').val("");
-                                $('#nmBarang').val("");
-                                $('#qtyBeli').val("");
-                                $('#satuan').val("");
-                                $('#hrgBeli').val("");
-                            }
-                        });
-                    }
-
-                    return false;
-                }
-            });
-
-            $("#formSimpanBarang").validate({
-                rules: {
-                    tglBeli: {
-                        required: true,
-                        date: true
-                    },
-                    kdSupplier: {
-                        required: true,
-                    },
-                    remark: {
-                        required: true,
-                    },
-                },
-                messages: {
-                    tglBeli: {
-                        required: "Tanggal Tidak Boleh Kosong",
-                    },
-                    kdSupplier: {
-                        required: "Supplier Tidak Boleh Kosong",
-                    },
-                    remark: {
-                        required: "Remark Tidak Boleh Kosong",
-                    },
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                },
-                submitHandler: function(form) {
-                    let kodeBeli = "<?= $getKdBeli; ?>";
-                    let tglBeli = $("#tglBeli").val();
-                    let kdSupplier = $("#kdSupplier").val();
-                    let remark = $("#remark").val();
-                    let subTotal = $("#getSubTotal").val();
-
-                    $.ajax({
-                        type: "POST",
-                        data: {
-                            kodeBeli: kodeBeli,
-                            tglBeli: tglBeli,
-                            kdSupplier: kdSupplier,
-                            remark: remark,
-                            subTotal: subTotal
-                        },
-                        url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/insertDataPembelian') ?>",
-                        dataType: "JSON",
-                        beforeSend: function() {
-                            $("#simpanBarang").addClass('disabled');
-                        },
-                        success: function(hasil) {
-                            console.log(hasil);
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Berhasil Simpan Pembelian Barang!'
-                            });
-                            setInterval(function() {
-                                location.reload();
-                            }, 3000);
-                        }
-                    });
-                }
-            });
-
-            let endDate = moment();
-
-            //Date picker
-            $('#tglBeli').datetimepicker({
-                format: 'DD-MM-YYYY',
-                maxDate: endDate
-            });
-
-            $("#beliBarang").DataTable({
+            masterDjual()
+            displayDetail() 
+            $("#tblJualBarang").DataTable({
                 "responsive": true,
                 "autoWidth": false,
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
 
-            $("#kodeBarang").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                "lengthMenu": [10, 15, 20, 30, 50, 100],
-            });
+            let kd_penjualan = sessionStorage.getItem("kd_penjualan");
+            $("#btnCetakNota").click(function(){
+                window.open("<?= base_url()?>Admin/Penjualan/DetailDataPenjualan/cetakNotaPenjualan?kdJual="+kd_penjualan, "_blank");
+            })
 
-            $("#hrgBeli").keyup(function() {
-                angka = formatRupiah($(this).val(), '');
-                $(this).val(angka);
-            });
 
         });
 
@@ -358,133 +208,73 @@
             return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
         }
 
-        function displayBeliBarang() {
-            let kodeBeli = "<?= $getKdBeli; ?>";
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/GetBeliBarang') ?>",
-                data: {
-                    kode_pembelian: kodeBeli
-                },
-                dataType: "json",
-                async: false,
-                success: function(dt) {
-                    // console.log(dt);
-                    if (!dt) {
-                        $("#simpan").addClass("disabled");
-                        $("#simpan").removeAttr("data-toggle");
-                    } else {
-                        $("#simpan").removeClass("disabled");
-                        $("#simpan").attr("data-toggle", "modal");
-                    }
-
-                    let row = rows = '';
-                    let sum = 0;
-                    for (let i = 0; i < dt.length; i++) {
-
-                        row += `<tr>
-                                    <td>` + (i + 1) + `</td>
-                                    <td>` + dt[i].nama + `</td>
-                                    <td>` + dt[i].satuan + `</td>
-                                    <td>` + formatRupiah(dt[i].harga, '') + `</td>
-                                    <td>` + dt[i].qty + `</td>
-                                    <td>` + formatRupiah(dt[i].total, '') + `</td>
-                                    <td>
-                                        <button type="button" class="btn btn-xs btn-danger" onclick="delPembelian('` + dt[i].id_tem + `')"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
-                                    </td>
-                                </tr>`;
-
-                        sum += parseInt(dt[i].total);
-
-                    }
-
-                    $("#getSubTotal").val(sum);
-
-                    rows += `<tr>
-                                <th colspan="5" style="text-align: right;"><strong>Sub Total</strong></th>
-                                <th colspan="2" style="text-align: left;"><strong>` + formatRupiah(sum.toString(), '') + `</strong></th>
-                            </tr>`;
-                    $('#bliBarang').html(row);
-                    $('#subTotal').html(rows);
-                }
-            });
-            return false;
+        function btnrRturn() {
+            sessionStorage.removeItem("kd_pembelian");
+            sessionStorage.removeItem("kd_penjualan");
+            location.href = "<?= base_url('Admin/Penjualan/DataPenjualan') ?>";
         }
 
-        function displayKodeBarang() {
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/GetKodeBarang') ?>",
-                dataType: "json",
-                async: false,
-                success: function(dt) {
-                    // console.log(dt);
-                    let btnAdd = subKode = kode_barang = "";
-                    let row = '';
-                    for (let i = 0; i < dt.length; i++) {
-                        if (dt[i].sub_kode != "*") {
-                            subKode = dt[i].sub_kode;
-                            kode_barang = dt[i].kode + subKode;
-                            btnAdd = '<button type="submit" class="btn btn-sm btn-success" onclick="getDisplayData(\'' + kode_barang + '\', \'' + dt[i].nama_barang + '\')"><i class="fa fa-plus"></i></button>';
-                        } else {
-                            kode_barang = dt[i].kode;
-                            subKode = " ";
-                            btnAdd = " ";
-                        }
-
-                        row += '<tr>' +
-                            '<td>' + (i + 1) + '</td>' +
-                            '<td>' + kode_barang + '</td>' +
-                            '<td>' + dt[i].nama_barang + '</td>' +
-                            '<td style="text-align: center;">' + btnAdd + '</td>' +
-                            '</tr>';
-                    }
-                    $('#datakode').html(row);
-                }
-            });
-            return false;
-        }
-
-        function getDataSupplier() {
+        function masterDjual() {
+            let kd_penjualan = sessionStorage.getItem("kd_penjualan");
             $.ajax({
                 type: "post",
-                url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/GetDataSupplier') ?>",
-                async: false,
+                data: {
+                    kd_penjualan: kd_penjualan
+                },
+                url: "<?= base_url('Admin/Penjualan/DetailDataPenjualan/getMaster') ?>",
                 dataType: "json",
+                async: false,
                 success: function(dt) {
-                    // console.log(dt);
-                    let row = '<option value="">-- PILIH --</option>';
-                    for (let i = 0; i < dt.length; i++) {
-                        row += '<option value="' + dt[i].kd_supplier + '">' + dt[i].nama_supplier + '</option>';
+                    var tgl_penjualan = "";
+
+                    if (dt[0].tgl_penjualan != "") {
+                        var date = new Date(dt[0].tgl_penjualan);
+                        var tgl_penjualan = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
                     }
-                    // console.log(row);
-                    $("#kdSupplier").html(row);
+
+                    let bayar     = dt[0].bayar
+                    let totalPenj = dt[0].total_penjualan
+                    let kembalian = bayar - totalPenj
+                        kembalian = kembalian.toString()
+                    $("#kembalianBelanja").val(formatRupiah(kembalian, ''))
+
+                    $("#kodePenjualan").val(dt[0].kd_penjualan);
+                    $("#tglBeli").val(tgl_penjualan);
+                    $("#namaPelanggan").val(dt[0].nama_pelanggan);
+                    $("#alamatPelanggan").val(dt[0].alamat_tujuan);
+                    $("#hargaTot").val(formatRupiah(totalPenj, ''));
+                    $("#bayarBelanja").val(formatRupiah(bayar, ''));
                 }
-            });
-            return false;
+            })
         }
 
-        function delPembelian(id_tem) {
+        function displayDetail() {
+            let kd_penjualan = sessionStorage.getItem("kd_penjualan");
             $.ajax({
-                type: "POST",
-                data: "id_tem=" + id_tem,
-                url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/delDetailPembelian'); ?>",
-                dataType: "JSON",
-                success: function(a) {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Berhasil Hapus Pembelian Barang!'
-                    });
-                    displayBeliBarang()
+                type: "post",
+                data: {
+                    kd_penjualan: kd_penjualan
+                },
+                url: "<?= base_url('Admin/Penjualan/DetailDataPenjualan/getDetailPenjualan') ?>",
+                dataType: "json",
+                async: false,
+                success: function(dt) {
+                    let row = ''
+                    for (let i = 0; i < dt.length; i++) {
+                        row += `
+                            <tr>
+                                <td>`+ (i + 1) +`</td>
+                                <td>`+ dt[i].nama_barang +`</td>
+                                <td>`+ dt[i].satuan +`</td>
+                                <td>`+ dt[i].harga +`</td>
+                                <td>`+ dt[i].qty +`</td>
+                                <td>`+ dt[i].total +`</td>
+                            </tr>
+                        `;
+                    }
+                    $("#barangJual").html(row)
                 }
-            });
-        }
-
-        function getDisplayData(kode_barang, nama_barang) {
-            $("#kdBarang").val(kode_barang);
-            $("#nmBarang").val(nama_barang);
-
-            $("#modal-kodeBarang").modal("hide");
+            })
         }
     </script>
 

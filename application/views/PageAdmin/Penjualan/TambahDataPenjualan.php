@@ -50,24 +50,26 @@
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <label for="kodePembelian">Kode Penjualan</label>
-                                                        <input type="text" class="form-control" id="kodePembelian" name="kodePembelian" disabled value="">
+                                                        <input type="hidden" class="form-control" id="kodeGudang" name="kodeGudang" disabled value="">
+                                                        <input type="text" class="form-control" id="kodePembelian" name="kodePembelian" disabled value="<?= $getKdJual; ?>">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="tglBeli">Tanggal Penjualan</label>
-                                                        <input type="text" class="form-control datetimepicker-input" id="tglBeli" name="tglBeli" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off" required>
+                                                        <label for="tglJual">Tanggal Penjualan</label>
+                                                        <input type="text" class="form-control datetimepicker-input" id="tglJual" name="tglJual" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" readonly required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="kdBarang">Kode Barang</label>
                                                         <div class="input-group mb-3">
                                                             <input type="text" class="form-control" id="kdBarang" name="kdBarang" placeholder="Kode Barang" autocomplete="off" disabled required>
                                                             <div class="input-group-append">
-                                                                <button class="btn btn-sm btn-default" type="button" data-toggle="modal" data-target="#modal-kodeBarang" style="float: left;"><i class="fas fa-ellipsis-v"></i></button>
+                                                                <button class="btn btn-sm btn-default" type="button" data-toggle="modal" data-target="#modal-kodeBarang" id="modalStockBrg" style="float: left;"><i class="fas fa-ellipsis-v"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="nmBarang">Nama Barang</label>
                                                         <textarea class="form-control" id="nmBarang" name="nmBarang" rows="2" placeholder="Nama Barang" disabled required></textarea>
+                                                        <input type="hidden" class="form-control" id="hrgBeli" name="hrgBeli" placeholder="Masukkan Harga" autocomplete="off" required readonly>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -80,12 +82,7 @@
                                                             <div class="form-group">
                                                                 <label for="satuan">Satuan</label>
                                                                 <!-- <input type="text" class="form-control" id="satuan" name="satuan" placeholder="Masukkan Satuan" autocomplete="off" required> -->
-                                                                <select class="form-control" name="satuan" id="satuan" required>
-                                                                    <option value="">-- PILIH --</option>
-                                                                    <option value="SET">SET</option>
-                                                                    <option value="UNIT">UNIT</option>
-                                                                    <option value="PCS">PCS</option>
-                                                                </select>
+                                                                <input type="text" class="form-control" id="satuan" name="satuan" placeholder="Satuan" readonly required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -101,7 +98,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <div class="card card-primary">
+                                        <div class="card card-secondary">
                                             <div class="card-header">
                                                 <h3 class="card-title">Penjualan Barang</h3>
                                             </div>
@@ -113,7 +110,7 @@
                                                             <th>Nama Barang</th>
                                                             <th>Satuan</th>
                                                             <th>Harga</th>
-                                                            <th>Jumlah</th>
+                                                            <th>Quantity</th>
                                                             <th>Total Harga</th>
                                                             <th>Aksi</th>
                                                         </tr>
@@ -133,7 +130,7 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="hargaTot" id="hargaTot">
+                                                            <input type="text" class="form-control" name="hargaTot" id="hargaTot" readonly>
                                                         </div>
                                                      </div>                                                    
                                                 </div>   
@@ -144,7 +141,7 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja" require>
+                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja"  require>
                                                         </div>
                                                      </div>                                                    
                                                 </div>
@@ -155,7 +152,7 @@
                                                      </div>
                                                      <div class="col-3">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="kembalianBelanja" id="kembalianBelanja" require>
+                                                            <input type="text" class="form-control" name="kembalianBelanja" id="kembalianBelanja" readonly require>
                                                         </div>
                                                      </div>                                                    
                                                 </div>                                                
@@ -191,16 +188,24 @@
                     <table class="table table-striped" id="kodeBarang">
                         <thead>
                             <th>No</th>
+                            <th>Kode Gudang</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
+                            <th>Qty</th>
+                            <th>Satuan</th>
+                            <th>Harga</th>
                             <th>Action</th>
                         </thead>
                         <tbody id="datakode">
                         </tbody>
                         <tfoot>
                             <th>No</th>
+                            <th>Kode Gudang</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
+                            <th>Qty</th>
+                            <th>Satuan</th>
+                            <th>Harga</th>
                             <th>Action</th>
                         </tfoot>
                     </table>
@@ -214,7 +219,7 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="modal-simpan">
+    <div class="modal fade" id="modal-simpan" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -233,7 +238,7 @@
                             <label for="alamatPelanggan">Alamat Pelanggan</label>
                             <textarea name="alamatPelanggan" class="form-control" id="alamatPelanggan" require></textarea>
                         </div>
-                        <input type="text" style="display: none;" name="kdPembelian" value="">
+                        <input type="text" style="display: none;" name="kdPembelian" value="<?= $getKdJual; ?>">
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>
@@ -250,34 +255,44 @@
 
     <script type="text/javascript">
         $(function() {
+            let dateStart = moment();
+
+            $('#tglJual').datetimepicker({
+                format: 'DD-MM-YYYY',
+                maxDate: dateStart
+            });
+
+            $("#tglJual").attr( 'readonly' , 'true' );
+
             displayBeliBarang()
             displayKodeBarang()
-            getDataSupplier()
-
+            
             $("#formDataBarang").validate({
                 rules: {
                     qtyBeli: {
                         required: true,
                         min: 1,
                         max: 1000
-                    },
-                    satuan: {
-                        required: true,
-                    },
-                    hrgBeli: {
-                        required: true,
-                    },
+                    }
+                    // ,
+                    // satuan: {
+                    //     required: true,
+                    // },
+                    // hrgBeli: {
+                    //     required: true,
+                    // },
                 },
                 messages: {
                     qtyBeli: {
                         required: "Quantity Tidak Boleh Kosong",
-                    },
-                    satuan: {
-                        required: "Satuan Tidak Boleh Kosong",
-                    },
-                    hrgBeli: {
-                        required: "Harga Tidak Boleh Kosong"
-                    },
+                    }
+                    // ,
+                    // satuan: {
+                    //     required: "Satuan Tidak Boleh Kosong",
+                    // },
+                    // hrgBeli: {
+                    //     required: "Harga Tidak Boleh Kosong"
+                    // },
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
@@ -291,6 +306,7 @@
                     $(element).removeClass('is-invalid');
                 },
                 submitHandler: function(form) {
+                    let kodeGudang = $("#kodeGudang").val();
                     let kodePembelian = $("#kodePembelian").val();
                     let kdBarang = $("#kdBarang").val();
                     let nmBarang = $("#nmBarang").val();
@@ -298,8 +314,9 @@
                     let satuan = $("#satuan").val();
                     let hrgBeli = $("#hrgBeli").val();
 
-                    console.log("kdBarang : " + kdBarang);
-                    console.log("nmBarang : " + nmBarang);
+                    console.log("kodeGudang : " + kodeGudang);
+                    console.log("kodePembelian : " + kodePembelian);
+                    // console.log("nmBarang : " + nmBarang);
 
                     if (kdBarang == "" && nmBarang == "") {
                         toastr.error('Kode barang dan nama barang harus di pilih!')
@@ -307,22 +324,40 @@
                         $.ajax({
                             type: "POST",
                             data: {
-                                kodePembelian: kodePembelian,
+                                kodeGudang: kodeGudang,
                                 kdBarang: kdBarang,
-                                nmBarang: nmBarang,
-                                satuan: satuan,
                                 qtyBeli: qtyBeli,
-                                hrgBeli: hrgBeli,
                             },
-                            url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/insertDataDetail') ?>",
+                            url: "<?= base_url('Admin/Penjualan/TambahDataPenjualan/getStockGudang') ?>",
                             dataType: "JSON",
                             success: function(hasil) {
-                                displayBeliBarang();
-                                $('#kdBarang').val("");
-                                $('#nmBarang').val("");
-                                $('#qtyBeli').val("");
-                                $('#satuan').val("");
-                                $('#hrgBeli').val("");
+                                if (hasil < 0) {
+                                    toastr.error('Quantity Melebihi Stock!')
+                                } else {                                    
+                                    $.ajax({
+                                        type: "POST",
+                                        data: {
+                                            kodeGudang: kodeGudang,
+                                            kodePembelian: kodePembelian,
+                                            kdBarang: kdBarang,
+                                            nmBarang: nmBarang,
+                                            satuan: satuan,
+                                            qtyBeli: qtyBeli,
+                                            hrgBeli: hrgBeli,
+                                        },
+                                        url: "<?= base_url('Admin/Penjualan/TambahDataPenjualan/insertDataDetail') ?>",
+                                        dataType: "JSON",
+                                        success: function(data) {
+                                            displayBeliBarang();
+                                            $('#kodeGudang').val("");
+                                            $('#kdBarang').val("");
+                                            $('#nmBarang').val("");
+                                            $('#qtyBeli').val("");
+                                            $('#satuan').val("");
+                                            $('#hrgBeli').val("");
+                                        }
+                                    });
+                                }
                             }
                         });
                     }
@@ -333,27 +368,28 @@
 
             $("#formSimpanBarang").validate({
                 rules: {
-                    tglBeli: {
-                        required: true,
-                        date: true
+                    namaPelanggan: {
+                        required: true
                     },
-                    kdSupplier: {
+                    alamatPelanggan: {
                         required: true,
-                    },
-                    remark: {
-                        required: true,
-                    },
+                    }
+                    // ,
+                    // remark: {
+                    //     required: true,
+                    // },
                 },
                 messages: {
-                    tglBeli: {
-                        required: "Tanggal Tidak Boleh Kosong",
+                    namaPelanggan: {
+                        required: "Nama pelanggan Tidak Boleh Kosong",
                     },
-                    kdSupplier: {
-                        required: "Supplier Tidak Boleh Kosong",
-                    },
-                    remark: {
-                        required: "Remark Tidak Boleh Kosong",
-                    },
+                    alamatPelanggan: {
+                        required: "Alamat pelanggan Tidak Boleh Kosong",
+                    }
+                    // ,
+                    // remark: {
+                    //     required: "Remark Tidak Boleh Kosong",
+                    // },
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
@@ -367,46 +403,42 @@
                     $(element).removeClass('is-invalid');
                 },
                 submitHandler: function(form) {
-                    let kodeBeli = "<?= $getKdBeli; ?>";
-                    let tglBeli = $("#tglBeli").val();
-                    let kdSupplier = $("#kdSupplier").val();
-                    let remark = $("#remark").val();
+                    let kodeBeli = "<?= $getKdJual; ?>";
+                    let tglBeli = $("#tglJual").val();
+                    let namaPelanggan = $("#namaPelanggan").val();
+                    let alamatPelanggan = $("#alamatPelanggan").val();
                     let subTotal = $("#getSubTotal").val();
-
+                    let bayar = $("#bayarBelanja").val();
+                        bayar = bayar.replace(/\./g,'')
+                    // console.log(tglBeli)
                     $.ajax({
                         type: "POST",
                         data: {
                             kodeBeli: kodeBeli,
                             tglBeli: tglBeli,
-                            kdSupplier: kdSupplier,
-                            remark: remark,
-                            subTotal: subTotal
+                            namaPelanggan: namaPelanggan,
+                            alamatPelanggan: alamatPelanggan,
+                            subTotal: subTotal,
+                            bayar: bayar
                         },
-                        url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/insertDataPembelian') ?>",
+                        url: "<?= base_url('Admin/Penjualan/TambahDataPenjualan/insertDataPenjualan') ?>",
                         dataType: "JSON",
                         beforeSend: function() {
                             $("#simpanBarang").addClass('disabled');
                         },
                         success: function(hasil) {
-                            console.log(hasil);
+                            // console.log(hasil);
                             Toast.fire({
                                 icon: 'success',
-                                title: 'Berhasil Simpan Pembelian Barang!'
+                                title: 'Berhasil Simpan Penjualan Barang!'
                             });
+                            window.open("DetailDataPenjualan/cetakNotaPenjualan?kdJual="+kodeBeli, "_blank");
                             setInterval(function() {
                                 location.reload();
                             }, 3000);
                         }
                     });
                 }
-            });
-
-            let endDate = moment();
-
-            //Date picker
-            $('#tglBeli').datetimepicker({
-                format: 'DD-MM-YYYY',
-                maxDate: endDate
             });
 
             $("#beliBarang").DataTable({
@@ -426,6 +458,30 @@
                 $(this).val(angka);
             });
 
+            $("#bayarBelanja").keyup(function(){
+                let hargaTot = $("#getSubTotal").val() || '0'
+                let bayar = $(this).val() || '0'
+                    bayar = bayar.replace(/\./g,'')
+                let kembalian = bayar - hargaTot
+                    kembalian = kembalian.toString()
+                $("#kembalianBelanja").val(formatRupiah(kembalian, ''))
+
+                angka = formatRupiah($(this).val(), '');
+                $(this).val(angka);
+
+                if (kembalian >= 0) {
+                    $("#simpan").removeClass("disabled");
+                    $("#simpan").attr("data-toggle", "modal");
+                } else {
+                    $("#simpan").addClass("disabled");
+                    $("#simpan").removeAttr("data-toggle");
+                }
+            });
+
+            $("#modalStockBrg").click(function(){
+                displayKodeBarang()
+            })
+
         });
 
         const Toast = Swal.mixin({
@@ -441,7 +497,7 @@
         })
 
         function formatRupiah(angka, prefix) {
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            var number_string = angka.replace(/\./g, '').toString(),
                 split = number_string.split(','),
                 sisa = split[0].length % 3,
                 rupiah = split[0].substr(0, sisa),
@@ -458,12 +514,13 @@
         }
 
         function displayBeliBarang() {
-            let kodeBeli = "<?= $getKdBeli; ?>";
+            let kodeJual = "<?= $getKdJual; ?>";
+            let bayar = $("#bayarBelanja").val()
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/GetBeliBarang') ?>",
+                url: "<?= base_url('Admin/Penjualan/TambahDataPenjualan/GetJualBarang') ?>",
                 data: {
-                    kode_pembelian: kodeBeli
+                    kode_penjualan: kodeJual
                 },
                 dataType: "json",
                 async: false,
@@ -473,8 +530,13 @@
                         $("#simpan").addClass("disabled");
                         $("#simpan").removeAttr("data-toggle");
                     } else {
-                        $("#simpan").removeClass("disabled");
-                        $("#simpan").attr("data-toggle", "modal");
+                        if (bayar != "" || bayar > 0) {
+                            $("#simpan").removeClass("disabled");
+                            $("#simpan").attr("data-toggle", "modal");
+                        } else {
+                            $("#simpan").addClass("disabled");
+                            $("#simpan").removeAttr("data-toggle");
+                        }                        
                     }
 
                     let row = rows = '';
@@ -483,13 +545,13 @@
 
                         row += `<tr>
                                     <td>` + (i + 1) + `</td>
-                                    <td>` + dt[i].nama + `</td>
+                                    <td>` + dt[i].nama_barang + `</td>
                                     <td>` + dt[i].satuan + `</td>
                                     <td>` + formatRupiah(dt[i].harga, '') + `</td>
                                     <td>` + dt[i].qty + `</td>
                                     <td>` + formatRupiah(dt[i].total, '') + `</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-danger" onclick="delPembelian('` + dt[i].id_tem + `')"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
+                                        <button type="button" class="btn btn-xs btn-danger" onclick="delPembelian('` + dt[i].id_tem_penjualan + `','`+ dt[i].kd_gudang +`','`+ dt[i].kd_barang +`','`+ dt[i].qty +`')"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
                                     </td>
                                 </tr>`;
 
@@ -498,13 +560,14 @@
                     }
 
                     $("#getSubTotal").val(sum);
+                    $("#hargaTot").val(formatRupiah(sum.toString(), ''));
 
-                    rows += `<tr>
-                                <th colspan="5" style="text-align: right;"><strong>Sub Total</strong></th>
-                                <th colspan="2" style="text-align: left;"><strong>` + formatRupiah(sum.toString(), '') + `</strong></th>
-                            </tr>`;
+                    // rows += `<tr>
+                    //             <th colspan="5" style="text-align: right;"><strong>Sub Total</strong></th>
+                    //             <th colspan="2" style="text-align: left;"><strong>` + formatRupiah(sum.toString(), '') + `</strong></th>
+                    //         </tr>`;
                     $('#bliBarang').html(row);
-                    $('#subTotal').html(rows);
+                    // $('#subTotal').html(rows);
                 }
             });
             return false;
@@ -513,29 +576,24 @@
         function displayKodeBarang() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/GetKodeBarang') ?>",
+                url: "<?= base_url('Admin/Penjualan/TambahDataPenjualan/GetKodeBarang') ?>",
                 dataType: "json",
                 async: false,
                 success: function(dt) {
                     // console.log(dt);
-                    let btnAdd = subKode = kode_barang = "";
                     let row = '';
                     for (let i = 0; i < dt.length; i++) {
-                        if (dt[i].sub_kode != "*") {
-                            subKode = dt[i].sub_kode;
-                            kode_barang = dt[i].kode + subKode;
-                            btnAdd = '<button type="submit" class="btn btn-sm btn-success" onclick="getDisplayData(\'' + kode_barang + '\', \'' + dt[i].nama_barang + '\')"><i class="fa fa-plus"></i></button>';
-                        } else {
-                            kode_barang = dt[i].kode;
-                            subKode = " ";
-                            btnAdd = " ";
-                        }
+                        let hargaNow = formatRupiah(dt[i].harga_jual_now);
 
                         row += '<tr>' +
                             '<td>' + (i + 1) + '</td>' +
-                            '<td>' + kode_barang + '</td>' +
+                            '<td>' + dt[i].kd_gudang + '</td>' +
+                            '<td>' + dt[i].kd_barang + '</td>' +
                             '<td>' + dt[i].nama_barang + '</td>' +
-                            '<td style="text-align: center;">' + btnAdd + '</td>' +
+                            '<td>' + dt[i].qty + '</td>' +
+                            '<td>' + dt[i].satuan + '</td>' +
+                            '<td>' + hargaNow + '</td>' +
+                            '<td style="text-align: center;"><button type="submit" class="btn btn-sm btn-success" onclick="getDisplayData(\'' + dt[i].kd_gudang + '\', \'' + dt[i].nama_barang + '\', \'' + dt[i].kd_barang + '\', \'' + dt[i].qty + '\', \'' + dt[i].satuan + '\', \'' + hargaNow + '\')"><i class="fa fa-plus"></i></button></td>' +
                             '</tr>';
                     }
                     $('#datakode').html(row);
@@ -543,31 +601,12 @@
             });
             return false;
         }
-
-        function getDataSupplier() {
-            $.ajax({
-                type: "post",
-                url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/GetDataSupplier') ?>",
-                async: false,
-                dataType: "json",
-                success: function(dt) {
-                    // console.log(dt);
-                    let row = '<option value="">-- PILIH --</option>';
-                    for (let i = 0; i < dt.length; i++) {
-                        row += '<option value="' + dt[i].kd_supplier + '">' + dt[i].nama_supplier + '</option>';
-                    }
-                    // console.log(row);
-                    $("#kdSupplier").html(row);
-                }
-            });
-            return false;
-        }
-
-        function delPembelian(id_tem) {
+        
+        function delPembelian(id_tem, kd_gudang, kd_barang, qty) {
             $.ajax({
                 type: "POST",
-                data: "id_tem=" + id_tem,
-                url: "<?= base_url('Admin/Pembelian/TambahDataPembelian/delDetailPembelian'); ?>",
+                data: {id_tem : id_tem, kd_gudang : kd_gudang, kd_barang : kd_barang, qtyTemp : qty},
+                url: "<?= base_url('Admin/Penjualan/TambahDataPenjualan/delDetailPenjualan'); ?>",
                 dataType: "JSON",
                 success: function(a) {
                     Toast.fire({
@@ -579,9 +618,12 @@
             });
         }
 
-        function getDisplayData(kode_barang, nama_barang) {
+        function getDisplayData(kode_gudang, nama_barang, kode_barang, qty, satuan, hrgJual) {
             $("#kdBarang").val(kode_barang);
             $("#nmBarang").val(nama_barang);
+            $("#kodeGudang").val(kode_gudang);
+            $("#hrgBeli").val(hrgJual);
+            $("#satuan").val(satuan);
 
             $("#modal-kodeBarang").modal("hide");
         }

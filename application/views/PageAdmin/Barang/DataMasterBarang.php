@@ -450,8 +450,8 @@
                                     <td>` + data[i].nama_barang + `</td>
                                     <td align="center">` + statusBrgChar + `</td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-primary" onClick="editDataBarang('` + kode + `','` + subKode + `','` + data[i].nama_barang + `','` + idBrg + `','` + statusBrg + `','` + data[i].persen_naik + `','` + data[i].persen_turun + `')"><i class="fas fa-edit"></i> Edit</button>
-                                        <button class="btn btn-sm btn-danger" id="hapusData" onClick="validateHapus('` + data[i].id_kd_barang + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                        <button type="button" class="btn btn-xs btn-primary" onClick="editDataBarang('` + kode + `','` + subKode + `','` + data[i].nama_barang + `','` + idBrg + `','` + statusBrg + `','` + data[i].persen_naik + `','` + data[i].persen_turun + `')"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn btn-xs btn-danger" id="hapusData" onClick="validateHapus('` + data[i].id_kd_barang + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
                                     </td>
                                 </tr>`;
                     }

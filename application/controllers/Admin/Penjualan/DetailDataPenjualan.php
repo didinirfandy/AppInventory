@@ -23,7 +23,7 @@ class DetailDataPenjualan extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Pembelian');
+        $this->load->model('Penjualan');
 
         if (empty($_SESSION['username'])) {
             $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
@@ -35,7 +35,34 @@ class DetailDataPenjualan extends CI_Controller
     {
         $data['title'] = "Detail Data Penjualan";
 
+        $kd_penjualan = $this->uri->segment(5);
+
+        $data['master'] = $this->Penjualan->getMasterPenjualan($kd_penjualan);
+
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Penjualan/DetailDataPenjualan');
+    }
+
+    public function getMaster()
+    {
+        $kd_penjualan = $this->input->post("kd_penjualan");
+        $data = $this->Penjualan->getMasterPenjualan($kd_penjualan);
+        echo json_encode($data);
+    }
+
+    public function getDetailPenjualan()
+    {
+        $kd_penjualan = $this->input->post("kd_penjualan");
+        $data = $this->Penjualan->getDetailPenjualan($kd_penjualan);
+        echo json_encode($data);
+    }
+
+    public function cetakNotaPenjualan()
+    {
+        $kdJual = $this->input->get('kdJual');
+
+        $data['title'] = "Cetak Nota Penjualan";
+        $data['dataPenjualan'] = $this->Penjualan->getDataNotaPenjualan($kdJual);
+        $this->load->view('PageAdmin/Penjualan/CetakNota', $data);
     }
 }
