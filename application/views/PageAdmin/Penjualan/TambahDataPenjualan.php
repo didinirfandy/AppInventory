@@ -427,11 +427,12 @@
                             $("#simpanBarang").addClass('disabled');
                         },
                         success: function(hasil) {
-                            console.log(hasil);
+                            // console.log(hasil);
                             Toast.fire({
                                 icon: 'success',
                                 title: 'Berhasil Simpan Penjualan Barang!'
                             });
+                            window.open("DetailDataPenjualan/cetakNotaPenjualan?kdJual="+kodeBeli, "_blank");
                             setInterval(function() {
                                 location.reload();
                             }, 3000);

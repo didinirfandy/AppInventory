@@ -104,7 +104,7 @@ class Penjualan extends CI_Model
         $urutan = (int) $qry2[0]['kode'];
         $urutan++;
 
-        $kodeBeli = "BLI";
+        $kodeBeli = "PNJL";
         $day   = date("d");
         $month = date("m");
         $year  = substr(date("Y"), 2, 2);
@@ -264,5 +264,32 @@ class Penjualan extends CI_Model
         } else {
             return false;
         }
+    }
+
+    public function getDataNotaPenjualan($kdJual)
+    {
+        $qryHead = $this->db->query("SELECT a.*, b.nama 
+                                    FROM master_penjualan a  
+                                    LEFT JOIN master_login b ON a.nik_admin = b.nik
+                                    WHERE kd_penjualan = '$kdJual'")->row_array();
+        if ($qryHead) {
+            $qryDetail = $this->db->query("SELECT a.*, b.nama_barang 
+                                        FROM detail_penjualan a
+                                        LEFT JOIN kode_barang b ON a.kd_barang = CONCAT(b.kode,b.sub_kode)
+                                        WHERE a.kd_penjualan = '$kdJual'")->result_array();
+
+            if ($qryDetail) {
+                $data = [
+                    "headPenjualan"     => $qryHead,
+                    "detailPenjualan"   => $qryDetail
+                ];
+                return $data;
+            } else {
+                return false;
+            }
+            
+        } else {
+            return false;
+        }        
     }
 }

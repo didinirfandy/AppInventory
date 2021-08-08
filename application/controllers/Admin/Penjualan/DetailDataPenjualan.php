@@ -56,4 +56,13 @@ class DetailDataPenjualan extends CI_Controller
         $data = $this->Penjualan->getDetailPenjualan($kd_penjualan);
         echo json_encode($data);
     }
+
+    public function cetakNotaPenjualan()
+    {
+        $kdJual = $this->input->get('kdJual');
+
+        $data['title'] = "Cetak Nota Penjualan";
+        $data['dataPenjualan'] = $this->Penjualan->getDataNotaPenjualan($kdJual);
+        $this->load->view('PageAdmin/Penjualan/CetakNota', $data);
+    }
 }

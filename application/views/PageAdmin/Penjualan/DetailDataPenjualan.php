@@ -40,6 +40,11 @@
                             </div> -->
 
                             <div class="card-body">
+                                <div class="row mb-3" >
+                                    <div class="col-12">                                        
+                                        <button class="btn btn-sm btn-info" id="btnCetakNota" style="float: right;"><i class="fas fa-print"></i>&nbsp;&nbsp;&nbsp;Cetak Nota</button>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="card card-primary">
@@ -165,6 +170,12 @@
                 "autoWidth": false,
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
+
+            let kd_penjualan = sessionStorage.getItem("kd_penjualan");
+            $("#btnCetakNota").click(function(){
+                window.open("<?= base_url()?>Admin/Penjualan/DetailDataPenjualan/cetakNotaPenjualan?kdJual="+kd_penjualan, "_blank");
+            })
+
 
         });
 
