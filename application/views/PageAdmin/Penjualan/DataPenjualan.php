@@ -47,7 +47,7 @@
                                                 <th>No</th>
                                                 <th>Kode Penjualan</th>
                                                 <th>Tgl Penjualan</th>
-                                                <th>Item</th>
+                                                <th>Quantity</th>
                                                 <th>Total Penjualan</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -60,7 +60,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <a href="<?= base_url('Admin/Penjualan/DetailDataPenjualan')?>" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a>
+                                                    <a href="<?= base_url('Admin/Penjualan/DetailDataPenjualan')?>" class="btn btn-xs btn-primary"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</a>
                                                 </td> 
                                             </tr>
                                         </tbody>
@@ -69,7 +69,7 @@
                                                 <th>No</th>
                                                 <th>Kode Penjualan</th>
                                                 <th>Tgl Penjualan</th>
-                                                <th>Item</th>
+                                                <th>Quantity</th>
                                                 <th>Total Penjualan</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -99,36 +99,65 @@
             displayData()
             $("#tableDataBarang").DataTable({
                 "responsive": true,
-                // "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["excel", "pdf"],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
-            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
+            });
         });
+
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
+        }
 
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/DataBarangPembelian/GetData') ?>",
+                url: "<?= base_url('Admin/Penjualan/DataPenjualan/GetData') ?>",
                 dataType: "json",
                 async: false,
-                success: function(data) {
-                    console.log(data);
+                success: function(dt) {
+                    // console.log(dt);
                     let row = '';
-                    for (let i = 0; i < data.length; i++) {
+                    for (let i = 0; i < dt.length; i++) {
+                        if (dt[i].tgl_penjualan != "") {
+                            var date = new Date(dt[i].tgl_penjualan);
+                            var tgl_penjualan = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
+                        } else {
+                            tgl_penjualan = "";
+                        }
+                        
                         row += `<tr> 
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>` + (i + 1) + `</td>
+                            <td>` + dt[i].kd_penjualan + `</td>
+                            <td>` + tgl_penjualan + `</td>
+                            <td>` + dt[i].qty + `</td>
+                            <td>` + formatRupiah(dt[i].total_penjualan, '') + `</td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Detail</a></td> 
+                                <button class="btn btn-xs btn-primary" onclick="openDetail('` + dt[i].kd_penjualan + `')"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</button> 
                             </tr>`;
                     }
                     $('#databarang').html(row);
                 }
             })
+        }
+
+        function openDetail(kd_penjualan) {
+            if (kd_penjualan) {
+                sessionStorage.setItem("kd_penjualan", kd_penjualan);
+                location.href = "<?= base_url("Admin/Penjualan/DetailDataPenjualan/index") ?>";
+            }
         }
     </script>
 
