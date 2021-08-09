@@ -61,12 +61,6 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= base_url('Admin/Penjualan/DataPelanggan') ?>" class="nav-link <?= $this->uri->segment(3) == "DataPelanggan" ? 'active' : ''; ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pelanggan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?= base_url('Admin/Penjualan/DataPenjualan') ?>" class="nav-link <?= $this->uri->segment(3) == "DataPenjualan" ? 'active' : ''; ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Penjualan</p>
