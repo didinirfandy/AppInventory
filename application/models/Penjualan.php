@@ -132,7 +132,9 @@ class Penjualan extends CI_Model
                                     LEFT JOIN kode_barang b ON CONCAT( b.kode, b.sub_kode ) = a.kd_barang
                                     LEFT JOIN detail_pembelian c ON c.kd_pembelian = a.kd_pembelian AND c.kd_barang = a.kd_barang
                                 WHERE
-                                    a.`status` != '1' AND a.qty > 0")->result_array();
+                                    a.`status` != '1' AND a.qty > 0
+                                ORDER BY
+                                    a.tgl_masuk_gudang DESC")->result_array();
         if ($qry) {
             return $qry;
         } else {
