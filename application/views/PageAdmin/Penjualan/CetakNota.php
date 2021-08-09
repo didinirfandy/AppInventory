@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="<?= base_url()?>assetsApp/Template/css/pdf.css" type="text/css"> -->
     <title><?=$title?></title>
 </head>
 <body>
     <style>
         @media print {
-            .noPrint{
-                display:none;
+            .noPrint {
+                display: none;
             }
         }
 
-        .btn-print{
+        .btn-print {
             background-color: #8ab4f8;
             align-items: center;
             border: 1px solid var(--border-color);
@@ -34,14 +35,46 @@
             position: relative;
             user-select: none;
         }
+
+        .center {
+            text-align: center;
+        }
+
+        table, tr {
+            /*border: 1px solid black;*/
+            padding: 7px;
+            border-collapse: collapse;
+        }
+
+        th {
+            /* background: #ccccff; */
+            border: 1px solid #000000;
+            border-right: transparent;
+            border-left: transparent;
+        }
+                
+        th:last-of-type {
+            border: unset;
+            border-right: unset;
+            border-left: unset;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
     </style>
     <div>
-        <div class="noPrint" style="float: right;">
+        <!-- <div class="noPrint" style="float: right;">
             <button onclick="window.print();" class="btn-print">Print</button>
-        </div>
-        <h3 style="text-align: center;">INVOICE PENJUALAN</h3>
+        </div> -->
+        <h3 class="center">INVOICE PENJUALAN</h3>
         <div>
-            <span><b>TOKO MEBEL ABADI JAYA</b></span><br><br>
+            <span><b>TOKO PLAZA MEUBEL</b></span><br><br>
             <table width="100%">
                 <tbody>
                     <tr>
@@ -70,9 +103,9 @@
         </div>
         <br><br>
         <div>
-            <table width="100%" style="border-collapse: collapse;">
+            <table width="100%" >
                 <thead>
-                    <tr style="border-bottom: 1px solid black; border-top: 1px solid black;">
+                    <tr>
                         <th>No</th>
                         <th style="text-align: left;">Barang</th>
                         <th style="text-align: left;">Satuan</th>
@@ -106,24 +139,24 @@
                 </tbody>
             </table>
         </div>
-        <br><br>
+        <br><hr>
         <div>
             <table width="100%">
                 <tbody>
                     <tr>
                         <td width="50%"></td>
                         <td width="30%">Sub Total</td>
-                        <td width="20%"><?= $dataPenjualan['headPenjualan']['total_penjualan']?></td>
+                        <td width="20%"><?= number_format($dataPenjualan['headPenjualan']['total_penjualan'],0,',','.')?></td>
                     </tr>
                     <tr>
                         <td width="50%"></td>
                         <td width="30%">Bayar</td>
-                        <td width="20%"><?= $dataPenjualan['headPenjualan']['bayar']?></td>
+                        <td width="20%"><?= number_format($dataPenjualan['headPenjualan']['bayar'],0,',','.')?></td>
                     </tr>
                     <tr>
                         <td width="50%"></td>
                         <td width="30%">Kembali</td>
-                        <td width="20%"><?= $dataPenjualan['headPenjualan']['bayar'] - $dataPenjualan['headPenjualan']['total_penjualan']?></td>
+                        <td width="20%"><?= number_format($dataPenjualan['headPenjualan']['bayar'] - $dataPenjualan['headPenjualan']['total_penjualan'],0,',','.')?></td>
                     </tr>
                 </tbody>
             </table>
