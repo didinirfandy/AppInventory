@@ -126,16 +126,22 @@
                             </div>
                         </div>
                         <div class="row detailBrg">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="kodeDetail">Barang Detail</label>
                                     <input type="text" class="form-control kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="" readonly>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="namaDetail">&nbsp;</label>
                                     <input type="text" class="form-control namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="hargaDetail">&nbsp;</label>
+                                    <input type="text" class="form-control hargaDetail" name="hargaDetail[]" placeholder="Harga Detail Barang" value="">
                                 </div>
                             </div>
                         </div>
@@ -164,38 +170,49 @@
                 </div>
                 <div class="modal-body">
                     <form action="" method="post" id="formEditBarang">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
                                     <label for="kodeBrgEdit">Barang</label>
-                                </div>
-                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success col-lg-2" style="    position: absolute; right: 15px;">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch3" name="statusBrgEdit">
-                                    <label class="custom-control-label" for="customSwitch3">Status</label>
+                                    <input type="text" class="form-control" id="kodeBrgEdit" name="kodeBrgEdit" placeholder="Kode Barang" value="" readonly>
+                                    <input type="hidden" class="form-control" name="idBrgEdit" id="idBrgEdit" placeholder="idBrgEdit" value="">
                                 </div>
                             </div>
-                            <input type="hidden" class="form-control" name="idBrgEdit" id="idBrgEdit" placeholder="idBrgEdit" value="">
-                            <div class="row">
-                                <input type="text" class="form-control col-lg-5" id="kodeBrgEdit" name="kodeBrgEdit" placeholder="Kode Barang" value="" readonly>
-                                &nbsp;&nbsp;&nbsp;
-                                <input type="text" class="form-control col-lg-6" id="namaBrgEdit" name="namaBrgEdit" placeholder="Nama Barang" value="">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="namaBrgEdit">&nbsp;</label>
+                                    <input type="text" class="form-control" id="namaBrgEdit" name="namaBrgEdit" placeholder="Nama Barang" value="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success" style="    position: absolute; right: 15px;">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch3" name="statusBrgEdit">
+                                        <label class="custom-control-label" for="customSwitch3">Status</label>
+                                    </div>
+                                    <label for="hargaBrgEdit">&nbsp;</label>
+                                    <input type="text" class="form-control" id="hargaBrgEdit" name="hargaBrgEdit" placeholder="Harga Barang" value="">
+                                </div>
                             </div>
                         </div>
                         <div class="row" id="rowPersenHeader">
-                            <div class="form-group col-lg-5">
-                                <label for="naikHeaderEdit">Persentase Turun</label>
-                                <input type="text" class="form-control" id="naikHeaderEdit" name="naikHeaderEdit" placeholder="Persentase Kenaikan Harga" value="">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="naikHeaderEdit">Persentase Turun</label>
+                                    <input type="text" class="form-control" id="naikHeaderEdit" name="naikHeaderEdit" placeholder="Persentase Kenaikan Harga" value="">
+                                </div>
                             </div>
-                            &nbsp;&nbsp;&nbsp;
-                            <div class="form-group col-lg-6">
-                                <label for="turunHeaderEdit">Persentase Naik</label>
-                                <input type="text" class="form-control" id="turunHeaderEdit" name="turunHeaderEdit" placeholder="Persentase Turun Harga" value="">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="turunHeaderEdit">Persentase Naik</label>
+                                    <input type="text" class="form-control" id="turunHeaderEdit" name="turunHeaderEdit" placeholder="Persentase Turun Harga" value="">
+                                </div>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" id="closeBtn">Close</button>
                     <button type="submit" id="editSupp" class="btn btn-sm btn-primary editSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
                 </div>
             </div>
@@ -225,8 +242,17 @@
                 $("#namaHeader").val('')
                 $(".kodeDetail").val('')
                 $(".namaDetail").val('')
+                $(".hargaDetail").val('')
             })
 
+            $('#modal-editBarang').on('hidden.bs.modal', function() {
+                $("#kodeBrgEdit").val('')
+                $("#idBrgEdit").val('')
+                $("#namaBrgEdit").val('')
+                $("#HargaBrgEdit").val('')
+                $("#naikHeaderEdit").val('')
+                $("#turunHeaderEdit").val('')
+            })
 
             $("#tableDataBarang").DataTable({
                 "responsive": true,
@@ -254,15 +280,22 @@
                 kodeDetail = String(parseInt(kodeDetail) + 1).padStart(2, '0') + '.';
 
                 let formDetail = `<div class="row detailBrg newDetailBrg ` + newDetail + `">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <input type="text" class="form-control kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="` + kodeDetail + `" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <input type="text" class="form-control namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control hargaDetail" name="hargaDetail[]" placeholder="Harga Detail Barang" value="">
                                                 <div class="input-group-append">
                                                     <button type="button" class="btn btn-sm btn-default" onClick="removeDetail('` + newDetail + `')"><i class="fas fa-times"></i></button>
                                                 </div>
@@ -279,12 +312,14 @@
                     naikHeader: "required",
                     turunHeader: "required",
                     "namaDetail[]": "required",
+                    "hargaDetail[]": "required",
                 },
                 messages: {
                     namaHeader: "Nama Header Tidak Boleh Kosong",
                     naikHeader: "Persentase Naik Tidak Boleh Kosong",
                     turunHeader: "Persentase Turun Tidak Boleh Kosong",
                     "namaDetail[]": "Nama Detail Tidak Boleh Kosong",
+                    "hargaDetail[]": "Nama Detail Tidak Boleh Kosong",
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
@@ -307,6 +342,7 @@
                 let namaHeadBrg = $("#namaHeader").val()
                 let kodeDetailBrg = $(".kodeDetail").val()
                 let namaDetailBrg = $(".namaDetail").val()
+                let hargaDetailBrg = $(".hargaDetail").val()
 
                 let data = $("#formMstrBarang").serialize();
 
@@ -328,6 +364,7 @@
                         $("#namaHeader").val('')
                         $(".kodeDetail").val('')
                         $(".namaDetail").val('')
+                        $(".hargaDetail").val('')
                         setTimeout(() => {
                             window.location.reload()
                         }, 1000);
@@ -450,7 +487,7 @@
                                     <td>` + data[i].nama_barang + `</td>
                                     <td align="center">` + statusBrgChar + `</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-primary" onClick="editDataBarang('` + kode + `','` + subKode + `','` + data[i].nama_barang + `','` + idBrg + `','` + statusBrg + `','` + data[i].persen_naik + `','` + data[i].persen_turun + `')"><i class="fas fa-edit"></i> Edit</button>
+                                        <button type="button" class="btn btn-xs btn-primary" onClick="editDataBarang('` + kode + `','` + subKode + `','` + data[i].nama_barang + `','` + idBrg + `','` + statusBrg + `','` + data[i].persen_naik + `','` + data[i].persen_turun + `','`+ data[i].harga +`')"><i class="fas fa-edit"></i> Edit</button>
                                         <button class="btn btn-xs btn-danger" id="hapusData" onClick="validateHapus('` + data[i].id_kd_barang + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
                                     </td>
                                 </tr>`;
@@ -460,20 +497,24 @@
             })
         }
 
-        function editDataBarang(kode, subKode, namaBrg, idBrg, statusBrg, persen_naik, persen_turun) {
+        function editDataBarang(kode, subKode, namaBrg, idBrg, statusBrg, persen_naik, persen_turun, harga) {
             $("#modal-editBarang").modal('show');
             $("#kodeBrgEdit").val(kode + subKode)
             $("#namaBrgEdit").val(namaBrg)
             $("#idBrgEdit").val(idBrg)
+            $("#hargaBrgEdit").val(harga)
 
-            console.log(persen_naik)
+            // console.log(harga)
 
             if (subKode != "*") {
                 $("#rowPersenHeader").hide()
+                $("#hargaBrgEdit").attr('readonly', false)
             } else {
                 $("#rowPersenHeader").show()
                 $("#naikHeaderEdit").val(persen_naik)
                 $("#turunHeaderEdit").val(persen_turun)
+                $("#hargaBrgEdit").attr('readonly', true)
+
             }
 
             if (statusBrg == '1') {
