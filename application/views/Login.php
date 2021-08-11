@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>INVENTORY :: Login </title>
+    <title>INVENTORI :: Login </title>
 
     <!-- Icon Aplication -->
     <link rel="shortcut icon" type="image/ico" href="<?= base_url(); ?>assetsApp/dist/img/clipart.png">
@@ -25,11 +25,9 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="<?= base_url(); ?>assetsApp/index2.html" class="h1"><b>Admin</b>Inventory</a>
+                <h1><b>Inv</b> Plaza Meubel</h1>
             </div>
             <div class="card-body">
-                <!-- <p class="login-box-msg">Sign in to start your session</p> -->
-
                 <form action="<?= base_url('Login/actionLogin'); ?>" method="post" id="checkLogin">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="username" placeholder="Username">

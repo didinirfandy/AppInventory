@@ -35,7 +35,7 @@
                     <!-- Main row -->
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
+                            <div class="card card-defailt">
                                 <div class="card-header">
                                     <a class="btn btn-sm btn-primary" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float: right; margin-left: 1%;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Data</a>
                                 </div>
@@ -48,7 +48,7 @@
                                                 <th>Kode Pembelian</th>
                                                 <th>Tgl Pembelian</th>
                                                 <th>Nama Supplier</th>
-                                                <th>Quantity</th>
+                                                <th>Status</th>
                                                 <th>Total Harga</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -166,7 +166,7 @@
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/Pembelian/DataPembelian/GetData') ?>",
+                url: "<?= base_url('Admin/Pembelian/DataPembelian/GetDataPembelian') ?>",
                 dataType: "json",
                 async: false,
                 success: function(dt) {
@@ -176,7 +176,8 @@
 
                         if (dt[i].tgl_pembelian != "") {
                             var date = new Date(dt[i].tgl_pembelian);
-                            var tgl_pembelian = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
+                            var tgl_pembelian = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear() + " " +
+                                ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2) + ":" + ("00" + date.getSeconds()).slice(-2);
                         } else {
                             tgl_pembelian = "";
                         }
@@ -192,7 +193,19 @@
                                 <td>` + dt[i].kd_pembelian + `</td>
                                 <td>` + tgl_pembelian + `</td>
                                 <td>` + dt[i].nama_supplier + `</td>
-                                <td>` + dt[i].qty_sisa + `&nbsp;<button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Total Beli = ` + dt[i].qty + ` <br> Total Sisa = ` + dt[i].qty_sisa + `" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button></td>
+                                <td style="width: 20%">`;
+                        if (dt[i].qty_sisa == '0') {
+                            row += `<span class="badge badge-success">Terpenuhi</span>`;
+                        }
+                        if (dt[i].qty == dt[i].qty_sisa) {
+                            row += `<span class="badge badge-info">Pengiriman</span>`;
+                        }
+                        if (dt[i].qty != dt[i].qty_sisa) {
+                            row += `<span class="badge badge-warning">Masih ada sisa dan cancel sebagian</span>`;
+                        }
+
+                        row += `&nbsp;[` + dt[i].qty + `/` + dt[i].qty_sisa + `]&nbsp;<button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Total Beli = ` + dt[i].qty + ` <br> Total Sisa = ` + dt[i].qty_sisa + `" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button>`;
+                        row += `</td>
                                 <td>` + formatRupiah(dt[i].total_pembelian, '') + `</td>
                                 <td>
                                     <button class="btn btn-xs btn-primary" onclick="openDetail('` + dt[i].kd_pembelian + `')"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</button>&nbsp;&nbsp;

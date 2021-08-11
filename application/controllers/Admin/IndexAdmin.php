@@ -22,7 +22,10 @@ class IndexAdmin extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        // $this->load->model('Login_model');
+        $this->load->model('Pembelian');
+        $this->load->model('Penjualan');
+        $this->load->model('Supplier');
+        $this->load->model('Barang');
 
         if (empty($_SESSION['username'])) {
             $this->session->set_flashdata('notifError', 'Anda Harus Login Terlebih Dahulu');
@@ -36,5 +39,29 @@ class IndexAdmin extends CI_Controller
 
         $this->load->view('Template/Head', $data);
         $this->load->view('PageAdmin/IndexAdmin', $data);
+    }
+
+    public function getListPembelian()
+    {
+        $data = $this->Pembelian->getListPembelian();
+        echo json_encode($data);
+    }
+
+    public function getListPenjualan()
+    {
+        $data = $this->Penjualan->getListPenjualan();
+        echo json_encode($data);
+    }
+
+    public function getListSupplier()
+    {
+        $data = $this->Supplier->getListSupplier();
+        echo json_encode($data);
+    }
+
+    public function getListBarang()
+    {
+        $data = $this->Barang->getListBarang();
+        echo json_encode($data);
     }
 }

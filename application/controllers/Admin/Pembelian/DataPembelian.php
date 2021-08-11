@@ -39,7 +39,7 @@ class DataPembelian extends CI_Controller
         $this->load->view('PageAdmin/Pembelian/DataPembelian');
     }
 
-    public function GetData()
+    public function GetDataPembelian()
     {
         $data = $this->Pembelian->GetDataPembelian();
         echo json_encode($data);

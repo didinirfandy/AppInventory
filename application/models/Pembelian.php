@@ -3,6 +3,16 @@ date_default_timezone_set('Asia/Jakarta');
 
 class Pembelian extends CI_Model
 {
+    public function getListPembelian()
+    {
+        $qry = $this->db->query("SELECT COUNT(*) totBeli FROM master_pembelian WHERE `status` = '0'")->row();
+        if ($qry) {
+            return $qry;
+        } else {
+            return false;
+        }
+    }
+
     public function getSupplier()
     {
         $qry = $this->db->query("SELECT * FROM supplier")->result_array();
@@ -168,20 +178,21 @@ class Pembelian extends CI_Model
         $qry = $this->db->query(
             "SELECT 
                 a.kd_pembelian
-                , date(a.tgl_pembelian) tgl_pembelian
+                , a.tgl_pembelian
                 , c.nama_supplier
                 , sum(b.qty) qty
                 , sum(b.qty_gudang) qty_gudang
                 , sum(b.qty_batal) qty_batal
                 , sum(b.qty_sisa) qty_sisa
                 , a.total_pembelian
+                , b.status_beli
             FROM 
                 master_pembelian a
                 LEFT JOIN detail_pembelian b ON a.kd_pembelian = b.kd_pembelian
                 LEFT JOIN supplier c ON a.kd_supplier = c.kd_supplier
             WHERE a.status != '1'
             GROUP BY a.kd_pembelian
-            ORDER BY a.tgl_pembelian ASC"
+            ORDER BY a.tgl_pembelian DESC"
         )->result_array();
 
         if ($qry) {

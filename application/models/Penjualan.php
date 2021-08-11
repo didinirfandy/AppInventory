@@ -3,6 +3,16 @@ date_default_timezone_set('Asia/Jakarta');
 
 class Penjualan extends CI_Model
 {
+    public function getListPenjualan()
+    {
+        $qry = $this->db->query("SELECT COUNT(*) totJual FROM master_penjualan WHERE kd_penjualan != NULL")->row();
+        if ($qry) {
+            return $qry;
+        } else {
+            return false;
+        }
+    }
+
     public function GetDataPenjualan()
     {
         $qry = $this->db->query(
@@ -155,17 +165,17 @@ class Penjualan extends CI_Model
 
     public function insertDataDetail($tabel, $data, $qtyBeli, $kodeGudang, $kdBarang)
     {
-        $insert = $this->db->insert($tabel, $data);   
-        if($insert){
+        $insert = $this->db->insert($tabel, $data);
+        if ($insert) {
 
             $updateStock = $this->db->query("UPDATE master_barang SET qty=qty-'$qtyBeli' WHERE kd_gudang = '$kodeGudang' AND kd_barang = '$kdBarang'");
-            
+
             if ($updateStock) {
                 return true;
             } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
@@ -193,7 +203,7 @@ class Penjualan extends CI_Model
             $action = $this->db->delete($tabel, array('id_tem_penjualan' => $idTem));
             if ($action) {
                 $updateStock = $this->db->query("UPDATE master_barang SET qty=qty+'$qtyTemp' WHERE kd_gudang = '$kodeGudang' AND kd_barang = '$kodeBarang'");
-                
+
                 if ($updateStock) {
                     return true;
                 } else {
@@ -201,8 +211,7 @@ class Penjualan extends CI_Model
                 }
             } else {
                 return false;
-            }
-            ;
+            };
         } else {
             return false;
         }
@@ -289,9 +298,8 @@ class Penjualan extends CI_Model
             } else {
                 return false;
             }
-            
         } else {
             return false;
-        }        
+        }
     }
 }

@@ -50,7 +50,7 @@ class DataBarangPembelian extends CI_Controller
         echo json_encode($data);
     }
 
-    public function GetData()
+    public function GetDetailPembelian()
     {
         $kd_pembelian = $this->input->post("kd_pembelian");
         $data = $this->Pembelian->GetDetailPembelian($kd_pembelian);

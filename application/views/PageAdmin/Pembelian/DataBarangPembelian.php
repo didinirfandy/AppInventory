@@ -294,7 +294,7 @@
                 data: {
                     kd_pembelian: kd_pembelian
                 },
-                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetData') ?>",
+                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/GetDetailPembelian') ?>",
                 dataType: "json",
                 async: false,
                 success: function(dt) {

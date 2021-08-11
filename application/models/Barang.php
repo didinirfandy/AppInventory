@@ -341,4 +341,14 @@ class Barang extends CI_Model
             return false;
         }
     }
+
+    public function getListBarang()
+    {
+        $qry = $this->db->query("SELECT COUNT(*) totBarang FROM master_barang WHERE `status` = '0'")->row();
+        if ($qry) {
+            return $qry;
+        } else {
+            return false;
+        }
+    }
 }
