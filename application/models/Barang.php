@@ -69,18 +69,18 @@ class Barang extends CI_Model
         }
     }
 
-    public function insertMasterBarang($opt, $kodeHead, $namaHead, $kodeDetail, $namaDetail, $naikHead, $turunHead)
+    public function insertMasterBarang($opt, $kodeHead, $namaHead, $kodeDetail, $namaDetail, $naikHead, $turunHead, $hargaDetail)
     {
         if ($opt == '') {
             $qry = $this->db->query("INSERT INTO kode_barang (kode, sub_kode, nama_barang, persen_naik, persen_turun, `status`) VALUES ('$kodeHead', '*', '$namaHead', $naikHead, $turunHead, '1')");
             if ($qry) {
                 for ($i = 0; $i < count($kodeDetail); $i++) {
-                    $detQry = $this->db->query("INSERT INTO kode_barang (kode, sub_kode, nama_barang, `status`) VALUES ('$kodeHead', '$kodeDetail[$i]', '$namaDetail[$i]', '1')");
+                    $detQry = $this->db->query("INSERT INTO kode_barang (kode, sub_kode, nama_barang, harga, `status`) VALUES ('$kodeHead', '$kodeDetail[$i]', '$namaDetail[$i]', '$hargaDetail[$i]', '1')");
                 }
             }
         } else {
             for ($i = 0; $i < count($kodeDetail); $i++) {
-                $detQry = $this->db->query("INSERT INTO kode_barang (kode, sub_kode, nama_barang, `status`) VALUES ('$kodeHead', '$kodeDetail[$i]', '$namaDetail[$i]', '1')");
+                $detQry = $this->db->query("INSERT INTO kode_barang (kode, sub_kode, nama_barang, harga, `status`) VALUES ('$kodeHead', '$kodeDetail[$i]', '$namaDetail[$i]', '$hargaDetail[$i]', '1')");
             }
         }
 

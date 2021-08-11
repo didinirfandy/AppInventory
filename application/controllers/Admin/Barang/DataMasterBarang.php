@@ -76,8 +76,9 @@ class DataMasterBarang extends CI_Controller
         $turunHead  = $_POST['turunHeader'];
         $kodeDetail = $_POST['kodeDetail'];
         $namaDetail = $_POST['namaDetail'];
+        $hargaDetail = $_POST['hargaDetail'];
 
-        $insert = $this->Barang->insertMasterBarang($opt, $kodeHead, $namaHead, $kodeDetail, $namaDetail, $naikHead, $turunHead);
+        $insert = $this->Barang->insertMasterBarang($opt, $kodeHead, $namaHead, $kodeDetail, $namaDetail, $naikHead, $turunHead, $hargaDetail);
 
         echo json_encode($insert);
     }
@@ -86,13 +87,15 @@ class DataMasterBarang extends CI_Controller
     {
         $idBrg = $_POST['idBrgEdit'];
         $namaBrg = $_POST['namaBrgEdit'];
+        $hargaBrg = $_POST['hargaBrgEdit'];
         $statusBrg = isset($_POST['statusBrgEdit']) && $_POST['statusBrgEdit'] == 'on' ? '1' : '0';
         $persenNaik = $_POST['naikHeaderEdit'];
         $persenTurun = $_POST['turunHeaderEdit'];
 
         $data = [
             'nama_barang' => $namaBrg,
-            'status'      => $statusBrg
+            'status'      => $statusBrg,
+            'harga'       => $hargaBrg
         ];
         if ($persenNaik && $persenTurun) {
             $data['persen_turun'] = $persenTurun;

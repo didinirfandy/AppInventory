@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Agu 2021 pada 16.47
--- Versi server: 10.4.17-MariaDB
--- Versi PHP: 7.3.25
+-- Waktu pembuatan: 11 Agu 2021 pada 06.51
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.2.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -38,7 +39,7 @@ CREATE TABLE `activity_log_barang` (
   `qty_gudang` int(11) NOT NULL,
   `qty_batal` int(11) NOT NULL,
   `remark` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `activity_log_barang`
@@ -51,40 +52,41 @@ INSERT INTO `activity_log_barang` (`id_log_barang`, `date_log`, `nik_admin`, `kd
 (22, '2021-08-01 12:35:23', 123, 'BLI01082100001', 'SUP000002', '01.03.', 7, 0, 0, 'ini alasan nya'),
 (23, '2021-08-01 12:35:23', 123, 'BLI01082100001', 'SUP000002', '04.01.', 7, 0, 0, 'ini alasan nya'),
 (28, '2021-08-05 02:52:24', 123, 'BLI30072100001', 'SUP000001', '02.01.', 15, 5, 0, 'test masuk barang'),
-(38, '2021-08-07 00:52:19', 123, 'BLI30072100001', 'SUP000001', '02.01.', 9, 1, 0, 'asdas'),
-(39, '2021-08-07 00:53:58', 123, 'BLI30072100001', 'SUP000001', '02.01.', 9, 1, 0, 'asdasd'),
-(40, '2021-08-07 00:58:58', 123, 'BLI30072100001', 'SUP000001', '02.01.', 9, 1, 0, 'asdasd'),
-(41, '2021-08-07 00:59:31', 123, 'BLI30072100001', 'SUP000001', '02.01.', 8, 0, 1, 'asdasd'),
-(42, '2021-08-07 01:21:44', 123, 'BLI30072100001', 'SUP000001', '02.01.', 8, 0, 1, 'adfafad'),
-(43, '2021-08-07 01:23:06', 123, 'BLI30072100001', 'SUP000001', '02.01.', 0, 0, 8, 'kuhou'),
-(44, '2021-08-07 01:26:07', 123, 'BLI30072100001', 'SUP000001', '01.04.', 0, 16, 0, 'aklasjadf'),
-(45, '2021-08-07 01:30:34', 123, 'BLI07082100001', 'SUP000003', '02.03.', 50, 0, 0, 'asdasdasddasd'),
-(46, '2021-08-07 01:30:34', 123, 'BLI07082100001', 'SUP000003', '03.04.', 30, 0, 0, 'asdasdasddasd'),
-(47, '2021-08-07 01:30:34', 123, 'BLI07082100001', 'SUP000003', '06.04.', 40, 0, 0, 'asdasdasddasd'),
-(48, '2021-08-07 01:35:10', 123, 'BLI07082100002', 'SUP000002', '01.01.', 10, 0, 0, 'asdassfbaeb'),
-(49, '2021-08-07 01:38:15', 123, 'BLI07082100003', 'SUP000001', '03.03.', 15, 0, 0, 'kjhalfhalf'),
-(50, '2021-08-07 18:10:46', 123, 'BLI01082100001', 'SUP000002', '04.01.', 2, 0, 5, 'sdsdfa'),
-(51, '2021-08-07 18:15:30', 123, 'BLI01082100001', 'SUP000002', '01.03.', 2, 5, 0, 'wedasdas'),
-(52, '2021-08-07 18:15:50', 123, 'BLI01082100001', 'SUP000002', '01.03.', 1, 0, 1, 'asdasd'),
-(53, '2021-08-07 20:04:38', 123, 'BLI07082100003', 'SUP000001', '03.03.', 15, 0, 0, 'terasdafasvrwghnyjm'),
-(54, '2021-08-07 20:23:17', 123, 'BLI07082100003', 'SUP000001', '03.03.', 15, 0, 0, 'asdas'),
-(55, '2021-08-07 20:24:28', 123, 'BLI07082100003', 'SUP000001', '03.03.', 15, 0, 0, 'asdasdq'),
-(56, '2021-08-07 20:26:47', 123, 'BLI07082100003', 'SUP000001', '03.03.', 15, 0, 0, 'agdfadfb'),
-(57, '2021-08-07 20:34:15', 123, 'BLI07082100003', 'SUP000001', '03.03.', 15, 0, 0, 'asdqwdas'),
-(58, '2021-08-07 20:36:01', 123, 'BLI01082100001', 'SUP000002', '01.03.', 0, 0, 1, 'asdafwfadw'),
-(59, '2021-08-07 20:42:02', 123, 'BLI07082100002', 'SUP000002', '01.01.', 5, 5, 0, 'qefvafda'),
-(60, '2021-08-07 20:42:18', 123, 'BLI07082100002', 'SUP000002', '01.01.', 0, 0, 5, 'asdqwdasd'),
-(61, '2021-08-07 20:45:09', 123, 'BLI07082100002', 'SUP000002', '01.01.', 5, 0, 5, 'xbadfa'),
-(62, '2021-08-07 20:48:06', 123, 'BLI07082100002', 'SUP000002', '01.01.', 0, 5, 0, 'favawd'),
-(63, '2021-08-07 20:55:54', 123, 'BLI07082100002', 'SUP000002', '01.01.', 5, 0, 5, 'afsdsdfg'),
-(64, '2021-08-07 20:57:09', 123, 'BLI07082100002', 'SUP000002', '01.01.', 0, 5, 0, 'afaeghaer'),
-(65, '2021-08-07 20:59:09', 123, 'BLI07082100002', 'SUP000002', '01.01.', 6, 4, 0, 'asdqwdas'),
-(66, '2021-08-07 20:59:22', 123, 'BLI07082100002', 'SUP000002', '01.01.', 2, 0, 4, 'asdqw'),
-(67, '2021-08-07 20:59:38', 123, 'BLI07082100002', 'SUP000002', '01.01.', 0, 2, 0, 'asdfaedfq'),
-(68, '2021-08-07 21:09:24', 123, 'BLI07082100002', 'SUP000002', '01.01.', 2, 8, 0, 'dfasdf'),
-(69, '2021-08-07 21:09:42', 123, 'BLI07082100002', 'SUP000002', '01.01.', 0, 0, 2, 'sdqwdsd'),
-(70, '2021-08-07 21:49:31', 123, 'BLI07082100002', 'SUP000002', '01.01.', 8, 0, 2, 'asdasdqw'),
-(71, '2021-08-07 21:50:36', 123, 'BLI07082100002', 'SUP000002', '01.01.', 8, 0, 2, 'asdqeadsf');
+(38, '2021-08-07 23:40:08', 123, 'BLI07082100001', 'Mahmud', '02.01.', 2, 0, 0, NULL),
+(39, '2021-08-07 23:43:36', 123, 'BLI07082100001', 'Mahmud', '02.01.', 2, 0, 0, ''),
+(40, '2021-08-07 23:45:11', 123, 'BLI01082100001', 'SUP000002', '01.03.', 0, 7, 0, 'Okay'),
+(41, '2021-08-07 23:45:52', 123, 'BLI07082100001', 'Mahmud', '01.03.', 2, 0, 0, ''),
+(42, '2021-08-07 23:47:19', 123, 'BLI07082100001', 'Mahmud', '01.03.', 2, 0, 0, ''),
+(43, '2021-08-07 23:54:27', 123, 'BLI07082100001', 'Mahmud', '01.03.', 2, 0, 0, ''),
+(44, '2021-08-08 01:32:17', 123, 'BLI07082100001', 'Hyung', '01.03.', 2, 0, 0, ''),
+(45, '2021-08-08 01:49:15', 123, 'BLI08082100001', 'Onnie', '01.03.', 1, 0, 0, ''),
+(46, '2021-08-08 10:36:08', 123, 'BLI08082100002', 'Flix', '01.03.', 2, 0, 0, ''),
+(47, '2021-08-08 10:37:36', 123, 'BLI30072100001', 'SUP000001', '01.03.', 0, 15, 0, 'Okay'),
+(48, '2021-08-08 10:38:11', 123, 'BLI08082100003', 'Mukidi', '01.03.', 1, 0, 0, ''),
+(49, '2021-08-08 10:39:02', 123, 'BLI08082100004', 'Mukidi', '01.03.', 1, 0, 0, ''),
+(50, '2021-08-08 10:41:00', 123, 'BLI08082100005', 'Maman', '01.03.', 1, 0, 0, ''),
+(51, '2021-08-08 10:43:34', 123, 'BLI08082100006', 'Nanan', '01.03.', 1, 0, 0, ''),
+(52, '2021-08-08 10:45:19', 123, 'BLI08082100007', 'Mince', '01.03.', 1, 0, 0, ''),
+(53, '2021-08-08 13:01:45', 123, 'PNJL08082100008', 'Tatang', '01.03.', 1, 0, 0, ''),
+(54, '2021-08-08 13:01:45', 123, 'PNJL08082100008', 'Tatang', '01.03.', 2, 0, 0, ''),
+(55, '2021-08-09 20:16:16', 123, 'PNJL09082100001', 'Mansur', '01.03.', 1, 0, 0, ''),
+(56, '2021-08-09 20:24:27', 123, 'BLI09082100001', 'SUP000002', '01.02.', 15, 0, 0, 'Okay'),
+(57, '2021-08-09 20:26:45', 123, 'PNJ09082100001', 'Mustofa', '01.03.', 1, 0, 0, ''),
+(58, '2021-08-09 20:30:07', 123, 'BLI09082100001', 'SUP000002', '01.02.', 0, 15, 0, 'Okay'),
+(59, '2021-08-09 20:31:04', 123, 'PNJ09082100002', 'Juned', '01.02.', 15, 0, 0, ''),
+(60, '2021-08-09 20:32:09', 123, 'PNJ09082100003', 'Kekei', '01.03.', 1, 0, 0, ''),
+(61, '2021-08-09 20:55:52', 123, 'PNJ09082100004', 'Mansur', '01.03.', 1, 0, 0, ''),
+(62, '2021-08-09 21:03:05', 123, 'PNJ09082100005', 'Mamn', '01.03.', 1, 0, 0, ''),
+(63, '2021-08-09 21:05:49', 123, 'PNJ09082100006', 'Jaja', '01.03.', 1, 0, 0, ''),
+(64, '2021-08-09 21:10:11', 123, 'PNJ09082100007', 'Westerling', '01.03.', 1, 0, 0, ''),
+(65, '2021-08-09 22:21:33', 123, 'BLI09082100002', 'SUP000001', '01.04.', 15, 0, 0, 'OKYA'),
+(66, '2021-08-09 22:21:54', 123, 'BLI09082100002', 'SUP000001', '01.04.', 0, 15, 0, 'siip'),
+(67, '2021-08-09 22:22:30', 123, 'PNJ09082100008', 'Hhaha', '01.04.', 1, 0, 0, ''),
+(68, '2021-08-09 22:31:56', 123, 'PNJ09082100009', 'AS', '01.04.', 1, 0, 0, ''),
+(69, '2021-08-09 22:37:11', 123, 'PNJ09082100010', 'DEDE', '01.04.', 1, 0, 0, ''),
+(70, '2021-08-09 22:42:33', 123, 'PNJ09082100011', 'JUJU', '01.04.', 1, 0, 0, ''),
+(71, '2021-08-09 22:56:09', 123, 'PNJ09082100012', 'LALA', '01.04.', 1, 0, 0, ''),
+(72, '2021-08-09 22:56:09', 123, 'PNJ09082100012', 'LALA', '01.04.', 2, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -105,7 +107,7 @@ CREATE TABLE `activity_log_harga` (
   `tgl_masuk_gudang` date NOT NULL,
   `tgl_harga_naik` date DEFAULT NULL,
   `tgl_harga_turun` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `activity_log_harga`
@@ -113,17 +115,10 @@ CREATE TABLE `activity_log_harga` (
 
 INSERT INTO `activity_log_harga` (`id_log_harga`, `date_log`, `nik_admin`, `kd_pembelian`, `kd_barang`, `kd_gudang`, `kd_supplier`, `harga_start`, `harga_now`, `tgl_masuk_gudang`, `tgl_harga_naik`, `tgl_harga_turun`) VALUES
 (1, '2021-08-05 02:52:24', 123, 'BLI30072100001', 'GDG05082100001', '02.01.', 'SUP000001', 1176000, 1176000, '2021-08-05', '0000-00-00', '0000-00-00'),
-(2, '2021-08-07 00:52:19', 123, 'BLI30072100001', 'GDG07082100001', '02.01.', 'SUP000001', 1176000, 1176000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(3, '2021-08-07 00:53:58', 123, 'BLI30072100001', 'GDG07082100002', '02.01.', 'SUP000001', 1176000, 1176000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(4, '2021-08-07 00:58:58', 123, 'BLI30072100001', 'GDG07082100003', '02.01.', 'SUP000001', 1176000, 1176000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(5, '2021-08-07 01:26:07', 123, 'BLI30072100001', 'GDG07082100004', '01.04.', 'SUP000001', 1760000, 1760000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(6, '2021-08-07 18:15:30', 123, 'BLI01082100001', 'GDG07082100005', '01.03.', 'SUP000002', 5500000, 5500000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(7, '2021-08-07 20:42:02', 123, 'BLI07082100002', 'GDG07082100006', '01.01.', 'SUP000002', 2200000, 2200000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(8, '2021-08-07 20:48:06', 123, 'BLI07082100002', 'GDG07082100007', '01.01.', 'SUP000002', 2200000, 2200000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(9, '2021-08-07 20:57:09', 123, 'BLI07082100002', 'GDG07082100008', '01.01.', 'SUP000002', 2200000, 2200000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(10, '2021-08-07 20:59:09', 123, 'BLI07082100002', 'GDG07082100009', '01.01.', 'SUP000002', 2200000, 2200000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(11, '2021-08-07 20:59:38', 123, 'BLI07082100002', 'GDG07082100010', '01.01.', 'SUP000002', 2200000, 2200000, '2021-08-07', '0000-00-00', '0000-00-00'),
-(12, '2021-08-07 21:09:24', 123, 'BLI07082100002', 'GDG07082100011', '01.01.', 'SUP000002', 2200000, 2200000, '2021-08-07', '0000-00-00', '0000-00-00');
+(2, '2021-08-07 23:45:11', 123, 'BLI01082100001', 'GDG07082100001', '01.03.', 'SUP000002', 5500000, 5500000, '2021-08-07', '0000-00-00', '0000-00-00'),
+(3, '2021-08-08 10:37:36', 123, 'BLI30072100001', 'GDG08082100001', '01.03.', 'SUP000001', 1320000, 1320000, '2021-08-08', '0000-00-00', '0000-00-00'),
+(4, '2021-08-09 20:30:07', 123, 'BLI09082100001', 'GDG09082100001', '01.02.', 'SUP000002', 1925000, 1925000, '2021-08-09', '0000-00-00', '0000-00-00'),
+(5, '2021-08-09 22:21:54', 123, 'BLI09082100002', 'GDG09082100002', '01.04.', 'SUP000001', 1320000, 1320000, '2021-08-09', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -138,7 +133,7 @@ CREATE TABLE `activity_log_user` (
   `log_menu` varchar(100) NOT NULL,
   `log_aksi` varchar(100) NOT NULL,
   `log_item` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `activity_log_user`
@@ -227,18 +222,17 @@ INSERT INTO `activity_log_user` (`log_id`, `log_time`, `log_user`, `log_menu`, `
 (80, '2021-08-03 21:29:04', 'Admin', 'login', 'Masuk', ''),
 (81, '2021-08-04 08:08:29', 'Admin', 'login', 'Masuk', ''),
 (82, '2021-08-05 19:23:41', 'Admin', 'logout', 'Keluar', ''),
-(83, '2021-08-06 04:28:06', 'Admin', 'login', 'Masuk', ''),
-(84, '2021-08-06 17:44:18', 'Admin', 'login', 'Masuk', ''),
-(85, '2021-08-07 00:10:38', 'Admin', 'login', 'Masuk', ''),
-(86, '2021-08-07 17:46:40', 'Admin', 'login', 'Masuk', ''),
-(87, '2021-08-08 10:56:20', 'Admin', 'login', 'Masuk', ''),
-(88, '2021-08-09 13:52:44', 'Admin', 'login', 'Masuk', ''),
-(89, '2021-08-09 19:44:05', 'Admin', 'logout', 'Keluar', ''),
-(90, '2021-08-09 20:27:26', 'Admin', 'login', 'Masuk', ''),
-(91, '2021-08-10 22:18:05', 'Admin', 'login', 'Masuk', ''),
-(92, '2021-08-11 05:00:11', 'Admin', 'login', 'Masuk', ''),
-(93, '2021-08-11 05:06:16', 'Admin', 'logout', 'Keluar', ''),
-(94, '2021-08-11 05:07:13', 'Admin', 'login', 'Masuk', '');
+(83, '2021-08-07 22:39:31', 'Admin', 'Tambah Penjualan', 'Delete', 'BLI07082100001'),
+(84, '2021-08-07 22:42:32', 'Admin', 'Tambah Penjualan', 'Delete', 'BLI07082100001'),
+(85, '2021-08-07 22:44:45', 'Admin', 'Tambah Penjualan', 'Delete', 'BLI07082100001'),
+(86, '2021-08-07 22:46:19', 'Admin', 'Tambah Penjualan', 'Delete', 'BLI07082100001'),
+(87, '2021-08-07 23:53:21', 'Admin', 'Tambah Penjualan', 'Delete', 'BLI07082100001'),
+(88, '2021-08-08 10:11:22', 'Admin', 'login', 'Masuk', ''),
+(89, '2021-08-08 10:11:22', 'Admin', 'login', 'Masuk', ''),
+(90, '2021-08-08 10:35:23', 'Admin', 'Tambah Penjualan', 'Delete', 'BLI08082100002'),
+(91, '2021-08-09 09:41:23', 'Admin', 'login', 'Masuk', ''),
+(92, '2021-08-09 20:15:29', 'Admin', 'login', 'Masuk', ''),
+(93, '2021-08-11 10:13:46', 'Admin', 'login', 'Masuk', '');
 
 -- --------------------------------------------------------
 
@@ -247,7 +241,7 @@ INSERT INTO `activity_log_user` (`log_id`, `log_time`, `log_user`, `log_menu`, `
 --
 
 CREATE TABLE `detail_pembelian` (
-  `id_detail` int(6) NOT NULL,
+  `id_detail` int(11) NOT NULL,
   `kd_pembelian` varchar(25) NOT NULL,
   `kd_barang` varchar(25) NOT NULL,
   `satuan` varchar(30) NOT NULL,
@@ -259,23 +253,20 @@ CREATE TABLE `detail_pembelian` (
   `total` double NOT NULL,
   `status_beli` enum('0','1','2','3','4','5','6') NOT NULL DEFAULT '0' COMMENT '5=cencel dan gudang;4=cencel;3=cencel sebagian;2=gudang;1=gudang sebagaian;0=pengiriman',
   `status` enum('1','0') NOT NULL DEFAULT '0' COMMENT '1=TidakAktif;0=Aktif'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `detail_pembelian`
 --
 
 INSERT INTO `detail_pembelian` (`id_detail`, `kd_pembelian`, `kd_barang`, `satuan`, `harga_beli`, `qty`, `qty_sisa`, `qty_gudang`, `qty_batal`, `total`, `status_beli`, `status`) VALUES
-(12, 'BLI30072100001', '01.03.', 'SET', 1200000, 15, 15, 0, 0, 18000000, '0', '0'),
-(13, 'BLI30072100001', '02.01.', 'UNIT', 1120000, 20, 0, 6, 14, 0, '5', '0'),
-(14, 'BLI30072100001', '01.04.', 'SET', 1600000, 16, 0, 16, 0, 25600000, '2', '0'),
-(21, 'BLI01082100001', '01.03.', 'UNIT', 5000000, 7, 0, 5, 2, 0, '5', '0'),
-(22, 'BLI01082100001', '04.01.', 'SET', 4500000, 7, 2, 0, 0, 9000000, '3', '0'),
-(23, 'BLI07082100001', '02.03.', 'UNIT', 5000000, 50, 50, 0, 0, 250000000, '0', '0'),
-(24, 'BLI07082100001', '03.04.', 'SET', 3000000, 30, 30, 0, 0, 90000000, '0', '0'),
-(25, 'BLI07082100001', '06.04.', 'PCS', 4000000, 40, 40, 0, 0, 160000000, '0', '0'),
-(26, 'BLI07082100002', '01.01.', 'SET', 2000000, 10, 10, 0, 0, 20000000, '0', '0'),
-(27, 'BLI07082100003', '03.03.', 'SET', 2500000, 15, 15, 0, 0, 37500000, '0', '0');
+(12, 'BLI30072100001', '01.03.', 'SET', 1200000, 15, 0, 15, 0, 18000000, '2', '0'),
+(13, 'BLI30072100001', '02.01.', 'UNIT', 1120000, 20, 10, 5, 5, 11200000, '5', '0'),
+(14, 'BLI30072100001', '01.04.', 'SET', 1600000, 16, 16, 0, 0, 25600000, '0', '0'),
+(21, 'BLI01082100001', '01.03.', 'UNIT', 5000000, 7, 0, 7, 0, 35000000, '2', '0'),
+(22, 'BLI01082100001', '04.01.', 'SET', 4500000, 7, 7, 0, 0, 31500000, '0', '0'),
+(23, 'BLI09082100001', '01.02.', 'UNIT', 1750000, 15, 0, 15, 0, 26250000, '2', '0'),
+(24, 'BLI09082100002', '01.04.', 'UNIT', 1200000, 15, 0, 15, 0, 18000000, '2', '0');
 
 -- --------------------------------------------------------
 
@@ -287,18 +278,27 @@ CREATE TABLE `detail_penjualan` (
   `id_detail_penjualan` int(11) NOT NULL,
   `kd_penjualan` varchar(25) NOT NULL,
   `kd_gudang` varchar(25) NOT NULL,
-  `kd_barang` varchar(25) NOT NULL,
+  `kd_barang` varchar(8) NOT NULL,
   `satuan` varchar(30) NOT NULL,
   `harga` double NOT NULL,
   `qty` int(11) NOT NULL,
   `total` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `detail_penjualan`
 --
 
 INSERT INTO `detail_penjualan` (`id_detail_penjualan`, `kd_penjualan`, `kd_gudang`, `kd_barang`, `satuan`, `harga`, `qty`, `total`) VALUES
+(5, 'BLI07082100001', 'GDG07082100001', '01.03.', 'UNIT', 5500000, 2, 11000000),
+(6, 'BLI07082100001', 'GDG07082100001', '01.03.', 'UNIT', 5500000, 2, 11000000),
+(7, 'BLI08082100001', 'GDG07082100001', '01.03.', 'UNIT', 5500000, 1, 5500000),
+(8, 'BLI08082100002', 'GDG07082100001', '01.03.', 'UNIT', 5500000, 2, 11000000),
+(9, 'BLI08082100003', 'GDG08082100001', '01.03.', 'SET', 1320000, 1, 1320000),
+(10, 'BLI08082100004', 'GDG08082100001', '01.03.', 'SET', 1320000, 1, 1320000),
+(11, 'BLI08082100005', 'GDG08082100001', '01.03.', 'SET', 1320000, 1, 1320000),
+(12, 'BLI08082100006', 'GDG08082100001', '01.03.', 'SET', 1320000, 1, 1320000),
+(13, 'BLI08082100007', 'GDG08082100001', '01.03.', 'SET', 1320000, 1, 1320000),
 (14, 'PNJL08082100008', 'GDG08082100001', '01.03.', 'SET', 1320000, 1, 1320000),
 (15, 'PNJL08082100008', 'GDG08082100001', '01.03.', 'SET', 1320000, 2, 2640000),
 (16, 'PNJL09082100001', 'GDG08082100001', '01.03.', 'SET', 1320000, 1, 1320000),
@@ -327,12 +327,12 @@ CREATE TABLE `kode_barang` (
   `kode` varchar(11) NOT NULL,
   `sub_kode` varchar(11) NOT NULL,
   `nama_barang` varchar(255) NOT NULL,
-  `harga` int(11) NOT NULL,
+  `harga` int(15) NOT NULL,
   `persen_naik` varchar(25) DEFAULT NULL,
   `persen_turun` varchar(25) DEFAULT NULL,
   `status` enum('0','1') NOT NULL DEFAULT '1' COMMENT '0=Tidak Aktif;1=Aktif',
   `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `kode_barang`
@@ -340,7 +340,7 @@ CREATE TABLE `kode_barang` (
 
 INSERT INTO `kode_barang` (`id_kd_barang`, `kode`, `sub_kode`, `nama_barang`, `harga`, `persen_naik`, `persen_turun`, `status`, `created_at`) VALUES
 (1, '01.', '*', 'Sofa', 0, '10', '5', '1', NULL),
-(2, '01.', '01.', 'Sofa tamu L minimalis', 0, NULL, NULL, '1', NULL),
+(2, '01.', '01.', 'Sofa tamu L minimalis', 150000, 'NULL', '5', '1', NULL),
 (3, '01.', '02.', 'Sofa U minimalis living fulset meja', 0, NULL, NULL, '1', NULL),
 (4, '01.', '03.', 'Set sofa rotan sintesis minimalis azura', 0, NULL, NULL, '1', NULL),
 (5, '01.', '04.', 'Sofa louis kayu jati jepara', 0, NULL, NULL, '1', NULL),
@@ -374,7 +374,10 @@ INSERT INTO `kode_barang` (`id_kd_barang`, `kode`, `sub_kode`, `nama_barang`, `h
 (33, '06.', '02.', 'Kitchen set lemari multi fungsi', 0, NULL, NULL, '1', NULL),
 (34, '06.', '03.', 'Kitchen set rak bawah 3 pintu', 0, NULL, NULL, '1', NULL),
 (35, '06.', '04.', 'Kitchen set minimalis meranti', 0, NULL, NULL, '1', NULL),
-(36, '06.', '05.', 'Kitchen set bawah 3 pintu modern', 0, NULL, NULL, '1', NULL);
+(36, '06.', '05.', 'Kitchen set bawah 3 pintu modern', 0, NULL, NULL, '1', NULL),
+(37, '07.', '*', 'Bangku', 0, '7', '5', '1', NULL),
+(38, '07.', '01.', 'Bangku Merah', 25000, NULL, NULL, '1', NULL),
+(39, '07.', '02.', 'Bangku Putih', 35000, NULL, NULL, '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -387,7 +390,7 @@ CREATE TABLE `kode_satuan_barang` (
   `kd_satuan` varchar(25) NOT NULL,
   `nama` varchar(25) DEFAULT NULL,
   `status` enum('0','1') NOT NULL DEFAULT '0' COMMENT '1=tidak aktif;0=aktif'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -403,29 +406,21 @@ CREATE TABLE `master_barang` (
   `tgl_masuk_gudang` datetime DEFAULT NULL,
   `harga_jual_start` int(11) NOT NULL,
   `harga_jual_now` int(11) DEFAULT NULL,
-  `harga_beli` int(15) NOT NULL,
+  `harga_beli` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   `status` enum('0','1') NOT NULL DEFAULT '0' COMMENT '0=aktif;1=tidak aktif;',
   `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `master_barang`
 --
 
 INSERT INTO `master_barang` (`id_barang`, `kd_pembelian`, `kd_gudang`, `kd_barang`, `tgl_masuk_gudang`, `harga_jual_start`, `harga_jual_now`, `harga_beli`, `qty`, `status`, `created_at`) VALUES
-(3, 'BLI30072100001', 'GDG05082100001', '02.01.', '2021-08-05 02:52:24', 1176000, 1176000, 1120000, 5, '0', '2021-08-05 02:52:24'),
-(4, 'BLI30072100001', 'GDG07082100001', '02.01.', '2021-08-07 00:52:19', 1176000, 1176000, 1120000, 1, '0', '2021-08-07 00:52:19'),
-(5, 'BLI30072100001', 'GDG07082100002', '02.01.', '2021-08-07 00:53:58', 1176000, 1176000, 1120000, 1, '0', '2021-08-07 00:53:58'),
-(6, 'BLI30072100001', 'GDG07082100003', '02.01.', '2021-08-07 00:58:58', 1176000, 1176000, 1120000, 1, '0', '2021-08-07 00:58:58'),
-(7, 'BLI30072100001', 'GDG07082100004', '01.04.', '2021-08-07 01:26:07', 1760000, 1760000, 1600000, 16, '0', '2021-08-07 01:26:07'),
-(8, 'BLI01082100001', 'GDG07082100005', '01.03.', '2021-08-07 18:15:30', 5500000, 5500000, 5000000, 5, '0', '2021-08-07 18:15:30'),
-(9, 'BLI07082100002', 'GDG07082100006', '01.01.', '2021-08-07 20:42:02', 2200000, 2200000, 2000000, 5, '0', '2021-08-07 20:42:02'),
-(10, 'BLI07082100002', 'GDG07082100007', '01.01.', '2021-08-07 20:48:06', 2200000, 2200000, 2000000, 5, '0', '2021-08-07 20:48:06'),
-(11, 'BLI07082100002', 'GDG07082100008', '01.01.', '2021-08-07 20:57:09', 2200000, 2200000, 2000000, 5, '0', '2021-08-07 20:57:09'),
-(12, 'BLI07082100002', 'GDG07082100009', '01.01.', '2021-08-07 20:59:09', 2200000, 2200000, 2000000, 4, '0', '2021-08-07 20:59:09'),
-(13, 'BLI07082100002', 'GDG07082100010', '01.01.', '2021-08-07 20:59:38', 2200000, 2200000, 2000000, 2, '0', '2021-08-07 20:59:38'),
-(14, 'BLI07082100002', 'GDG07082100011', '01.01.', '2021-08-07 21:09:24', 2200000, 2200000, 2000000, 8, '0', '2021-08-07 21:09:24');
+(4, 'BLI01082100001', 'GDG07082100001', '01.03.', '2021-08-07 23:45:11', 5500000, 5500000, 5000000, 0, '0', '2021-08-07 23:45:11'),
+(5, 'BLI30072100001', 'GDG08082100001', '01.03.', '2021-08-08 10:37:36', 1320000, 1320000, 1200000, 0, '0', '2021-08-08 10:37:36'),
+(6, 'BLI09082100001', 'GDG09082100001', '01.02.', '2021-08-09 20:30:07', 1925000, 1925000, 1750000, 0, '0', '2021-08-09 20:30:07'),
+(7, 'BLI09082100002', 'GDG09082100002', '01.04.', '2021-08-09 22:21:54', 1320000, 1320000, 1200000, 8, '0', '2021-08-09 22:21:54');
 
 -- --------------------------------------------------------
 
@@ -438,30 +433,17 @@ CREATE TABLE `master_barang_cencel` (
   `kd_pembelian` varchar(25) NOT NULL,
   `kd_barang` varchar(25) NOT NULL,
   `tgl_cencel` datetime DEFAULT NULL,
-  `harga_beli` int(15) NOT NULL,
+  `harga_beli` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `master_barang_cencel`
 --
 
 INSERT INTO `master_barang_cencel` (`id_cencel`, `kd_pembelian`, `kd_barang`, `tgl_cencel`, `harga_beli`, `qty`, `created_at`) VALUES
-(7, 'BLI30072100001', '02.01.', '2021-08-05 03:59:01', 1120000, 5, '2021-08-05 03:59:01'),
-(8, 'BLI30072100001', '02.01.', '2021-08-07 00:59:31', 1120000, 1, '2021-08-07 00:59:31'),
-(9, 'BLI30072100001', '02.01.', '2021-08-07 01:21:44', 1120000, 1, '2021-08-07 01:21:44'),
-(10, 'BLI30072100001', '02.01.', '2021-08-07 01:23:06', 1120000, 8, '2021-08-07 01:23:06'),
-(11, 'BLI01082100001', '04.01.', '2021-08-07 18:10:46', 4500000, 5, '2021-08-07 18:10:46'),
-(12, 'BLI01082100001', '01.03.', '2021-08-07 18:15:50', 5000000, 1, '2021-08-07 18:15:50'),
-(13, 'BLI01082100001', '01.03.', '2021-08-07 20:36:01', 5000000, 1, '2021-08-07 20:36:01'),
-(14, 'BLI07082100002', '01.01.', '2021-08-07 20:42:18', 2000000, 5, '2021-08-07 20:42:18'),
-(15, 'BLI07082100002', '01.01.', '2021-08-07 20:45:09', 2000000, 5, '2021-08-07 20:45:09'),
-(16, 'BLI07082100002', '01.01.', '2021-08-07 20:55:54', 2000000, 5, '2021-08-07 20:55:54'),
-(17, 'BLI07082100002', '01.01.', '2021-08-07 20:59:22', 2000000, 4, '2021-08-07 20:59:22'),
-(18, 'BLI07082100002', '01.01.', '2021-08-07 21:09:42', 2000000, 2, '2021-08-07 21:09:42'),
-(19, 'BLI07082100002', '01.01.', '2021-08-07 21:49:31', 2000000, 2, '2021-08-07 21:49:31'),
-(20, 'BLI07082100002', '01.01.', '2021-08-07 21:50:36', 2000000, 2, '2021-08-07 21:50:36');
+(7, 'BLI30072100001', '02.01.', '2021-08-05 03:59:01', 1120000, 5, '2021-08-05 03:59:01');
 
 -- --------------------------------------------------------
 
@@ -481,14 +463,14 @@ CREATE TABLE `master_login` (
   `status_login` enum('0','1','2') NOT NULL DEFAULT '0' COMMENT '1=Login;2=Logout',
   `user_valid` enum('0','1','2') NOT NULL DEFAULT '0' COMMENT '1=Valid;2=TidakValid',
   `image` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `master_login`
 --
 
 INSERT INTO `master_login` (`user_id`, `nik`, `username`, `password`, `nama`, `user_level`, `genre`, `date_login`, `status_login`, `user_valid`, `image`) VALUES
-(1, 123, 'Admin', '202cb962ac59075b964b07152d234b70', 'Rista Nursolihah', '1', '2', '2021-08-11 05:07:13', '1', '1', 'default_cewe.png'),
+(1, 123, 'Admin', '202cb962ac59075b964b07152d234b70', 'Rista Nursolihah', '1', '2', '2021-08-11 10:13:45', '1', '1', 'default_cewe.png'),
 (2, 123456, 'User', '202cb962ac59075b964b07152d234b70', 'Martin', '2', '1', '0000-00-00 00:00:00', '0', '1', 'default_cewe.png');
 
 -- --------------------------------------------------------
@@ -506,18 +488,17 @@ CREATE TABLE `master_pembelian` (
   `total_pembelian` int(11) NOT NULL,
   `status` enum('0','1') NOT NULL DEFAULT '0' COMMENT '1=tidak aktif;0=aktif',
   `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `master_pembelian`
 --
 
 INSERT INTO `master_pembelian` (`id_pembelian`, `kd_pembelian`, `tgl_pembelian`, `nik_admin`, `kd_supplier`, `total_pembelian`, `status`, `created_at`) VALUES
-(13, 'BLI30072100001', '2021-07-30 00:00:00', 123, 'SUP000001', 43600000, '0', '2021-08-07 01:23:06'),
-(17, 'BLI01082100001', '2021-08-01 12:35:23', 123, 'SUP000002', 9000000, '0', '2021-08-07 20:36:01'),
-(18, 'BLI07082100001', '2021-08-07 01:30:34', 123, 'SUP000003', 500000000, '0', '2021-08-07 01:30:34'),
-(19, 'BLI07082100002', '2021-08-07 01:35:10', 123, 'SUP000002', 4000000, '0', '2021-08-07 21:50:36'),
-(20, 'BLI07082100003', '2021-08-07 01:38:15', 123, 'SUP000001', 37500000, '0', '2021-08-07 20:34:15');
+(13, 'BLI30072100001', '2021-07-30 00:00:00', 123, 'SUP000001', 54800000, '0', '2021-08-05 03:59:01'),
+(17, 'BLI01082100001', '2021-08-01 12:35:23', 123, 'SUP000002', 66500000, '0', '0000-00-00 00:00:00'),
+(18, 'BLI09082100001', '2021-08-09 20:24:26', 123, 'SUP000002', 26250000, '0', '2021-08-09 20:24:26'),
+(19, 'BLI09082100002', '2021-08-09 22:21:33', 123, 'SUP000001', 18000000, '0', '2021-08-09 22:21:33');
 
 -- --------------------------------------------------------
 
@@ -529,34 +510,44 @@ CREATE TABLE `master_penjualan` (
   `id_penjualan` int(11) NOT NULL,
   `kd_penjualan` varchar(25) NOT NULL,
   `tgl_penjualan` datetime NOT NULL,
-  `nik_admin` int(6) NOT NULL,
+  `nik_admin` int(11) NOT NULL,
   `nama_pelanggan` varchar(200) NOT NULL,
   `alamat_tujuan` longtext NOT NULL,
   `total_penjualan` int(11) NOT NULL,
   `bayar` int(11) NOT NULL,
   `remark` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `master_penjualan`
 --
 
 INSERT INTO `master_penjualan` (`id_penjualan`, `kd_penjualan`, `tgl_penjualan`, `nik_admin`, `nama_pelanggan`, `alamat_tujuan`, `total_penjualan`, `bayar`, `remark`, `created_at`) VALUES
-(16, 'PNJL0808210', '2021-08-08 13:01:45', 123, 'Tatang', 'Cimahi', 3960000, 4000000, NULL, '2021-08-08 13:01:45'),
-(17, 'PNJL0908210', '2021-08-09 20:16:15', 123, 'Mansur', 'Jakut', 1320000, 1320000, NULL, '2021-08-09 20:16:15'),
-(18, 'PNJ09082100', '2021-08-09 20:26:45', 123, 'Mustofa', 'Kalideres', 1320000, 1320000, NULL, '2021-08-09 20:26:45'),
-(19, 'PNJ09082100', '2021-08-09 20:31:04', 123, 'Juned', 'Ciamis', 28875000, 28875000, NULL, '2021-08-09 20:31:04'),
-(20, 'PNJ09082100', '2021-08-09 20:32:09', 123, 'Kekei', 'Nggk tau', 1320000, 1320000, NULL, '2021-08-09 20:32:09'),
-(21, 'PNJ09082100', '2021-08-09 20:55:52', 123, 'Mansur', 'Jakut', 1320000, 1320000, NULL, '2021-08-09 20:55:52'),
-(22, 'PNJ09082100', '2021-08-09 21:03:05', 123, 'Mamn', 'Pejompongan', 1320000, 1320000, NULL, '2021-08-09 21:03:05'),
-(23, 'PNJ09082100', '2021-08-09 21:05:49', 123, 'Jaja', 'Sulawesi', 1320000, 1320000, NULL, '2021-08-09 21:05:49'),
-(24, 'PNJ09082100', '2021-08-09 21:10:11', 123, 'Westerling', 'Belanda', 1320000, 1320000, NULL, '2021-08-09 21:10:11'),
-(25, 'PNJ09082100', '2021-08-09 22:22:29', 123, 'Hhaha', 'hahaha', 1320000, 1320000, NULL, '2021-08-09 22:22:29'),
-(26, 'PNJ09082100', '2021-08-09 22:31:56', 123, 'AS', 'AS', 1320000, 1320000, NULL, '2021-08-09 22:31:56'),
-(27, 'PNJ09082100', '2021-08-09 22:37:11', 123, 'DEDE', 'Jakarta', 1320000, 1320000, NULL, '2021-08-09 22:37:11'),
-(28, 'PNJ09082100', '2021-08-09 22:42:33', 123, 'JUJU', 'JUJU', 1320000, 1320000, NULL, '2021-08-09 22:42:33'),
-(29, 'PNJ09082100', '2021-08-09 22:56:08', 123, 'LALA', 'BENHIL', 3960000, 4000000, NULL, '2021-08-09 22:56:08');
+(6, 'BLI07082100001', '2021-08-07 18:54:27', 123, 'Mahmud', 'Jakarta Selatan', 11000000, 11000000, NULL, '2021-08-07 18:54:27'),
+(7, 'BLI07082100001', '2021-08-08 20:32:16', 123, 'Hyung', 'Korut', 11000000, 11000000, NULL, '2021-08-07 20:32:16'),
+(8, 'BLI08082100001', '2021-08-08 01:49:15', 123, 'Onnie', 'Jakarta Selatan', 5500000, 6000000, NULL, '2021-08-08 01:49:15'),
+(9, 'BLI08082100002', '2021-08-08 10:36:08', 123, 'Flix', 'Kota tua', 11000000, 11000000, NULL, '2021-08-08 10:36:08'),
+(10, 'BLI08082100003', '2021-08-08 10:38:11', 123, 'Mukidi', 'Sleman', 1320000, 1320000, NULL, '2021-08-08 10:38:11'),
+(11, 'BLI08082100004', '2021-08-08 10:39:02', 123, 'Mukidi', 'Sleman', 1320000, 1320000, NULL, '2021-08-08 10:39:02'),
+(12, 'BLI08082100005', '2021-08-08 10:41:00', 123, 'Maman', 'Jonggol', 1320000, 1320000, NULL, '2021-08-08 10:41:00'),
+(13, 'BLI08082100006', '2021-08-08 10:43:34', 123, 'Nanan', 'JAKUT', 1320000, 1320000, NULL, '2021-08-08 10:43:34'),
+(14, 'BLI08082100007', '2021-08-08 10:45:18', 123, 'Mince', 'Jakpus', 1320000, 1320000, NULL, '2021-08-08 10:45:18'),
+(15, 'BLI08082100007', '2021-08-08 10:45:19', 123, 'Mince', 'Jakpus', 1320000, 1320000, NULL, '2021-08-08 10:45:19'),
+(16, 'PNJL08082100008', '2021-08-08 13:01:45', 123, 'Tatang', 'Cimahi', 3960000, 4000000, NULL, '2021-08-08 13:01:45'),
+(17, 'PNJL09082100001', '2021-08-09 20:16:15', 123, 'Mansur', 'Jakut', 1320000, 1320000, NULL, '2021-08-09 20:16:15'),
+(18, 'PNJ09082100001', '2021-08-09 20:26:45', 123, 'Mustofa', 'Kalideres', 1320000, 1320000, NULL, '2021-08-09 20:26:45'),
+(19, 'PNJ09082100002', '2021-08-09 20:31:04', 123, 'Juned', 'Ciamis', 28875000, 28875000, NULL, '2021-08-09 20:31:04'),
+(20, 'PNJ09082100003', '2021-08-09 20:32:09', 123, 'Kekei', 'Nggk tau', 1320000, 1320000, NULL, '2021-08-09 20:32:09'),
+(21, 'PNJ09082100004', '2021-08-09 20:55:52', 123, 'Mansur', 'Jakut', 1320000, 1320000, NULL, '2021-08-09 20:55:52'),
+(22, 'PNJ09082100005', '2021-08-09 21:03:05', 123, 'Mamn', 'Pejompongan', 1320000, 1320000, NULL, '2021-08-09 21:03:05'),
+(23, 'PNJ09082100006', '2021-08-09 21:05:49', 123, 'Jaja', 'Sulawesi', 1320000, 1320000, NULL, '2021-08-09 21:05:49'),
+(24, 'PNJ09082100007', '2021-08-09 21:10:11', 123, 'Westerling', 'Belanda', 1320000, 1320000, NULL, '2021-08-09 21:10:11'),
+(25, 'PNJ09082100008', '2021-08-09 22:22:29', 123, 'Hhaha', 'hahaha', 1320000, 1320000, NULL, '2021-08-09 22:22:29'),
+(26, 'PNJ09082100009', '2021-08-09 22:31:56', 123, 'AS', 'AS', 1320000, 1320000, NULL, '2021-08-09 22:31:56'),
+(27, 'PNJ09082100010', '2021-08-09 22:37:11', 123, 'DEDE', 'Jakarta', 1320000, 1320000, NULL, '2021-08-09 22:37:11'),
+(28, 'PNJ09082100011', '2021-08-09 22:42:33', 123, 'JUJU', 'JUJU', 1320000, 1320000, NULL, '2021-08-09 22:42:33'),
+(29, 'PNJ09082100012', '2021-08-09 22:56:08', 123, 'LALA', 'BENHIL', 3960000, 4000000, NULL, '2021-08-09 22:56:08');
 
 -- --------------------------------------------------------
 
@@ -570,7 +561,7 @@ CREATE TABLE `perusahaan` (
   `alamat` varchar(225) NOT NULL,
   `pemilik` varchar(225) NOT NULL,
   `kota` varchar(225) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `perusahaan`
@@ -590,18 +581,17 @@ CREATE TABLE `supplier` (
   `kd_supplier` varchar(25) NOT NULL,
   `nama_supplier` varchar(60) NOT NULL,
   `alamat` varchar(60) NOT NULL,
-  `deskripsi` text DEFAULT NULL,
-  `status` enum('0','1') NOT NULL DEFAULT '0' COMMENT '1=tidak aktif;0=aktif'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `deskripsi` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `supplier`
 --
 
-INSERT INTO `supplier` (`id_supplier`, `kd_supplier`, `nama_supplier`, `alamat`, `deskripsi`, `status`) VALUES
-(1, 'SUP000001', 'Toko Anjas', 'condong catur, sleman', NULL, '0'),
-(2, 'SUP000002', 'TB Agus Hokya', 'Kuningan, Bandung Barat Selatan Ke Utara', NULL, '0'),
-(3, 'SUP000003', 'Toko Putra', 'jl. merdeka, boyolali, jakarta selatan', NULL, '0');
+INSERT INTO `supplier` (`id_supplier`, `kd_supplier`, `nama_supplier`, `alamat`, `deskripsi`) VALUES
+(1, 'SUP000001', 'Toko Anjas', 'condong catur, sleman', NULL),
+(2, 'SUP000002', 'TB Agus Hokya', 'Kuningan, Bandung Barat Selatan Ke Utara', NULL),
+(3, 'SUP000003', 'Toko Putra', 'jl. merdeka, boyolali, jakarta selatan', NULL);
 
 -- --------------------------------------------------------
 
@@ -610,7 +600,7 @@ INSERT INTO `supplier` (`id_supplier`, `kd_supplier`, `nama_supplier`, `alamat`,
 --
 
 CREATE TABLE `tem_pembelian` (
-  `id_tem` int(6) NOT NULL,
+  `id_tem` int(11) NOT NULL,
   `kd_pembelian` varchar(25) NOT NULL,
   `kd_barang` varchar(25) NOT NULL,
   `nama` varchar(225) NOT NULL,
@@ -618,15 +608,14 @@ CREATE TABLE `tem_pembelian` (
   `harga` double NOT NULL,
   `qty` int(11) NOT NULL,
   `total` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data untuk tabel `tem_pembelian`
 --
 
 INSERT INTO `tem_pembelian` (`id_tem`, `kd_pembelian`, `kd_barang`, `nama`, `satuan`, `harga`, `qty`, `total`) VALUES
-(61, 'BLI02082100001', '03.05.', 'Kursi duduk laci sepatu minimalis ', 'SET', 1000000, 17, 17000000),
-(67, 'BLI10082100001', '01.03.', 'Set sofa rotan sintesis minimalis azura', 'SET', 2000000, 12, 24000000);
+(61, 'BLI02082100001', '03.05.', 'Kursi duduk laci sepatu minimalis ', 'SET', 1000000, 17, 17000000);
 
 -- --------------------------------------------------------
 
@@ -638,12 +627,12 @@ CREATE TABLE `tem_penjualan` (
   `id_tem_penjualan` int(11) NOT NULL,
   `kd_penjualan` varchar(25) NOT NULL,
   `kd_gudang` varchar(25) NOT NULL,
-  `kd_barang` varchar(25) NOT NULL,
+  `kd_barang` varchar(8) NOT NULL,
   `satuan` varchar(30) NOT NULL,
   `harga` double NOT NULL,
   `qty` int(11) NOT NULL,
   `total` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Indexes for dumped tables
@@ -653,98 +642,98 @@ CREATE TABLE `tem_penjualan` (
 -- Indeks untuk tabel `activity_log_barang`
 --
 ALTER TABLE `activity_log_barang`
-  ADD PRIMARY KEY (`id_log_barang`);
+  ADD PRIMARY KEY (`id_log_barang`) USING BTREE;
 
 --
 -- Indeks untuk tabel `activity_log_harga`
 --
 ALTER TABLE `activity_log_harga`
-  ADD PRIMARY KEY (`id_log_harga`);
+  ADD PRIMARY KEY (`id_log_harga`) USING BTREE;
 
 --
 -- Indeks untuk tabel `activity_log_user`
 --
 ALTER TABLE `activity_log_user`
-  ADD PRIMARY KEY (`log_id`);
+  ADD PRIMARY KEY (`log_id`) USING BTREE;
 
 --
 -- Indeks untuk tabel `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  ADD PRIMARY KEY (`id_detail`);
+  ADD PRIMARY KEY (`id_detail`) USING BTREE;
 
 --
 -- Indeks untuk tabel `detail_penjualan`
 --
 ALTER TABLE `detail_penjualan`
-  ADD PRIMARY KEY (`id_detail_penjualan`);
+  ADD PRIMARY KEY (`id_detail_penjualan`) USING BTREE;
 
 --
 -- Indeks untuk tabel `kode_barang`
 --
 ALTER TABLE `kode_barang`
-  ADD PRIMARY KEY (`id_kd_barang`);
+  ADD PRIMARY KEY (`id_kd_barang`) USING BTREE;
 
 --
 -- Indeks untuk tabel `kode_satuan_barang`
 --
 ALTER TABLE `kode_satuan_barang`
-  ADD PRIMARY KEY (`id_satuan`);
+  ADD PRIMARY KEY (`id_satuan`) USING BTREE;
 
 --
 -- Indeks untuk tabel `master_barang`
 --
 ALTER TABLE `master_barang`
-  ADD PRIMARY KEY (`id_barang`);
+  ADD PRIMARY KEY (`id_barang`) USING BTREE;
 
 --
 -- Indeks untuk tabel `master_barang_cencel`
 --
 ALTER TABLE `master_barang_cencel`
-  ADD PRIMARY KEY (`id_cencel`);
+  ADD PRIMARY KEY (`id_cencel`) USING BTREE;
 
 --
 -- Indeks untuk tabel `master_login`
 --
 ALTER TABLE `master_login`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`) USING BTREE;
 
 --
 -- Indeks untuk tabel `master_pembelian`
 --
 ALTER TABLE `master_pembelian`
-  ADD PRIMARY KEY (`id_pembelian`);
+  ADD PRIMARY KEY (`id_pembelian`) USING BTREE;
 
 --
 -- Indeks untuk tabel `master_penjualan`
 --
 ALTER TABLE `master_penjualan`
-  ADD PRIMARY KEY (`id_penjualan`);
+  ADD PRIMARY KEY (`id_penjualan`) USING BTREE;
 
 --
 -- Indeks untuk tabel `perusahaan`
 --
 ALTER TABLE `perusahaan`
-  ADD PRIMARY KEY (`kd_perusahaan`),
-  ADD KEY `kd_perusahaan` (`kd_perusahaan`);
+  ADD PRIMARY KEY (`kd_perusahaan`) USING BTREE,
+  ADD KEY `kd_perusahaan` (`kd_perusahaan`) USING BTREE;
 
 --
 -- Indeks untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
-  ADD PRIMARY KEY (`id_supplier`);
+  ADD PRIMARY KEY (`id_supplier`) USING BTREE;
 
 --
 -- Indeks untuk tabel `tem_pembelian`
 --
 ALTER TABLE `tem_pembelian`
-  ADD PRIMARY KEY (`id_tem`);
+  ADD PRIMARY KEY (`id_tem`) USING BTREE;
 
 --
 -- Indeks untuk tabel `tem_penjualan`
 --
 ALTER TABLE `tem_penjualan`
-  ADD PRIMARY KEY (`id_tem_penjualan`);
+  ADD PRIMARY KEY (`id_tem_penjualan`) USING BTREE;
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -754,25 +743,25 @@ ALTER TABLE `tem_penjualan`
 -- AUTO_INCREMENT untuk tabel `activity_log_barang`
 --
 ALTER TABLE `activity_log_barang`
-  MODIFY `id_log_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_log_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT untuk tabel `activity_log_harga`
 --
 ALTER TABLE `activity_log_harga`
-  MODIFY `id_log_harga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_log_harga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `activity_log_user`
 --
 ALTER TABLE `activity_log_user`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id_detail` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_penjualan`
@@ -784,7 +773,7 @@ ALTER TABLE `detail_penjualan`
 -- AUTO_INCREMENT untuk tabel `kode_barang`
 --
 ALTER TABLE `kode_barang`
-  MODIFY `id_kd_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_kd_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT untuk tabel `kode_satuan_barang`
@@ -796,13 +785,13 @@ ALTER TABLE `kode_satuan_barang`
 -- AUTO_INCREMENT untuk tabel `master_barang`
 --
 ALTER TABLE `master_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `master_barang_cencel`
 --
 ALTER TABLE `master_barang_cencel`
-  MODIFY `id_cencel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_cencel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `master_login`
@@ -814,7 +803,7 @@ ALTER TABLE `master_login`
 -- AUTO_INCREMENT untuk tabel `master_pembelian`
 --
 ALTER TABLE `master_pembelian`
-  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `master_penjualan`
@@ -838,7 +827,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT untuk tabel `tem_pembelian`
 --
 ALTER TABLE `tem_pembelian`
-  MODIFY `id_tem` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_tem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT untuk tabel `tem_penjualan`
