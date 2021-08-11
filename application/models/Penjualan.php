@@ -5,7 +5,7 @@ class Penjualan extends CI_Model
 {
     public function getListPenjualan()
     {
-        $qry = $this->db->query("SELECT COUNT(*) totJual FROM master_penjualan WHERE kd_penjualan != NULL")->row();
+        $qry = $this->db->query("SELECT COUNT(*) totJual FROM master_penjualan WHERE `status` != '1'")->row();
         if ($qry) {
             return $qry;
         } else {
