@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="<?= base_url('Admin/indexAdmin'); ?>" class="brand-link">
         <img src="<?= base_url(); ?>assetsApp/dist/img/clipart.png" alt="Admin" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Admin Inventory</span>
+        <span class="brand-text font-weight-light">Admin Inventori</span>
     </a>
 
     <!-- Sidebar -->
@@ -63,7 +63,7 @@
                         <li class="nav-item">
                             <a href="<?= base_url('Admin/Penjualan/DataPenjualan') ?>" class="nav-link <?= $this->uri->segment(3) == "DataPenjualan" ? 'active' : ''; ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Penjualan</p>
+                                <p>Histori Penjualan</p>
                             </a>
                         </li>
                         <li class="nav-item">

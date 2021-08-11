@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>INVENTORY :: <?= $title ?></title>
+    <title>INVENTORI :: <?= $title ?></title>
 
     <!-- Icon Aplication -->
     <link rel="shortcut icon" type="image/ico" href="<?= base_url(); ?>assetsApp/dist/img/clipart.png">

@@ -10,8 +10,9 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item" style="padding: 7px;">
-            <span id="the-day"></span><span id="the-time"></span>
+        <li class="nav-item">
+            <!-- <span id="the-day"></span><span id="the-time"></span> -->
+            <h3>Sistem Inventori Toko Plaza Meubel</h3>
         </li>
         <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>

@@ -3,6 +3,16 @@ date_default_timezone_set('Asia/Jakarta');
 
 class Supplier extends CI_Model
 {
+    public function getListSupplier()
+    {
+        $qry = $this->db->query("SELECT COUNT(*) totSupp FROM supplier WHERE `status` = '0'")->row();
+        if ($qry) {
+            return $qry;
+        } else {
+            return false;
+        }
+    }
+
     public function getSupplier()
     {
         $qry = $this->db->query("SELECT * FROM supplier")->result_array();
@@ -39,12 +49,12 @@ class Supplier extends CI_Model
         $data = $qry->row_array();
 
         if (count($data) > 0) {
-            $subKode = substr($data['kd_supplier'],3);
+            $subKode = substr($data['kd_supplier'], 3);
 
             $subKode += 1;
 
             $kodeSuppFix = sprintf('%06d', $subKode);
-            $kodeSuppFix = "SUP".$kodeSuppFix;
+            $kodeSuppFix = "SUP" . $kodeSuppFix;
             return $kodeSuppFix;
         } else {
             return false;
