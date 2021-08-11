@@ -114,7 +114,7 @@ class Penjualan extends CI_Model
         $urutan = (int) $qry2[0]['kode'];
         $urutan++;
 
-        $kodeBeli = "PNJL";
+        $kodeBeli = "PNJ";
         $day   = date("d");
         $month = date("m");
         $year  = substr(date("Y"), 2, 2);

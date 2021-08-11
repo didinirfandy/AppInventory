@@ -63,6 +63,11 @@ class DetailDataPenjualan extends CI_Controller
 
         $data['title'] = "Cetak Nota Penjualan";
         $data['dataPenjualan'] = $this->Penjualan->getDataNotaPenjualan($kdJual);
-        $this->load->view('PageAdmin/Penjualan/CetakNota', $data);
+
+        $mpdf = new \Mpdf\Mpdf();
+        $html = $this->load->view('PageAdmin/Penjualan/CetakNota', $data, true);
+        $mpdf->SetTitle('Nota Penjualan '.$kdJual);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('Nota Penjualan '.$kdJual.'.pdf', 'D');
     }
 }

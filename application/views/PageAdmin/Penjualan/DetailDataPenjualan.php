@@ -171,9 +171,9 @@
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
 
-            let kd_penjualan = sessionStorage.getItem("kd_penjualan");
             $("#btnCetakNota").click(function(){
-                window.open("<?= base_url()?>Admin/Penjualan/DetailDataPenjualan/cetakNotaPenjualan?kdJual="+kd_penjualan, "_blank");
+                let kd_penjualan = sessionStorage.getItem("kd_penjualan");
+                // window.open("<?= base_url()?>Admin/Penjualan/DetailDataPenjualan/cetakNotaPenjualan?kdJual="+kd_penjualan, "_blank");
             })
 
 

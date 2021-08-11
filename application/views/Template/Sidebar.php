@@ -63,7 +63,7 @@
                         <li class="nav-item">
                             <a href="<?= base_url('Admin/Penjualan/DataPenjualan') ?>" class="nav-link <?= $this->uri->segment(3) == "DataPenjualan" ? 'active' : ''; ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Penjualan</p>
+                                <p>Histori Penjualan</p>
                             </a>
                         </li>
                         <li class="nav-item">
