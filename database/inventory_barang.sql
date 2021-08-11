@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Agu 2021 pada 16.47
+-- Waktu pembuatan: 11 Agu 2021 pada 17.12
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 7.3.25
 
@@ -238,7 +238,8 @@ INSERT INTO `activity_log_user` (`log_id`, `log_time`, `log_user`, `log_menu`, `
 (91, '2021-08-10 22:18:05', 'Admin', 'login', 'Masuk', ''),
 (92, '2021-08-11 05:00:11', 'Admin', 'login', 'Masuk', ''),
 (93, '2021-08-11 05:06:16', 'Admin', 'logout', 'Keluar', ''),
-(94, '2021-08-11 05:07:13', 'Admin', 'login', 'Masuk', '');
+(94, '2021-08-11 05:07:13', 'Admin', 'login', 'Masuk', ''),
+(95, '2021-08-11 21:58:19', 'Admin', 'login', 'Masuk', '');
 
 -- --------------------------------------------------------
 
@@ -488,7 +489,7 @@ CREATE TABLE `master_login` (
 --
 
 INSERT INTO `master_login` (`user_id`, `nik`, `username`, `password`, `nama`, `user_level`, `genre`, `date_login`, `status_login`, `user_valid`, `image`) VALUES
-(1, 123, 'Admin', '202cb962ac59075b964b07152d234b70', 'Rista Nursolihah', '1', '2', '2021-08-11 05:07:13', '1', '1', 'default_cewe.png'),
+(1, 123, 'Admin', '202cb962ac59075b964b07152d234b70', 'Rista Nursolihah', '1', '2', '2021-08-11 21:58:19', '1', '1', 'default_cewe.png'),
 (2, 123456, 'User', '202cb962ac59075b964b07152d234b70', 'Martin', '2', '1', '0000-00-00 00:00:00', '0', '1', 'default_cewe.png');
 
 -- --------------------------------------------------------
@@ -535,6 +536,7 @@ CREATE TABLE `master_penjualan` (
   `total_penjualan` int(11) NOT NULL,
   `bayar` int(11) NOT NULL,
   `remark` varchar(255) DEFAULT NULL,
+  `status` enum('0','1') DEFAULT '0' COMMENT '1=tidak aktif;0=aktif',
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -542,21 +544,21 @@ CREATE TABLE `master_penjualan` (
 -- Dumping data untuk tabel `master_penjualan`
 --
 
-INSERT INTO `master_penjualan` (`id_penjualan`, `kd_penjualan`, `tgl_penjualan`, `nik_admin`, `nama_pelanggan`, `alamat_tujuan`, `total_penjualan`, `bayar`, `remark`, `created_at`) VALUES
-(16, 'PNJL0808210', '2021-08-08 13:01:45', 123, 'Tatang', 'Cimahi', 3960000, 4000000, NULL, '2021-08-08 13:01:45'),
-(17, 'PNJL0908210', '2021-08-09 20:16:15', 123, 'Mansur', 'Jakut', 1320000, 1320000, NULL, '2021-08-09 20:16:15'),
-(18, 'PNJ09082100', '2021-08-09 20:26:45', 123, 'Mustofa', 'Kalideres', 1320000, 1320000, NULL, '2021-08-09 20:26:45'),
-(19, 'PNJ09082100', '2021-08-09 20:31:04', 123, 'Juned', 'Ciamis', 28875000, 28875000, NULL, '2021-08-09 20:31:04'),
-(20, 'PNJ09082100', '2021-08-09 20:32:09', 123, 'Kekei', 'Nggk tau', 1320000, 1320000, NULL, '2021-08-09 20:32:09'),
-(21, 'PNJ09082100', '2021-08-09 20:55:52', 123, 'Mansur', 'Jakut', 1320000, 1320000, NULL, '2021-08-09 20:55:52'),
-(22, 'PNJ09082100', '2021-08-09 21:03:05', 123, 'Mamn', 'Pejompongan', 1320000, 1320000, NULL, '2021-08-09 21:03:05'),
-(23, 'PNJ09082100', '2021-08-09 21:05:49', 123, 'Jaja', 'Sulawesi', 1320000, 1320000, NULL, '2021-08-09 21:05:49'),
-(24, 'PNJ09082100', '2021-08-09 21:10:11', 123, 'Westerling', 'Belanda', 1320000, 1320000, NULL, '2021-08-09 21:10:11'),
-(25, 'PNJ09082100', '2021-08-09 22:22:29', 123, 'Hhaha', 'hahaha', 1320000, 1320000, NULL, '2021-08-09 22:22:29'),
-(26, 'PNJ09082100', '2021-08-09 22:31:56', 123, 'AS', 'AS', 1320000, 1320000, NULL, '2021-08-09 22:31:56'),
-(27, 'PNJ09082100', '2021-08-09 22:37:11', 123, 'DEDE', 'Jakarta', 1320000, 1320000, NULL, '2021-08-09 22:37:11'),
-(28, 'PNJ09082100', '2021-08-09 22:42:33', 123, 'JUJU', 'JUJU', 1320000, 1320000, NULL, '2021-08-09 22:42:33'),
-(29, 'PNJ09082100', '2021-08-09 22:56:08', 123, 'LALA', 'BENHIL', 3960000, 4000000, NULL, '2021-08-09 22:56:08');
+INSERT INTO `master_penjualan` (`id_penjualan`, `kd_penjualan`, `tgl_penjualan`, `nik_admin`, `nama_pelanggan`, `alamat_tujuan`, `total_penjualan`, `bayar`, `remark`, `status`, `created_at`) VALUES
+(16, 'PNJL0808210', '2021-08-08 13:01:45', 123, 'Tatang', 'Cimahi', 3960000, 4000000, NULL, '0', '2021-08-08 13:01:45'),
+(17, 'PNJL0908210', '2021-08-09 20:16:15', 123, 'Mansur', 'Jakut', 1320000, 1320000, NULL, '0', '2021-08-09 20:16:15'),
+(18, 'PNJ09082100', '2021-08-09 20:26:45', 123, 'Mustofa', 'Kalideres', 1320000, 1320000, NULL, '0', '2021-08-09 20:26:45'),
+(19, 'PNJ09082100', '2021-08-09 20:31:04', 123, 'Juned', 'Ciamis', 28875000, 28875000, NULL, '0', '2021-08-09 20:31:04'),
+(20, 'PNJ09082100', '2021-08-09 20:32:09', 123, 'Kekei', 'Nggk tau', 1320000, 1320000, NULL, '0', '2021-08-09 20:32:09'),
+(21, 'PNJ09082100', '2021-08-09 20:55:52', 123, 'Mansur', 'Jakut', 1320000, 1320000, NULL, '0', '2021-08-09 20:55:52'),
+(22, 'PNJ09082100', '2021-08-09 21:03:05', 123, 'Mamn', 'Pejompongan', 1320000, 1320000, NULL, '0', '2021-08-09 21:03:05'),
+(23, 'PNJ09082100', '2021-08-09 21:05:49', 123, 'Jaja', 'Sulawesi', 1320000, 1320000, NULL, '0', '2021-08-09 21:05:49'),
+(24, 'PNJ09082100', '2021-08-09 21:10:11', 123, 'Westerling', 'Belanda', 1320000, 1320000, NULL, '0', '2021-08-09 21:10:11'),
+(25, 'PNJ09082100', '2021-08-09 22:22:29', 123, 'Hhaha', 'hahaha', 1320000, 1320000, NULL, '0', '2021-08-09 22:22:29'),
+(26, 'PNJ09082100', '2021-08-09 22:31:56', 123, 'AS', 'AS', 1320000, 1320000, NULL, '0', '2021-08-09 22:31:56'),
+(27, 'PNJ09082100', '2021-08-09 22:37:11', 123, 'DEDE', 'Jakarta', 1320000, 1320000, NULL, '0', '2021-08-09 22:37:11'),
+(28, 'PNJ09082100', '2021-08-09 22:42:33', 123, 'JUJU', 'JUJU', 1320000, 1320000, NULL, '0', '2021-08-09 22:42:33'),
+(29, 'PNJ09082100', '2021-08-09 22:56:08', 123, 'LALA', 'BENHIL', 3960000, 4000000, NULL, '0', '2021-08-09 22:56:08');
 
 -- --------------------------------------------------------
 
@@ -766,7 +768,7 @@ ALTER TABLE `activity_log_harga`
 -- AUTO_INCREMENT untuk tabel `activity_log_user`
 --
 ALTER TABLE `activity_log_user`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_pembelian`
