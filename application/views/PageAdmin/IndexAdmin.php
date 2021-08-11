@@ -268,11 +268,7 @@
                 async: false,
                 success: function(dt) {
                     console.log(dt.totBeli);
-                    let totBeli = "0";
-                    if (dt.totBeli != '0') {
-                        totBeli = dt.totBeli;
-                    }
-                    $("#totPembelian").html(totBeli);
+                    $("#totPembelian").html(dt.totBeli);
                 }
             });
         }
@@ -285,11 +281,7 @@
                 async: false,
                 success: function(dt) {
                     console.log(dt.totJual);
-                    let totJual = "0";
-                    if (dt.totJual != '0') {
-                        totjual = dt.totJual;
-                    }
-                    $("#totPenjualan").html(totJual);
+                    $("#totPenjualan").html(dt.totJual);
                 }
             });
         }
@@ -302,11 +294,7 @@
                 async: false,
                 success: function(dt) {
                     console.log(dt.totSupp);
-                    let totSupp = "0";
-                    if (dt.totSupp != '0') {
-                        totSupp = dt.totSupp;
-                    }
-                    $("#totSupplier").html(totSupp);
+                    $("#totSupplier").html(dt.totSupp);
                 }
             });
         }
@@ -319,11 +307,7 @@
                 async: false,
                 success: function(dt) {
                     console.log(dt.totBarang);
-                    let totBarang = "0";
-                    if (dt.totBarang != '0') {
-                        totBarang = dt.totBarang;
-                    }
-                    $("#totBarang").html(totBarang);
+                    $("#totBarang").html(dt.totBarang);
                 }
             });
         }
