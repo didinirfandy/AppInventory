@@ -5,7 +5,9 @@ class Barang extends CI_Model
 {
     public function getDataBarang()
     {
-        $qry = $this->db->query("SELECT * FROM kode_barang")->result_array();
+        $qry = $this->db->query(
+            "SELECT * FROM kode_barang WHERE `status` != '0' ORDER BY kode ASC, sub_kode ASC"
+        )->result_array();
 
         if ($qry) {
             return $qry;
@@ -27,7 +29,18 @@ class Barang extends CI_Model
 
     public function getKodeHeader()
     {
-        $qry = $this->db->query("SELECT kode, nama_barang, persen_naik, persen_turun FROM kode_barang WHERE sub_kode = '*' AND `status` = '1'")->result_array();
+        $qry = $this->db->query(
+            "SELECT 
+                kode
+                , nama_barang
+                , persen_naik
+                , persen_turun 
+            FROM 
+                kode_barang 
+            WHERE 
+                sub_kode = '*' 
+                AND `status` = '1'"
+        )->result_array();
         if ($qry) {
             return $qry;
         } else {

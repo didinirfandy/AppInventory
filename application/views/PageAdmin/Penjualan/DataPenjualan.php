@@ -53,15 +53,15 @@
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
-                                            <tr> 
+                                            <tr>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <a href="<?= base_url('Admin/Penjualan/DetailDataPenjualan')?>" class="btn btn-xs btn-primary"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</a>
-                                                </td> 
+                                                    <a href="<?= base_url('Admin/Penjualan/DetailDataPenjualan') ?>" class="btn btn-xs btn-primary"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                         <tfoot>
@@ -124,7 +124,7 @@
         function displayData() {
             $.ajax({
                 type: "POST",
-                url: "<?= base_url('Admin/Penjualan/DataPenjualan/GetData') ?>",
+                url: "<?= base_url('Admin/Penjualan/DataPenjualan/GetDataPenjualan') ?>",
                 dataType: "json",
                 async: false,
                 success: function(dt) {
@@ -137,7 +137,7 @@
                         } else {
                             tgl_penjualan = "";
                         }
-                        
+
                         row += `<tr> 
                             <td>` + (i + 1) + `</td>
                             <td>` + dt[i].kd_penjualan + `</td>
