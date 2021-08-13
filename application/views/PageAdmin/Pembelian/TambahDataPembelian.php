@@ -87,7 +87,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="hrgBeli">Harga</label>
-                                                        <input type="text" class="form-control" id="hrgBeli" name="hrgBeli" placeholder="Masukkan Harga" autocomplete="off" required>
+                                                        <input type="text" class="form-control" id="hrgBeli" name="hrgBeli" placeholder="Harga Barang" readonly required>
                                                     </div>
                                                 </div>
                                                 <div class="card-footer">
@@ -156,16 +156,11 @@
                             <th>No</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
+                            <th>Harga Barang</th>
                             <th>Action</th>
                         </thead>
                         <tbody id="datakode">
                         </tbody>
-                        <tfoot>
-                            <th>No</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
-                            <th>Action</th>
-                        </tfoot>
                     </table>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -481,7 +476,7 @@
                         if (dt[i].sub_kode != "*") {
                             subKode = dt[i].sub_kode;
                             kode_barang = dt[i].kode + subKode;
-                            btnAdd = '<button type="submit" class="btn btn-sm btn-success" onclick="getDisplayData(\'' + kode_barang + '\', \'' + dt[i].nama_barang + '\')"><i class="fa fa-plus"></i></button>';
+                            btnAdd = '<button type="submit" class="btn btn-sm btn-success" onclick="getDisplayData(\'' + kode_barang + '\', \'' + dt[i].nama_barang + '\', \'' + dt[i].harga + '\')"><i class="fa fa-plus"></i></button>';
                         } else {
                             kode_barang = dt[i].kode;
                             subKode = " ";
@@ -492,6 +487,7 @@
                             '<td>' + (i + 1) + '</td>' +
                             '<td>' + kode_barang + '</td>' +
                             '<td>' + dt[i].nama_barang + '</td>' +
+                            '<td>' + formatRupiah(dt[i].harga, '') + '</td>' +
                             '<td style="text-align: center;">' + btnAdd + '</td>' +
                             '</tr>';
                     }
@@ -536,9 +532,11 @@
             });
         }
 
-        function getDisplayData(kode_barang, nama_barang) {
+        function getDisplayData(kode_barang, nama_barang, harga) {
+            let hrg = formatRupiah(harga, '');
             $("#kdBarang").val(kode_barang);
             $("#nmBarang").val(nama_barang);
+            $("#hrgBeli").val(hrg);
 
             $("#modal-kodeBarang").modal("hide");
         }

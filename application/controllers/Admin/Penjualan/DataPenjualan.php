@@ -39,7 +39,7 @@ class DataPenjualan extends CI_Controller
         $this->load->view('PageAdmin/Penjualan/DataPenjualan');
     }
 
-    public function GetData()
+    public function GetDataPenjualan()
     {
         $data = $this->Penjualan->GetDataPenjualan();
         echo json_encode($data);

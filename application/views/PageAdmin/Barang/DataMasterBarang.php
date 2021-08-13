@@ -47,21 +47,13 @@
                                                 <th>No</th>
                                                 <th>Kode Barang</th>
                                                 <th>Nama Barang</th>
+                                                <th>Harga</th>
                                                 <th style="text-align: center;">Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Kode Barang</th>
-                                                <th>Nama Barang</th>
-                                                <th style="text-align: center;">Status</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                                 <!-- /.card-body -->
@@ -83,77 +75,80 @@
     <!-- Modal Kode Barang -->
     <div class="modal fade" id="modal-barang" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah Data Barang</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="overlay-wrapper">
+                <span id="loadingSImpan"></span>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Tambah Data Barang</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" id="formMstrBarang">
+                            <div class="row">
+                                <select name="optTambah" class="form-control col-lg-6" id="optTambah">
+                                </select>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="kodeHeader">Barang Header</label>
+                                        <input type="hidden" class="form-control" id="idSupp" placeholder="idSupp" value="">
+                                        <input type="text" class="form-control" id="kodeHeader" name="kodeHeader" placeholder="Kode Header Barang" value="" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="namaHeader">&nbsp;</label>
+                                        <input type="text" class="form-control" id="namaHeader" name="namaHeader" placeholder="Nama Header Barang" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="naikHeader">Persentase Barang</label>
+                                        <input type="text" class="form-control" id="naikHeader" name="naikHeader" placeholder="Persentase Kenaikan Harga" value="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="turunHeader">&nbsp;</label>
+                                        <input type="text" class="form-control" id="turunHeader" name="turunHeader" placeholder="Persentase Turun Harga" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row detailBrg">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="kodeDetail">Barang Detail</label>
+                                        <input type="text" class="form-control kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="namaDetail">&nbsp;</label>
+                                        <input type="text" class="form-control namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="hargaDetail">&nbsp;</label>
+                                        <input type="text" class="form-control hargaDetail" name="hargaDetail[]" placeholder="Harga Detail Barang" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <button class="btn btn-sm btn-success" id="multiDetail"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Detail</button>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" id="closeAddSupp" class="btn btn-sm btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+                        <button type="submit" id="addSupp" class="btn btn-sm btn-primary addSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form action="" method="post" id="formMstrBarang">
-                        <div class="row">
-                            <select name="optTambah" class="form-control col-lg-6" id="optTambah">
-                            </select>
-                        </div><br>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="kodeHeader">Barang Header</label>
-                                    <input type="hidden" class="form-control" id="idSupp" placeholder="idSupp" value="">
-                                    <input type="text" class="form-control" id="kodeHeader" name="kodeHeader" placeholder="Kode Header Barang" value="" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="namaHeader">&nbsp;</label>
-                                    <input type="text" class="form-control" id="namaHeader" name="namaHeader" placeholder="Nama Header Barang" value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="naikHeader">Persentase Barang</label>
-                                    <input type="text" class="form-control" id="naikHeader" name="naikHeader" placeholder="Persentase Kenaikan Harga" value="">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="turunHeader">&nbsp;</label>
-                                    <input type="text" class="form-control" id="turunHeader" name="turunHeader" placeholder="Persentase Turun Harga" value="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row detailBrg">
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="kodeDetail">Barang Detail</label>
-                                    <input type="text" class="form-control kodeDetail" name="kodeDetail[]" placeholder="Kode Detail Barang" value="" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="namaDetail">&nbsp;</label>
-                                    <input type="text" class="form-control namaDetail" name="namaDetail[]" placeholder="Nama Detail Barang" value="">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="hargaDetail">&nbsp;</label>
-                                    <input type="text" class="form-control hargaDetail" name="hargaDetail[]" placeholder="Harga Detail Barang" value="">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <button class="btn btn-sm btn-success" id="multiDetail"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Detail</button>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
-                    <button type="submit" id="addSupp" class="btn btn-sm btn-primary addSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
-                </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
@@ -161,62 +156,65 @@
     <!-- Modal Kode Barang -->
     <div class="modal fade" id="modal-editBarang" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Data Barang</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post" id="formEditBarang">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="kodeBrgEdit">Barang</label>
-                                    <input type="text" class="form-control" id="kodeBrgEdit" name="kodeBrgEdit" placeholder="Kode Barang" value="" readonly>
-                                    <input type="hidden" class="form-control" name="idBrgEdit" id="idBrgEdit" placeholder="idBrgEdit" value="">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label for="namaBrgEdit">&nbsp;</label>
-                                    <input type="text" class="form-control" id="namaBrgEdit" name="namaBrgEdit" placeholder="Nama Barang" value="">
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success" style="    position: absolute; right: 15px;">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch3" name="statusBrgEdit">
-                                        <label class="custom-control-label" for="customSwitch3">Status</label>
+            <div class="overlay-wrapper">
+                <span id="loadingEdit"></span>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Data Barang</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" id="formEditBarang">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="kodeBrgEdit">Barang</label>
+                                        <input type="text" class="form-control" id="kodeBrgEdit" name="kodeBrgEdit" placeholder="Kode Barang" value="" readonly>
+                                        <input type="hidden" class="form-control" name="idBrgEdit" id="idBrgEdit" placeholder="idBrgEdit" value="">
                                     </div>
-                                    <label for="hargaBrgEdit">&nbsp;</label>
-                                    <input type="text" class="form-control" id="hargaBrgEdit" name="hargaBrgEdit" placeholder="Harga Barang" value="">
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="namaBrgEdit">&nbsp;</label>
+                                        <input type="text" class="form-control" id="namaBrgEdit" name="namaBrgEdit" placeholder="Nama Barang" value="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success" style="    position: absolute; right: 15px;">
+                                            <input type="checkbox" class="custom-control-input" id="customSwitch3" name="statusBrgEdit">
+                                            <label class="custom-control-label" for="customSwitch3">Status</label>
+                                        </div>
+                                        <label for="hargaBrgEdit">&nbsp;</label>
+                                        <input type="text" class="form-control" id="hargaBrgEdit" name="hargaBrgEdit" placeholder="Harga Barang" value="">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row" id="rowPersenHeader">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="naikHeaderEdit">Persentase Turun</label>
-                                    <input type="text" class="form-control" id="naikHeaderEdit" name="naikHeaderEdit" placeholder="Persentase Kenaikan Harga" value="">
+                            <div class="row" id="rowPersenHeader">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="naikHeaderEdit">Persentase Turun</label>
+                                        <input type="text" class="form-control" id="naikHeaderEdit" name="naikHeaderEdit" placeholder="Persentase Kenaikan Harga" value="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="turunHeaderEdit">Persentase Naik</label>
+                                        <input type="text" class="form-control" id="turunHeaderEdit" name="turunHeaderEdit" placeholder="Persentase Turun Harga" value="">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="turunHeaderEdit">Persentase Naik</label>
-                                    <input type="text" class="form-control" id="turunHeaderEdit" name="turunHeaderEdit" placeholder="Persentase Turun Harga" value="">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" id="closeSupp" class="btn btn-sm btn-default" data-dismiss="modal" id="closeBtn">Close</button>
+                        <button type="submit" id="editSupp" class="btn btn-sm btn-primary editSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
+                    </div>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" id="closeBtn">Close</button>
-                    <button type="submit" id="editSupp" class="btn btn-sm btn-primary editSupp" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
-                </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
@@ -257,6 +255,7 @@
             $("#tableDataBarang").DataTable({
                 "responsive": true,
                 "autoWidth": false,
+                "pageLength": 10,
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
 
@@ -352,22 +351,29 @@
                     data: data,
                     dataType: "json",
                     async: false,
+                    beforeSend: function() {
+                        $("#addSupp").prop("disabled", true);
+                        $("#closeAddSupp").prop("disabled", true);
+
+                        var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                        $("#loadingSImpan").html(loading);
+                    },
                     success: function(data) {
                         // console.log(data);
                         Toast.fire({
                             icon: 'success',
                             title: 'Data Barang Berhasil Disimpan.'
                         })
-                        $("#modal-barang").modal('hide');
-                        $("#optTambah").val('')
-                        $("#kodeHeader").val('')
-                        $("#namaHeader").val('')
-                        $(".kodeDetail").val('')
-                        $(".namaDetail").val('')
-                        $(".hargaDetail").val('')
+                        // $("#modal-barang").modal('hide');
+                        // $("#optTambah").val('')
+                        // $("#kodeHeader").val('')
+                        // $("#namaHeader").val('')
+                        // $(".kodeDetail").val('')
+                        // $(".namaDetail").val('')
+                        // $(".hargaDetail").val('')
                         setTimeout(() => {
                             window.location.reload()
-                        }, 1000);
+                        }, 3000);
                     }
                 })
             })
@@ -381,14 +387,21 @@
                     data: data,
                     dataType: "json",
                     async: false,
+                    beforeSend: function() {
+                        $("#editSupp").prop("disabled", true);
+                        $("#closeSupp").prop("disabled", true);
+
+                        var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                        $("#loadingEdit").html(loading);
+                    },
                     success: function(data) {
                         // console.log(data);
                         Toast.fire({
                             icon: 'success',
                             title: 'Data Barang Berhasil Disimpan.'
                         })
-                        $("#modal-editBarang").modal('hide');
-                        $("#modal-editBarang input").val('')
+                        // $("#modal-editBarang").modal('hide');
+                        // $("#modal-editBarang input").val('')
                         setTimeout(() => {
                             window.location.reload()
                         }, 1000);
@@ -419,8 +432,36 @@
                     $('#turunHeader').attr('readonly', true)
                     $('#namaHeader').val(namaBarangHead)
                 }
-            })
+            });
+
+            $(".hargaDetail").keyup(function() {
+                angka = formatRupiah($(this).val(), '');
+                $(this).val(angka);
+            });
+
+            $("#hargaBrgEdit").keyup(function() {
+                angka = formatRupiah($(this).val(), '');
+                $(this).val(angka);
+            });
+
         });
+
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
+        }
 
         function removeDetail() {
             let indexDetailBrg = $('.detailBrg').length - 1
@@ -477,17 +518,22 @@
                     let row = '';
                     for (let i = 0; i < data.length; i++) {
                         let kode = data[i].kode;
-                        let subKode = data[i].sub_kode
-                        let idBrg = data[i].id_kd_barang
-                        let statusBrg = data[i].status
-                        let statusBrgChar = statusBrg == '1' ? '<span class="badge badge-info">Aktif</span>' : '<span class="badge badge-danger">Tidak Aktif</span>'
+                        let subKode = data[i].sub_kode;
+                        let idBrg = data[i].id_kd_barang;
+                        let statusBrg = data[i].status;
+                        let harga = data[i].harga;
+                        let statusBrgChar = statusBrg == '1' ? '<span class="badge badge-info">Aktif</span>' : '<span class="badge badge-danger">Tidak Aktif</span>';
+                        let sttsharga = harga == '0' ? '-' : formatRupiah(harga, '');
+                        let kdBrg = subKode == '*' ? kode : kode + subKode;
+
                         row += `<tr>
                                     <td>` + (i + 1) + `</td>                                    
-                                    <td>` + kode + `` + subKode + `</td>
+                                    <td>` + kdBrg + `</td>
                                     <td>` + data[i].nama_barang + `</td>
+                                    <td>` + sttsharga + `</td>
                                     <td align="center">` + statusBrgChar + `</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-primary" onClick="editDataBarang('` + kode + `','` + subKode + `','` + data[i].nama_barang + `','` + idBrg + `','` + statusBrg + `','` + data[i].persen_naik + `','` + data[i].persen_turun + `','`+ data[i].harga +`')"><i class="fas fa-edit"></i> Edit</button>
+                                        <button type="button" class="btn btn-xs btn-primary" onClick="editDataBarang('` + kode + `','` + subKode + `','` + data[i].nama_barang + `','` + idBrg + `','` + statusBrg + `','` + data[i].persen_naik + `','` + data[i].persen_turun + `','` + data[i].harga + `')"><i class="fas fa-edit"></i> Edit</button>
                                         <button class="btn btn-xs btn-danger" id="hapusData" onClick="validateHapus('` + data[i].id_kd_barang + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
                                     </td>
                                 </tr>`;
@@ -502,7 +548,7 @@
             $("#kodeBrgEdit").val(kode + subKode)
             $("#namaBrgEdit").val(namaBrg)
             $("#idBrgEdit").val(idBrg)
-            $("#hargaBrgEdit").val(harga)
+            $("#hargaBrgEdit").val(formatRupiah(harga, ''))
 
             // console.log(harga)
 

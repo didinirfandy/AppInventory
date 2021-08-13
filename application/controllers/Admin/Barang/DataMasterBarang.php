@@ -69,14 +69,14 @@ class DataMasterBarang extends CI_Controller
     public function insertMasterBarang()
     {
         // print_r($_POST['data']);
-        $opt        = isset($_POST['optTambah']) ? $_POST['optTambah'] : '';
-        $kodeHead   = $_POST['kodeHeader'];
-        $namaHead   = $_POST['namaHeader'];
-        $naikHead   = $_POST['naikHeader'];
-        $turunHead  = $_POST['turunHeader'];
-        $kodeDetail = $_POST['kodeDetail'];
-        $namaDetail = $_POST['namaDetail'];
-        $hargaDetail = $_POST['hargaDetail'];
+        $opt         = isset($_POST['optTambah']) ? $_POST['optTambah'] : '';
+        $kodeHead    = $_POST['kodeHeader'];
+        $namaHead    = $_POST['namaHeader'];
+        $naikHead    = $_POST['naikHeader'];
+        $turunHead   = $_POST['turunHeader'];
+        $kodeDetail  = $_POST['kodeDetail'];
+        $namaDetail  = $_POST['namaDetail'];
+        $hargaDetail = str_replace(".", "", $_POST['hargaDetail']);
 
         $insert = $this->Barang->insertMasterBarang($opt, $kodeHead, $namaHead, $kodeDetail, $namaDetail, $naikHead, $turunHead, $hargaDetail);
 
@@ -85,11 +85,11 @@ class DataMasterBarang extends CI_Controller
 
     public function editMasterBarang()
     {
-        $idBrg = $_POST['idBrgEdit'];
-        $namaBrg = $_POST['namaBrgEdit'];
-        $hargaBrg = $_POST['hargaBrgEdit'];
-        $statusBrg = isset($_POST['statusBrgEdit']) && $_POST['statusBrgEdit'] == 'on' ? '1' : '0';
-        $persenNaik = $_POST['naikHeaderEdit'];
+        $idBrg       = $_POST['idBrgEdit'];
+        $namaBrg     = $_POST['namaBrgEdit'];
+        $hargaBrg    = str_replace(".", "", $_POST['hargaBrgEdit']);
+        $statusBrg   = isset($_POST['statusBrgEdit']) && $_POST['statusBrgEdit'] == 'on' ? '1' : '0';
+        $persenNaik  = $_POST['naikHeaderEdit'];
         $persenTurun = $_POST['turunHeaderEdit'];
 
         $data = [
