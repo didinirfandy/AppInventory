@@ -22,6 +22,7 @@ class LoginModel extends CI_Model
             );
             $this->session->set_userdata($data);
             $valid = $data['user_valid'];
+            $level = $data['user_level'];
         }
 
         if ($valid == 1) {
@@ -34,7 +35,7 @@ class LoginModel extends CI_Model
 
                 if ($this->db->affected_rows() > 0) {
                     activity_log("login", "Masuk", '');
-                    return $valid;
+                    return $level;
                 } else {
                     return false;
                 }
