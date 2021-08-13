@@ -25,7 +25,7 @@ class Penjualan extends CI_Model
                 master_penjualan a
                 LEFT JOIN detail_penjualan b ON a.kd_penjualan = b.kd_penjualan
             GROUP BY a.kd_penjualan
-            ORDER BY a.tgl_penjualan ASC"
+            ORDER BY a.tgl_penjualan DESC"
         )->result_array();
 
         if ($qry) {
