@@ -141,13 +141,13 @@
                     if ($this->session->userdata('user_level') == '2') {
                 ?>
                     <li class="nav-item">
-                        <a href="<?= base_url('Admin/IndexAdmin'); ?>" class="nav-link <?= $this->uri->segment(2) == "IndexAdmin" ? 'active' : ''; ?>">
+                        <a href="<?= base_url('User/IndexUser'); ?>" class="nav-link <?= $this->uri->segment(2) == "IndexUser" ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('Admin/Supplier/DataSupplier') ?>" class="nav-link <?= $this->uri->segment(3) == "DataSupplier" ? 'active' : ''; ?>">
+                        <a href="<?= base_url('User/Barang/StockBarang') ?>" class="nav-link <?= $this->uri->segment(3) == "StockBarang" ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-qrcode"></i>
                             <p>Stock Barang</p>
                         </a>
