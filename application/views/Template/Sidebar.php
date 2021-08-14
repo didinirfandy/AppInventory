@@ -92,7 +92,7 @@
                         <li class="nav-item">
                             <a href="<?= base_url('Admin/Barang/DataBarang') ?>" class="nav-link <?= $this->uri->segment(3) == "DataBarang" ? 'active' : ''; ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Stock Barang</p>
+                                <p>Stok Barang</p>
                             </a>
                         </li>
                     </ul>

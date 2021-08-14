@@ -12,7 +12,7 @@
         </li>
         <li class="nav-item">
             <!-- <span id="the-day"></span><span id="the-time"></span> -->
-            <h3>Sistem Inventori Toko Plaza Meubel</h3>
+            <h3>Sistem Inventori Furniture Toko Plaza Meubel</h3>
         </li>
         <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
