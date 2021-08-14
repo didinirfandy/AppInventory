@@ -32,6 +32,9 @@
 <!-- jquery-validation -->
 <script src="<?= base_url(); ?>assetsApp/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="<?= base_url(); ?>assetsApp/plugins/jquery-validation/additional-methods.min.js"></script>
+
+<!-- date-range-picker -->
+<script src="<?= base_url(); ?>assetsApp/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- MagciSuggest -->
 <!-- <script src="assetsApp/MagicSuggest/magicsuggest-min.js"></script> -->
 
