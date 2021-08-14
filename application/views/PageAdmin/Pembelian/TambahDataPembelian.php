@@ -201,8 +201,8 @@
                             <input type="text" style="display: none;" name="kdPembelian" value="<?= $getKdBeli; ?>">
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" id="closeSimpan" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>
-                            <button type="submit" class="btn btn-primary" id="simpanBarang"><i class="fa fa-save"></i> SImpan</button>
+                            <button type="button" class="btn btn-sm btn-default" id="closeSimpan" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="simpanBarang"><i class="fa fa-save"></i> SImpan</button>
                         </div>
                     </form>
                 </div>
@@ -293,18 +293,12 @@
 
             $("#formSimpanBarang").validate({
                 rules: {
-                    tglBeli: {
-                        required: true,
-                        date: true
-                    },
+                    tglBeli: "required",
                     kdSupplier: "required",
                     remark: "required",
                 },
                 messages: {
-                    tglBeli: {
-                        required: "Tanggal Tidak Boleh Kosong",
-                        date: "Harus menginput tanggal"
-                    },
+                    tglBeli: "Tanggal Tidak Boleh Kosong",
                     kdSupplier: "Supplier Tidak Boleh Kosong",
                     remark: "Remark Tidak Boleh Kosong",
                 },
