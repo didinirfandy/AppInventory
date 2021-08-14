@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class LaporanPembelian extends CI_Controller
+class StockBarang extends CI_Controller
 {
 
     /**
@@ -19,11 +19,10 @@ class LaporanPembelian extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Laporan');
+        $this->load->model('Barang');
 
         if (empty($_SESSION['username'])) {
             $this->session->set_flashdata('notif', 'Anda Harus Login Terlebih Dahulu');
@@ -33,21 +32,15 @@ class LaporanPembelian extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Laporan Pembelian";
+        $data['title'] = "Data Stock Barang";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
-        $this->load->view('PageAdmin/Laporan/LaporanPembelian', $data);
+        $this->load->view('PageUser/Barang/StockBarang', $data);
     }
 
-    public function getData()
+    public function getDataStokBarang()
     {
-        $tglAwal = $this->input->post('awal');
-        $tglAkhir = $this->input->post('akhir');
-
-        $tglAwal = date("Y-m-d", strtotime($tglAwal));
-        $tglAkhir = date("Y-m-d", strtotime($tglAkhir));
-
-        $data = $this->Laporan->getDataPembelian($tglAwal, $tglAkhir);
-        echo json_encode($data);
+        $getData = $this->Barang->getDataStokBarang();
+        echo json_encode($getData);
     }
 }

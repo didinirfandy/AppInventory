@@ -273,6 +273,12 @@
                         required: true,
                         min: 1,
                         max: 1000
+                    },
+                    kdBarang: {
+                        required: true
+                    },
+                    nmBarang: {
+                        required: true
                     }
                     // ,
                     // satuan: {
@@ -285,6 +291,12 @@
                 messages: {
                     qtyBeli: {
                         required: "Quantity Tidak Boleh Kosong",
+                    },
+                    kdBarang: {
+                        required: "Kode Barang Tidak Boleh Kosong"
+                    },
+                    nmBarang: {
+                        required: "Nama Barang Tidak Boleh Kosong"
                     }
                     // ,
                     // satuan: {
