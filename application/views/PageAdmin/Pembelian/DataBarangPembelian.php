@@ -452,10 +452,7 @@
                                 min: 1,
                                 max: qtySisa
                             },
-                            tglGudangBatal: {
-                                required: true,
-                                date: true
-                            },
+                            tglGudangBatal: "required",
                             remarkBatal: "required",
                         },
                         messages: {
@@ -464,10 +461,7 @@
                                 min: "Harus Mengisi Mulai dari Angka 1",
                                 max: "Jangan Melebihi Quantity Pembelian " + qtySisa
                             },
-                            tglGudangBatal: {
-                                required: "Tanggal Tidak Boleh Kosong",
-                                date: "Harus menginputkan tanggal"
-                            },
+                            tglGudangBatal: "Tanggal Tidak Boleh Kosong",
                             remarkBatal: "Deskripsi Tidak Boleh Kosong",
                         },
                         errorElement: 'span',
