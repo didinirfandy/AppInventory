@@ -38,4 +38,16 @@ class LaporanPenjualan extends CI_Controller
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Laporan/LaporanPenjualan', $data);
     }
+
+    public function getData()
+    {
+        $tglAwal = $this->input->post('awal');
+        $tglAkhir = $this->input->post('akhir');
+
+        $tglAwal = date("Y-m-d", strtotime($tglAwal));
+        $tglAkhir = date("Y-m-d", strtotime($tglAkhir));
+
+        $data = $this->Laporan->getDataPenjualan($tglAwal, $tglAkhir);
+        echo json_encode($data);
+    }
 }
