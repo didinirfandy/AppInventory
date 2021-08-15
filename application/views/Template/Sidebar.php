@@ -95,7 +95,7 @@
                             <li class="nav-item">
                                 <a href="<?= base_url('Admin/Barang/DataBarang') ?>" class="nav-link <?= $this->uri->segment(3) == "DataBarang" ? 'active' : ''; ?>">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Stock Barang</p>
+                                    <p>Stok Barang</p>
                                 </a>
                             </li>
                         </ul>
@@ -149,7 +149,7 @@
                     <li class="nav-item">
                         <a href="<?= base_url('User/Barang/StockBarang') ?>" class="nav-link <?= $this->uri->segment(3) == "StockBarang" ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-qrcode"></i>
-                            <p>Stock Barang</p>
+                            <p>Stok Barang</p>
                         </a>
                     </li>
                     <li class="nav-item <?= $this->uri->segment(2) == "Laporan" ? 'menu-open' : ''; ?>">

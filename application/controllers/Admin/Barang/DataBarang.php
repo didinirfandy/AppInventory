@@ -32,7 +32,7 @@ class DataBarang extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Data Stock Barang";
+        $data['title'] = "Data Stok Barang";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Barang/DataBarang', $data);
