@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class LaporanPembelian extends CI_Controller
+class LaporanAset extends CI_Controller
 {
 
     /**
@@ -33,21 +33,24 @@ class LaporanPembelian extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Laporan Pembelian";
+        $data['title'] = "Laporan Aset";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
-        $this->load->view('PageAdmin/Laporan/LaporanPembelian', $data);
+        $this->load->view('PageUser/Laporan/LaporanAset', $data);
     }
 
     public function getData()
     {
         $tglAwal = $this->input->post('awal');
         $tglAkhir = $this->input->post('akhir');
+        $typeBtn = $this->input->post('typeBtn');
 
-        $tglAwal = DateTime::createFromFormat("d/m/Y", $tglAwal)->format('Y-m-d');
-        $tglAkhir = DateTime::createFromFormat("d/m/Y", $tglAkhir)->format('Y-m-d');
+        if ($typeBtn == '') {
+            $tglAwal = DateTime::createFromFormat("d/m/Y", $tglAwal)->format('Y-m-d');
+            $tglAkhir = DateTime::createFromFormat("d/m/Y", $tglAkhir)->format('Y-m-d');
+        }
 
-        $data = $this->Laporan->getDataPembelian($tglAwal, $tglAkhir);
+        $data = $this->Laporan->getDataAset($tglAwal, $tglAkhir, $typeBtn);
         echo json_encode($data);
     }
 }

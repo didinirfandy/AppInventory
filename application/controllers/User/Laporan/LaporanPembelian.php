@@ -36,7 +36,7 @@ class LaporanPembelian extends CI_Controller
         $data['title'] = "Laporan Pembelian";
 
         $this->load->view('Template/HeadDataTablesJS', $data);
-        $this->load->view('PageAdmin/Laporan/LaporanPembelian', $data);
+        $this->load->view('PageUser/Laporan/LaporanPembelian', $data);
     }
 
     public function getData()

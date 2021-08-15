@@ -162,13 +162,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= base_url('Admin/Laporan/LaporanPenjualan') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPenjualan" ? 'active' : ''; ?>">
+                                <a href="<?= base_url('User/Laporan/LaporanPenjualan') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPenjualan" ? 'active' : ''; ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Penjualan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= base_url('Admin/Laporan/LaporanPembelian') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPembelian" ? 'active' : ''; ?>">
+                                <a href="<?= base_url('User/Laporan/LaporanPembelian') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPembelian" ? 'active' : ''; ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pembelian</p>
                                 </a>
@@ -180,9 +180,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= base_url('Admin/Laporan/LaporanProfit') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanProfit" ? 'active' : ''; ?>">
+                                <a href="<?= base_url('User/Laporan/LaporanAset') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanAset" ? 'active' : ''; ?>">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Harta</p>
+                                    <p>Aset</p>
                                 </a>
                             </li>
                         </ul>
