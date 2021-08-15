@@ -182,7 +182,7 @@
             } else {                
                 $.ajax({
                     type: "POST",
-                    url: "<?= base_url('Admin/Laporan/LaporanPenjualan/GetData') ?>",
+                    url: "<?= base_url('User/Laporan/LaporanPenjualan/GetData') ?>",
                     data: {awal : tglAwal, akhir : tglAkhir},
                     dataType: "json",
                     async: false,

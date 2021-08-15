@@ -44,8 +44,8 @@ class LaporanPembelian extends CI_Controller
         $tglAwal = $this->input->post('awal');
         $tglAkhir = $this->input->post('akhir');
 
-        $tglAwal = date("Y-m-d", strtotime($tglAwal));
-        $tglAkhir = date("Y-m-d", strtotime($tglAkhir));
+        $tglAwal = DateTime::createFromFormat("d/m/Y", $tglAwal)->format('Y-m-d');
+        $tglAkhir = DateTime::createFromFormat("d/m/Y", $tglAkhir)->format('Y-m-d');
 
         $data = $this->Laporan->getDataPembelian($tglAwal, $tglAkhir);
         echo json_encode($data);

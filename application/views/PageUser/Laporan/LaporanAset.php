@@ -63,8 +63,8 @@
                                         </div>
                                         <div class="col-3" style="margin-right: auto;">
                                             <div>
-                                                <button type="button" class="btn btn-sm btn-primary" id="cariByTgl"><i class="fas fa-search"></i> Proccess</button>
-                                                <!-- <button type="button" class="btn btn-sm btn-success" id="cariSemua"><i class="fas fa-search"></i> Semua Data</button> -->
+                                                <button type="button" class="btn btn-sm btn-primary" id="cariByTgl"><i class="fas fa-search"></i>&nbsp;&nbsp;Proccess</button>
+                                                <button type="button" class="btn btn-sm btn-success" id="cariSemua"><i class="fas fa-search"></i>&nbsp;&nbsp;Semua Data</button>
                                             </div>
                                         </div>
                                         <div class="col-4" style="margin-left: auto;">
@@ -80,14 +80,14 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Kode Pembelian</th>
-                                                <th>Tgl Pembelian</th>
-                                                <th>Supplier</th>
+                                                <th>Kode Gudang</th>
+                                                <th>Kode Barang</th>
                                                 <th>Barang</th>
-                                                <th width="100px">Satuan</th>
-                                                <th>Qty</th>
-                                                <th>Harga</th>
-                                                <th>Total</th>
+                                                <th>Satuan</th>
+                                                <th>Stok</th>
+                                                <th>Harga Beli</th>
+                                                <th>Harga Jual</th>
+                                                <th>Aset</th>
                                             </tr>
                                         </thead>
                                         <tbody id="datapembelian">
@@ -118,12 +118,16 @@
 
     <script type="text/javascript">
         $(function() {            
-            if (sessionStorage.getItem("tglPemDari") && sessionStorage.getItem("tglPemSampai")) {                
-                displayData()
+            if (sessionStorage.getItem("tglPemDari") && sessionStorage.getItem("tglPemSampai")) {
+                displayData('')
                 $("#reservation").val(sessionStorage.getItem("tglPemDari")+' - '+sessionStorage.getItem("tglPemSampai"))
-
                 sessionStorage.removeItem("tglPemDari")
                 sessionStorage.removeItem("tglPemSampai")
+            }
+            if(sessionStorage.getItem("typeBtn"))
+            {
+                displayData('all')
+                sessionStorage.removeItem("typeBtn")
             }
             let endDate = moment();
 
@@ -156,6 +160,11 @@
 
                 window.location.reload()
             })
+
+            $("#cariSemua").click(function(){
+                window.location.reload()
+                sessionStorage.setItem("typeBtn", "all")
+            })
         });
 
         const Toast = Swal.mixin({
@@ -170,124 +179,66 @@
             }
         });
 
-        function displayData() {
+        function displayData(type) {
             let tglAwal  = sessionStorage.getItem("tglPemDari")
             let tglAkhir = sessionStorage.getItem("tglPemSampai")
+            let typeBtn  = type
 
-            if (tglAwal == '' || tglAkhir == '') {
-                Toast.fire({
-                    icon: 'danger',
-                    title: 'Berhasil Simpan Pembelian Barang!'
-                });
-            } else {                
-                $.ajax({
-                    type: "POST",
-                    url: "<?= base_url('Admin/Laporan/LaporanPembelian/GetData') ?>",
-                    data: {awal : tglAwal, akhir : tglAkhir},
-                    dataType: "json",
-                    async: false,
-                    success: function(data) {
-                        console.log(data);
-                        let row = '';
-                        let kdPembelian = '';
-                        let no = 1;
-                        let indexTotal = [];
-                        let sumQty = 0, sumHarga = 0, sumTotal = 0;
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('User/Laporan/LaporanAset/GetData') ?>",
+                data: {awal : tglAwal, akhir : tglAkhir, typeBtn : typeBtn},
+                dataType: "json",
+                async: false,
+                success: function(data) {
+                    let row = '';
+                    let no = 1;
+                    let sumQty = 0, sumHargaBeli = 0, sumHargaJual = 0, sumAset = 0;
 
-                        //get index total
-                        for (let i = 0; i < data.length; i++){
-                            if (kdPembelian != data[i].kodepem) {
-                                if (i != 0) {
-                                    indexTotal.push(i-1)
-                                }
-                                if(i == data.length-1){
-                                    indexTotal.push(i)
-                                }
-                                kdPembelian = data[i].kodepem
-                            }
-                        }
+                    for (let i = 0; i < data.length; i++) {
+                        let kodeGdg = data[i].kd_gudang
+                        let kodeBrg = data[i].kd_barang
+                        let namaBrg = data[i].nama_barang 
+                        let satuan  = data[i].satuan 
+                        let qty     = data[i].qty
+                        let hrgBeli = data[i].harga_beli
+                        let hrgJual = data[i].harga_jual_now 
+                        let asetUser= data[i].aset 
 
-                        kdPembelian = '';
-                        for (let i = 0; i < data.length; i++) {
-                            let kodePem = data[i].kodepem
-                            let tglPem  = data[i].tglpem
-                            let supp    = data[i].supp 
-                            let namaBrg = data[i].namabrg
-                            let satuan  = data[i].satuan 
-                            let qty     = data[i].qty
-                            let hrgBeli = data[i].hrgbeli
-                            let total   = data[i].total 
-                            let totQty  = data[i].totqty
-                            let totHarga  = data[i].totharga
-                            let totTotal  = data[i].tottotal
-
-                             rowTotal = `<tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td style="text-align:right"><b>Total</b></td>
-                                                <td><b>`+ formatRupiah(totQty, '') +`</b></td>
-                                                <td><b>`+ formatRupiah(totHarga, '') +`</b></td>
-                                                <td><b>`+ formatRupiah(totTotal, '') +`</b></td>
-                                            </tr>`;
-
-                            if (kdPembelian != kodePem) {
-
-                                //header pembelian
-                                row += `<tr>
-                                            <td><b>`+ no +`</b></td>
-                                            <td><b>`+ kodePem +`</b></td>
-                                            <td><b>`+ tglPem +`</b></td>
-                                            <td><b>`+ supp +`</b></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>                                            
-                                        </tr>`;
-                                no++;
-                                kdPembelian = kodePem                               
-                            }
-                            //detailpembelian
-                            row += `<tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>`+ namaBrg +`</td>
-                                        <td>`+ satuan +`</td>
-                                        <td>`+ formatRupiah(qty, '') +`</td>                                            
-                                        <td>`+ formatRupiah(hrgBeli, '') +`</td>
-                                        <td>`+ formatRupiah(total, '') +`</td>                                            
-                                    </tr>`;         
-
-                            if (indexTotal.includes(i)) {//sub total
-                                row += rowTotal;
-                                sumQty += parseInt(totQty)
-                                sumHarga += parseInt(totHarga)
-                                sumTotal += parseInt(totTotal)
-                            }
-                        }
-                        rowGrand = `<tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td style="text-align:right"><b>Grand Total</b></td>
-                                        <td>`+ formatRupiah(sumQty.toString(), '') +`</td>
-                                        <td>`+ formatRupiah(sumHarga.toString(), '') +`</td>
-                                        <td>`+ formatRupiah(sumTotal.toString(), '') +`</td>
-                                    </tr>`;
-
-                        $('#datapembelian').html(row);
-                        $('#subTotal').html(rowGrand);
-                        // tableData.ajax.reload()
+                        row += `<tr>
+                                    <td>`+ no +`</td>
+                                    <td>`+ kodeGdg +`</td>
+                                    <td>`+ kodeBrg +`</td>
+                                    <td>`+ namaBrg +`</td>
+                                    <td>`+ satuan +`</td>
+                                    <td>`+ qty +`</td>
+                                    <td>`+ formatRupiah(hrgBeli.toString(), '') +`</td>
+                                    <td>`+ formatRupiah(hrgJual.toString(), '') +`</td>
+                                    <td>`+ formatRupiah(asetUser.toString(), '') +`</td>                                            
+                                </tr>`;
+                        no++;
+                        
+                        sumQty += parseInt(qty)
+                        sumHargaBeli += parseInt(hrgBeli)
+                        sumHargaJual += parseInt(hrgJual)
+                        sumAset += parseInt(asetUser)
                     }
-                })
-            }
+                    rowGrand = `<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align:right"><b>Grand Total</b></td>
+                                    <td>`+ formatRupiah(sumQty.toString(), '') +`</td>
+                                    <td>`+ formatRupiah(sumHargaBeli.toString(), '') +`</td>
+                                    <td>`+ formatRupiah(sumHargaJual.toString(), '') +`</td>
+                                    <td>`+ formatRupiah(sumAset.toString(), '') +`</td>
+                                </tr>`;
+
+                    $('#datapembelian').html(row);
+                    $('#subTotal').html(rowGrand);
+                }
+            })
         }
 
         function formatRupiah(angka, prefix) {

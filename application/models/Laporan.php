@@ -20,7 +20,7 @@ class Laporan extends CI_Model
                             FROM master_pembelian hd 
                             LEFT JOIN supplier su ON hd.kd_supplier = su.kd_supplier) AS hds
                             ON hds.kodepem = dt.kd_pembelian
-                            WHERE DATE(hds.tglpem) BETWEEN '2021-08-01' AND '2021-08-14'
+                            WHERE DATE(hds.tglpem) BETWEEN '$tglAwal' AND '$tglAkhir'
                             ORDER BY dt.kd_pembelian")->result_array();
         if ($qry > 0) {
             return $qry;
@@ -45,13 +45,38 @@ class Laporan extends CI_Model
                                     FROM detail_penjualan dts WHERE hd.kd_penjualan = dts.kd_penjualan) AS totaltotal
                                 FROM master_penjualan hd) AS hds
                                 ON hds.kodepen = dt.kd_penjualan
-                                WHERE DATE(hds.tglpen) BETWEEN '2021-08-01' AND '2021-08-14'
-                                ORDER BY dt.kd_penjualan
-")->result_array();
+                                WHERE DATE(hds.tglpen) BETWEEN '$tglAwal' AND '$tglAkhir'
+                                ORDER BY dt.kd_penjualan")->result_array();
         if ($qry > 0) {
             return $qry;
         } else {
             return false;
         }        
+    }
+
+    public function getDataAset($tglAwal, $tglAkhir, $typeBtn)
+    {
+        $whereTgl = $typeBtn == '' ? " AND DATE(a.tgl_masuk_gudang) BETWEEN '$tglAwal' AND '$tglAkhir'" : "";
+
+        $qry = $this->db->query("SELECT
+                                    a.kd_gudang,
+                                    a.kd_barang,
+                                    b.nama_barang,
+                                    c.satuan,
+                                    a.qty,
+                                    a.harga_beli,  
+                                    a.harga_jual_now,
+                                    a.harga_beli * a.qty as aset
+                                FROM
+                                    master_barang a
+                                    LEFT JOIN kode_barang b ON CONCAT( b.kode, b.sub_kode ) = a.kd_barang
+                                    LEFT JOIN detail_pembelian c ON c.kd_pembelian = a.kd_pembelian AND c.kd_barang = a.kd_barang
+                                WHERE
+                                    a.`status` != '1' AND a.qty > 0 $whereTgl")->result_array();
+        if ($qry > 0) {
+            return $qry;
+        } else {
+            return false;
+        } 
     }
 }

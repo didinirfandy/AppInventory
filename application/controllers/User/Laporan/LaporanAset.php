@@ -43,11 +43,14 @@ class LaporanAset extends CI_Controller
     {
         $tglAwal = $this->input->post('awal');
         $tglAkhir = $this->input->post('akhir');
+        $typeBtn = $this->input->post('typeBtn');
 
-        $tglAwal = date("Y-m-d", strtotime($tglAwal));
-        $tglAkhir = date("Y-m-d", strtotime($tglAkhir));
+        if ($typeBtn == '') {
+            $tglAwal = DateTime::createFromFormat("d/m/Y", $tglAwal)->format('Y-m-d');
+            $tglAkhir = DateTime::createFromFormat("d/m/Y", $tglAkhir)->format('Y-m-d');
+        }
 
-        $data = $this->Laporan->getDataPembelian($tglAwal, $tglAkhir);
+        $data = $this->Laporan->getDataAset($tglAwal, $tglAkhir, $typeBtn);
         echo json_encode($data);
     }
 }
