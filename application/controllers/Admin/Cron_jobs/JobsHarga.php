@@ -3,6 +3,12 @@ date_default_timezone_set('Asia/Jakarta');
 
 class JobsHarga extends CI_Controller
 {
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Jobs');
+    }
+
     public function HargaNaik()
     {
         $qry = $this->db->query(
@@ -10,14 +16,17 @@ class JobsHarga extends CI_Controller
                 a.kd_pembelian
                 , a.kd_gudang
                 , a.kd_barang
+                , c.kd_supplier
                 , a.tgl_masuk_gudang
                 , a.harga_beli
                 , a.harga_jual_start
                 , a.harga_jual_now
                 , b.persen_naik
                 , b.persen_turun
-            FROM master_barang a
-            LEFT JOIN kode_barang b ON b.kode = SUBSTR(a.kd_barang, 1, 3)
+            FROM 
+                master_barang a
+                LEFT JOIN kode_barang b ON b.kode = SUBSTR(a.kd_barang, 1, 3)
+                LEFT JOIN master_pembelian c ON c.kd_pembelian = a.kd_pembelian
             WHERE
                 MONTH(a.tgl_masuk_gudang) != MONTH(CURDATE())
                 AND a.`status` = '0'
@@ -25,29 +34,67 @@ class JobsHarga extends CI_Controller
             ORDER BY a.created_at ASC"
         )->result_array();
 
+        $res = array();
+
         for ($i = 0; $i < count($qry); $i++) {
+            $kd_pembelian   = $qry[$i]['kd_pembelian'];
+            $kd_barang      = $qry[$i]['kd_barang'];
             $kd_gudang      = $qry[$i]['kd_gudang'];
+            $kd_supplier    = $qry[$i]['kd_supplier'];
+            $hrgbeli        = $qry[$i]['harga_beli'];
             $hrgJualStart   = $qry[$i]['harga_jual_start'];
-            $hrgJualNow     = $qry[$i]['harga_jual_now'];
             $persenNaik     = $qry[$i]['persen_naik'];
-            $persenTurun    = $qry[$i]['persen_turun'];
+            // $hrgJualNow     = $qry[$i]['harga_jual_now'];
+            // $persenTurun    = $qry[$i]['persen_turun'];
+            $tgl            = $qry[$i]['tgl_masuk_gudang'];
             $tglMasukGudang = new DateTime($qry[$i]['tgl_masuk_gudang']);
             $nowDate        = new DateTime();
             $diff           = $nowDate->diff($tglMasukGudang);
 
-            for ($k = 0; $k < $diff->m; $k++) {
-                $l = 1;
-                foreach ($qry as $hrg) {
-                    $hrg;
-                }
-                // $hrg = $hrgJualStart + ($persenNaik * $hrgJualStart);
-                print_r($hrg);
+            $valdata = array();
+            $a = 1;
+            $hrg = 0;
+            while ($a <= $diff->m) {
+                $hrgbeli = $a > 1 ? $hrg : $hrgbeli;
+                $hrg = $hrgbeli + ($persenNaik / 100 * $hrgbeli);
+
+                $datalist = array(
+                    "hrgAwal" => floor($hrgbeli),
+                    "hsl" => floor($hrg)
+                );
+                array_push($valdata, $datalist);
+                $a++;
             }
-            die();
+
+            $header = array(
+                "kd_pembelian"     => $kd_pembelian,
+                "kd_barang"        => $kd_barang,
+                "kd_gudang"        => $kd_gudang,
+                "kd_supplier"      => $kd_supplier,
+                "hrgJualStart"     => $hrgJualStart,
+                "tgl_masuk_gudang" => $tgl
+            );
+
+            $data = array("header" => $header, "data" => $valdata);
+            array_push($res, $data);
+        }
+
+        for ($d = 0; $d < count($res); $d++) {
+            $data       = $res[$d]['data'][count($res[$d]['data']) - 1];
+            $hsl        = (int) $data['hsl'];
+            $hargaUP    = array('harga_jual_now' => $hsl);
+            $kd_gudang  = array($res[$d]['header']['kd_gudang']);
+
+            $data = $this->Jobs->UpdateData($kd_gudang, $hargaUP, $res);
+            if ($data) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
-    public function HargaDiskon()
-    {
-    }
+    // public function HargaDiskon()
+    // {
+    // }
 }
