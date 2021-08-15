@@ -100,7 +100,7 @@
                 window.location.reload(); // If this is called no reset is needed
                 reset(); // We want to reset just to make sure the location reload is not called.
             } else {
-                // console.log("Timer");
+                console.log("Timer");
             }
         }
 
