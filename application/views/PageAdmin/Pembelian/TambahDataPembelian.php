@@ -80,7 +80,6 @@
                                                                     <option value="">-- PILIH --</option>
                                                                     <option value="SET">SET</option>
                                                                     <option value="UNIT">UNIT</option>
-                                                                    <option value="PCS">PCS</option>
                                                                 </select>
                                                             </div>
                                                         </div>
