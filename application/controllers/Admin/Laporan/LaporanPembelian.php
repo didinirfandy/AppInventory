@@ -38,4 +38,16 @@ class LaporanPembelian extends CI_Controller
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Laporan/LaporanPembelian', $data);
     }
+
+    public function getData()
+    {
+        $tglAwal = $this->input->post('awal');
+        $tglAkhir = $this->input->post('akhir');
+
+        $tglAwal = DateTime::createFromFormat("d/m/Y", $tglAwal)->format('Y-m-d');
+        $tglAkhir = DateTime::createFromFormat("d/m/Y", $tglAkhir)->format('Y-m-d');
+
+        $data = $this->Laporan->getDataPembelian($tglAwal, $tglAkhir);
+        echo json_encode($data);
+    }
 }

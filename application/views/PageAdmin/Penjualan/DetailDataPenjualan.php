@@ -173,7 +173,7 @@
 
             $("#btnCetakNota").click(function(){
                 let kd_penjualan = sessionStorage.getItem("kd_penjualan");
-                // window.open("<?= base_url()?>Admin/Penjualan/DetailDataPenjualan/cetakNotaPenjualan?kdJual="+kd_penjualan, "_blank");
+                window.open("cetakNotaPenjualan?kdJual="+kd_penjualan, "_blank");
             })
 
 

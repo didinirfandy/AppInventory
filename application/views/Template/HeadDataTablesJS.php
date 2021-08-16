@@ -26,4 +26,7 @@
     <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- MagciSuggest -->
     <!-- <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/MagciSuggest/magicsuggest-min.css"> -->
+
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="<?= base_url(); ?>assetsApp/plugins/daterangepicker/daterangepicker.css">
 </head>
