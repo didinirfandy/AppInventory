@@ -79,6 +79,9 @@ class JobsHarga extends CI_Controller
             array_push($res, $data);
         }
 
+        // print_r($res);
+        // die();
+
         for ($d = 0; $d < count($res); $d++) {
             $data       = $res[$d]['data'][count($res[$d]['data']) - 1];
             $hsl        = (int) $data['hsl'];
@@ -86,12 +89,15 @@ class JobsHarga extends CI_Controller
             $kd_gudang  = array($res[$d]['header']['kd_gudang']);
 
             $data = $this->Jobs->UpdateData($kd_gudang, $hargaUP, $res);
-            if ($data) {
-                return true;
-            } else {
-                return false;
-            }
+            echo $data;
+            // print_r($data);
+            // if ($data == 1) {
+            //     echo "Berhasil";
+            // } else {
+            //     return $data;
+            // }
         }
+        // die();
     }
 
     // public function HargaDiskon()
