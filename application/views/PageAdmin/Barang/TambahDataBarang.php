@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -79,7 +79,7 @@
                                             </div>
                                             <div class="card-footer">
                                                 <a class="btn btn-md btn-primary " id="tmbhDataBarang" style="float: left;"><i class="fas fa-save"></i> Simpan</a>
-                                                <a class="btn btn-md btn-danger " href="<?= base_url()?>Admin/Barang/DataMasterBarang" id="btlTambahData" style="float: left; margin-left: 1%;"><i class="fas fa-times"></i> Batal</a>
+                                                <a class="btn btn-md btn-danger " href="<?= base_url() ?>Admin/Barang/DataMasterBarang" id="btlTambahData" style="float: left; margin-left: 1%;"><i class="fas fa-times"></i> Batal</a>
                                             </div>
                                         </div>
                                     </div>

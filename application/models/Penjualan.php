@@ -266,7 +266,7 @@ class Penjualan extends CI_Model
         if ($insMater && $insdetail) {
             if ($this->db->affected_rows() > 0) {
                 for ($i = 0; $i < count($getTem); $i++) {
-                    activity_log_barang($kodeJual, $namaPelanggan, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', '');
+                    activity_log_barang($kodeJual, $namaPelanggan, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', '', '0');
                 }
             }
 

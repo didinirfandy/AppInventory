@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -197,8 +197,8 @@
                         }
 
                         let warnaTgl = "bg-gray";
-                        let iconList = "";
-                        let header = "";
+                        let iconList = '<i class="fas fa-thumbs-up bg-gray"></i>';
+                        let header = "&nbsp;&nbsp;&nbsp;";
 
                         if (dt[i].status_log == 0) {
                             warnaTgl = "bg-blue";

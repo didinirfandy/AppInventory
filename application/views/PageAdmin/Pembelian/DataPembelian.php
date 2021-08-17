@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
