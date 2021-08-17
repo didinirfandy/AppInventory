@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -45,7 +45,7 @@
                                             </div>
                                         </div>
                                         <p><b>Sampai</b></p>
-                                        <div class="col-2">                                            
+                                        <div class="col-2">
                                             <div class="form-group">
                                                 <!-- <label for="tglPenjualanSampai">Sampai</label> -->
                                                 <input type="date" class="form-control" id="tglPenjualanSampai" placeholder="Sampai">
@@ -60,9 +60,9 @@
                                         <div class="col-4" style="margin-left: auto;">
                                             <div>
                                                 <a href="" class="btn btn-sm btn-primary" style="float: right;"><i class="fas fa-print"></i> Cetak</a>
-                                            </div> 
+                                            </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -81,7 +81,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="datasuplier">
-                                            
+
                                         </tbody>
                                         <tfoot>
                                             <tr>

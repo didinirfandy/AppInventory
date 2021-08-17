@@ -1,11 +1,11 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <style>
-        .buttons-excel{
+        .buttons-excel {
             margin-right: 5px !important;
             border-radius: 5px !important;
         }
 
-        .buttons-pdf{
+        .buttons-pdf {
             border-radius: 5px !important;
         }
     </style>
@@ -53,9 +53,9 @@
                                                 <!-- <label for="tglPenjualanDari">Dari</label> -->
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="far fa-calendar-alt"></i>
-                                                    </span>
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
                                                     </div>
                                                     <input type="text" class="form-control float-right" id="reservation">
                                                 </div>
@@ -70,9 +70,9 @@
                                         <div class="col-4" style="margin-left: auto;">
                                             <div>
                                                 <!-- <a href="" class="btn btn-sm btn-primary" style="float: right;"><i class="fas fa-print"></i> Cetak</a> -->
-                                            </div> 
+                                            </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -91,10 +91,10 @@
                                             </tr>
                                         </thead>
                                         <tbody id="datapembelian">
-                                            
+
                                         </tbody>
                                         <tfoot id="subTotal">
-                                            
+
                                         </tfoot>
                                     </table>
                                 </div>
@@ -117,10 +117,10 @@
     <?php $this->load->view('Template/DataTablesJS') ?>
 
     <script type="text/javascript">
-        $(function() {            
-            if (sessionStorage.getItem("tglPemDari") && sessionStorage.getItem("tglPemSampai")) {                
+        $(function() {
+            if (sessionStorage.getItem("tglPemDari") && sessionStorage.getItem("tglPemSampai")) {
                 displayData()
-                $("#reservation").val(sessionStorage.getItem("tglPemDari")+' - '+sessionStorage.getItem("tglPemSampai"))
+                $("#reservation").val(sessionStorage.getItem("tglPemDari") + ' - ' + sessionStorage.getItem("tglPemSampai"))
 
                 sessionStorage.removeItem("tglPemDari")
                 sessionStorage.removeItem("tglPemSampai")
@@ -131,11 +131,16 @@
                 "responsive": true,
                 // "lengthChange": false,
                 "autoWidth": false,
-                "order" : [],
-                "buttons": [
-                            { extend: 'excelHtml5', footer: true },
-                            { extend: 'pdfHtml5', footer: true }
-                            ],
+                "order": [],
+                "buttons": [{
+                        extend: 'excelHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        footer: true
+                    }
+                ],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             }).buttons().container().appendTo('#tableDataPembelian_wrapper .col-md-6:eq(0)');
 
@@ -145,10 +150,10 @@
                 }
             })
 
-            $("#cariByTgl").click(function(){
-                let rangeTgl  = $("#reservation").val()
+            $("#cariByTgl").click(function() {
+                let rangeTgl = $("#reservation").val()
 
-                let tglAwal  = rangeTgl.split(' - ')[0]
+                let tglAwal = rangeTgl.split(' - ')[0]
                 let tglAkhir = rangeTgl.split(' - ')[1]
 
                 sessionStorage.setItem("tglPemDari", tglAwal)
@@ -171,7 +176,7 @@
         });
 
         function displayData() {
-            let tglAwal  = sessionStorage.getItem("tglPemDari")
+            let tglAwal = sessionStorage.getItem("tglPemDari")
             let tglAkhir = sessionStorage.getItem("tglPemSampai")
 
             if (tglAwal == '' || tglAkhir == '') {
@@ -179,11 +184,14 @@
                     icon: 'danger',
                     title: 'Berhasil Simpan Pembelian Barang!'
                 });
-            } else {                
+            } else {
                 $.ajax({
                     type: "POST",
                     url: "<?= base_url('Admin/Laporan/LaporanPenjualan/GetData') ?>",
-                    data: {awal : tglAwal, akhir : tglAkhir},
+                    data: {
+                        awal: tglAwal,
+                        akhir: tglAkhir
+                    },
                     dataType: "json",
                     async: false,
                     success: function(data) {
@@ -192,15 +200,17 @@
                         let kdPenjualan = '';
                         let no = 1;
                         let indexTotal = [];
-                        let sumQty = 0, sumHarga = 0, sumTotal = 0;
+                        let sumQty = 0,
+                            sumHarga = 0,
+                            sumTotal = 0;
 
                         //get index total
-                        for (let i = 0; i < data.length; i++){
+                        for (let i = 0; i < data.length; i++) {
                             if (kdPenjualan != data[i].kodepen) {
                                 if (i != 0) {
-                                    indexTotal.push(i-1)
+                                    indexTotal.push(i - 1)
                                 }
-                                if(i == data.length-1){
+                                if (i == data.length - 1) {
                                     indexTotal.push(i)
                                 }
                                 kdPenjualan = data[i].kodepen
@@ -210,36 +220,36 @@
                         kdPenjualan = '';
                         for (let i = 0; i < data.length; i++) {
                             let kodePen = data[i].kodepen
-                            let tglPen  = data[i].tglpen
+                            let tglPen = data[i].tglpen
                             let kodeGdg = data[i].kodegdg
                             let namaBrg = data[i].namabrg
-                            let satuan  = data[i].satuan 
-                            let qty     = data[i].qty
+                            let satuan = data[i].satuan
+                            let qty = data[i].qty
                             let hrgJual = data[i].hrgjual
-                            let total   = data[i].total 
-                            let totQty  = data[i].totqty
-                            let totHarga  = data[i].totharga
-                            let totTotal  = data[i].tottotal
+                            let total = data[i].total
+                            let totQty = data[i].totqty
+                            let totHarga = data[i].totharga
+                            let totTotal = data[i].tottotal
 
-                             rowTotal = `<tr>
+                            rowTotal = `<tr>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td style="text-align:right"><b>Total</b></td>
-                                                <td><b>`+ formatRupiah(totQty, '') +`</b></td>
-                                                <td><b>`+ formatRupiah(totHarga, '') +`</b></td>
-                                                <td><b>`+ formatRupiah(totTotal, '') +`</b></td>
+                                                <td><b>` + formatRupiah(totQty, '') + `</b></td>
+                                                <td><b>` + formatRupiah(totHarga, '') + `</b></td>
+                                                <td><b>` + formatRupiah(totTotal, '') + `</b></td>
                                             </tr>`;
 
                             if (kdPenjualan != kodePen) {
 
                                 //header pembelian
                                 row += `<tr>
-                                            <td><b>`+ no +`</b></td>
-                                            <td><b>`+ kodePen +`</b></td>
-                                            <td><b>`+ tglPen +`</b></td>
+                                            <td><b>` + no + `</b></td>
+                                            <td><b>` + kodePen + `</b></td>
+                                            <td><b>` + tglPen + `</b></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -248,22 +258,22 @@
                                             <td></td>                                            
                                         </tr>`;
                                 no++;
-                                kdPenjualan = kodePen                               
+                                kdPenjualan = kodePen
                             }
                             //detailpembelian
                             row += `<tr>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>`+ kodeGdg +`</td>
-                                        <td>`+ namaBrg +`</td>
-                                        <td>`+ satuan +`</td>
-                                        <td>`+ formatRupiah(qty, '') +`</td>                                            
-                                        <td>`+ formatRupiah(hrgJual, '') +`</td>
-                                        <td>`+ formatRupiah(total, '') +`</td>                                            
-                                    </tr>`;         
+                                        <td>` + kodeGdg + `</td>
+                                        <td>` + namaBrg + `</td>
+                                        <td>` + satuan + `</td>
+                                        <td>` + formatRupiah(qty, '') + `</td>                                            
+                                        <td>` + formatRupiah(hrgJual, '') + `</td>
+                                        <td>` + formatRupiah(total, '') + `</td>                                            
+                                    </tr>`;
 
-                            if (indexTotal.includes(i)) {//sub total
+                            if (indexTotal.includes(i)) { //sub total
                                 row += rowTotal;
                                 sumQty += parseInt(totQty)
                                 sumHarga += parseInt(totHarga)
@@ -277,9 +287,9 @@
                                         <td></td>
                                         <td></td>
                                         <td style="text-align:right"><b>Grand Total</b></td>
-                                        <td>`+ formatRupiah(sumQty.toString(), '') +`</td>
-                                        <td>`+ formatRupiah(sumHarga.toString(), '') +`</td>
-                                        <td>`+ formatRupiah(sumTotal.toString(), '') +`</td>
+                                        <td>` + formatRupiah(sumQty.toString(), '') + `</td>
+                                        <td>` + formatRupiah(sumHarga.toString(), '') + `</td>
+                                        <td>` + formatRupiah(sumTotal.toString(), '') + `</td>
                                     </tr>`;
 
                         $('#datapembelian').html(row);
@@ -288,7 +298,7 @@
                     }
                 })
             }
-        } 
+        }
 
         function formatRupiah(angka, prefix) {
             var number_string = angka.replace(/[^,\d]/g, '').toString(),
