@@ -1,11 +1,11 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <style>
-        .buttons-excel{
+        .buttons-excel {
             margin-right: 5px !important;
             border-radius: 5px !important;
         }
 
-        .buttons-pdf{
+        .buttons-pdf {
             border-radius: 5px !important;
         }
     </style>
@@ -53,9 +53,9 @@
                                                 <!-- <label for="tglPenjualanDari">Dari</label> -->
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <i class="far fa-calendar-alt"></i>
-                                                    </span>
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
                                                     </div>
                                                     <input type="text" class="form-control float-right" id="reservation">
                                                 </div>
@@ -70,9 +70,9 @@
                                         <div class="col-4" style="margin-left: auto;">
                                             <div>
                                                 <!-- <a href="" class="btn btn-sm btn-primary" style="float: right;"><i class="fas fa-print"></i> Cetak</a> -->
-                                            </div> 
+                                            </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -91,10 +91,10 @@
                                             </tr>
                                         </thead>
                                         <tbody id="datapembelian">
-                                            
+
                                         </tbody>
                                         <tfoot id="subTotal">
-                                            
+
                                         </tfoot>
                                     </table>
                                 </div>
@@ -117,15 +117,14 @@
     <?php $this->load->view('Template/DataTablesJS') ?>
 
     <script type="text/javascript">
-        $(function() {            
+        $(function() {
             if (sessionStorage.getItem("tglPemDari") && sessionStorage.getItem("tglPemSampai")) {
                 displayData('')
-                $("#reservation").val(sessionStorage.getItem("tglPemDari")+' - '+sessionStorage.getItem("tglPemSampai"))
+                $("#reservation").val(sessionStorage.getItem("tglPemDari") + ' - ' + sessionStorage.getItem("tglPemSampai"))
                 sessionStorage.removeItem("tglPemDari")
                 sessionStorage.removeItem("tglPemSampai")
             }
-            if(sessionStorage.getItem("typeBtn"))
-            {
+            if (sessionStorage.getItem("typeBtn")) {
                 displayData('all')
                 sessionStorage.removeItem("typeBtn")
             }
@@ -135,11 +134,16 @@
                 "responsive": true,
                 // "lengthChange": false,
                 "autoWidth": false,
-                "order" : [],
-                "buttons": [
-                            { extend: 'excelHtml5', footer: true },
-                            { extend: 'pdfHtml5', footer: true }
-                            ],
+                "order": [],
+                "buttons": [{
+                        extend: 'excelHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        footer: true
+                    }
+                ],
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             }).buttons().container().appendTo('#tableDataPembelian_wrapper .col-md-6:eq(0)');
 
@@ -149,10 +153,10 @@
                 }
             })
 
-            $("#cariByTgl").click(function(){
-                let rangeTgl  = $("#reservation").val()
+            $("#cariByTgl").click(function() {
+                let rangeTgl = $("#reservation").val()
 
-                let tglAwal  = rangeTgl.split(' - ')[0]
+                let tglAwal = rangeTgl.split(' - ')[0]
                 let tglAkhir = rangeTgl.split(' - ')[1]
 
                 sessionStorage.setItem("tglPemDari", tglAwal)
@@ -161,7 +165,7 @@
                 window.location.reload()
             })
 
-            $("#cariSemua").click(function(){
+            $("#cariSemua").click(function() {
                 window.location.reload()
                 sessionStorage.setItem("typeBtn", "all")
             })
@@ -180,44 +184,51 @@
         });
 
         function displayData(type) {
-            let tglAwal  = sessionStorage.getItem("tglPemDari")
+            let tglAwal = sessionStorage.getItem("tglPemDari")
             let tglAkhir = sessionStorage.getItem("tglPemSampai")
-            let typeBtn  = type
+            let typeBtn = type
 
             $.ajax({
                 type: "POST",
                 url: "<?= base_url('User/Laporan/LaporanAset/GetData') ?>",
-                data: {awal : tglAwal, akhir : tglAkhir, typeBtn : typeBtn},
+                data: {
+                    awal: tglAwal,
+                    akhir: tglAkhir,
+                    typeBtn: typeBtn
+                },
                 dataType: "json",
                 async: false,
                 success: function(data) {
                     let row = '';
                     let no = 1;
-                    let sumQty = 0, sumHargaBeli = 0, sumHargaJual = 0, sumAset = 0;
+                    let sumQty = 0,
+                        sumHargaBeli = 0,
+                        sumHargaJual = 0,
+                        sumAset = 0;
 
                     for (let i = 0; i < data.length; i++) {
                         let kodeGdg = data[i].kd_gudang
                         let kodeBrg = data[i].kd_barang
-                        let namaBrg = data[i].nama_barang 
-                        let satuan  = data[i].satuan 
-                        let qty     = data[i].qty
+                        let namaBrg = data[i].nama_barang
+                        let satuan = data[i].satuan
+                        let qty = data[i].qty
                         let hrgBeli = data[i].harga_beli
-                        let hrgJual = data[i].harga_jual_now 
-                        let asetUser= data[i].aset 
+                        let hrgJual = data[i].harga_jual_now
+                        let asetUser = data[i].aset
 
                         row += `<tr>
-                                    <td>`+ no +`</td>
-                                    <td>`+ kodeGdg +`</td>
-                                    <td>`+ kodeBrg +`</td>
-                                    <td>`+ namaBrg +`</td>
-                                    <td>`+ satuan +`</td>
-                                    <td>`+ qty +`</td>
-                                    <td>`+ formatRupiah(hrgBeli.toString(), '') +`</td>
-                                    <td>`+ formatRupiah(hrgJual.toString(), '') +`</td>
-                                    <td>`+ formatRupiah(asetUser.toString(), '') +`</td>                                            
+                                    <td>` + no + `</td>
+                                    <td>` + kodeGdg + `</td>
+                                    <td>` + kodeBrg + `</td>
+                                    <td>` + namaBrg + `</td>
+                                    <td>` + satuan + `</td>
+                                    <td>` + qty + `</td>
+                                    <td>` + formatRupiah(hrgBeli.toString(), '') + `</td>
+                                    <td>` + formatRupiah(hrgJual.toString(), '') + `</td>
+                                    <td>` + formatRupiah(asetUser.toString(), '') + `</td>                                            
                                 </tr>`;
                         no++;
-                        
+
                         sumQty += parseInt(qty)
                         sumHargaBeli += parseInt(hrgBeli)
                         sumHargaJual += parseInt(hrgJual)
@@ -229,10 +240,10 @@
                                     <td></td>
                                     <td></td>
                                     <td style="text-align:right"><b>Grand Total</b></td>
-                                    <td>`+ formatRupiah(sumQty.toString(), '') +`</td>
-                                    <td>`+ formatRupiah(sumHargaBeli.toString(), '') +`</td>
-                                    <td>`+ formatRupiah(sumHargaJual.toString(), '') +`</td>
-                                    <td>`+ formatRupiah(sumAset.toString(), '') +`</td>
+                                    <td>` + formatRupiah(sumQty.toString(), '') + `</td>
+                                    <td>` + formatRupiah(sumHargaBeli.toString(), '') + `</td>
+                                    <td>` + formatRupiah(sumHargaJual.toString(), '') + `</td>
+                                    <td>` + formatRupiah(sumAset.toString(), '') + `</td>
                                 </tr>`;
 
                     $('#datapembelian').html(row);
