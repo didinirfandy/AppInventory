@@ -150,7 +150,7 @@ class Pembelian extends CI_Model
         if ($insMater && $insdetail) {
             if ($this->db->affected_rows() > 0) {
                 for ($i = 0; $i < count($getTem); $i++) {
-                    activity_log_barang($kd_pembelian, $kd_supplier, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', $remark);
+                    activity_log_barang($kd_pembelian, $kd_supplier, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', $remark, '0');
                 }
             }
 
@@ -296,7 +296,7 @@ class Pembelian extends CI_Model
             $req = $this->db->update('master_pembelian', $data);
             if ($req) {
                 if ($this->db->affected_rows() > 0) {
-                    activity_log_barang($kd_pembelian, $kdSupplier, $kdBarang, $qtySisa, '0', '0', $remark);
+                    activity_log_barang($kd_pembelian, $kdSupplier, $kdBarang, $qtySisa, '0', '0', $remark, '0');
                     return true;
                 } else {
                     return false;
