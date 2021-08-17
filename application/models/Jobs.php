@@ -17,7 +17,7 @@ class Jobs extends CI_Model
                 $hrgJualStart   = $res[$i]['header']['hrgJualStart'];
                 $tgl            = $res[$i]['header']['tgl_masuk_gudang'];
                 $data           = $res[$i]['data'][count($res[$i]['data']) - 1];
-                $hrgJualNow     = (int) $data['hsl'];
+                $hrgJualNow     = (int) $data['hrgNow'];
                 $status_no      = (int) $data['status_no'];
                 $dateNowNaik = $dateNowTurun = $dateNowFlashSale = '';
                 if ($status_no == 1) {

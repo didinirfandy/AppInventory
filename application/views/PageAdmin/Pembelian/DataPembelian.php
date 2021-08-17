@@ -123,6 +123,7 @@
             $("#tableDataBarang").DataTable({
                 "responsive": true,
                 "autoWidth": false,
+                "pageLength": 10,
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
         });
@@ -195,10 +196,10 @@
                                 <td>` + dt[i].nama_supplier + `</td>
                                 <td style="width: 20%">`;
                         if (dt[i].qty_sisa == '0') {
-                            row += `<span class="badge badge-success">Terpenuhi</span>`;
+                            row += `<span class="badge badge-success">Terpenuhi</span>&nbsp;&nbsp;`;
                         }
                         if (dt[i].qty == dt[i].qty_sisa) {
-                            row += `<span class="badge badge-info">Pengiriman</span>`;
+                            row += `<span class="badge badge-info">Pengiriman</span>&nbsp;&nbsp;`;
                         }
                         if (dt[i].qty != dt[i].qty_sisa) {
                             row += `<span class="badge badge-warning">Masih ada sisa dan cancel sebagian</span>`;

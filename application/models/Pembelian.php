@@ -192,7 +192,7 @@ class Pembelian extends CI_Model
                 LEFT JOIN supplier c ON a.kd_supplier = c.kd_supplier
             WHERE a.status != '1'
             GROUP BY a.kd_pembelian
-            ORDER BY a.tgl_pembelian DESC"
+            ORDER BY a.tgl_pembelian ASC"
         )->result_array();
 
         if ($qry) {
