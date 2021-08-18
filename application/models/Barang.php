@@ -123,7 +123,8 @@ class Barang extends CI_Model
                                     LEFT JOIN kode_barang b ON CONCAT( b.kode, b.sub_kode ) = a.kd_barang
                                     LEFT JOIN detail_pembelian c ON c.kd_pembelian = a.kd_pembelian AND c.kd_barang = a.kd_barang
                                 WHERE
-                                    a.`status` = '0'")->result_array();
+                                    a.`status` = '0'
+                                ORDER BY a.tgl_masuk_gudang ASC")->result_array();
         if ($qry) {
             return $qry;
         } else {

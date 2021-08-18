@@ -235,14 +235,14 @@
                                     ` + iconList + `
                                     <div class="timeline-item">
                                         <span class="time"><i class="fas fa-clock"></i> ` + waktu + `</span>
-                                        <h3 class="timeline-header no-border"><strong>` + header + `</strong></h3>
+                                        <h3 class="timeline-header no-border"><strong>[` + dt[i].kd_pembelian + `]</strong> ` + header + `</h3>
                                         <div class="timeline-body">` + remark + `</div>
                                     </div>
                                 </div>`;
                     }
 
                     row += `<div>
-                                <i class="fas fa-thumbs-up bg-gray"></i>
+                                <i class="fas fa-star bg-gray"></i>
                             </div>`;
 
 
