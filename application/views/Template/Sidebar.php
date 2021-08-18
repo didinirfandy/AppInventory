@@ -23,7 +23,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <?php
-                    if ($this->session->userdata('user_level') == '1') {
+                if ($this->session->userdata('user_level') == '1') {
                 ?>
                     <li class="nav-item">
                         <a href="<?= base_url('Admin/IndexAdmin'); ?>" class="nav-link <?= $this->uri->segment(2) == "IndexAdmin" ? 'active' : ''; ?>">
@@ -116,15 +116,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= base_url('Admin/Laporan/LaporanPenjualan') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPenjualan" ? 'active' : ''; ?>">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Penjualan</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="<?= base_url('Admin/Laporan/LaporanPembelian') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPembelian" ? 'active' : ''; ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pembelian</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('Admin/Laporan/LaporanPenjualan') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPenjualan" ? 'active' : ''; ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Penjualan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -136,9 +136,9 @@
                         </ul>
                     </li>
                 <?php
-                    }
+                }
 
-                    if ($this->session->userdata('user_level') == '2') {
+                if ($this->session->userdata('user_level') == '2') {
                 ?>
                     <li class="nav-item">
                         <a href="<?= base_url('User/IndexUser'); ?>" class="nav-link <?= $this->uri->segment(2) == "IndexUser" ? 'active' : ''; ?>">
@@ -162,15 +162,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= base_url('User/Laporan/LaporanPenjualan') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPenjualan" ? 'active' : ''; ?>">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Penjualan</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="<?= base_url('User/Laporan/LaporanPembelian') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPembelian" ? 'active' : ''; ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pembelian</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('User/Laporan/LaporanPenjualan') ?>" class="nav-link <?= $this->uri->segment(3) == "LaporanPenjualan" ? 'active' : ''; ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Penjualan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -188,7 +188,7 @@
                         </ul>
                     </li>
                 <?php
-                    }
+                }
                 ?>
             </ul>
         </nav>

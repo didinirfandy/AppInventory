@@ -37,4 +37,16 @@ class LaporanProfit extends CI_Controller
         $this->load->view('Template/HeadDataTablesJS', $data);
         $this->load->view('PageAdmin/Laporan/LaporanProfit', $data);
     }
+
+    public function GetDataProfit()
+    {
+        $tglAwal = $this->input->post('awal');
+        $tglAkhir = $this->input->post('akhir');
+
+        $tglAwal = DateTime::createFromFormat("d/m/Y", $tglAwal)->format('Y-m-d');
+        $tglAkhir = DateTime::createFromFormat("d/m/Y", $tglAkhir)->format('Y-m-d');
+
+        $data = $this->Laporan->GetDataProfit($tglAwal, $tglAkhir);
+        echo json_encode($data);
+    }
 }

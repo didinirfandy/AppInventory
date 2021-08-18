@@ -48,7 +48,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="row col-12">
-                                        <div class="col-4">
+                                        <div class="col-2">
                                             <div class="form-group">
                                                 <!-- <label for="tglPenjualanDari">Dari</label> -->
                                                 <div class="input-group">
@@ -129,7 +129,7 @@
 
             $("#tableDataPembelian").DataTable({
                 "responsive": true,
-                // "lengthChange": false,
+                "lengthChange": false,
                 "autoWidth": false,
                 "order": [],
                 "buttons": [{
@@ -141,13 +141,16 @@
                         footer: true
                     }
                 ],
-                "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
+                "pageLength": 30,
+                // "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             }).buttons().container().appendTo('#tableDataPembelian_wrapper .col-md-6:eq(0)');
 
             $('#reservation').daterangepicker({
                 locale: {
-                    format: 'DD/MM/YYYY'
-                }
+                    format: 'DD/MM/YYYY',
+                    cancelLabel: 'Clear'
+                },
+                maxDate: endDate
             })
 
             $("#cariByTgl").click(function() {
@@ -187,7 +190,7 @@
             } else {
                 $.ajax({
                     type: "POST",
-                    url: "<?= base_url('Admin/Laporan/LaporanPenjualan/GetData') ?>",
+                    url: "<?= base_url('Admin/Laporan/LaporanPenjualan/GetDataPenjualan') ?>",
                     data: {
                         awal: tglAwal,
                         akhir: tglAkhir
@@ -217,10 +220,13 @@
                             }
                         }
 
+                        console.log(indexTotal);
                         kdPenjualan = '';
                         for (let i = 0; i < data.length; i++) {
                             let kodePen = data[i].kodepen
-                            let tglPen = data[i].tglpen
+                            // let tglPen = data[i].tglpen
+                            let date = new Date(data[i].tglpen);
+                            let tglPen = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
                             let kodeGdg = data[i].kodegdg
                             let namaBrg = data[i].namabrg
                             let satuan = data[i].satuan
@@ -232,16 +238,16 @@
                             let totTotal = data[i].tottotal
 
                             rowTotal = `<tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td style="text-align:right"><b>Total</b></td>
-                                                <td><b>` + formatRupiah(totQty, '') + `</b></td>
-                                                <td><b>` + formatRupiah(totHarga, '') + `</b></td>
-                                                <td><b>` + formatRupiah(totTotal, '') + `</b></td>
-                                            </tr>`;
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align:right"><b>Total</b></td>
+                                            <td><b>` + formatRupiah(totQty, '') + `</b></td>
+                                            <td><b>` + formatRupiah(totHarga, '') + `</b></td>
+                                            <td><b>` + formatRupiah(totTotal, '') + `</b></td>
+                                        </tr>`;
 
                             if (kdPenjualan != kodePen) {
 
@@ -281,15 +287,10 @@
                             }
                         }
                         rowGrand = `<tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td style="text-align:right"><b>Grand Total</b></td>
-                                        <td>` + formatRupiah(sumQty.toString(), '') + `</td>
-                                        <td>` + formatRupiah(sumHarga.toString(), '') + `</td>
-                                        <td>` + formatRupiah(sumTotal.toString(), '') + `</td>
+                                        <th colspan="6" style="text-align:right">Grand Total</th>
+                                        <th>` + formatRupiah(sumQty.toString(), '') + `</th>
+                                        <th>` + formatRupiah(sumHarga.toString(), '') + `</th>
+                                        <th>` + formatRupiah(sumTotal.toString(), '') + `</th>
                                     </tr>`;
 
                         $('#datapembelian').html(row);
