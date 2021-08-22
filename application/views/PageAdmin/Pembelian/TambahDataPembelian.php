@@ -170,7 +170,8 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    <!-- Modal -->
+
+    <!-- Modal simpan-->
     <div class="modal fade" id="modal-simpan">
         <div class="modal-dialog">
             <div class="overlay-wrapper">

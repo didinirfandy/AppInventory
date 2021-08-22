@@ -379,10 +379,7 @@
                                 min: 1,
                                 max: qtySisa
                             },
-                            tglGudangTerima: {
-                                required: true,
-                                date: true
-                            },
+                            tglGudangTerima: "required",
                             remarkGudangTerima: "required",
                         },
                         messages: {
@@ -391,10 +388,7 @@
                                 min: "Harus Mengisi Mulai dari Angka 1",
                                 max: "Jangan Melebihi Quantity Pembelian " + qtySisa
                             },
-                            tglGudangTerima: {
-                                required: "Tanggal Tidak Boleh Kosong",
-                                date: "Harus menginputkan tanggal"
-                            },
+                            tglGudangTerima: "Tanggal Tidak Boleh Kosong",
                             remarkGudangTerima: "Deskripsi Tidak Boleh Kosong",
                         },
                         errorElement: 'span',

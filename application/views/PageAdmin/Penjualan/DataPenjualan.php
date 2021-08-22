@@ -41,39 +41,24 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataBarang" class="table table-bordered table-hover">
+                                    <table id="tableDataBarang" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Kode Penjualan</th>
+                                                <th>Kode Barang</th>
+                                                <th>Nama Barang</th>
                                                 <th>Tgl Penjualan</th>
+                                                <th>Nama Pelanggan</th>
+                                                <th>Alamat Tujuan</th>
+                                                <th>Satuan</th>
                                                 <th>Quantity</th>
                                                 <th>Total Penjualan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="databarang">
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <a href="<?= base_url('Admin/Penjualan/DetailDataPenjualan') ?>" class="btn btn-xs btn-primary"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</a>
-                                                </td>
-                                            </tr>
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Kode Penjualan</th>
-                                                <th>Tgl Penjualan</th>
-                                                <th>Quantity</th>
-                                                <th>Total Penjualan</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                                 <!-- /.card-body -->
@@ -100,6 +85,7 @@
             $("#tableDataBarang").DataTable({
                 "responsive": true,
                 "autoWidth": false,
+                "pageLength": 10,
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
         });
@@ -141,7 +127,12 @@
                         row += `<tr> 
                             <td>` + (i + 1) + `</td>
                             <td>` + dt[i].kd_penjualan + `</td>
+                            <td>` + dt[i].kd_barang + `</td>
+                            <td>` + dt[i].nama_barang + `</td>
                             <td>` + tgl_penjualan + `</td>
+                            <td>` + dt[i].nama_pelanggan + `</td>
+                            <td>` + dt[i].alamat_tujuan + `</td>
+                            <td>` + dt[i].satuan + `</td>
                             <td>` + dt[i].qty + `</td>
                             <td>` + formatRupiah(dt[i].total_penjualan, '') + `</td>
                             <td>

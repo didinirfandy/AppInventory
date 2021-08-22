@@ -176,7 +176,7 @@
 
     <!-- Modal Kode Barang -->
     <div class="modal fade" id="modal-kodeBarang">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Daftar Kode Barang</h4>
@@ -185,7 +185,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-striped" id="kodeBarang">
+                    <table class="table table-bordered table-striped" id="kodeBarang">
                         <thead>
                             <th>No</th>
                             <th>Kode Gudang</th>
@@ -198,16 +198,6 @@
                         </thead>
                         <tbody id="datakode">
                         </tbody>
-                        <tfoot>
-                            <th>No</th>
-                            <th>Kode Gudang</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
-                            <th>Qty</th>
-                            <th>Satuan</th>
-                            <th>Harga</th>
-                            <th>Action</th>
-                        </tfoot>
                     </table>
                 </div>
                 <div class="modal-footer justify-content-between">

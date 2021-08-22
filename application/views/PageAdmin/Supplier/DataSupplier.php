@@ -35,13 +35,13 @@
                     <!-- Main row -->
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
+                            <div class="card card-outline card-info">
                                 <div class="card-header">
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-supplier" id="tambahSuppBtn" style="float: right; margin-left: 1%;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Supplier</button>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataSupplier" class="table table-bordered table-hover">
+                                    <table id="tableDataSupplier" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -53,18 +53,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="datasuplier">
-
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Kode Supplier</th>
-                                                <th>Nama Supplier</th>
-                                                <th>Alamat</th>
-                                                <th>Deksripsi</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                                 <!-- /.card-body -->
@@ -138,9 +127,8 @@
             displayData()
             $("#tableDataSupplier").DataTable({
                 "responsive": true,
-                // "lengthChange": false,
                 "autoWidth": false,
-                // "buttons": ["excel", "pdf"],
+                "pageLength": 10,
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             }).buttons().container().appendTo('#tableDataSupplier_wrapper .col-md-6:eq(0)');
 
@@ -230,13 +218,13 @@
                         let deskripsi = data[i].deskripsi == null ? '' : data[i].deskripsi;
                         row += `<tr>
                                     <td>` + (i + 1) + `</td>                                    
-                                    <td>` + data[i].kd_supplier + `</td>
+                                    <td style="width: 10%">` + data[i].kd_supplier + `</td>
                                     <td>` + data[i].nama_supplier + `</td>
                                     <td>` + data[i].alamat + `</td>
                                     <td>` + deskripsi + `</td>
-                                    <td>
-                                        <button class="btn bt-xs btn-primary updateSupp" name="updateSupp" id="updateSupp" onClick="editSupp('` + data[i].kd_supplier + `')"><i class="fas fa-edit"></i> Edit</button>
-                                        <button class="btn bt-xs btn-danger" type="button" id="hapusData" onClick="validateHapus('` + data[i].kd_supplier + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                    <td style="width: 10%">
+                                        <button class="btn btn-xs btn-primary" name="updateSupp" id="updateSupp" onClick="editSupp('` + data[i].kd_supplier + `')"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="btn btn-xs btn-danger" type="button" id="hapusData" onClick="validateHapus('` + data[i].kd_supplier + `')"><i class="fas fa-trash-alt"></i> Hapus</button>
                                     </td>
                                 </tr>`;
                     }

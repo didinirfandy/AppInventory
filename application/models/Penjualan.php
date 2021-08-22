@@ -18,12 +18,18 @@ class Penjualan extends CI_Model
         $qry = $this->db->query(
             "SELECT 
                 a.kd_penjualan
+                , c.nama_barang
+                , b.kd_barang
                 , date(a.tgl_penjualan) tgl_penjualan
+                , a.nama_pelanggan
+                , a.alamat_tujuan
+                , b.satuan
                 , sum(b.qty) qty
                 , a.total_penjualan
             FROM 
                 master_penjualan a
                 LEFT JOIN detail_penjualan b ON a.kd_penjualan = b.kd_penjualan
+                LEFT JOIN kode_barang c ON b.kd_barang = CONCAT(c.kode,c.sub_kode) 
             GROUP BY a.kd_penjualan
             ORDER BY a.tgl_penjualan DESC"
         )->result_array();

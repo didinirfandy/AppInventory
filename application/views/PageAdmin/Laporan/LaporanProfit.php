@@ -45,43 +45,32 @@
                     <!-- Main row -->
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
+                            <div class="card card-outline card-info">
                                 <div class="card-header">
-                                    <div class="row col-12">
-                                        <div class="col-2">
-                                            <div class="form-group">
-                                                <!-- <label for="tglProfitDari">Dari</label> -->
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-calendar-alt"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="text" class="form-control float-right" id="reservation">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="far fa-calendar-alt"></i>
+                                                    </span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-3" style="margin-right: auto;">
-                                            <div>
-                                                <button type="button" class="btn btn-sm btn-primary" id="cariByTgl"><i class="fas fa-search"></i> Proccess</button>
-                                                <!-- <button type="button" class="btn btn-sm btn-success" id="cariSemua"><i class="fas fa-search"></i> Semua Data</button> -->
-                                            </div>
-                                        </div>
-                                        <div class="col-4" style="margin-left: auto;">
-                                            <div>
-                                                <!-- <a href="" class="btn btn-sm btn-primary" style="float: right;"><i class="fas fa-print"></i> Cetak</a> -->
+                                                <input type="text" class="form-control float-right" id="reservation">
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-sm btn-primary" style="float: left;" id="cariByTgl"><i class="fas fa-search"></i> Proses</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataProvit" class="table table-bordered table-hover">
+                                    <table id="tableDataProvit" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Kode Pembelian</th>
-                                                <th>Tgl Pembelian</th>
+                                                <th>Kode Penjualan</th>
+                                                <th>Tgl Penjualan</th>
                                                 <th>Kode Gudang</th>
                                                 <th>Kode Barang</th>
                                                 <th>Nama Barang</th>
@@ -263,7 +252,9 @@
 
                         for (let i = 0; i < data.length; i++) {
                             let kodePen = data[i].kodepen
-                            let tglPen = data[i].tglpen
+                            // let tglPen = data[i].tglpen
+                            let date = new Date(data[i].tglpen);
+                            let tglPen = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
                             let kodeGdg = data[i].kodegdg
                             let kd_barang = data[i].kd_barang
                             let namaBrg = data[i].namabrg

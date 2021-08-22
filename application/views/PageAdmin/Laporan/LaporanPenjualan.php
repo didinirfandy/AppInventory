@@ -45,38 +45,27 @@
                     <!-- Main row -->
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
+                            <div class="card card-outline card-info">
                                 <div class="card-header">
-                                    <div class="row col-12">
-                                        <div class="col-2">
-                                            <div class="form-group">
-                                                <!-- <label for="tglPenjualanDari">Dari</label> -->
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-calendar-alt"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="text" class="form-control float-right" id="reservation">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="far fa-calendar-alt"></i>
+                                                    </span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-3" style="margin-right: auto;">
-                                            <div>
-                                                <button type="button" class="btn btn-sm btn-primary" id="cariByTgl"><i class="fas fa-search"></i> Proccess</button>
-                                                <!-- <button type="button" class="btn btn-sm btn-success" id="cariSemua"><i class="fas fa-search"></i> Semua Data</button> -->
-                                            </div>
-                                        </div>
-                                        <div class="col-4" style="margin-left: auto;">
-                                            <div>
-                                                <!-- <a href="" class="btn btn-sm btn-primary" style="float: right;"><i class="fas fa-print"></i> Cetak</a> -->
+                                                <input type="text" class="form-control float-right" id="reservation">
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-sm btn-primary" style="float: left;" id="cariByTgl"><i class="fas fa-search"></i> Proses</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataPembelian" class="table table-bordered table-hover">
+                                    <table id="tableDataPembelian" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -87,7 +76,7 @@
                                                 <th>Satuan</th>
                                                 <th>Qty</th>
                                                 <th>Harga</th>
-                                                <th>Total</th>
+                                                <!-- <th>Total</th> -->
                                             </tr>
                                         </thead>
                                         <tbody id="datapembelian">
@@ -235,7 +224,7 @@
                             let total = data[i].total
                             let totQty = data[i].totqty
                             let totHarga = data[i].totharga
-                            let totTotal = data[i].tottotal
+                            // let totTotal = data[i].tottotal
 
                             rowTotal = `<tr>
                                             <td></td>
@@ -246,8 +235,8 @@
                                             <td style="text-align:right"><b>Total</b></td>
                                             <td><b>` + formatRupiah(totQty, '') + `</b></td>
                                             <td><b>` + formatRupiah(totHarga, '') + `</b></td>
-                                            <td><b>` + formatRupiah(totTotal, '') + `</b></td>
                                         </tr>`;
+                            // <td><b>` + formatRupiah(totTotal, '') + `</b></td>
 
                             if (kdPenjualan != kodePen) {
 
@@ -261,8 +250,8 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>                                            
                                         </tr>`;
+                                // <td></td>                                      
                                 no++;
                                 kdPenjualan = kodePen
                             }
@@ -276,22 +265,22 @@
                                         <td>` + satuan + `</td>
                                         <td>` + formatRupiah(qty, '') + `</td>                                            
                                         <td>` + formatRupiah(hrgJual, '') + `</td>
-                                        <td>` + formatRupiah(total, '') + `</td>                                            
                                     </tr>`;
+                            // <td>` + formatRupiah(total, '') + `</td>
 
                             if (indexTotal.includes(i)) { //sub total
                                 row += rowTotal;
                                 sumQty += parseInt(totQty)
                                 sumHarga += parseInt(totHarga)
-                                sumTotal += parseInt(totTotal)
+                                // sumTotal += parseInt(totTotal)
                             }
                         }
                         rowGrand = `<tr>
                                         <th colspan="6" style="text-align:right">Grand Total</th>
                                         <th>` + formatRupiah(sumQty.toString(), '') + `</th>
                                         <th>` + formatRupiah(sumHarga.toString(), '') + `</th>
-                                        <th>` + formatRupiah(sumTotal.toString(), '') + `</th>
                                     </tr>`;
+                        // <th>` + formatRupiah(sumTotal.toString(), '') + `</th>
 
                         $('#datapembelian').html(row);
                         $('#subTotal').html(rowGrand);
