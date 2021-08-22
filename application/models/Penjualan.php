@@ -240,10 +240,11 @@ class Penjualan extends CI_Model
         )->result_array();
 
         $dateNow = date("Y-m-d H:i:s");
+        $tglJual = $tglBeli . " " . date("H:i:s");
 
         $dataMaster = array(
             'kd_penjualan'    => $kodeJual,
-            'tgl_penjualan'   => $tglBeli . " " . date("H:i:s"),
+            'tgl_penjualan'   => $tglJual,
             'nik_admin'       => $nik_admin,
             'nama_pelanggan'  => $namaPelanggan,
             'alamat_tujuan'   => $alamatPelanggan,
@@ -272,7 +273,7 @@ class Penjualan extends CI_Model
         if ($insMater && $insdetail) {
             if ($this->db->affected_rows() > 0) {
                 for ($i = 0; $i < count($getTem); $i++) {
-                    activity_log_barang($kodeJual, $namaPelanggan, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', '', '0');
+                    activity_log_barang($tglJual, $kodeJual, $namaPelanggan, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', '', '0');
                 }
             }
 
