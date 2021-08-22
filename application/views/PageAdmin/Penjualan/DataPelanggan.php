@@ -41,7 +41,7 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataBarang" class="table table-bordered table-hover">
+                                    <table id="tableDataBarang" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>

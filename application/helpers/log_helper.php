@@ -1,11 +1,10 @@
 <?php
+date_default_timezone_set('Asia/Jakarta');
 
 function activity_log($menu, $aksi, $item)
 {
     $CI = &get_instance();
-
-    date_default_timezone_set('Asia/Jakarta');
-    $time   = date("Y/m/d H:i:s");
+    $time = date("Y/m/d H:i:s");
 
     $param = array(
         'log_time' => $time,
@@ -22,15 +21,15 @@ function activity_log($menu, $aksi, $item)
     $CI->Activity_log->save_log($param);
 }
 
-function activity_log_barang($kd_pembelian, $kd_supplier, $kd_barang, $qty_sisa, $qty_gudang, $qty_batal, $remark, $status_log)
+function activity_log_barang($date_log, $kd_pembelian, $kd_supplier, $kd_barang, $qty_sisa, $qty_gudang, $qty_batal, $remark, $status_log)
 {
     $CI = &get_instance();
-
-    date_default_timezone_set('Asia/Jakarta');
-    $time   = date("Y-m-d H:i:s");
+    if ($date_log == "") {
+        $date_log = date("Y-m-d H:i:s");
+    }
 
     $param = array(
-        'date_log'      => $time,
+        'date_log'      => $date_log,
         'nik_admin'     => (int) $CI->session->userdata('nik'),
         'kd_pembelian'  => $kd_pembelian,
         'kd_supplier'   => $kd_supplier,

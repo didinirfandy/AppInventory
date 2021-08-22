@@ -35,7 +35,7 @@
                     <!-- Main row -->
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
+                            <div class="card card-outline card-info">
                                 <div class="card-body">
                                     <table class="table table-bordered table-striped" id="tableDataBarang">
                                         <thead>
@@ -59,28 +59,6 @@
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
-                            <div class="card" id="timeLineBrg">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <button type="button" class="btn btn-sm btn-default" style="float: right; margin-left: 1%;" id="closeTimeline"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Close</button>
-                                            <h2>Timeline Barang</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <!-- Timelime example  -->
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- The time line -->
-                                            <div class="timeline" id="isiTimeLine">
-                                            </div>
-                                        </div>
-                                        <!-- /.col -->
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -94,12 +72,40 @@
     </div>
     <!-- ./wrapper -->
 
+    <!-- Modal Kode Barang -->
+    <div class="modal fade" id="modal-timeline">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Timeline Barang</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- The time line -->
+                            <div class="timeline" id="isiTimeLine"></div>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <?php $this->load->view('Template/DataTablesJS') ?>
 
     <script type="text/javascript">
         $(function() {
             displayData()
-            $("#timeLineBrg").hide();
+            // $("#timeLineBrg").hide();
 
             $("#tableDataBarang").DataTable({
                 "responsive": true,
@@ -112,9 +118,9 @@
             //     $("#timeLineBrg").show()
             // });
 
-            $("#closeTimeline").on("click", function() {
-                $("#timeLineBrg").hide();
-            })
+            // $("#closeTimeline").on("click", function() {
+            //     $("#timeLineBrg").hide();
+            // })
         });
 
         function formatRupiah(angka, prefix) {
@@ -155,7 +161,7 @@
 
                         row += `<tr>
                                     <td>` + (i + 1) + `</td>                                    
-                                    <td><a style="color: #0470db; cursor: pointer;" onclick="getkode('` + dt[i].kd_pembelian + `', '` + dt[i].kd_barang + `');">` + dt[i].kd_pembelian + `</a></td>
+                                    <td><a style="color: #0470db; cursor: pointer;" onclick="getkode('` + dt[i].kd_pembelian + `', '` + dt[i].kd_barang + `');" data-toggle="modal" data-target="#modal-timeline">` + dt[i].kd_pembelian + `</a></td>
                                     <td>` + dt[i].kd_gudang + `</td>
                                     <td>` + dt[i].kd_barang + `</td>
                                     <td>` + dt[i].nama_barang + `</td>
@@ -247,7 +253,6 @@
 
 
                     $("#isiTimeLine").html(row);
-                    $("#timeLineBrg").show();
                 },
                 error: function(jqXHR, textStatus, e) {
                     console.log('fail');
@@ -256,7 +261,6 @@
                     console.log(e);
                 }
             });
-            // $("#timeLineBrg").show();
         }
     </script>
 

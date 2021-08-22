@@ -35,13 +35,13 @@
                     <!-- Main row -->
                     <div class="row">
                         <div class="col-12">
-                            <div class="card card-defailt">
+                            <div class="card card-outline card-info">
                                 <div class="card-header">
                                     <a class="btn btn-sm btn-primary" href="<?= base_url('Admin/Pembelian/TambahDataPembelian'); ?>" style="float: right; margin-left: 1%;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Data</a>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataBarang" class="table table-bordered table-hover">
+                                    <table id="tableDataBarang" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -195,13 +195,12 @@
                                 <td>` + tgl_pembelian + `</td>
                                 <td>` + dt[i].nama_supplier + `</td>
                                 <td style="width: 20%">`;
-                        if (dt[i].qty_sisa == '0') {
-                            row += `<span class="badge badge-success">Terpenuhi</span>&nbsp;&nbsp;`;
-                        }
+
                         if (dt[i].qty == dt[i].qty_sisa) {
                             row += `<span class="badge badge-info">Pengiriman</span>&nbsp;&nbsp;`;
-                        }
-                        if (dt[i].qty != dt[i].qty_sisa) {
+                        } else if (dt[i].qty_sisa == '0') {
+                            row += `<span class="badge badge-success">Terpenuhi</span>&nbsp;&nbsp;`;
+                        } else if (dt[i].qty != dt[i].qty_sisa) {
                             row += `<span class="badge badge-warning">Masih ada sisa dan cancel sebagian</span>`;
                         }
 

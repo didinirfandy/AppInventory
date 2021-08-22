@@ -199,7 +199,7 @@ class Barang extends CI_Model
         $qtyGudang      = $getBeli->qty_gudang + $qty;
         $hargaBeli      = $getBeli->harga_beli;
         $persen_naik    = $getBeli->persen_naik;
-        $hargaJual      = $hargaBeli + ($persen_naik / 100 * $hargaBeli);
+        $hargaJual      = $hargaBeli + ($persen_naik / 100 * $hargaBeli); // metode persentasi kenaikan 1 bulan pertama
         $tglmasukGudang = $tgl . " " . date("H:i:s");
         $dateNow        = date("Y-m-d H:i:s");
 
@@ -237,7 +237,7 @@ class Barang extends CI_Model
 
             if ($qry3) {
                 if ($this->db->affected_rows() > 0) {
-                    activity_log_barang($kdPembelian, $kdSupplier, $kdBarang, $qtySisa, $qty, '0', $remark, $statusBeli); // log barang
+                    activity_log_barang($tglmasukGudang, $kdPembelian, $kdSupplier, $kdBarang, $qtySisa, $qty, '0', $remark, $statusBeli); // log barang
                     activity_log_harga($kdPembelian, $kdSupplier, $kdBarang, $kdGudang, $hargaJual, $hargaJual, $tglmasukGudang, '', '', ''); // log harga barang
 
                     return true;
@@ -344,7 +344,7 @@ class Barang extends CI_Model
 
             if ($qry && $qry2 && $qry3) {
                 if ($this->db->affected_rows() > 0) {
-                    activity_log_barang($kdPembelian, $kdSupplier, $kdBarang, $qtySisa, '0', $qty, $remark, $statusBeli);
+                    activity_log_barang($tglmasukcencel, $kdPembelian, $kdSupplier, $kdBarang, $qtySisa, '0', $qty, $remark, $statusBeli);
                     return true;
                 } else {
                     return false;

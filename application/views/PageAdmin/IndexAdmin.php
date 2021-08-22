@@ -114,7 +114,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    <canvas id="barChartBarang" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                                 </div>
                             </div>
                             <!-- /.card -->
@@ -138,7 +138,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    <canvas id="barChartPenjualan" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                                 </div>
                             </div>
                             <!-- /.card -->
@@ -181,39 +181,59 @@
             });
 
             //-------------
-            //- PIE CHART -
+            //- BAR CHART -
             //-------------
-
-            var donutData = {
-                labels: [
-                    'Pembelian',
-                    'Masuk Gudang',
-                    'Cencel Barang',
-                    'Penjualan'
-                ],
+            var areaChartDataBrg = {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [{
-                    data: [700, 500, 400, 600],
-                    backgroundColor: ['#f39c12', '#00a65a', '#f56954', '#00c0ef'],
-                }]
-            }
-            var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-            var pieData = donutData;
-            var pieOptions = {
-                maintainAspectRatio: false,
-                responsive: true,
+                        label: 'Pembelian',
+                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        borderColor: 'rgba(60,141,188,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: [28, 48, 40, 19, 86, 27, 90]
+                    },
+                    {
+                        label: 'Barang Masuk Gudang',
+                        backgroundColor: 'rgba(210, 214, 222, 1)',
+                        borderColor: 'rgba(210, 214, 222, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                ]
             }
 
-            new Chart(pieChartCanvas, {
-                type: 'pie',
-                data: pieData,
-                options: pieOptions
+            var barChartCanvasBrg = $('#barChartBarang').get(0).getContext('2d')
+            var barChartDataBrg = $.extend(true, {}, areaChartDataBrg)
+            var temp0Brg = areaChartDataBrg.datasets[0]
+            var temp1Brg = areaChartDataBrg.datasets[1]
+            barChartDataBrg.datasets[0] = temp1Brg
+            barChartDataBrg.datasets[1] = temp0Brg
+
+            var barChartOptionsBrg = {
+                responsive: true,
+                maintainAspectRatio: false,
+                datasetFill: false
+            }
+
+            new Chart(barChartCanvasBrg, {
+                type: 'bar',
+                data: barChartDataBrg,
+                options: barChartOptionsBrg
             });
 
 
             //-------------
             //- BAR CHART -
             //-------------
-            var areaChartData = {
+            var areaChartDataPen = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [{
                         label: 'Pembelian',
@@ -240,23 +260,23 @@
                 ]
             }
 
-            var barChartCanvas = $('#barChart').get(0).getContext('2d')
-            var barChartData = $.extend(true, {}, areaChartData)
-            var temp0 = areaChartData.datasets[0]
-            var temp1 = areaChartData.datasets[1]
-            barChartData.datasets[0] = temp1
-            barChartData.datasets[1] = temp0
+            var barChartCanvasPen = $('#barChartPenjualan').get(0).getContext('2d')
+            var barChartDataPen = $.extend(true, {}, areaChartDataPen)
+            var temp0Pen = areaChartDataPen.datasets[0]
+            var temp1Pen = areaChartDataPen.datasets[1]
+            barChartDataPen.datasets[0] = temp1Pen
+            barChartDataPen.datasets[1] = temp0Pen
 
-            var barChartOptions = {
+            var barChartOptionsPen = {
                 responsive: true,
                 maintainAspectRatio: false,
                 datasetFill: false
             }
 
-            new Chart(barChartCanvas, {
+            new Chart(barChartCanvasPen, {
                 type: 'bar',
-                data: barChartData,
-                options: barChartOptions
+                data: barChartDataPen,
+                options: barChartOptionsPen
             });
         });
 
