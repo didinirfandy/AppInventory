@@ -199,9 +199,17 @@
                             if (kdPembelian != data[i].kodepem) {
                                 if (i != 0) {
                                     indexTotal.push(i-1)
+                                    // console.log(indexTotal+'1')
                                 }
                                 if(i == data.length-1){
                                     indexTotal.push(i)
+                                    // console.log(indexTotal+'2')
+                                }
+                                kdPembelian = data[i].kodepem
+                            }else{
+                                if(i == data.length-1){
+                                    indexTotal.push(i)
+                                    // console.log(indexTotal+'4')
                                 }
                                 kdPembelian = data[i].kodepem
                             }
