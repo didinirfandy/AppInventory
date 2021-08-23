@@ -200,12 +200,8 @@
                         for (let i = 0; i < data.length; i++) {
                             if (kdPembelian != data[i].kodepem) {
                                 if (i != 0) {
-<<<<<<< HEAD
                                     indexTotal.push(i-1)
                                     // console.log(indexTotal+'1')
-=======
-                                    indexTotal.push(i - 1)
->>>>>>> origin/master
                                 }
                                 if (i == data.length - 1) {
                                     indexTotal.push(i)
