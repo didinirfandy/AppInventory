@@ -65,27 +65,32 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataPembelian" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Kode Pembelian</th>
-                                                <th>Tgl Pembelian</th>
-                                                <th>Supplier</th>
-                                                <th>Barang</th>
-                                                <th width="100px">Satuan</th>
-                                                <th>Qty</th>
-                                                <th>Harga</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="datapembelian">
-
-                                        </tbody>
-                                        <tfoot id="subTotal">
-
-                                        </tfoot>
-                                    </table>
+                                    <div style="overflow-x: auto;">
+                                        <table id="tableDataPembelian" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Kode Pembelian</th>
+                                                    <th>Tgl Pembelian</th>
+                                                    <th>Supplier</th>
+                                                    <th>Barang</th>
+                                                    <th width="100px">Satuan</th>
+                                                    <th>Qty</th>
+                                                    <th>Sisa</th>
+                                                    <th>Terima</th>
+                                                    <th>Batal</th>
+                                                    <th>Harga</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="datapembelian">
+    
+                                            </tbody>
+                                            <tfoot id="subTotal">
+    
+                                            </tfoot>
+                                        </table>
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -192,9 +197,12 @@
                         let kdPembelian = '';
                         let no = 1;
                         let indexTotal = [];
-                        let sumQty = 0,
-                            sumHarga = 0,
-                            sumTotal = 0;
+                        let sumQty      = 0,
+                            sumQtySisa  = 0,
+                            sumQtyGd    = 0,
+                            sumQtyBatal = 0,
+                            sumHarga    = 0,
+                            sumTotal    = 0;
 
                         //get index total
                         for (let i = 0; i < data.length; i++) {
@@ -227,9 +235,15 @@
                             let namaBrg = data[i].namabrg
                             let satuan = data[i].satuan
                             let qty = data[i].qty
+                            let qtySisa = data[i].qty_sisa
+                            let qtyGd = data[i].qty_gudang
+                            let qtyBatal = data[i].qty_batal
                             let hrgBeli = data[i].hrgbeli
                             let total = data[i].total
                             let totQty = data[i].totqty
+                            let totQtySisa = data[i].totqtysisa
+                            let totQtyGd = data[i].totqtygd
+                            let totQtyBatal = data[i].totqtybatal
                             let totHarga = data[i].totharga
                             let totTotal = data[i].tottotal
 
@@ -241,6 +255,9 @@
                                             <td></td>
                                             <td style="text-align:right"><b>Total</b></td>
                                             <td><b>` + formatRupiah(totQty, '') + `</b></td>
+                                            <td><b>` + formatRupiah(totQtySisa, '') + `</b></td>
+                                            <td><b>` + formatRupiah(totQtyGd, '') + `</b></td>
+                                            <td><b>` + formatRupiah(totQtyBatal, '') + `</b></td>
                                             <td><b>` + formatRupiah(totHarga, '') + `</b></td>
                                             <td><b>` + formatRupiah(totTotal, '') + `</b></td>
                                         </tr>`;
@@ -258,6 +275,9 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>                                            
+                                            <td></td>                                            
+                                            <td></td>                                            
+                                            <td></td>                                            
                                         </tr>`;
                                 no++;
                                 kdPembelian = kodePem
@@ -271,6 +291,9 @@
                                         <td>` + namaBrg + `</td>
                                         <td>` + satuan + `</td>
                                         <td>` + formatRupiah(qty, '') + `</td>                                            
+                                        <td>` + formatRupiah(qtySisa, '') + `</td>                                            
+                                        <td>` + formatRupiah(qtyGd, '') + `</td>                                            
+                                        <td>` + formatRupiah(qtyBatal, '') + `</td>                                            
                                         <td>` + formatRupiah(hrgBeli, '') + `</td>
                                         <td>` + formatRupiah(total, '') + `</td>                                            
                                     </tr>`;
@@ -278,6 +301,9 @@
                             if (indexTotal.includes(i)) { //sub total
                                 row += rowTotal;
                                 sumQty += parseInt(totQty)
+                                sumQtySisa += parseInt(totQtySisa)
+                                sumQtyGd += parseInt(totQtyGd)
+                                sumQtyBatal += parseInt(totQtyBatal)
                                 sumHarga += parseInt(totHarga)
                                 sumTotal += parseInt(totTotal)
                             }
@@ -285,6 +311,9 @@
                         rowGrand = `<tr>
                                         <th colspan="6" style="text-align:right">Grand Total</th>
                                         <th>` + formatRupiah(sumQty.toString(), '') + `</th>
+                                        <th>` + formatRupiah(sumQtySisa.toString(), '') + `</th>
+                                        <th>` + formatRupiah(sumQtyGd.toString(), '') + `</th>
+                                        <th>` + formatRupiah(sumQtyBatal.toString(), '') + `</th>
                                         <th>` + formatRupiah(sumHarga.toString(), '') + `</th>
                                         <th>` + formatRupiah(sumTotal.toString(), '') + `</th>
                                     </tr>`;
