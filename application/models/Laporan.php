@@ -92,30 +92,26 @@ class Laporan extends CI_Model
                 dt.satuan,
                 dt.qty,
                 hds.totalqty AS totqty,
-                mbs.harga_beli,
+                mb.harga_beli,
                 dt.harga AS hrgjual,
-                mbs.provit
+                (dt.harga - mb.harga_beli) provit,
+                hds.msSatus
             FROM
                 detail_penjualan dt
                 LEFT JOIN kode_barang kb ON dt.kd_barang = concat(kb.kode, kb.sub_kode)
-                LEFT JOIN (
-                    SELECT 
-                        mb.kd_gudang,
-                        mb.tgl_masuk_gudang,
-                        mb.harga_beli,
-                        (SELECT dt2.harga - mb.harga_beli FROM detail_penjualan dt2 WHERE mb.kd_gudang = dt2.kd_gudang) AS provit
-                    FROM master_barang mb
-                ) AS mbs ON dt.kd_gudang = mbs.kd_gudang
+                LEFT JOIN master_barang AS mb ON dt.kd_gudang = mb.kd_gudang
                 LEFT JOIN (
                 SELECT
                     hd.kd_penjualan AS kodepen,
                     hd.tgl_penjualan AS tglpen,
+                    hd.`status` AS msSatus,
                     (SELECT SUM(dts.qty) FROM detail_penjualan dts WHERE hd.kd_penjualan = dts.kd_penjualan) AS totalqty
                 FROM
                     master_penjualan hd 
                 ) AS hds ON hds.kodepen = dt.kd_penjualan 
             WHERE
                 DATE(hds.tglpen) BETWEEN '$tglAwal' AND '$tglAkhir'
+                AND hds.msSatus = '0'
             ORDER BY
                 dt.kd_penjualan"
         )->result_array();
