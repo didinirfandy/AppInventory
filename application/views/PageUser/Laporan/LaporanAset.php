@@ -132,7 +132,7 @@
 
             $("#tableDataPembelian").DataTable({
                 "responsive": true,
-                // "lengthChange": false,
+                "lengthChange": false,
                 "autoWidth": false,
                 "order": [],
                 "buttons": [{
@@ -144,13 +144,16 @@
                         footer: true
                     }
                 ],
-                "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
+                "pageLength": 30,
+                // "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             }).buttons().container().appendTo('#tableDataPembelian_wrapper .col-md-6:eq(0)');
 
             $('#reservation').daterangepicker({
                 locale: {
-                    format: 'DD/MM/YYYY'
-                }
+                    format: 'DD/MM/YYYY',
+                    cancelLabel: 'Clear'
+                },
+                maxDate: endDate
             })
 
             $("#cariByTgl").click(function() {

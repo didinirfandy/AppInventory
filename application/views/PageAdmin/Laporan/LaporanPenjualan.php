@@ -76,7 +76,7 @@
                                                 <th>Satuan</th>
                                                 <th>Qty</th>
                                                 <th>Harga</th>
-                                                <!-- <th>Total</th> -->
+                                                <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody id="datapembelian">
@@ -229,7 +229,7 @@
                             let total = data[i].total
                             let totQty = data[i].totqty
                             let totHarga = data[i].totharga
-                            // let totTotal = data[i].tottotal
+                            let totTotal = data[i].tottotal
 
                             rowTotal = `<tr>
                                             <td></td>
@@ -240,8 +240,8 @@
                                             <td style="text-align:right"><b>Total</b></td>
                                             <td><b>` + formatRupiah(totQty, '') + `</b></td>
                                             <td><b>` + formatRupiah(totHarga, '') + `</b></td>
+                                            <td><b>` + formatRupiah(totTotal, '') + `</b></td>
                                         </tr>`;
-                            // <td><b>` + formatRupiah(totTotal, '') + `</b></td>
 
                             if (kdPenjualan != kodePen) {
 
@@ -250,6 +250,7 @@
                                             <td><b>` + no + `</b></td>
                                             <td><b>` + kodePen + `</b></td>
                                             <td><b>` + tglPen + `</b></td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -270,22 +271,22 @@
                                         <td>` + satuan + `</td>
                                         <td>` + formatRupiah(qty, '') + `</td>                                            
                                         <td>` + formatRupiah(hrgJual, '') + `</td>
+                                        <td>` + formatRupiah(total, '') + `</td>
                                     </tr>`;
-                            // <td>` + formatRupiah(total, '') + `</td>
 
                             if (indexTotal.includes(i)) { //sub total
                                 row += rowTotal;
                                 sumQty += parseInt(totQty)
                                 sumHarga += parseInt(totHarga)
-                                // sumTotal += parseInt(totTotal)
+                                sumTotal += parseInt(totTotal)
                             }
                         }
                         rowGrand = `<tr>
                                         <th colspan="6" style="text-align:right">Grand Total</th>
                                         <th>` + formatRupiah(sumQty.toString(), '') + `</th>
                                         <th>` + formatRupiah(sumHarga.toString(), '') + `</th>
+                                        <th>` + formatRupiah(sumTotal.toString(), '') + `</th>
                                     </tr>`;
-                        // <th>` + formatRupiah(sumTotal.toString(), '') + `</th>
 
                         $('#datapembelian').html(row);
                         $('#subTotal').html(rowGrand);
