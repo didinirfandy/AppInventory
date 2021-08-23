@@ -121,9 +121,11 @@ class Pembelian extends CI_Model
 
         $dateNow = date("Y-m-d H:i:s");
 
+        $tglBeli = $tgl_pembelian . " " . date("H:i:s");
+
         $dataMaster = array(
             'kd_pembelian'    => $kd_pembelian,
-            'tgl_pembelian'   => $tgl_pembelian . " " . date("H:i:s"),
+            'tgl_pembelian'   => $tglBeli,
             'nik_admin'       => $nik_admin,
             'kd_supplier'     => $kd_supplier,
             'total_pembelian' => $subTotal,
@@ -150,7 +152,7 @@ class Pembelian extends CI_Model
         if ($insMater && $insdetail) {
             if ($this->db->affected_rows() > 0) {
                 for ($i = 0; $i < count($getTem); $i++) {
-                    activity_log_barang($kd_pembelian, $kd_supplier, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', $remark);
+                    activity_log_barang($tglBeli, $kd_pembelian, $kd_supplier, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', $remark, '0');
                 }
             }
 
@@ -192,7 +194,7 @@ class Pembelian extends CI_Model
                 LEFT JOIN supplier c ON a.kd_supplier = c.kd_supplier
             WHERE a.status != '1'
             GROUP BY a.kd_pembelian
-            ORDER BY a.tgl_pembelian DESC"
+            ORDER BY a.tgl_pembelian DESC, b.status_beli ASC"
         )->result_array();
 
         if ($qry) {
@@ -296,7 +298,7 @@ class Pembelian extends CI_Model
             $req = $this->db->update('master_pembelian', $data);
             if ($req) {
                 if ($this->db->affected_rows() > 0) {
-                    activity_log_barang($kd_pembelian, $kdSupplier, $kdBarang, $qtySisa, '0', '0', $remark);
+                    activity_log_barang($datecencel, $kd_pembelian, $kdSupplier, $kdBarang, $qtySisa, '0', '0', $remark, '0');
                     return true;
                 } else {
                     return false;

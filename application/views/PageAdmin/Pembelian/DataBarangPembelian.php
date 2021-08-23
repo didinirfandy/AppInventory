@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -315,19 +315,19 @@
                                     <td>` + formatRupiah(dt[i].harga_beli, '') + `</td>
                                     <td style="width: 30%;">`;
                         if (dt[i].status_beli == '0') {
-                            row += `<span class="badge badge-info">Pengiriman</span>`;
+                            row += `<span class="badge badge-info">Pengiriman</span>&nbsp;`;
                         }
                         if (dt[i].status_beli == '1') {
-                            row += `<span class="badge badge-warning">Masih ada sisa</span>`;
+                            row += `<span class="badge badge-warning">Masih ada sisa</span>&nbsp;`;
                         }
                         if (dt[i].status_beli == '2') {
-                            row += `<span class="badge badge-success">Terpenuhi</span>`;
+                            row += `<span class="badge badge-success">Terpenuhi</span>&nbsp;`;
                         }
                         if (dt[i].status_beli == '3') {
-                            row += `<span class="badge badge-warning">Cancel sebagian</span>`;
+                            row += `<span class="badge badge-warning">Cancel sebagian</span>&nbsp;`;
                         }
                         if (dt[i].status_beli == '4') {
-                            row += `<span class="badge badge-danger">Cancel</span>`;
+                            row += `<span class="badge badge-danger">Cancel</span>&nbsp;`;
                         }
                         if (dt[i].status_beli == '5') {
                             row += `<span class="badge badge-warning">Masih ada sisa dan cancel sebagian</span>`;
@@ -379,10 +379,7 @@
                                 min: 1,
                                 max: qtySisa
                             },
-                            tglGudangTerima: {
-                                required: true,
-                                date: true
-                            },
+                            tglGudangTerima: "required",
                             remarkGudangTerima: "required",
                         },
                         messages: {
@@ -391,10 +388,7 @@
                                 min: "Harus Mengisi Mulai dari Angka 1",
                                 max: "Jangan Melebihi Quantity Pembelian " + qtySisa
                             },
-                            tglGudangTerima: {
-                                required: "Tanggal Tidak Boleh Kosong",
-                                date: "Harus menginputkan tanggal"
-                            },
+                            tglGudangTerima: "Tanggal Tidak Boleh Kosong",
                             remarkGudangTerima: "Deskripsi Tidak Boleh Kosong",
                         },
                         errorElement: 'span',

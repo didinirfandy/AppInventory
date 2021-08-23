@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -80,7 +80,6 @@
                                                                     <option value="">-- PILIH --</option>
                                                                     <option value="SET">SET</option>
                                                                     <option value="UNIT">UNIT</option>
-                                                                    <option value="PCS">PCS</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -171,7 +170,8 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    <!-- Modal -->
+
+    <!-- Modal simpan-->
     <div class="modal fade" id="modal-simpan">
         <div class="modal-dialog">
             <div class="overlay-wrapper">

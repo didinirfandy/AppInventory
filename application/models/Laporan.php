@@ -26,7 +26,7 @@ class Laporan extends CI_Model
             return $qry;
         } else {
             return false;
-        }        
+        }
     }
 
     public function getDataPenjualan($tglAwal, $tglAkhir)
@@ -51,7 +51,7 @@ class Laporan extends CI_Model
             return $qry;
         } else {
             return false;
-        }        
+        }
     }
 
     public function getDataAset($tglAwal, $tglAkhir, $typeBtn)
@@ -77,6 +77,49 @@ class Laporan extends CI_Model
             return $qry;
         } else {
             return false;
-        } 
+        }
+    }
+
+    public function getDataProfit($tglAwal, $tglAkhir)
+    {
+        $qry = $this->db->query(
+            "SELECT
+                hds.kodepen,
+                DATE(hds.tglpen) AS tglpen,
+                dt.kd_barang,
+                kb.nama_barang AS namabrg,
+                dt.kd_gudang AS kodegdg,
+                dt.satuan,
+                dt.qty,
+                hds.totalqty AS totqty,
+                mb.harga_beli,
+                dt.harga AS hrgjual,
+                (dt.harga - mb.harga_beli) provit,
+                hds.msSatus
+            FROM
+                detail_penjualan dt
+                LEFT JOIN kode_barang kb ON dt.kd_barang = concat(kb.kode, kb.sub_kode)
+                LEFT JOIN master_barang AS mb ON dt.kd_gudang = mb.kd_gudang
+                LEFT JOIN (
+                SELECT
+                    hd.kd_penjualan AS kodepen,
+                    hd.tgl_penjualan AS tglpen,
+                    hd.`status` AS msSatus,
+                    (SELECT SUM(dts.qty) FROM detail_penjualan dts WHERE hd.kd_penjualan = dts.kd_penjualan) AS totalqty
+                FROM
+                    master_penjualan hd 
+                ) AS hds ON hds.kodepen = dt.kd_penjualan 
+            WHERE
+                DATE(hds.tglpen) BETWEEN '$tglAwal' AND '$tglAkhir'
+                AND hds.msSatus = '0'
+            ORDER BY
+                dt.kd_penjualan"
+        )->result_array();
+
+        if ($qry > 0) {
+            return $qry;
+        } else {
+            return false;
+        }
     }
 }

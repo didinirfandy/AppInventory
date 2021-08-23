@@ -39,7 +39,7 @@ class LaporanPembelian extends CI_Controller
         $this->load->view('PageAdmin/Laporan/LaporanPembelian', $data);
     }
 
-    public function getData()
+    public function getDataPembelian()
     {
         $tglAwal = $this->input->post('awal');
         $tglAkhir = $this->input->post('akhir');

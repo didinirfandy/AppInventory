@@ -107,22 +107,24 @@ class Barang extends CI_Model
     public function getDataStokBarang()
     {
         $qry = $this->db->query("SELECT
-                                    a.kd_pembelian,
-                                    a.kd_gudang,
-                                    a.kd_barang,
-                                    a.tgl_masuk_gudang,
-                                    a.harga_jual_start,
-                                    a.harga_jual_now,
-                                    a.harga_beli,
-                                    a.qty,
-                                    b.nama_barang,
-                                    c.satuan 
+                                    a.kd_pembelian
+                                    , a.kd_gudang
+                                    , a.kd_barang
+                                    , a.tgl_masuk_gudang
+                                    , date(a.tgl_masuk_gudang) tgl
+                                    , a.harga_jual_start
+                                    , a.harga_jual_now
+                                    , a.harga_beli
+                                    , a.qty
+                                    , b.nama_barang
+                                    , c.satuan 
                                 FROM
                                     master_barang a
                                     LEFT JOIN kode_barang b ON CONCAT( b.kode, b.sub_kode ) = a.kd_barang
                                     LEFT JOIN detail_pembelian c ON c.kd_pembelian = a.kd_pembelian AND c.kd_barang = a.kd_barang
                                 WHERE
-                                    a.`status` != '1'")->result_array();
+                                    a.`status` = '0'
+                                ORDER BY a.tgl_masuk_gudang ASC")->result_array();
         if ($qry) {
             return $qry;
         } else {
@@ -197,7 +199,7 @@ class Barang extends CI_Model
         $qtyGudang      = $getBeli->qty_gudang + $qty;
         $hargaBeli      = $getBeli->harga_beli;
         $persen_naik    = $getBeli->persen_naik;
-        $hargaJual      = $hargaBeli + ($persen_naik / 100 * $hargaBeli);
+        $hargaJual      = $hargaBeli + ($persen_naik / 100 * $hargaBeli); // metode persentasi kenaikan 1 bulan pertama
         $tglmasukGudang = $tgl . " " . date("H:i:s");
         $dateNow        = date("Y-m-d H:i:s");
 
@@ -235,8 +237,8 @@ class Barang extends CI_Model
 
             if ($qry3) {
                 if ($this->db->affected_rows() > 0) {
-                    activity_log_barang($kdPembelian, $kdSupplier, $kdBarang, $qtySisa, $qty, '0', $remark); // log barang
-                    activity_log_harga($kdPembelian, $kdSupplier, $kdBarang, $kdGudang, $hargaJual, $hargaJual, $tglmasukGudang, '', ''); // log harga barang
+                    activity_log_barang($tglmasukGudang, $kdPembelian, $kdSupplier, $kdBarang, $qtySisa, $qty, '0', $remark, $statusBeli); // log barang
+                    activity_log_harga($kdPembelian, $kdSupplier, $kdBarang, $kdGudang, $hargaJual, $hargaJual, $tglmasukGudang, '', '', ''); // log harga barang
 
                     return true;
                 } else {
@@ -342,7 +344,7 @@ class Barang extends CI_Model
 
             if ($qry && $qry2 && $qry3) {
                 if ($this->db->affected_rows() > 0) {
-                    activity_log_barang($kdPembelian, $kdSupplier, $kdBarang, $qtySisa, '0', $qty, $remark);
+                    activity_log_barang($tglmasukcencel, $kdPembelian, $kdSupplier, $kdBarang, $qtySisa, '0', $qty, $remark, $statusBeli);
                     return true;
                 } else {
                     return false;
@@ -358,6 +360,33 @@ class Barang extends CI_Model
     public function getListBarang()
     {
         $qry = $this->db->query("SELECT COUNT(*) totBarang FROM master_barang WHERE `status` = '0'")->row();
+        if ($qry) {
+            return $qry;
+        } else {
+            return false;
+        }
+    }
+
+    public function getDataTimeline($kd_pembelian, $kd_barang)
+    {
+        $qry = $this->db->query(
+            "SELECT 
+                date_log
+                , kd_pembelian
+                , kd_supplier
+                , kd_barang
+                , qty_sisa
+                , qty_batal
+                , qty_gudang
+                , remark
+                , status_log
+            FROM 
+                activity_log_barang
+            WHERE
+                kd_pembelian = '$kd_pembelian'
+                AND kd_barang = '$kd_barang'"
+        )->result_array();
+
         if ($qry) {
             return $qry;
         } else {

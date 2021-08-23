@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -35,7 +35,7 @@
                     <!-- Main row -->
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
+                            <div class="card card-outline card-info">
                                 <div class="card-body">
                                     <table class="table table-bordered table-striped" id="tableDataBarang">
                                         <thead>
@@ -59,118 +59,6 @@
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
-                            <div class="card" id="timeLineBrg">
-                                <div class="card-header">
-                                    <button type="button" class="btn btn-sm btn-warning" style="float: right; margin-left: 1%;" id="closeTimeline"><i class="fas fa-times"></i>&nbsp;&nbsp;&nbsp;Close</button>
-                                </div>
-                                <div class="card-body">
-                                    <!-- Timelime example  -->
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- The time line -->
-                                            <div class="timeline">
-                                                <!-- timeline time label -->
-                                                <div class="time-label col-md-8">
-                                                    <span class="bg-red">10 Feb. 2014</span>
-                                                </div>
-                                                <!-- /.timeline-label -->
-                                                <!-- timeline item -->
-                                                <div>
-                                                    <i class="fas fa-envelope bg-blue"></i>
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                                                        <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                                                        <div class="timeline-body">
-                                                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                                            quora plaxo ideeli hulu weebly balihoo...
-                                                        </div>
-                                                        <div class="timeline-footer">
-                                                            <a class="btn btn-primary btn-sm">Read more</a>
-                                                            <a class="btn btn-danger btn-sm">Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- END timeline item -->
-                                                <!-- timeline item -->
-                                                <div>
-                                                    <i class="fas fa-user bg-green"></i>
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                                                        <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
-                                                    </div>
-                                                </div>
-                                                <!-- END timeline item -->
-                                                <!-- timeline item -->
-                                                <div>
-                                                    <i class="fas fa-comments bg-yellow"></i>
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                                                        <div class="timeline-body">
-                                                            Take me to your leader!
-                                                            Switzerland is small and neutral!
-                                                            We are more like Germany, ambitious and misunderstood!
-                                                        </div>
-                                                        <div class="timeline-footer">
-                                                            <a class="btn btn-warning btn-sm">View comment</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- END timeline item -->
-                                                <!-- timeline time label -->
-                                                <div class="time-label">
-                                                    <span class="bg-green">3 Jan. 2014</span>
-                                                </div>
-                                                <!-- /.timeline-label -->
-                                                <!-- timeline item -->
-                                                <div>
-                                                    <i class="fa fa-camera bg-purple"></i>
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
-                                                        <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                                                        <div class="timeline-body">
-                                                            <!-- <img src="https://placehold.it/150x100" alt="...">
-                                                        <img src="https://placehold.it/150x100" alt="...">
-                                                        <img src="https://placehold.it/150x100" alt="...">
-                                                        <img src="https://placehold.it/150x100" alt="...">
-                                                        <img src="https://placehold.it/150x100" alt="..."> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- END timeline item -->
-                                                <!-- timeline item -->
-                                                <div>
-                                                    <i class="fas fa-video bg-maroon"></i>
-
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="fas fa-clock"></i> 5 days ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
-
-                                                        <div class="timeline-body">
-                                                            <!-- <div class="embed-responsive embed-responsive-16by9">
-                                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" allowfullscreen></iframe>
-                                                            </div> -->
-                                                        </div>
-                                                        <div class="timeline-footer">
-                                                            <a href="#" class="btn btn-sm bg-maroon">See comments</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- END timeline item -->
-                                                <div>
-                                                    <i class="fas fa-clock bg-gray"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /.col -->
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -184,26 +72,55 @@
     </div>
     <!-- ./wrapper -->
 
+    <!-- Modal Kode Barang -->
+    <div class="modal fade" id="modal-timeline">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Timeline Barang</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- The time line -->
+                            <div class="timeline" id="isiTimeLine"></div>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <?php $this->load->view('Template/DataTablesJS') ?>
 
     <script type="text/javascript">
         $(function() {
             displayData()
-            $("#timeLineBrg").hide()
+            // $("#timeLineBrg").hide();
 
             $("#tableDataBarang").DataTable({
                 "responsive": true,
                 "autoWidth": false,
+                "pageLength": 10,
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
 
-            $("#tableDataBarang tbody td").on("click", function() {
-                $("#timeLineBrg").show()
-            });
+            // $("#tableDataBarang tbody td").on("click", function() {
+            //     $("#timeLineBrg").show()
+            // });
 
-            $("#closeTimeline").on("click", function() {
-                $("#timeLineBrg").hide()
-            })
+            // $("#closeTimeline").on("click", function() {
+            //     $("#timeLineBrg").hide();
+            // })
         });
 
         function formatRupiah(angka, prefix) {
@@ -225,27 +142,35 @@
 
         function displayData() {
             $.ajax({
-                type: "POST",
+                type: "post",
                 url: "<?= base_url('Admin/Barang/DataBarang/getDataStokBarang') ?>",
                 dataType: "json",
                 async: false,
-                success: function(data) {
-                    console.log(data);
+                success: function(dt) {
+                    // console.log(dt);
+
                     let row = '';
-                    console.log(data)
-                    for (let i = 0; i < data.length; i++) {
+                    for (let i = 0; i < dt.length; i++) {
+                        if (dt[i].tgl_masuk_gudang != "") {
+                            var date = new Date(dt[i].tgl_masuk_gudang);
+                            var tgl_masuk_gudang = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear() + " " +
+                                ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2) + ":" + ("00" + date.getSeconds()).slice(-2);
+                        } else {
+                            tgl_masuk_gudang = "";
+                        }
+
                         row += `<tr>
                                     <td>` + (i + 1) + `</td>                                    
-                                    <td>` + data[i].kd_pembelian + `</td>
-                                    <td>` + data[i].kd_gudang + `</td>
-                                    <td>` + data[i].kd_barang + `</td>
-                                    <td>` + data[i].nama_barang + `</td>
-                                    <td>` + data[i].satuan + `</td>
-                                    <td>` + data[i].tgl_masuk_gudang + `</td>
-                                    <td>` + formatRupiah(data[i].harga_jual_start, '') + `</td>                                    
-                                    <td>` + formatRupiah(data[i].harga_jual_now, '') + `</td>                                    
-                                    <td>` + formatRupiah(data[i].harga_beli, '') + `</td>                                    
-                                    <td>` + data[i].qty + `</td>                                    
+                                    <td><a style="color: #0470db; cursor: pointer;" onclick="getkode('` + dt[i].kd_pembelian + `', '` + dt[i].kd_barang + `');" data-toggle="modal" data-target="#modal-timeline">` + dt[i].kd_pembelian + `</a></td>
+                                    <td>` + dt[i].kd_gudang + `</td>
+                                    <td>` + dt[i].kd_barang + `</td>
+                                    <td>` + dt[i].nama_barang + `</td>
+                                    <td>` + dt[i].satuan + `</td>
+                                    <td>` + tgl_masuk_gudang + `</td>
+                                    <td>` + formatRupiah(dt[i].harga_jual_start, '') + `</td>                                    
+                                    <td>` + formatRupiah(dt[i].harga_jual_now, '') + `</td>                                    
+                                    <td>` + formatRupiah(dt[i].harga_beli, '') + `</td>                                    
+                                    <td>` + dt[i].qty + `</td>                                    
                                 </tr>`;
                     }
                     $('#dataBarang').html(row);
@@ -253,25 +178,90 @@
             })
         }
 
-        // function validateHapus(a) {
-        //     Swal.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert this!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Yes, delete it!'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             Swal.fire(
-        //                 'Deleted!',
-        //                 'Your file has been deleted.',
-        //                 'success'
-        //             )
-        //         }
-        //     });
-        // }
+        function getkode(kd_pembelian, kd_barang) {
+            $.ajax({
+                type: "post",
+                data: {
+                    kd_pembelian: kd_pembelian,
+                    kd_barang: kd_barang
+                },
+                url: "<?= base_url('Admin/Barang/DataBarang/getDataTimeline') ?>",
+                dataType: "json",
+                async: false,
+                success: function(dt) {
+                    console.log(dt);
+
+                    let row = '';
+                    for (let i = 0; i < dt.length; i++) {
+                        if (dt[i].date_log != "") {
+                            var date = new Date(dt[i].date_log);
+                            var tgl = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
+                            var waktu = ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2) + ":" + ("00" + date.getSeconds()).slice(-2);
+                        } else {
+                            tgl = "";
+                            waktu = "";
+                        }
+
+                        let warnaTgl = "bg-gray";
+                        let iconList = '<i class="fas fa-thumbs-up bg-gray"></i>';
+                        let header = "&nbsp;&nbsp;&nbsp;";
+
+                        if (dt[i].status_log == 0) {
+                            warnaTgl = "bg-blue";
+                            iconList = '<i class="fas fa-truck-moving bg-blue"></i>';
+                            header = "PENGIRIMAN";
+                        } else if (dt[i].status_log == 1) {
+                            warnaTgl = "bg-yellow";
+                            iconList = '<i class="fas fa-boxes bg-yellow"></i>';
+                            header = "MASUK GUDANG SEBAGIAN";
+                        } else if (dt[i].status_log == 2) {
+                            warnaTgl = "bg-green";
+                            iconList = '<i class="fas fa-thumbs-up bg-green"></i>';
+                            header = "MASUK GUDANG";
+                        } else if (dt[i].status_log == 3) {
+                            warnaTgl = "bg-red";
+                            iconList = '<i class="fas fa-ban bg-red"></i>';
+                            header = "CENCEL SEBAGIAN";
+                        } else if (dt[i].status_log == 4) {
+                            warnaTgl = "bg-red";
+                            iconList = '<i class="fas fa-ban bg-red"></i>';
+                            header = "CENCEL";
+                        } else if (dt[i].status_log == 5) {
+                            warnaTgl = "bg-red";
+                            iconList = '<i class="fas fa-boxes bg-red"></i>';
+                            header = "MASUK GUDANG SEBAGIAN DAN CENCEL SEBAGIAN";
+                        }
+
+                        remark = (dt[i].remark) ? dt[i].remark : "Menunggu Pengiriman .....";
+
+                        row += `<div class="time-label col-md-8">
+                                    <span class="` + warnaTgl + `">` + tgl + `</span>
+                                </div>
+                                <div>
+                                    ` + iconList + `
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fas fa-clock"></i> ` + waktu + `</span>
+                                        <h3 class="timeline-header no-border"><strong>[` + dt[i].kd_pembelian + `]</strong> ` + header + `</h3>
+                                        <div class="timeline-body">` + remark + `</div>
+                                    </div>
+                                </div>`;
+                    }
+
+                    row += `<div>
+                                <i class="fas fa-star bg-gray"></i>
+                            </div>`;
+
+
+                    $("#isiTimeLine").html(row);
+                },
+                error: function(jqXHR, textStatus, e) {
+                    console.log('fail');
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(e);
+                }
+            });
+        }
     </script>
 
 </body>

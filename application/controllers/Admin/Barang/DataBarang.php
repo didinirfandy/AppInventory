@@ -43,4 +43,13 @@ class DataBarang extends CI_Controller
         $getData = $this->Barang->getDataStokBarang();
         echo json_encode($getData);
     }
+
+    public function getDataTimeline()
+    {
+        $kd_pembelian   = $this->input->post('kd_pembelian');
+        $kd_barang   = $this->input->post('kd_barang');
+
+        $getData = $this->Barang->getDataTimeline($kd_pembelian, $kd_barang);
+        echo json_encode($getData);
+    }
 }

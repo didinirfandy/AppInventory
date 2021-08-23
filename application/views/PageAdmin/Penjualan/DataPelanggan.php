@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -41,7 +41,7 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataBarang" class="table table-bordered table-hover">
+                                    <table id="tableDataBarang" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>

@@ -18,12 +18,18 @@ class Penjualan extends CI_Model
         $qry = $this->db->query(
             "SELECT 
                 a.kd_penjualan
+                , c.nama_barang
+                , b.kd_barang
                 , date(a.tgl_penjualan) tgl_penjualan
+                , a.nama_pelanggan
+                , a.alamat_tujuan
+                , b.satuan
                 , sum(b.qty) qty
                 , a.total_penjualan
             FROM 
                 master_penjualan a
                 LEFT JOIN detail_penjualan b ON a.kd_penjualan = b.kd_penjualan
+                LEFT JOIN kode_barang c ON b.kd_barang = CONCAT(c.kode,c.sub_kode) 
             GROUP BY a.kd_penjualan
             ORDER BY a.tgl_penjualan DESC"
         )->result_array();
@@ -234,10 +240,11 @@ class Penjualan extends CI_Model
         )->result_array();
 
         $dateNow = date("Y-m-d H:i:s");
+        $tglJual = $tglBeli . " " . date("H:i:s");
 
         $dataMaster = array(
             'kd_penjualan'    => $kodeJual,
-            'tgl_penjualan'   => $tglBeli . " " . date("H:i:s"),
+            'tgl_penjualan'   => $tglJual,
             'nik_admin'       => $nik_admin,
             'nama_pelanggan'  => $namaPelanggan,
             'alamat_tujuan'   => $alamatPelanggan,
@@ -266,7 +273,7 @@ class Penjualan extends CI_Model
         if ($insMater && $insdetail) {
             if ($this->db->affected_rows() > 0) {
                 for ($i = 0; $i < count($getTem); $i++) {
-                    activity_log_barang($kodeJual, $namaPelanggan, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', '');
+                    activity_log_barang($tglJual, $kodeJual, $namaPelanggan, $getTem[$i]['kd_barang'], $getTem[$i]['qty'], '0', '0', '', '0');
                 }
             }
 

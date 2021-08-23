@@ -1,4 +1,4 @@
-<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-footer-fixed sidebar-collapse">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -124,38 +124,38 @@
                                             <div class="card-footer">
                                                 <input type="hidden" id="getSubTotal">
                                                 <div class="row">
-                                                     <div class="col-6"></div>
-                                                     <div class="col-3">
+                                                    <div class="col-6"></div>
+                                                    <div class="col-3">
                                                         <label for="hargaTot">Harga Total</label>
-                                                     </div>
-                                                     <div class="col-3">
+                                                    </div>
+                                                    <div class="col-3">
                                                         <div class="form-group">
                                                             <input type="text" class="form-control" name="hargaTot" id="hargaTot" readonly>
                                                         </div>
-                                                     </div>                                                    
-                                                </div>   
-                                                <div class="row">
-                                                     <div class="col-6"></div>
-                                                     <div class="col-3">
-                                                        <label for="bayarBelanja">Bayar</label>
-                                                     </div>
-                                                     <div class="col-3">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja"  require>
-                                                        </div>
-                                                     </div>                                                    
+                                                    </div>
                                                 </div>
                                                 <div class="row">
-                                                     <div class="col-6"></div>
-                                                     <div class="col-3">
+                                                    <div class="col-6"></div>
+                                                    <div class="col-3">
+                                                        <label for="bayarBelanja">Bayar</label>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" name="bayarBelanja" id="bayarBelanja" require>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6"></div>
+                                                    <div class="col-3">
                                                         <label for="kembalianBelanja">Kembalian</label>
-                                                     </div>
-                                                     <div class="col-3">
+                                                    </div>
+                                                    <div class="col-3">
                                                         <div class="form-group">
                                                             <input type="text" class="form-control" name="kembalianBelanja" id="kembalianBelanja" readonly require>
                                                         </div>
-                                                     </div>                                                    
-                                                </div>                                                
+                                                    </div>
+                                                </div>
                                                 <button type="button" class="btn btn-sm btn-success" id="simpan" data-toggle="modal" data-target="#modal-simpan" style="float: right"><i class="fas fa-save"></i>&nbsp;&nbsp;Simpan</button>
                                             </div>
                                         </div>
@@ -176,7 +176,7 @@
 
     <!-- Modal Kode Barang -->
     <div class="modal fade" id="modal-kodeBarang">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Daftar Kode Barang</h4>
@@ -185,7 +185,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-striped" id="kodeBarang">
+                    <table class="table table-bordered table-striped" id="kodeBarang">
                         <thead>
                             <th>No</th>
                             <th>Kode Gudang</th>
@@ -198,16 +198,6 @@
                         </thead>
                         <tbody id="datakode">
                         </tbody>
-                        <tfoot>
-                            <th>No</th>
-                            <th>Kode Gudang</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
-                            <th>Qty</th>
-                            <th>Satuan</th>
-                            <th>Harga</th>
-                            <th>Action</th>
-                        </tfoot>
                     </table>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -262,11 +252,11 @@
                 maxDate: dateStart
             });
 
-            $("#tglJual").attr( 'readonly' , 'true' );
+            $("#tglJual").attr('readonly', 'true');
 
             displayBeliBarang()
             displayKodeBarang()
-            
+
             $("#formDataBarang").validate({
                 rules: {
                     qtyBeli: {
@@ -345,7 +335,7 @@
                             success: function(hasil) {
                                 if (hasil < 0) {
                                     toastr.error('Quantity Melebihi Stock!')
-                                } else {                                    
+                                } else {
                                     $.ajax({
                                         type: "POST",
                                         data: {
@@ -421,7 +411,7 @@
                     let alamatPelanggan = $("#alamatPelanggan").val();
                     let subTotal = $("#getSubTotal").val();
                     let bayar = $("#bayarBelanja").val();
-                        bayar = bayar.replace(/\./g,'')
+                    bayar = bayar.replace(/\./g, '')
                     // console.log(tglBeli)
                     $.ajax({
                         type: "POST",
@@ -444,7 +434,7 @@
                                 icon: 'success',
                                 title: 'Berhasil Simpan Penjualan Barang!'
                             });
-                            window.open("DetailDataPenjualan/cetakNotaPenjualan?kdJual="+kodeBeli, "_blank");
+                            window.open("DetailDataPenjualan/cetakNotaPenjualan?kdJual=" + kodeBeli, "_blank");
                             setInterval(function() {
                                 location.reload();
                             }, 3000);
@@ -470,12 +460,12 @@
                 $(this).val(angka);
             });
 
-            $("#bayarBelanja").keyup(function(){
+            $("#bayarBelanja").keyup(function() {
                 let hargaTot = $("#getSubTotal").val() || '0'
                 let bayar = $(this).val() || '0'
-                    bayar = bayar.replace(/\./g,'')
+                bayar = bayar.replace(/\./g, '')
                 let kembalian = bayar - hargaTot
-                    kembalian = kembalian.toString()
+                kembalian = kembalian.toString()
                 $("#kembalianBelanja").val(formatRupiah(kembalian, ''))
 
                 angka = formatRupiah($(this).val(), '');
@@ -490,7 +480,7 @@
                 }
             });
 
-            $("#modalStockBrg").click(function(){
+            $("#modalStockBrg").click(function() {
                 displayKodeBarang()
             })
 
@@ -548,7 +538,7 @@
                         } else {
                             $("#simpan").addClass("disabled");
                             $("#simpan").removeAttr("data-toggle");
-                        }                        
+                        }
                     }
 
                     let row = rows = '';
@@ -563,7 +553,7 @@
                                     <td>` + dt[i].qty + `</td>
                                     <td>` + formatRupiah(dt[i].total, '') + `</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-danger" onclick="delPembelian('` + dt[i].id_tem_penjualan + `','`+ dt[i].kd_gudang +`','`+ dt[i].kd_barang +`','`+ dt[i].qty +`')"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
+                                        <button type="button" class="btn btn-xs btn-danger" onclick="delPembelian('` + dt[i].id_tem_penjualan + `','` + dt[i].kd_gudang + `','` + dt[i].kd_barang + `','` + dt[i].qty + `')"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Hapus</button>
                                     </td>
                                 </tr>`;
 
@@ -613,11 +603,16 @@
             });
             return false;
         }
-        
+
         function delPembelian(id_tem, kd_gudang, kd_barang, qty) {
             $.ajax({
                 type: "POST",
-                data: {id_tem : id_tem, kd_gudang : kd_gudang, kd_barang : kd_barang, qtyTemp : qty},
+                data: {
+                    id_tem: id_tem,
+                    kd_gudang: kd_gudang,
+                    kd_barang: kd_barang,
+                    qtyTemp: qty
+                },
                 url: "<?= base_url('Admin/Penjualan/TambahDataPenjualan/delDetailPenjualan'); ?>",
                 dataType: "JSON",
                 success: function(a) {

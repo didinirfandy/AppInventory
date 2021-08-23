@@ -39,7 +39,7 @@ class LaporanPenjualan extends CI_Controller
         $this->load->view('PageAdmin/Laporan/LaporanPenjualan', $data);
     }
 
-    public function getData()
+    public function getDataPenjualan()
     {
         $tglAwal = $this->input->post('awal');
         $tglAkhir = $this->input->post('akhir');
