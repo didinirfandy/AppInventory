@@ -84,7 +84,7 @@
                                 <div class="inner">
                                     <h3><Span id="totBarang"></Span></h3>
 
-                                    <p>Barang</p>
+                                    <p>Persediaan</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
@@ -186,23 +186,23 @@
             var areaChartDataBrg = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [{
-                        label: 'Pembelian',
-                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        label: 'Cencel Barang',
+                        backgroundColor: 'rgba(73, 172, 230, 1)',
                         borderColor: 'rgba(60,141,188,0.8)',
                         pointRadius: false,
-                        pointColor: '#3b8bba',
+                        pointColor: 'rgba(60,141,188,1)',
                         pointStrokeColor: 'rgba(60,141,188,1)',
                         pointHighlightFill: '#fff',
                         pointHighlightStroke: 'rgba(60,141,188,1)',
                         data: [28, 48, 40, 19, 86, 27, 90]
                     },
                     {
-                        label: 'Barang Masuk Gudang',
+                        label: 'Masuk Gudang',
                         backgroundColor: 'rgba(210, 214, 222, 1)',
                         borderColor: 'rgba(210, 214, 222, 1)',
                         pointRadius: false,
                         pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
+                        pointStrokeColor: 'rgb(193, 199, 209, 1)',
                         pointHighlightFill: '#fff',
                         pointHighlightStroke: 'rgba(220,220,220,1)',
                         data: [65, 59, 80, 81, 56, 55, 40]
