@@ -123,7 +123,8 @@
                 "order": [],
                 "buttons": [{
                         extend: 'excelHtml5',
-                        footer: true
+                        footer: true,
+                        autoFilter: true
                     },
                     {
                         extend: 'pdfHtml5',
@@ -207,15 +208,18 @@
                         // console.log(data);
                         let row = '';
                         var kdPenjualan = '';
+                        // var kdPenjualan = [];
                         let no = 1;
                         let indexTotal = [];
                         let sumQty = 0,
                             sumHrgBli = 0,
                             sumHrgJl = 0,
                             sumProvit = 0;
-                        let totHrgBli = 0,
+                        let totalQty = 0,
+                            totHrgBli = 0,
                             totHrgJl = 0,
                             totProvit = 0;
+                        // let ganjil = genap = [];
 
                         // get sub total
                         arryTot = [];
@@ -225,14 +229,18 @@
                                     kd_beli: a.kodepen,
                                     totalHrgBli: 0,
                                     totalHrgJl: 0,
-                                    totalProvit: 0
+                                    totalProvit: 0,
+                                    totalQty: 0
                                 };
                                 arryTot.push(this[a.kodepen]);
                             }
                             this[a.kodepen].totalHrgBli += parseInt(a.harga_beli);
                             this[a.kodepen].totalHrgJl += parseInt(a.hrgjual);
                             this[a.kodepen].totalProvit += parseInt(a.provit);
+                            this[a.kodepen].totalQty += parseInt(a.qty);
                         }, Object.create(null));
+
+                        // console.log(arryTot)
 
                         //get index total
                         for (let i = 0; i < data.length; i++) {
@@ -244,7 +252,11 @@
                                     indexTotal.push(i)
                                 }
                                 kdPenjualan = data[i].kodepen
-                                // console.log("kdPenjualan :" + kdPenjualan)
+                            } else {
+                                if (i == data.length - 1) {
+                                    indexTotal.push(i)
+                                }
+                                kdPenjualan = data[i].kodepen
                             }
                         }
 
@@ -268,9 +280,11 @@
 
                             for (let j = 0; j < arryTot.length; j++) {
                                 if (arryTot[j].kd_beli == kodePen) {
+                                    // console.log(arryTot[j])
                                     totHrgBli = parseInt(arryTot[j].totalHrgBli)
                                     totHrgJl = parseInt(arryTot[j].totalHrgJl)
                                     totProvit = parseInt(arryTot[j].totalProvit)
+
                                     rowTotal = `<tr>
                                                     <td></td>
                                                     <td></td>
@@ -332,7 +346,6 @@
                                 sumProvit = sumProvit
                             }
                         }
-
                         rowGrand = `<tr>
                                         <th></th>
                                         <th></th>

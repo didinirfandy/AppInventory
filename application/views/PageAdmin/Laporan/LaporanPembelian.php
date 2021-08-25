@@ -84,10 +84,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="datapembelian">
-    
+
                                             </tbody>
                                             <tfoot id="subTotal">
-    
+
                                             </tfoot>
                                         </table>
                                     </div>
@@ -197,18 +197,18 @@
                         let kdPembelian = '';
                         let no = 1;
                         let indexTotal = [];
-                        let sumQty      = 0,
-                            sumQtySisa  = 0,
-                            sumQtyGd    = 0,
+                        let sumQty = 0,
+                            sumQtySisa = 0,
+                            sumQtyGd = 0,
                             sumQtyBatal = 0,
-                            sumHarga    = 0,
-                            sumTotal    = 0;
+                            sumHarga = 0,
+                            sumTotal = 0;
 
                         //get index total
                         for (let i = 0; i < data.length; i++) {
                             if (kdPembelian != data[i].kodepem) {
                                 if (i != 0) {
-                                    indexTotal.push(i-1)
+                                    indexTotal.push(i - 1)
                                     // console.log(indexTotal+'1')
                                 }
                                 if (i == data.length - 1) {
@@ -216,8 +216,8 @@
                                     // console.log(indexTotal+'2')
                                 }
                                 kdPembelian = data[i].kodepem
-                            }else{
-                                if(i == data.length-1){
+                            } else {
+                                if (i == data.length - 1) {
                                     indexTotal.push(i)
                                     // console.log(indexTotal+'4')
                                 }
