@@ -206,8 +206,8 @@
                                     indexTotal.push(i)
                                 }
                                 kdPenjualan = data[i].kodepen
-                            }else{
-                                if(i == data.length-1){
+                            } else {
+                                if (i == data.length - 1) {
                                     indexTotal.push(i)
                                 }
                                 kdPenjualan = data[i].kodepen

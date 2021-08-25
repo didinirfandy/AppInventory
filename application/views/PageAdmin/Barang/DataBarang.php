@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -189,7 +189,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt);
+                    // console.log(dt);
 
                     let row = '';
                     for (let i = 0; i < dt.length; i++) {
@@ -203,7 +203,7 @@
                         }
 
                         let warnaTgl = "bg-gray";
-                        let iconList = '<i class="fas fa-thumbs-up bg-gray"></i>';
+                        let iconList = '<i class="fas fa-star bg-gray"></i>';
                         let header = "&nbsp;&nbsp;&nbsp;";
 
                         if (dt[i].status_log == 0) {
