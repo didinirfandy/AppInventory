@@ -170,6 +170,9 @@
             listSupplier();
             listBarang();
 
+            chartBarang();
+            chartPenjualan();
+
             let status = "<?= $this->session->flashdata('notif'); ?>";
             if (status) {
                 toastr.success(status);
@@ -180,62 +183,144 @@
                 inline: true
             });
 
-            //-------------
-            //- BAR CHART -
-            //-------------
-            var areaChartDataBrg = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
+
+
+
+
+        });
+
+        function getTheMonth(num) {
+            if (num == 1) return 'Januari';
+            else if (num == 2) return 'Februari';
+            else if (num == 3) return 'Maret';
+            else if (num == 4) return 'April';
+            else if (num == 5) return 'Mei';
+            else if (num == 6) return 'Juni';
+            else if (num == 7) return 'Juli';
+            else if (num == 8) return 'Agustus';
+            else if (num == 9) return 'September';
+            else if (num == 10) return 'Oktober';
+            else if (num == 11) return 'November';
+            else if (num == 12) return 'Desember';
+        }
+
+        function chartBarang() {
+            var getTotBrg = '<?= base_url('Admin/IndexAdmin/getTotBrg') ?>';
+            $.getJSON(getTotBrg, function(dt) {
+                var bulan = [],
+                    dataGd = [],
+                    dataGdCel = [];
+
+                for (let i = 0; i < dt.length; i++) {
+                    var totGd = dt[i].totGdg;
+                    var totGdgCel = dt[i].totGdgCel;
+                    var blnGd = getTheMonth(dt[i].mb_bulan);
+                    var blnGdcel = getTheMonth(dt[i].mbc_bulan);
+                    var mbThn = dt[i].mb_thn;
+                    var mbvThn = dt[i].mbv_thn;
+
+                    if (blnGd == blnGdcel) {
+                        bulan.push(mbThn + ' / ' + blnGd);
+                        dataGd.push(totGd);
+                        dataGdCel.push(totGdgCel);
+                    } else {
+                        bulan.push(mbThn + ' / ' + blnGd);
+                        dataGd.push(totGd);
+                        dataGdCel.push(totGdgCel);
+                    }
+                }
+
+                var areaChartDataBrg = {
+                    labels: bulan,
+                    datasets: [{
                         label: 'Cencel Barang',
-                        backgroundColor: 'rgba(73, 172, 230, 1)',
-                        borderColor: 'rgba(60,141,188,0.8)',
+                        backgroundColor: 'rgba(209, 105, 105, 1)',
+                        borderColor: 'rgba(209, 40, 40, 0.8)',
                         pointRadius: false,
-                        pointColor: 'rgba(60,141,188,1)',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointColor: 'rgba(209, 40, 40, 1)',
+                        pointStrokeColor: 'rgb(209, 40, 40, 1)',
                         pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    },
-                    {
+                        pointHighlightStroke: 'rgba(209, 40, 40, 1)',
+                        data: dataGd
+                    }, {
                         label: 'Masuk Gudang',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
+                        backgroundColor: 'rgba(79, 189, 92, 1)',
+                        borderColor: 'rgba(16, 201, 38,0.8)',
                         pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: 'rgb(193, 199, 209, 1)',
+                        pointColor: 'rgba(16, 201, 38,1)',
+                        pointStrokeColor: 'rgba(16, 201, 38,1)',
                         pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                ]
-            }
+                        pointHighlightStroke: 'rgba(16, 201, 38,1)',
+                        data: dataGdCel
+                    }]
+                }
 
-            var barChartCanvasBrg = $('#barChartBarang').get(0).getContext('2d')
-            var barChartDataBrg = $.extend(true, {}, areaChartDataBrg)
-            var temp0Brg = areaChartDataBrg.datasets[0]
-            var temp1Brg = areaChartDataBrg.datasets[1]
-            barChartDataBrg.datasets[0] = temp1Brg
-            barChartDataBrg.datasets[1] = temp0Brg
+                var barChartCanvasBrg = $('#barChartBarang').get(0).getContext('2d')
+                var barChartDataBrg = $.extend(true, {}, areaChartDataBrg)
+                var temp0Brg = areaChartDataBrg.datasets[0]
+                var temp1Brg = areaChartDataBrg.datasets[1]
+                barChartDataBrg.datasets[0] = temp1Brg
+                barChartDataBrg.datasets[1] = temp0Brg
 
-            var barChartOptionsBrg = {
-                responsive: true,
-                maintainAspectRatio: false,
-                datasetFill: false
-            }
+                var barChartOptionsBrg = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    datasetFill: false
+                }
 
-            new Chart(barChartCanvasBrg, {
-                type: 'bar',
-                data: barChartDataBrg,
-                options: barChartOptionsBrg
+                new Chart(barChartCanvasBrg, {
+                    type: 'bar',
+                    data: barChartDataBrg,
+                    options: barChartOptionsBrg
+                });
             });
+        }
 
+        function chartPenjualan() {
+            var getTotBrgJual = '<?= base_url('Admin/IndexAdmin/getTotBrgJual') ?>';
+            $.getJSON(getTotBrgJual, function(dt) {
+                var bulan = [],
+                    dataBeli = [],
+                    dataJual = [];
 
-            //-------------
-            //- BAR CHART -
-            //-------------
-            var areaChartDataPen = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
+                for (let i = 0; i < dt.length; i++) {
+                    // console.log(dt[i])
+                    var totBeli = dt[i].totBeli;
+                    var totJual = dt[i].totJual;
+                    var blBulan = getTheMonth(dt[i].bl_bulan);
+                    var jlBulan = getTheMonth(dt[i].jl_bulan);
+                    var blThn = dt[i].bl_thn;
+                    var jlThn = dt[i].jl_thn;
+
+                    if (blBulan == jlBulan) {
+                        bulan.push(blThn + ' / ' + blBulan);
+                        dataBeli.push(totBeli);
+                        dataJual.push(totJual);
+                    } else {
+                        bulan.push(blThn + ' / ' + blBulan);
+                        // bulan.unshift(jlThn + ' / ' + jlBulan);
+                        dataBeli.push(totBeli);
+                        dataJual.push(totJual);
+                    }
+                }
+
+                // console.log(bulan)
+                // console.log(dataBeli)
+                // console.log(dataJual)
+
+                var areaChartDataPen = {
+                    labels: bulan,
+                    datasets: [{
+                        label: 'Penjualan',
+                        backgroundColor: 'rgba(79, 189, 92, 1)',
+                        borderColor: 'rgba(16, 201, 38,0.8)',
+                        pointRadius: false,
+                        pointColor: 'rgba(16, 201, 38,1)',
+                        pointStrokeColor: 'rgba(16, 201, 38,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(16, 201, 38,1)',
+                        data: dataJual
+                    }, {
                         label: 'Pembelian',
                         backgroundColor: 'rgba(60,141,188,0.9)',
                         borderColor: 'rgba(60,141,188,0.8)',
@@ -244,41 +329,30 @@
                         pointStrokeColor: 'rgba(60,141,188,1)',
                         pointHighlightFill: '#fff',
                         pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    },
-                    {
-                        label: 'Penjualan',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
-                        pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                ]
-            }
+                        data: dataBeli
+                    }]
+                }
 
-            var barChartCanvasPen = $('#barChartPenjualan').get(0).getContext('2d')
-            var barChartDataPen = $.extend(true, {}, areaChartDataPen)
-            var temp0Pen = areaChartDataPen.datasets[0]
-            var temp1Pen = areaChartDataPen.datasets[1]
-            barChartDataPen.datasets[0] = temp1Pen
-            barChartDataPen.datasets[1] = temp0Pen
+                var barChartCanvasPen = $('#barChartPenjualan').get(0).getContext('2d')
+                var barChartDataPen = $.extend(true, {}, areaChartDataPen)
+                var temp0Pen = areaChartDataPen.datasets[0]
+                var temp1Pen = areaChartDataPen.datasets[1]
+                barChartDataPen.datasets[0] = temp1Pen
+                barChartDataPen.datasets[1] = temp0Pen
 
-            var barChartOptionsPen = {
-                responsive: true,
-                maintainAspectRatio: false,
-                datasetFill: false
-            }
+                var barChartOptionsPen = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    datasetFill: false
+                }
 
-            new Chart(barChartCanvasPen, {
-                type: 'bar',
-                data: barChartDataPen,
-                options: barChartOptionsPen
+                new Chart(barChartCanvasPen, {
+                    type: 'bar',
+                    data: barChartDataPen,
+                    options: barChartOptionsPen
+                });
             });
-        });
+        }
 
         function listPembelian() {
             $.ajax({
@@ -287,7 +361,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt.totBeli);
+                    // console.log(dt.totBeli);
                     $("#totPembelian").html(dt.totBeli);
                 }
             });
@@ -300,7 +374,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt.totJual);
+                    // console.log(dt.totJual);
                     $("#totPenjualan").html(dt.totJual);
                 }
             });
@@ -313,7 +387,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt.totSupp);
+                    // console.log(dt.totSupp);
                     $("#totSupplier").html(dt.totSupp);
                 }
             });
@@ -326,7 +400,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt.totBarang);
+                    // console.log(dt.totBarang);
                     $("#totBarang").html(dt.totBarang);
                 }
             });
