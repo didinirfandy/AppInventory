@@ -367,6 +367,89 @@ class Barang extends CI_Model
         }
     }
 
+    public function getTotBrg()
+    {
+        $qry = $this->db->query(
+            "SELECT
+                a.mb_bulan,
+                a.mb_thn,
+                a.mb_tahun_bulan,
+                a.totGdg,
+                b.mbc_bulan,
+                b.mbc_thn,
+                b.mbc_tahun_bulan,
+                b.totGdgCel 
+            FROM
+                ( 
+                    SELECT 
+                        MONTH(mb.tgl_masuk_gudang) mb_bulan
+                        , YEAR(mb.tgl_masuk_gudang) mb_thn
+                        , CONCAT(YEAR(mb.tgl_masuk_gudang),'/',MONTH(mb.tgl_masuk_gudang)) AS mb_tahun_bulan
+                        , COUNT(*) totGdg 
+                        FROM master_barang mb 
+                        GROUP BY MONTH ( mb.tgl_masuk_gudang ) 
+                ) a,
+                (
+                    SELECT 
+                        MONTH( mbl.tgl_cencel ) mbc_bulan
+                        , YEAR(mbl.tgl_cencel) mbc_thn
+                        , CONCAT(YEAR(mbl.tgl_cencel),'/',MONTH(mbl.tgl_cencel)) AS mbc_tahun_bulan
+                        , COUNT(*) totGdgCel 
+                        FROM master_barang_cencel mbl 
+                        GROUP BY MONTH ( mbl.tgl_cencel ) 
+                ) b
+            WHERE
+                a.mb_bulan = b.mbc_bulan AND a.mb_thn = b.mbc_thn"
+        )->result_array();
+
+        if ($qry) {
+            return $qry;
+        } else {
+            return false;
+        }
+    }
+
+    public function getTotBrgJual()
+    {
+        $qry = $this->db->query(
+            "SELECT
+                a.bl_bulan,
+                a.bl_thn,
+                a.bl_tahun_bulan,
+                a.totBeli,
+                b.jl_bulan,
+                b.jl_thn,
+                b.jl_tahun_bulan,
+                b.totJual 
+            FROM
+                ( 
+                    SELECT
+                        bl.kd_pembelian
+                        , MONTH(bl.tgl_pembelian) bl_bulan
+                        , YEAR(bl.tgl_pembelian) bl_thn
+                        , CONCAT(YEAR(bl.tgl_pembelian),'/',MONTH(bl.tgl_pembelian)) AS bl_tahun_bulan
+                        , COUNT(*) totBeli 
+                    FROM master_pembelian bl 
+                    GROUP BY MONTH (bl.tgl_pembelian) 
+                ) a,
+                (
+                    SELECT 
+                        MONTH( jl.tgl_penjualan ) jl_bulan
+                        , YEAR(jl.tgl_penjualan) jl_thn
+                        , CONCAT(YEAR(jl.tgl_penjualan),'/',MONTH(jl.tgl_penjualan)) AS jl_tahun_bulan
+                        , COUNT(*) totJual 
+                        FROM master_penjualan jl
+                    GROUP BY MONTH (jl.tgl_penjualan) 
+                ) b"
+        )->result_array();
+
+        if ($qry) {
+            return $qry;
+        } else {
+            return false;
+        }
+    }
+
     public function getDataTimeline($kd_pembelian, $kd_barang)
     {
         $qry = $this->db->query(

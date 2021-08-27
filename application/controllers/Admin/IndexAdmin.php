@@ -64,4 +64,16 @@ class IndexAdmin extends CI_Controller
         $data = $this->Barang->getListBarang();
         echo json_encode($data);
     }
+
+    public function getTotBrg()
+    {
+        $data = $this->Barang->getTotBrg();
+        echo json_encode($data);
+    }
+
+    public function getTotBrgJual()
+    {
+        $data = $this->Barang->getTotBrgJual();
+        echo json_encode($data);
+    }
 }
