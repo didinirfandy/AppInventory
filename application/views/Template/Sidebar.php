@@ -1,9 +1,20 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?= base_url('Admin/indexAdmin'); ?>" class="brand-link">
-        <img src="<?= base_url(); ?>assetsApp/dist/img/clipart.png" alt="Admin" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Admin Inventori</span>
-    </a>
+    <?php
+    if ($this->session->userdata('user_level') == '1') {
+    ?>
+        <a href="<?= base_url('Admin/indexAdmin'); ?>" class="brand-link">
+            <img src="<?= base_url(); ?>assetsApp/dist/img/clipart.png" alt="Admin" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Admin Inventori</span>
+        </a>
+    <?php
+    } else {
+    ?>
+        <a href="<?= base_url('User/indexUser'); ?>" class="brand-link">
+            <img src="<?= base_url(); ?>assetsApp/dist/img/clipart.png" alt="User" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">User Inventori</span>
+        </a>
+    <?php } ?>
 
     <!-- Sidebar -->
     <div class="sidebar">
