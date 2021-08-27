@@ -182,11 +182,6 @@
                 format: 'L',
                 inline: true
             });
-
-
-
-
-
         });
 
         function getTheMonth(num) {
