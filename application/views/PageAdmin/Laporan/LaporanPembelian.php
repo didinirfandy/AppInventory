@@ -99,7 +99,8 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
@@ -135,8 +136,7 @@
                         footer: true
                     }
                 ],
-                "pageLength": 30,
-                // "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
+                "pageLength": 30
             }).buttons().container().appendTo('#tableDataPembelian_wrapper .col-md-6:eq(0)');
 
             $('#reservation').daterangepicker({
@@ -228,7 +228,6 @@
                         kdPembelian = '';
                         for (let i = 0; i < data.length; i++) {
                             let kodePem = data[i].kodepem
-                            // let tglPem = data[i].tglpem
                             let date = new Date(data[i].tglpem);
                             let tglPem = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
                             let supp = data[i].supp
@@ -282,6 +281,7 @@
                                 no++;
                                 kdPembelian = kodePem
                             }
+
                             //detailpembelian
                             row += `<tr>
                                         <td></td>
@@ -298,7 +298,7 @@
                                         <td>` + formatRupiah(total, '') + `</td>                                            
                                     </tr>`;
 
-                            if (indexTotal.includes(i)) { //sub total
+                            if (indexTotal.includes(i)) {
                                 row += rowTotal;
                                 sumQty += parseInt(totQty)
                                 sumQtySisa += parseInt(totQtySisa)
@@ -320,7 +320,6 @@
 
                         $('#datapembelian').html(row);
                         $('#subTotal').html(rowGrand);
-                        // tableData.ajax.reload()
                     }
                 })
             }
