@@ -399,7 +399,9 @@ class Barang extends CI_Model
                         GROUP BY MONTH ( mbl.tgl_cencel ) 
                 ) b
             WHERE
-                a.mb_bulan = b.mbc_bulan AND a.mb_thn = b.mbc_thn"
+                a.mb_bulan = b.mbc_bulan AND a.mb_thn = b.mbc_thn
+            ORDER BY
+                a.mb_thn ASC, a.mb_bulan ASC"
         )->result_array();
 
         if ($qry) {
@@ -440,7 +442,9 @@ class Barang extends CI_Model
                         , COUNT(*) totJual 
                         FROM master_penjualan jl
                     GROUP BY MONTH (jl.tgl_penjualan) 
-                ) b"
+                ) b
+            ORDER BY
+            a.bl_thn ASC, a.bl_bulan ASC"
         )->result_array();
 
         if ($qry) {

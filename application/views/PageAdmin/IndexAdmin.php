@@ -182,11 +182,6 @@
                 format: 'L',
                 inline: true
             });
-
-
-
-
-
         });
 
         function getTheMonth(num) {
@@ -210,16 +205,23 @@
                 var bulan = [],
                     dataGd = [],
                     dataGdCel = [];
+                var totGd = 0,
+                    totGdgCel = 0;
 
                 for (let i = 0; i < dt.length; i++) {
-                    var totGd = dt[i].totGdg;
-                    var totGdgCel = dt[i].totGdgCel;
+                    var mbTahunBulan = dt[i].mb_tahun_bulan;
+                    var mbcTahunBulan = dt[i].mbc_tahun_bulan;
                     var blnGd = getTheMonth(dt[i].mb_bulan);
                     var blnGdcel = getTheMonth(dt[i].mbc_bulan);
                     var mbThn = dt[i].mb_thn;
                     var mbvThn = dt[i].mbv_thn;
 
                     if (blnGd == blnGdcel) {
+                        totGd = dt[i].totGdg;
+                        totGdgCel = dt[i].totGdgCel;
+                    }
+
+                    if (mbTahunBulan == mbcTahunBulan) {
                         bulan.push(mbThn + ' / ' + blnGd);
                         dataGd.push(totGd);
                         dataGdCel.push(totGdgCel);
@@ -282,31 +284,32 @@
                 var bulan = [],
                     dataBeli = [],
                     dataJual = [];
+                var totBeli = 0,
+                    totJual = 0;
 
                 for (let i = 0; i < dt.length; i++) {
-                    // console.log(dt[i])
-                    var totBeli = dt[i].totBeli;
-                    var totJual = dt[i].totJual;
+                    var blTahunBulan = dt[i].bl_tahun_bulan;
+                    var jlTahunBulan = dt[i].jl_tahun_bulan;
                     var blBulan = getTheMonth(dt[i].bl_bulan);
                     var jlBulan = getTheMonth(dt[i].jl_bulan);
                     var blThn = dt[i].bl_thn;
                     var jlThn = dt[i].jl_thn;
 
                     if (blBulan == jlBulan) {
+                        totBeli = dt[i].totBeli;
+                        totJual = dt[i].totJual;
+                    }
+
+                    if (blTahunBulan == jlTahunBulan) {
                         bulan.push(blThn + ' / ' + blBulan);
                         dataBeli.push(totBeli);
                         dataJual.push(totJual);
                     } else {
                         bulan.push(blThn + ' / ' + blBulan);
-                        // bulan.unshift(jlThn + ' / ' + jlBulan);
                         dataBeli.push(totBeli);
                         dataJual.push(totJual);
                     }
                 }
-
-                // console.log(bulan)
-                // console.log(dataBeli)
-                // console.log(dataJual)
 
                 var areaChartDataPen = {
                     labels: bulan,
