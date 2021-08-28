@@ -79,7 +79,7 @@
                 <span id="loadingCencel"></span>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Barang Cencel</h4>
+                        <h4 class="modal-title">Barang Cancel</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -209,7 +209,7 @@
                                 <td>` + formatRupiah(dt[i].total_pembelian, '') + `</td>
                                 <td>
                                     <button class="btn btn-xs btn-primary" onclick="openDetail('` + dt[i].kd_pembelian + `')"><i class="fas fa-folder"></i>&nbsp;&nbsp;Detail</button>&nbsp;&nbsp;
-                                    <button class="btn btn-xs btn-danger" ` + btnHide + ` onclick="cencelAll('` + dt[i].kd_pembelian + `')" data-toggle="modal" data-target="#modal-cencel"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Cencel</button>
+                                    <button class="btn btn-xs btn-danger" ` + btnHide + ` onclick="cencelAll('` + dt[i].kd_pembelian + `')" data-toggle="modal" data-target="#modal-cencel"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Cancel</button>
                                 </td>
                             </tr>`;
                     }
@@ -280,7 +280,7 @@
                             // console.log(hasil);
                             Toast.fire({
                                 icon: 'success',
-                                title: 'Berhasil Cencel Pembelian Barang!'
+                                title: 'Berhasil Cancel Pembelian Barang!'
                             });
                             setInterval(function() {
                                 location.reload();
