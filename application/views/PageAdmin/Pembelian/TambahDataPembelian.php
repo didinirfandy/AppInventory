@@ -356,8 +356,8 @@
 
             //Date picker
             $('#tglBeli').datetimepicker({
-                format: 'DD-MM-YYYY',
-                maxDate: endDate
+                format: 'DD-MM-YYYY'
+                // maxDate: endDate
             });
 
             $("#beliBarang").DataTable({

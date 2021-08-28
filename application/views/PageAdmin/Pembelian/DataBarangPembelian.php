@@ -156,7 +156,7 @@
                 <span id="loadingBatal"></span>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Barang Batal</h4>
+                        <h4 class="modal-title">Barang Retur</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -169,7 +169,7 @@
                                 <input type="hidden" id="id_detail_btl">
                             </div>
                             <div class="form-group">
-                                <label for="qtyBatal">Quantity Batal</label>
+                                <label for="qtyBatal">Quantity Retur</label>
                                 <input type="number" class="form-control" name="qtyBatal" id="qtyBatal" autocomplete="off" placeholder="Masukkan Quantity" required>
                             </div>
                             <div class="form-group">
@@ -204,8 +204,8 @@
             let dateStart = moment();
 
             $('#tglGudangTerima').datetimepicker({
-                format: 'DD-MM-YYYY',
-                maxDate: dateStart
+                format: 'DD-MM-YYYY'
+                // maxDate: dateStart
             });
 
             $('#tglGudangBatal').datetimepicker({
@@ -324,22 +324,22 @@
                             row += `<span class="badge badge-success">Terpenuhi</span>&nbsp;`;
                         }
                         if (dt[i].status_beli == '3') {
-                            row += `<span class="badge badge-warning">Cancel sebagian</span>&nbsp;`;
+                            row += `<span class="badge badge-warning">Retur sebagian</span>&nbsp;`;
                         }
                         if (dt[i].status_beli == '4') {
-                            row += `<span class="badge badge-danger">Cancel</span>&nbsp;`;
+                            row += `<span class="badge badge-danger">Retur</span>&nbsp;`;
                         }
                         if (dt[i].status_beli == '5') {
-                            row += `<span class="badge badge-warning">Masih ada sisa dan cancel sebagian</span>`;
+                            row += `<span class="badge badge-warning">Masih ada sisa dan retur sebagian</span>`;
                         }
 
-                        row += `&nbsp;[` + dt[i].qty + `/` + dt[i].qty_gudang + `/` + dt[i].qty_batal + `/` + dt[i].qty_sisa + `]&nbsp;<button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Qty Beli = ` + dt[i].qty + `<br> Qty Gudang = ` + dt[i].qty_gudang + `<br> Qty Batal = ` + dt[i].qty_batal + `<br> Qty Sisa = ` + dt[i].qty_sisa + `" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button>`;
+                        row += `&nbsp;[` + dt[i].qty + `/` + dt[i].qty_gudang + `/` + dt[i].qty_batal + `/` + dt[i].qty_sisa + `]&nbsp;<button type="button" class="btn btn-xs btn-default" data-toggle="popover" title="Rincian Quantity" data-content="Qty Beli = ` + dt[i].qty + `<br> Qty Gudang = ` + dt[i].qty_gudang + `<br> Qty Retur = ` + dt[i].qty_batal + `<br> Qty Sisa = ` + dt[i].qty_sisa + `" data-trigger="focus" onclick="showInfoQty(this)"><i class="fas fa-info-circle"></i></button>`;
 
                         row += `</td>
                                     <td>Rp.` + formatRupiah(dt[i].total, '') + `</td>
                                     <td style="width: 15%; text-align: center;">
                                         <button type="button" class="btn btn-xs btn-success" ` + btnHide + ` onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-kirimBarang"><i class="fas fa-plus-square"></i>&nbsp;&nbsp;Terima</button>&nbsp;
-                                        <button type="button" class="btn btn-xs btn-danger" ` + btnHide + ` onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-batalBarang"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Cancel</button>
+                                        <button type="button" class="btn btn-xs btn-danger" ` + btnHide + ` onclick="getQtyBeli('` + dt[i].id_detail + `')" data-toggle="modal" data-target="#modal-batalBarang"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Retur</button>
                                     </td>
                                 </tr>`;
                         sum += parseInt(dt[i].total);
