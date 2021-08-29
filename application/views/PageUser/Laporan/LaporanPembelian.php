@@ -89,7 +89,7 @@
                                                     <th>Qty</th>
                                                     <th>Sisa</th>
                                                     <th>Terima</th>
-                                                    <th>Batal</th>
+                                                    <th>Retur</th>
                                                     <th>Harga</th>
                                                     <th>Total</th>
                                                 </tr>

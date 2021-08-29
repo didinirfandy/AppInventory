@@ -237,7 +237,7 @@ class Barang extends CI_Model
 
             if ($qry3) {
                 if ($this->db->affected_rows() > 0) {
-                    activity_log_barang($tglmasukGudang, $kdPembelian, $kdSupplier, $kdBarang, $qtySisa, $qty, '0', $remark, $statusBeli); // log barang
+                    activity_log_barang($tglmasukGudang, $kdPembelian, $kdSupplier, $kdBarang, $qtySisa, $qty, '0', $remark, $statusBeli, $kdGudang); // log barang
                     activity_log_harga($kdPembelian, $kdSupplier, $kdBarang, $kdGudang, $hargaJual, $hargaJual, $tglmasukGudang, '', '', ''); // log harga barang
 
                     return true;
@@ -344,7 +344,7 @@ class Barang extends CI_Model
 
             if ($qry && $qry2 && $qry3) {
                 if ($this->db->affected_rows() > 0) {
-                    activity_log_barang($tglmasukcencel, $kdPembelian, $kdSupplier, $kdBarang, $qtySisa, '0', $qty, $remark, $statusBeli);
+                    activity_log_barang($tglmasukcencel, $kdPembelian, $kdSupplier, $kdBarang, $qtySisa, '0', $qty, $remark, $statusBeli, '');
                     return true;
                 } else {
                     return false;
@@ -472,6 +472,32 @@ class Barang extends CI_Model
             WHERE
                 kd_pembelian = '$kd_pembelian'
                 AND kd_barang = '$kd_barang'"
+        )->result_array();
+
+        if ($qry) {
+            return $qry;
+        } else {
+            return false;
+        }
+    }
+
+    public function getDataTimelineHarga($kd_gudang)
+    {
+        $qry = $this->db->query(
+            "SELECT 
+                date_log
+                , kd_pembelian
+                , kd_gudang
+                , kd_barang
+                , harga_start
+                , harga_now
+                , tgl_harga_naik
+                , tgl_harga_turun
+                , tgl_harga_flashSale
+            FROM 
+                activity_log_harga
+            WHERE
+                kd_gudang = '$kd_gudang'"
         )->result_array();
 
         if ($qry) {
