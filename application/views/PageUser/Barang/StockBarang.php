@@ -193,9 +193,21 @@
 
             $("#tableDataBarang").DataTable({
                 "responsive": true,
+                "lengthChange": false,
                 "autoWidth": false,
-                "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
-            });
+                "order": [],
+                "buttons": [{
+                        extend: 'excelHtml5',
+                        footer: true,
+                        autoFilter: true
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        footer: true
+                    }
+                ],
+                "pageLength": 10
+            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
 
             $("#tableDataBarang tbody td").on("click", function() {
                 $("#timeLineBrg").show()

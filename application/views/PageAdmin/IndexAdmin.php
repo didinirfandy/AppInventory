@@ -84,7 +84,7 @@
                                 <div class="inner">
                                     <h3><Span id="totBarang"></Span></h3>
 
-                                    <p>Barang</p>
+                                    <p>Persediaan</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
@@ -170,6 +170,9 @@
             listSupplier();
             listBarang();
 
+            chartBarang();
+            chartPenjualan();
+
             let status = "<?= $this->session->flashdata('notif'); ?>";
             if (status) {
                 toastr.success(status);
@@ -179,106 +182,180 @@
                 format: 'L',
                 inline: true
             });
-
-            //-------------
-            //- BAR CHART -
-            //-------------
-            var areaChartDataBrg = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                        label: 'Pembelian',
-                        backgroundColor: 'rgba(60,141,188,0.9)',
-                        borderColor: 'rgba(60,141,188,0.8)',
-                        pointRadius: false,
-                        pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    },
-                    {
-                        label: 'Barang Masuk Gudang',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
-                        pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                ]
-            }
-
-            var barChartCanvasBrg = $('#barChartBarang').get(0).getContext('2d')
-            var barChartDataBrg = $.extend(true, {}, areaChartDataBrg)
-            var temp0Brg = areaChartDataBrg.datasets[0]
-            var temp1Brg = areaChartDataBrg.datasets[1]
-            barChartDataBrg.datasets[0] = temp1Brg
-            barChartDataBrg.datasets[1] = temp0Brg
-
-            var barChartOptionsBrg = {
-                responsive: true,
-                maintainAspectRatio: false,
-                datasetFill: false
-            }
-
-            new Chart(barChartCanvasBrg, {
-                type: 'bar',
-                data: barChartDataBrg,
-                options: barChartOptionsBrg
-            });
-
-
-            //-------------
-            //- BAR CHART -
-            //-------------
-            var areaChartDataPen = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                        label: 'Pembelian',
-                        backgroundColor: 'rgba(60,141,188,0.9)',
-                        borderColor: 'rgba(60,141,188,0.8)',
-                        pointRadius: false,
-                        pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    },
-                    {
-                        label: 'Penjualan',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
-                        pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                ]
-            }
-
-            var barChartCanvasPen = $('#barChartPenjualan').get(0).getContext('2d')
-            var barChartDataPen = $.extend(true, {}, areaChartDataPen)
-            var temp0Pen = areaChartDataPen.datasets[0]
-            var temp1Pen = areaChartDataPen.datasets[1]
-            barChartDataPen.datasets[0] = temp1Pen
-            barChartDataPen.datasets[1] = temp0Pen
-
-            var barChartOptionsPen = {
-                responsive: true,
-                maintainAspectRatio: false,
-                datasetFill: false
-            }
-
-            new Chart(barChartCanvasPen, {
-                type: 'bar',
-                data: barChartDataPen,
-                options: barChartOptionsPen
-            });
         });
+
+        function getTheMonth(num) {
+            if (num == 1) return 'Januari';
+            else if (num == 2) return 'Februari';
+            else if (num == 3) return 'Maret';
+            else if (num == 4) return 'April';
+            else if (num == 5) return 'Mei';
+            else if (num == 6) return 'Juni';
+            else if (num == 7) return 'Juli';
+            else if (num == 8) return 'Agustus';
+            else if (num == 9) return 'September';
+            else if (num == 10) return 'Oktober';
+            else if (num == 11) return 'November';
+            else if (num == 12) return 'Desember';
+        }
+
+        function chartBarang() {
+            var getTotBrg = '<?= base_url('Admin/IndexAdmin/getTotBrg') ?>';
+            $.getJSON(getTotBrg, function(dt) {
+                var bulan = [],
+                    dataGd = [],
+                    dataGdCel = [];
+                var totGd = 0,
+                    totGdgCel = 0;
+
+                for (let i = 0; i < dt.length; i++) {
+                    var mbTahunBulan = dt[i].mb_tahun_bulan;
+                    var mbcTahunBulan = dt[i].mbc_tahun_bulan;
+                    var blnGd = getTheMonth(dt[i].mb_bulan);
+                    var blnGdcel = getTheMonth(dt[i].mbc_bulan);
+                    var mbThn = dt[i].mb_thn;
+                    var mbvThn = dt[i].mbv_thn;
+
+                    if (blnGd == blnGdcel) {
+                        totGd = dt[i].totGdg;
+                        totGdgCel = dt[i].totGdgCel;
+                    }
+
+                    if (mbTahunBulan == mbcTahunBulan) {
+                        bulan.push(mbThn + ' / ' + blnGd);
+                        dataGd.push(totGd);
+                        dataGdCel.push(totGdgCel);
+                    } else {
+                        bulan.push(mbThn + ' / ' + blnGd);
+                        dataGd.push(totGd);
+                        dataGdCel.push(totGdgCel);
+                    }
+                }
+
+                var areaChartDataBrg = {
+                    labels: bulan,
+                    datasets: [{
+                        label: 'Cencel Barang',
+                        backgroundColor: 'rgba(209, 105, 105, 1)',
+                        borderColor: 'rgba(209, 40, 40, 0.8)',
+                        pointRadius: false,
+                        pointColor: 'rgba(209, 40, 40, 1)',
+                        pointStrokeColor: 'rgb(209, 40, 40, 1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(209, 40, 40, 1)',
+                        data: dataGd
+                    }, {
+                        label: 'Masuk Gudang',
+                        backgroundColor: 'rgba(79, 189, 92, 1)',
+                        borderColor: 'rgba(16, 201, 38,0.8)',
+                        pointRadius: false,
+                        pointColor: 'rgba(16, 201, 38,1)',
+                        pointStrokeColor: 'rgba(16, 201, 38,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(16, 201, 38,1)',
+                        data: dataGdCel
+                    }]
+                }
+
+                var barChartCanvasBrg = $('#barChartBarang').get(0).getContext('2d')
+                var barChartDataBrg = $.extend(true, {}, areaChartDataBrg)
+                var temp0Brg = areaChartDataBrg.datasets[0]
+                var temp1Brg = areaChartDataBrg.datasets[1]
+                barChartDataBrg.datasets[0] = temp1Brg
+                barChartDataBrg.datasets[1] = temp0Brg
+
+                var barChartOptionsBrg = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    datasetFill: false
+                }
+
+                new Chart(barChartCanvasBrg, {
+                    type: 'bar',
+                    data: barChartDataBrg,
+                    options: barChartOptionsBrg
+                });
+            });
+        }
+
+        function chartPenjualan() {
+            var getTotBrgJual = '<?= base_url('Admin/IndexAdmin/getTotBrgJual') ?>';
+            $.getJSON(getTotBrgJual, function(dt) {
+                var bulan = [],
+                    dataBeli = [],
+                    dataJual = [];
+                var totBeli = 0,
+                    totJual = 0;
+
+                for (let i = 0; i < dt.length; i++) {
+                    var blTahunBulan = dt[i].bl_tahun_bulan;
+                    var jlTahunBulan = dt[i].jl_tahun_bulan;
+                    var blBulan = getTheMonth(dt[i].bl_bulan);
+                    var jlBulan = getTheMonth(dt[i].jl_bulan);
+                    var blThn = dt[i].bl_thn;
+                    var jlThn = dt[i].jl_thn;
+
+                    if (blBulan == jlBulan) {
+                        totBeli = dt[i].totBeli;
+                        totJual = dt[i].totJual;
+                    }
+
+                    if (blTahunBulan == jlTahunBulan) {
+                        bulan.push(blThn + ' / ' + blBulan);
+                        dataBeli.push(totBeli);
+                        dataJual.push(totJual);
+                    } else {
+                        bulan.push(blThn + ' / ' + blBulan);
+                        dataBeli.push(totBeli);
+                        dataJual.push(totJual);
+                    }
+                }
+
+                var areaChartDataPen = {
+                    labels: bulan,
+                    datasets: [{
+                        label: 'Penjualan',
+                        backgroundColor: 'rgba(79, 189, 92, 1)',
+                        borderColor: 'rgba(16, 201, 38,0.8)',
+                        pointRadius: false,
+                        pointColor: 'rgba(16, 201, 38,1)',
+                        pointStrokeColor: 'rgba(16, 201, 38,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(16, 201, 38,1)',
+                        data: dataJual
+                    }, {
+                        label: 'Pembelian',
+                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        borderColor: 'rgba(60,141,188,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: dataBeli
+                    }]
+                }
+
+                var barChartCanvasPen = $('#barChartPenjualan').get(0).getContext('2d')
+                var barChartDataPen = $.extend(true, {}, areaChartDataPen)
+                var temp0Pen = areaChartDataPen.datasets[0]
+                var temp1Pen = areaChartDataPen.datasets[1]
+                barChartDataPen.datasets[0] = temp1Pen
+                barChartDataPen.datasets[1] = temp0Pen
+
+                var barChartOptionsPen = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    datasetFill: false
+                }
+
+                new Chart(barChartCanvasPen, {
+                    type: 'bar',
+                    data: barChartDataPen,
+                    options: barChartOptionsPen
+                });
+            });
+        }
 
         function listPembelian() {
             $.ajax({
@@ -287,7 +364,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt.totBeli);
+                    // console.log(dt.totBeli);
                     $("#totPembelian").html(dt.totBeli);
                 }
             });
@@ -300,7 +377,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt.totJual);
+                    // console.log(dt.totJual);
                     $("#totPenjualan").html(dt.totJual);
                 }
             });
@@ -313,7 +390,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt.totSupp);
+                    // console.log(dt.totSupp);
                     $("#totSupplier").html(dt.totSupp);
                 }
             });
@@ -326,7 +403,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt.totBarang);
+                    // console.log(dt.totBarang);
                     $("#totBarang").html(dt.totBarang);
                 }
             });

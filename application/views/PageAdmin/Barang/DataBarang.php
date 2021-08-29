@@ -63,7 +63,8 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
@@ -88,11 +89,10 @@
                             <!-- The time line -->
                             <div class="timeline" id="isiTimeLine"></div>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Close</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -105,22 +105,24 @@
     <script type="text/javascript">
         $(function() {
             displayData()
-            // $("#timeLineBrg").hide();
 
             $("#tableDataBarang").DataTable({
                 "responsive": true,
+                "lengthChange": false,
                 "autoWidth": false,
-                "pageLength": 10,
-                "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
-            });
-
-            // $("#tableDataBarang tbody td").on("click", function() {
-            //     $("#timeLineBrg").show()
-            // });
-
-            // $("#closeTimeline").on("click", function() {
-            //     $("#timeLineBrg").hide();
-            // })
+                "order": [],
+                "buttons": [{
+                        extend: 'excelHtml5',
+                        footer: true,
+                        autoFilter: true
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        footer: true
+                    }
+                ],
+                "pageLength": 10
+            }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
         });
 
         function formatRupiah(angka, prefix) {
@@ -147,8 +149,6 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    // console.log(dt);
-
                     let row = '';
                     for (let i = 0; i < dt.length; i++) {
                         if (dt[i].tgl_masuk_gudang != "") {
@@ -189,9 +189,7 @@
                 dataType: "json",
                 async: false,
                 success: function(dt) {
-                    console.log(dt);
-
-                    let row = '';
+                    let row = warnaTgl = iconList = header = '';
                     for (let i = 0; i < dt.length; i++) {
                         if (dt[i].date_log != "") {
                             var date = new Date(dt[i].date_log);
@@ -201,10 +199,6 @@
                             tgl = "";
                             waktu = "";
                         }
-
-                        let warnaTgl = "bg-gray";
-                        let iconList = '<i class="fas fa-thumbs-up bg-gray"></i>';
-                        let header = "&nbsp;&nbsp;&nbsp;";
 
                         if (dt[i].status_log == 0) {
                             warnaTgl = "bg-blue";
@@ -230,6 +224,10 @@
                             warnaTgl = "bg-red";
                             iconList = '<i class="fas fa-boxes bg-red"></i>';
                             header = "MASUK GUDANG SEBAGIAN DAN CENCEL SEBAGIAN";
+                        } else {
+                            warnaTgl = "bg-gray";
+                            iconList = '<i class="fas fa-star bg-gray"></i>';
+                            header = "&nbsp;&nbsp;&nbsp;";
                         }
 
                         remark = (dt[i].remark) ? dt[i].remark : "Menunggu Pengiriman .....";

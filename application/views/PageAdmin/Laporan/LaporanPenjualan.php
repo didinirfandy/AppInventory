@@ -94,7 +94,8 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
@@ -130,8 +131,7 @@
                         footer: true
                     }
                 ],
-                "pageLength": 30,
-                // "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
+                "pageLength": 30
             }).buttons().container().appendTo('#tableDataPembelian_wrapper .col-md-6:eq(0)');
 
             $('#reservation').daterangepicker({
@@ -187,7 +187,7 @@
                     dataType: "json",
                     async: false,
                     success: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         let row = '';
                         let kdPenjualan = '';
                         let no = 1;
@@ -206,19 +206,17 @@
                                     indexTotal.push(i)
                                 }
                                 kdPenjualan = data[i].kodepen
-                            }else{
-                                if(i == data.length-1){
+                            } else {
+                                if (i == data.length - 1) {
                                     indexTotal.push(i)
                                 }
                                 kdPenjualan = data[i].kodepen
                             }
                         }
 
-                        console.log(indexTotal);
                         kdPenjualan = '';
                         for (let i = 0; i < data.length; i++) {
                             let kodePen = data[i].kodepen
-                            // let tglPen = data[i].tglpen
                             let date = new Date(data[i].tglpen);
                             let tglPen = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
                             let kodeGdg = data[i].kodegdg

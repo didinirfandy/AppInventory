@@ -65,7 +65,7 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="tableDataProvit" class="table table-bordered table-striped">
+                                    <table class="table table-bordered table-striped" id="tableDataProvit">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -94,7 +94,8 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.container-fluid -->
             </section>
             <!-- /.content -->
         </div>
@@ -123,15 +124,15 @@
                 "order": [],
                 "buttons": [{
                         extend: 'excelHtml5',
-                        footer: true
+                        footer: true,
+                        autoFilter: true
                     },
                     {
                         extend: 'pdfHtml5',
                         footer: true
                     }
                 ],
-                "pageLength": 30,
-                // "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
+                "pageLength": 30
             }).buttons().container().appendTo('#tableDataProvit_wrapper .col-md-6:eq(0)');
 
             $('#reservation').daterangepicker({
@@ -141,15 +142,6 @@
                 },
                 "maxDate": dateStart
             });
-
-            // $('#reservation').on('apply.daterangepicker', function(ev, picker) {
-            //     $(this).val(picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY'));
-            //     displayData()
-            // });
-
-            // $('#reservation').on('cancel.daterangepicker', function(ev, picker) {
-            //     $(this).val('');
-            // });
 
             $("#cariByTgl").click(function() {
                 let rangeTgl = $("#reservation").val()
@@ -161,7 +153,7 @@
                 sessionStorage.setItem("tglProSampai", tglAkhir)
 
                 window.location.reload()
-            })
+            });
         });
 
         const Toast = Swal.mixin({
@@ -177,16 +169,8 @@
         });
 
         function displayData() {
-            // let reservation = $('#reservation').val();
-            // let arry = reservation.split(" - ");
-            // let tglAwal = arry[0];
-            // let tglAkhir = arry[1];
-
             let tglAwal = sessionStorage.getItem("tglProDari")
             let tglAkhir = sessionStorage.getItem("tglProSampai")
-
-            console.log(tglAwal)
-            console.log(tglAkhir)
 
             if (tglAwal == '' || tglAkhir == '') {
                 Toast.fire({
@@ -204,16 +188,15 @@
                     dataType: "json",
                     async: false,
                     success: function(data) {
-                        // console.log(data);
-                        let row = '';
-                        var kdPenjualan = '';
+                        var kdPenjualan = row = '';
                         let no = 1;
                         let indexTotal = [];
                         let sumQty = 0,
                             sumHrgBli = 0,
                             sumHrgJl = 0,
                             sumProvit = 0;
-                        let totHrgBli = 0,
+                        let totalQty = 0,
+                            totHrgBli = 0,
                             totHrgJl = 0,
                             totProvit = 0;
 
@@ -225,13 +208,15 @@
                                     kd_beli: a.kodepen,
                                     totalHrgBli: 0,
                                     totalHrgJl: 0,
-                                    totalProvit: 0
+                                    totalProvit: 0,
+                                    totalQty: 0
                                 };
                                 arryTot.push(this[a.kodepen]);
                             }
                             this[a.kodepen].totalHrgBli += parseInt(a.harga_beli);
                             this[a.kodepen].totalHrgJl += parseInt(a.hrgjual);
                             this[a.kodepen].totalProvit += parseInt(a.provit);
+                            this[a.kodepen].totalQty += parseInt(a.qty);
                         }, Object.create(null));
 
                         //get index total
@@ -244,7 +229,11 @@
                                     indexTotal.push(i)
                                 }
                                 kdPenjualan = data[i].kodepen
-                                // console.log("kdPenjualan :" + kdPenjualan)
+                            } else {
+                                if (i == data.length - 1) {
+                                    indexTotal.push(i)
+                                }
+                                kdPenjualan = data[i].kodepen
                             }
                         }
 
@@ -252,7 +241,6 @@
 
                         for (let i = 0; i < data.length; i++) {
                             let kodePen = data[i].kodepen
-                            // let tglPen = data[i].tglpen
                             let date = new Date(data[i].tglpen);
                             let tglPen = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
                             let kodeGdg = data[i].kodegdg
@@ -271,6 +259,7 @@
                                     totHrgBli = parseInt(arryTot[j].totalHrgBli)
                                     totHrgJl = parseInt(arryTot[j].totalHrgJl)
                                     totProvit = parseInt(arryTot[j].totalProvit)
+
                                     rowTotal = `<tr>
                                                     <td></td>
                                                     <td></td>
@@ -305,6 +294,7 @@
                                 no++;
                                 kdPenjualan = kodePen;
                             }
+
                             //detailProvit
                             row += `<tr>
                                         <td></td>
@@ -332,7 +322,6 @@
                                 sumProvit = sumProvit
                             }
                         }
-
                         rowGrand = `<tr>
                                         <th></th>
                                         <th></th>
@@ -349,7 +338,6 @@
 
                         $('#dataProvit').html(row);
                         $('#subTotal').html(rowGrand);
-                        // tableData.ajax.reload()
                     }
                 })
             }

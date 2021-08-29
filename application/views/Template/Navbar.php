@@ -27,14 +27,14 @@
                 <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
             </a>
             <div class="dropdown-menu dropdown-menu dropdown-menu-right">
-                <a href="#" class="dropdown-item">
+                <!-- <a href="#" class="dropdown-item">
                     <i class="fa fa-binoculars fa-fw mr-2"></i> Log login
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
                     <i class="fa fa-cogs fa-fw mr-2"></i> Pengaturan
-                </a>
-                <div class="dropdown-divider"></div>
+                </a> -->
+                <!-- <div class="dropdown-divider"></div> -->
                 <a href="<?= base_url('Login/actionLogout') ?>" class="dropdown-item">
                     <i class="fa fa-sign-out-alt fa-fw mr-2"></i> Logout
                 </a>
