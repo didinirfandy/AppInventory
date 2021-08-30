@@ -104,7 +104,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Timeline Barang</h4>
+                    <h4 class="modal-title">Timeline Harga Barang</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -336,7 +336,7 @@
                                     <div class="timeline-item">
                                         <span class="time"><i class="fas fa-clock"></i> ` + waktu + `</span>
                                         <h3 class="timeline-header no-border"><strong>[` + dt[i].kd_gudang + `]</strong> ` + header + `</h3>
-                                        <div class="timeline-body"> From : ` + formatRupiah(dt[i].harga_start) + ` To : ` + formatRupiah(dt[i].harga_now) +`</div>
+                                        <div class="timeline-body"> Rp. ` + formatRupiah(dt[i].harga_now) +`</div>
                                     </div>
                                 </div>`;
                     }
