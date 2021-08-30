@@ -497,7 +497,11 @@ class Barang extends CI_Model
             FROM 
                 activity_log_harga
             WHERE
-                kd_gudang = '$kd_gudang'"
+                kd_gudang = '$kd_gudang'
+            GROUP BY
+                date_log
+            ORDER BY 
+                date_log ASC"
         )->result_array();
 
         if ($qry) {

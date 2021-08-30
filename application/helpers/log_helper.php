@@ -48,15 +48,16 @@ function activity_log_barang($date_log, $kd_pembelian, $kd_supplier, $kd_barang,
     $CI->Activity_log->insertDataLog($param);
 }
 
-function activity_log_harga($kd_pembelian, $kd_supplier, $kd_gudang, $kd_barang, $harga_start, $harga_now, $tgl_masuk_gudang, $tgl_harga_naik, $tgl_harga_turun, $tgl_harga_flashSale)
+function activity_log_harga($date_log, $kd_pembelian, $kd_supplier, $kd_gudang, $kd_barang, $harga_start, $harga_now, $tgl_masuk_gudang, $tgl_harga_naik, $tgl_harga_turun, $tgl_harga_flashSale)
 {
     $CI = &get_instance();
 
-    date_default_timezone_set('Asia/Jakarta');
-    $time   = date("Y-m-d H:i:s");
+    if ($date_log == "") {
+        $date_log = date("Y-m-d H:i:s");
+    }
 
     $param = array(
-        'date_log'              => $time,
+        'date_log'              => $date_log,
         'nik_admin'             => (int) $CI->session->userdata('nik'),
         'kd_pembelian'          => $kd_pembelian,
         'kd_gudang'             => $kd_gudang,

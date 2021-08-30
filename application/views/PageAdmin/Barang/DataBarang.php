@@ -310,15 +310,15 @@
 
                         if (dt[i].tgl_harga_naik != '0000-00-00') {
                             warnaTgl = "bg-blue";
-                            iconList = '<i class="fas fa-truck-moving bg-blue"></i>';
+                            iconList = '<i class="fas fa-long-arrow-alt-up '+ warnaTgl +'"></i>';
                             header = "HARGA NAIK";
                         } else if (dt[i].tgl_harga_turun != '0000-00-00') {
                             warnaTgl = "bg-yellow";
-                            iconList = '<i class="fas fa-boxes bg-yellow"></i>';
+                            iconList = '<i class="fas fa-long-arrow-alt-down '+ warnaTgl +'"></i>';
                             header = "HARGA TURUN";
                         } else if (dt[i].tgl_harga_flashSale != '0000-00-00') {
                             warnaTgl = "bg-green";
-                            iconList = '<i class="fas fa-thumbs-up bg-green"></i>';
+                            iconList = '<i class="fas fa-percentage '+ warnaTgl +'"></i>';
                             header = "HARGA FLASH SALE";
                         } else {
                             warnaTgl = "bg-gray";
