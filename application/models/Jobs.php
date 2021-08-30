@@ -28,7 +28,7 @@ class Jobs extends CI_Model
                     $dateNowFlashSale = date("Y-m-d");
                 }
 
-                activity_log_harga($kd_pembelian, $kd_supplier, $kd_gudang, $kd_barang, $hrgJualStart, $hrgJualNow, $tgl, $dateNowNaik, $dateNowTurun, $dateNowFlashSale); // log harga barang
+                activity_log_harga($tgl, $kd_pembelian, $kd_supplier, $kd_gudang, $kd_barang, $hrgJualStart, $hrgJualNow, $tgl, $dateNowNaik, $dateNowTurun, $dateNowFlashSale); // log harga barang
             }
             return "Berhasil";
         } else {
