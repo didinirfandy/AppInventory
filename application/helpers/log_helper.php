@@ -48,7 +48,7 @@ function activity_log_barang($date_log, $kd_pembelian, $kd_supplier, $kd_barang,
     $CI->Activity_log->insertDataLog($param);
 }
 
-function activity_log_harga($date_log, $kd_pembelian, $kd_supplier, $kd_gudang, $kd_barang, $harga_start, $harga_now, $tgl_masuk_gudang, $tgl_harga_naik, $tgl_harga_turun, $tgl_harga_flashSale)
+function activity_log_harga($date_log, $kd_pembelian, $kd_supplier, $kd_gudang, $kd_barang, $harga_start, $harga_now, $tgl_masuk_gudang, $tgl_harga_naik, $tgl_harga_turun, $tgl_harga_flashSale, $status_harga)
 {
     $CI = &get_instance();
 
@@ -56,9 +56,16 @@ function activity_log_harga($date_log, $kd_pembelian, $kd_supplier, $kd_gudang, 
         $date_log = date("Y-m-d H:i:s");
     }
 
+    $nik_admin = 'System';
+    if ($CI->session->userdata('nik') != '') {
+        $nik_admin = $CI->session->userdata('nik');
+    }
+
+    $created_at = date("Y-m-d H:i:s");
+
     $param = array(
         'date_log'              => $date_log,
-        'nik_admin'             => (int) $CI->session->userdata('nik'),
+        'nik_admin'             => $nik_admin,
         'kd_pembelian'          => $kd_pembelian,
         'kd_gudang'             => $kd_gudang,
         'kd_barang'             => $kd_barang,
@@ -69,6 +76,8 @@ function activity_log_harga($date_log, $kd_pembelian, $kd_supplier, $kd_gudang, 
         'tgl_harga_naik'        => $tgl_harga_naik,
         'tgl_harga_turun'       => $tgl_harga_turun,
         'tgl_harga_flashSale'   => $tgl_harga_flashSale,
+        'status_harga'          => $status_harga,
+        'created_at'            => $created_at
     );
 
     //load model log

@@ -238,7 +238,7 @@ class Barang extends CI_Model
             if ($qry3) {
                 if ($this->db->affected_rows() > 0) {
                     activity_log_barang($tglmasukGudang, $kdPembelian, $kdSupplier, $kdBarang, $qtySisa, $qty, '0', $remark, $statusBeli, $kdGudang); // log barang
-                    activity_log_harga($kdPembelian, $kdSupplier, $kdBarang, $kdGudang, $hargaJual, $hargaJual, $tglmasukGudang, '', '', ''); // log harga barang
+                    // activity_log_harga($tglmasukGudang, $kdPembelian, $kdSupplier, $kdBarang, $kdGudang, $hargaJual, $hargaJual, $tglmasukGudang, '', '', ''); // log harga barang
 
                     return true;
                 } else {
@@ -494,6 +494,7 @@ class Barang extends CI_Model
                 , tgl_harga_naik
                 , tgl_harga_turun
                 , tgl_harga_flashSale
+                , status_harga
             FROM 
                 activity_log_harga
             WHERE
