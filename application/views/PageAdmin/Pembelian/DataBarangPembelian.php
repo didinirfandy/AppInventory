@@ -137,6 +137,10 @@
                                 <label for="remarkGudangTerima">Deskripsi <span style="font-size: 11px;">(Opsional)</span></label>
                                 <textarea class="form-control" name="remarkGudangTerima" id="remarkGudangTerima" placeholder="Masukkan Deskripsi"></textarea>
                             </div>
+                            <hr>
+                            <div class="form-group">
+                                <label for="persentaseBrg">Perentase</label>
+                            </div>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-sm btn-default" id="closeSendBarang" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
