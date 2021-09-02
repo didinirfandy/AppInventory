@@ -471,7 +471,9 @@ class Barang extends CI_Model
                 activity_log_barang
             WHERE
                 kd_pembelian = '$kd_pembelian'
-                AND kd_barang = '$kd_barang'"
+                AND kd_barang = '$kd_barang'
+            ORDER BY 
+                date_log DESC"
         )->result_array();
 
         if ($qry) {
@@ -502,7 +504,7 @@ class Barang extends CI_Model
             GROUP BY
                 date_log
             ORDER BY 
-                date_log ASC"
+                date_log DESC"
         )->result_array();
 
         if ($qry) {

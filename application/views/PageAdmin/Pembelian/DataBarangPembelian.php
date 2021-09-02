@@ -131,52 +131,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="tglGudangTerima">Tanggal</label>
-                                <input type="text" class="form-control datetimepicker-input" name="tglGudangTerima" id="tglGudangTerima" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy">
+                                <input type="text" class="form-control datetimepicker-input" name="tglGudangTerima" id="tglGudangTerima" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="remarkGudangTerima">Deskripsi <span style="font-size: 11px;">(Opsional)</span></label>
                                 <textarea class="form-control" name="remarkGudangTerima" id="remarkGudangTerima" placeholder="Masukkan Deskripsi"></textarea>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="persentaseBrg">Perentase Barang</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <button type="button" class="btn btn-sm btn-success" id="multiPersen" style="float: right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Persentase</button>
-                                </div>
-                            </div>
-                            <div class="row brgPersen">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="bulanKe">Bulan Ke</label>
-                                        <select class="form-control" name="bulanKe[]" id="bulanKe">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nilaiPersentase">Persentase</label>
-                                        <input type="text" name="nilaiPersentase[]" id="nilaiPersentase" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="persentaseBrgNew"></div>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-sm btn-default" id="closeSendBarang" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
@@ -258,55 +218,6 @@
                 "autoWidth": false,
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
-
-            $("#multiPersen").click(function() {
-                let indexForm = $(".brgPersen").length
-                let newDetail = "newDetail-" + indexForm;
-                // let kodeDetail = $(".brgPersen .kodeDetail").val()
-                // console.log(kodeDetail);
-                // if (indexForm > 1) {
-                //     let indexDetail = indexForm - 1
-                //     kodeDetail = $(".newDetail-" + indexDetail + " .kodeDetail").val()
-                // }
-                // kodeDetail = kodeDetail.replace('.', '')
-                // kodeDetail = String(parseInt(kodeDetail) + 1).padStart(2, '0') + '.';
-
-                let formDetail = `<div class="row brgPersen newbrgPersen ` + newDetail + `">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="bulanKe">Bulan Ke</label>
-                                            <select class="form-control" name="bulanKe[]" id="bulanKe">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="nilaiPersentase">Persentase</label>
-                                            <div class="input-group">
-                                                <input type="text" name="nilaiPersentase[]" id="nilaiPersentase" class="form-control">
-                                                <div class="input-group-append">
-                                                    <button type="button" class="btn btn-sm btn-default" onClick="removeDetail('` + newDetail + `')"><i class="fas fa-times"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>`;
-                $("#persentaseBrgNew").append(formDetail)
-            });
-
         });
 
         const Toast = Swal.mixin({
@@ -474,6 +385,7 @@
                             },
                             tglGudangTerima: "required",
                             remarkGudangTerima: "required",
+                            bulanKe: "required"
                         },
                         messages: {
                             qtyBeli_to_gd: {
@@ -500,35 +412,40 @@
                             let qtyBeli_to_gd = $("#qtyBeli_to_gd").val();
                             let tglGudangTerima = $("#tglGudangTerima").val();
                             let remarkGudangTerima = $("#remarkGudangTerima").val();
+                            let bulanKe = $("#bulanKe").val();
+                            let url = "<?= base_url('Admin/Pembelian/DataBarangPembelian/insertGudang') ?>";
 
-                            $.ajax({
-                                type: "POST",
-                                data: {
-                                    id_detail_br: id_detail_br,
-                                    qtyBeli_to_gd: qtyBeli_to_gd,
-                                    tglGudangTerima: tglGudangTerima,
-                                    remarkGudangTerima: remarkGudangTerima
-                                },
-                                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/insertGudang') ?>",
-                                dataType: "JSON",
-                                beforeSend: function() {
-                                    $("#sendBarang").prop("disabled", true);
-                                    $("#closeSendBarang").prop("disabled", true);
+                            console.log(bulanKe);
 
-                                    var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
-                                    $("#loadingKirim").html(loading);
-                                },
-                                success: function(hasil) {
-                                    console.log(hasil);
-                                    Toast.fire({
-                                        icon: 'success',
-                                        title: 'Berhasil Simpan Pembelian Barang!'
-                                    });
-                                    setInterval(function() {
-                                        location.reload();
-                                    }, 3000);
-                                }
-                            });
+                            // $.ajax({
+                            //     type: "POST",
+                            //     data: {
+                            //         id_detail_br: id_detail_br,
+                            //         qtyBeli_to_gd: qtyBeli_to_gd,
+                            //         tglGudangTerima: tglGudangTerima,
+                            //         remarkGudangTerima: remarkGudangTerima,
+                            //         bulanKe: bulanKe
+                            //     },
+                            //     url: url,
+                            //     dataType: "JSON",
+                            //     beforeSend: function() {
+                            //         $("#sendBarang").prop("disabled", true);
+                            //         $("#closeSendBarang").prop("disabled", true);
+
+                            //         var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                            //         $("#loadingKirim").html(loading);
+                            //     },
+                            //     success: function(hasil) {
+                            //         console.log(hasil);
+                            //         Toast.fire({
+                            //             icon: 'success',
+                            //             title: 'Berhasil Simpan Pembelian Barang!'
+                            //         });
+                            //         setInterval(function() {
+                            //             location.reload();
+                            //         }, 3000);
+                            //     }
+                            // });
                         }
                     });
 

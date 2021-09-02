@@ -51,7 +51,6 @@
                                                 <th>Harga Jual Sekarang</th>
                                                 <th>Harga Beli</th>
                                                 <th>Stok</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="dataBarang">
@@ -76,10 +75,10 @@
 
     <!-- Modal Kode Barang -->
     <div class="modal fade" id="modal-timeline">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Timeline Barang</h4>
+                    <h4 class="modal-title"><span class="oi oi-graph"></span> Timeline Barang</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -102,10 +101,10 @@
     </div>
 
     <div class="modal fade" id="modal-timelineHarga">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Timeline Harga Barang</h4>
+                    <h4 class="modal-title"><span class="oi oi-tags"></span> Timeline Harga Barang</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -123,71 +122,6 @@
                 </div>
             </div>
             <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-
-    <!-- Modal Edit Persentase -->
-    <div class="modal fade" id="modal-editPersentase" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg">
-            <div class="overlay-wrapper">
-                <span id="loadingEdit"></span>
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Data Persentase Barang</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" action="" id="formEditPersen">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="persentaseBrg">Perentase Barang</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <button type="button" class="btn btn-sm btn-success" id="multiPersen" style="float: right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Persentase</button>
-                                </div>
-                            </div>
-                            <div class="row brgPersen">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="bulanKe">Bulan Ke</label>
-                                        <select class="form-control" name="bulanKe[]" id="bulanKe">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="11">11</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="nilaiPersentase">Persentase</label>
-                                        <input type="text" name="nilaiPersentase[]" id="nilaiPersentase" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" id="closePersen" class="btn btn-sm btn-default" data-dismiss="modal" id="closeBtn">Close</button>
-                        <button type="submit" id="editPersen" class="btn btn-sm btn-primary editPersen" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
         </div>
         <!-- /.modal-dialog -->
     </div>
@@ -215,46 +149,6 @@
                 ],
                 "pageLength": 10
             }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
-
-            $("#multiPersen").click(function() {
-                let indexForm = $(".brgPersen").length
-                let newDetail = "newDetail-" + indexForm;
-
-                let formDetail = `<div class="row brgPersen newbrgPersen ` + newDetail + `">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="bulanKe">Bulan Ke</label>
-                                            <select class="form-control" name="bulanKe[]" id="bulanKe">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="nilaiPersentase">Persentase</label>
-                                            <div class="input-group">
-                                                <input type="text" name="nilaiPersentase[]" id="nilaiPersentase" class="form-control">
-                                                <div class="input-group-append">
-                                                    <button type="button" class="btn btn-sm btn-default" onClick="removeDetail('` + newDetail + `')"><i class="fas fa-times"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>`;
-                $("#formEditPersen").append(formDetail)
-            });
         });
 
         function removeDetail() {
@@ -277,6 +171,21 @@
 
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
+        }
+
+        function getTheMonth(num) {
+            if (num == 0) return 'Januari';
+            else if (num == 1) return 'Februari';
+            else if (num == 2) return 'Maret';
+            else if (num == 3) return 'April';
+            else if (num == 4) return 'Mei';
+            else if (num == 5) return 'Juni';
+            else if (num == 6) return 'Juli';
+            else if (num == 7) return 'Agustus';
+            else if (num == 8) return 'September';
+            else if (num == 9) return 'Oktober';
+            else if (num == 10) return 'November';
+            else if (num == 11) return 'Desember';
         }
 
         function displayData() {
@@ -308,18 +217,14 @@
                                     <td>` + formatRupiah(dt[i].harga_jual_now, '') + `</td>                                    
                                     <td>` + formatRupiah(dt[i].harga_beli, '') + `</td>                                    
                                     <td>` + dt[i].qty + `</td> 
-                                    <td>
-                                        <button type="button" class="btn btn-xs btn-primary" onclick="editPersenBrg('` + dt[i].kd_gudang + `','`+ dt[i].kd_barang +`')"><i class="fas fa-edit"></i> Edit</button>
-                                    </td>                                   
-                                </tr>`;
+                                    </tr>`;
                     }
                     $('#dataBarang').html(row);
                 }
             })
         }
 
-        function editPersenBrg(kdGudang, kdBarang)
-        {
+        function editPersenBrg(kdGudang, kdBarang) {
             $("#modal-editPersentase").modal('show');
         }
 
@@ -391,7 +296,7 @@
                     }
 
                     row += `<div>
-                                <i class="fas fa-star bg-gray"></i>
+                                <i class="fas fa-play bg-gray"></i>
                             </div>`;
 
 
@@ -417,27 +322,28 @@
                 async: false,
                 success: function(dt) {
                     let row = warnaTgl = iconList = header = '';
+                    var tahun, bulan, nomorBulan, tgl, waktu;
                     for (let i = 0; i < dt.length; i++) {
                         if (dt[i].date_log != "") {
                             var date = new Date(dt[i].date_log);
-                            var tgl = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
-                            var waktu = ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2) + ":" + ("00" + date.getSeconds()).slice(-2);
-                        } else {
-                            tgl = "";
-                            waktu = "";
+                            nomorBulan = date.getMonth();
+                            tahun = date.getFullYear();
+                            bulan = getTheMonth(nomorBulan);
+                            // tgl = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
+                            waktu = ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2) + ":" + ("00" + date.getSeconds()).slice(-2);
                         }
 
                         if (dt[i].status_harga == 1) {
-                            warnaTgl = "bg-blue";
-                            iconList = '<i class="fas fa-long-arrow-alt-up ' + warnaTgl + '"></i>';
+                            warnaTgl = "bg-green";
+                            iconList = '<i class="fas fa-chart-line ' + warnaTgl + '"></i>';
                             header = "HARGA NAIK";
                         } else if (dt[i].status_harga == 2) {
                             warnaTgl = "bg-yellow";
-                            iconList = '<i class="fas fa-long-arrow-alt-down ' + warnaTgl + '"></i>';
-                            header = "HARGA TURUN";
-                        } else if (dt[i].status_harga == 3) {
-                            warnaTgl = "bg-green";
                             iconList = '<i class="fas fa-percentage ' + warnaTgl + '"></i>';
+                            header = "HARGA DISKON";
+                        } else if (dt[i].status_harga == 3) {
+                            warnaTgl = "bg-red";
+                            iconList = '<i class="fas fa-bolt ' + warnaTgl + '"></i>';
                             header = "HARGA FLASH SALE";
                         } else {
                             warnaTgl = "bg-gray";
@@ -448,7 +354,7 @@
                         // remark = (dt[i].remark) ? dt[i].remark : "Menunggu Pengiriman .....";
 
                         row += `<div class="time-label col-md-8">
-                                    <span class="` + warnaTgl + `">` + tgl + `</span>
+                                    <span class="` + warnaTgl + `">` + bulan + ` ` + tahun + `</span>
                                 </div>
                                 <div>
                                     ` + iconList + `
@@ -462,7 +368,7 @@
 
                     if (dt != '' || dt != false) {
                         row += `<div>
-                                    <i class="fas fa-star bg-gray"></i>
+                                    <i class="fas fa-play bg-gray"></i>
                                 </div>`;
                     }
 

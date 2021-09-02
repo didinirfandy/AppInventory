@@ -10,7 +10,8 @@ class Jobs extends CI_Model
         $this->db->update('master_barang', $hargaUP);
 
         if ($this->db->affected_rows() > 0) {
-            $dateNowNaik = $dateNowTurun = $dateNowFlashSale = '0000-00-00 00:00:00';
+            $dateDefault = "0000-00-00 00:00:00";
+            $dateNowNaik = $dateNowTurun = $dateNowFlashSale = "0000-00-00 00:00:00";
 
             for ($i = 0; $i < count($dt); $i++) {
                 $kd_pembelian   = $dt[$i]['kd_pembelian'];
@@ -25,20 +26,20 @@ class Jobs extends CI_Model
 
                 if ($status_no == 1) {
                     $dateNowNaik        = $tanggal;
-                    $dateNowTurun       = '0000-00-00 00:00:00';
-                    $dateNowFlashSale   = '0000-00-00 00:00:00';
+                    $dateNowTurun       = $dateDefault;
+                    $dateNowFlashSale   = $dateDefault;
                 } else if ($status_no == 2) {
-                    $dateNowNaik        = '0000-00-00 00:00:00';
+                    $dateNowNaik        = $dateDefault;
                     $dateNowTurun       = $tanggal;
-                    $dateNowFlashSale   = '0000-00-00 00:00:00';
+                    $dateNowFlashSale   = $dateDefault;
                 } else if ($status_no == 3) {
-                    $dateNowNaik        = '0000-00-00 00:00:00';
-                    $dateNowTurun       = '0000-00-00 00:00:00';
+                    $dateNowNaik        = $dateDefault;
+                    $dateNowTurun       = $dateDefault;
                     $dateNowFlashSale   = $tanggal;
                 } else {
-                    $dateNowNaik        = '0000-00-00 00:00:00';
-                    $dateNowTurun       = '0000-00-00 00:00:00';
-                    $dateNowFlashSale   = '0000-00-00 00:00:00';
+                    $dateNowNaik        = $dateDefault;
+                    $dateNowTurun       = $dateDefault;
+                    $dateNowFlashSale   = $dateDefault;
                 }
 
                 activity_log_harga($tanggal, $kd_pembelian, $kd_supplier, $kd_gudang, $kd_barang, $hrgJualStart, $hrgJualNow, $tgl, $dateNowNaik, $dateNowTurun, $dateNowFlashSale, $status_no); // log harga barang

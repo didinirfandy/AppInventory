@@ -64,30 +64,47 @@ class JobsHarga extends CI_Controller
             // die();
 
             $valdata = array();
-            $a = 1;
             $hrg = $status_no = 0;
             $status_txt = "";
+            $a = 1;
             while ($a <= $numBulan) {
                 $hrgbeli = $a > 1 ? $hrg : $hrgbeli;
-                if ($a <= 7) {
-                    $status_txt = "Harga Naik";
-                    $status_no = 1;
-                    $hrg = $hrgbeli + ($persenNaik / 100 * $hrgbeli); // Rumus Harga Naik
-                } else if ($a >= 8 && $a <= 10) {
-                    $status_txt = "Harga Turun / diskon";
-                    $status_no = 2;
-                    $hrg = $hrgbeli - ($persenTurun / 100 * $hrgbeli); //  Rumus Harga Turun
-                } else if ($a >= 11 && $a <= 12) {
-                    $status_txt = "Harga Flash Sale";
-                    $status_no = 3;
-                    $hrg = $hrgJualStart; // Kembalikan harga ke 1 bulan awal
+                $persenNaik = random_int(1, 10); // random Persentase Naik 
+                $persenTurun = random_int(5, 10); // random Persentase Turun
+                $persenDiskonTH1 = random_int(10, 15); // diskon tahun pertama 
+                $persenDiskonTH2 = random_int(15, 20); // diskon tahun kedua
+
+                if ($a <= 9 || $a >= 13 && $a <= 21 || $a >= 25 && $a <= 33) {
+                    // random harga naik turun
+                    $nt = mt_rand(1, 2);
+                    if ($nt == 1) {
+                        $status_txt = "Harga Naik";
+                        $status_no  = 1;
+                        $hrg        = $hrgbeli + ($persenNaik / 100 * $hrgbeli); // Rumus Harga Naik
+                    } else {
+                        $status_txt = "Harga Turun / Diskon";
+                        $status_no  = 2;
+                        $hrg        = $hrgbeli - ($persenTurun / 100 * $hrgbeli); //  Rumus Harga Turun
+                    }
+                } else if ($a >= 10 && $a <= 12 || $a >= 22 && $a <= 24 || $a >= 34 && $a <= 36) {
+                    if ($a <= 12) {
+                        $status_txt = "Harga Flash Sale";
+                        $status_no  = 3;
+                        $hrg        = $hrgbeli - ($persenDiskonTH1 / 100 * $hrgbeli); //  Rumus Harga Flash Sale tahun pertama
+                    }
+
+                    if ($a >= 13) {
+                        $status_txt = "Harga Flash Sale";
+                        $status_no  = 3;
+                        $hrg        = $hrgbeli - ($persenDiskonTH2 / 100 * $hrgbeli); //  Rumus Harga Flash Sale tahun kedua
+                    }
                 } else {
                     $status_txt = "Harga EXP";
-                    $status_no = 3;
-                    $hrg = 0; // lebih dari 1 tahun set jdi 0
+                    $status_no  = 3;
+                    $hrg        = 0; // lebih dari 3 tahun set jdi 0
                 }
 
-                $date = date("Y-m-d", strtotime("+" . $a . " month", strtotime($tgl_mulai)));
+                $date    = date("Y-m-d", strtotime("+" . $a . " month", strtotime($tgl_mulai)));
                 $tanggal = date("Y-m-d", strtotime("-1 month", strtotime($date)));
 
                 $datalist = array(
@@ -101,7 +118,11 @@ class JobsHarga extends CI_Controller
                     "hrgNow"            => floor($hrg),
                     "status_txt"        => $status_txt,
                     "status_no"         => $status_no,
-                    "tanggal"           => $tanggal . " 23:59:59"
+                    "tanggal"           => $tanggal . " 23:59:59",
+                    "persen_naik"       => $persenNaik,
+                    "persen_turun"      => $persenTurun,
+                    "diskon_thn1"       => $persenDiskonTH1,
+                    "diskon_thn2"       => $persenDiskonTH2
                 );
                 array_push($valdata, $datalist);
                 $a++;
