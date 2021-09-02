@@ -308,17 +308,35 @@
                             waktu = "";
                         }
 
-                        if (dt[i].tgl_harga_naik != '0000-00-00') {
+                        // if (dt[i].tgl_harga_naik != '0000-00-00') {
+                        //     warnaTgl = "bg-blue";
+                        //     iconList = '<i class="fas fa-long-arrow-alt-up '+ warnaTgl +'"></i>';
+                        //     header = "HARGA NAIK";
+                        // } else if (dt[i].tgl_harga_turun != '0000-00-00') {
+                        //     warnaTgl = "bg-yellow";
+                        //     iconList = '<i class="fas fa-long-arrow-alt-down '+ warnaTgl +'"></i>';
+                        //     header = "HARGA TURUN";
+                        // } else if (dt[i].tgl_harga_flashSale != '0000-00-00') {
+                        //     warnaTgl = "bg-green";
+                        //     iconList = '<i class="fas fa-percentage '+ warnaTgl +'"></i>';
+                        //     header = "HARGA FLASH SALE";
+                        // } else {
+                        //     warnaTgl = "bg-gray";
+                        //     iconList = '<i class="fas fa-star bg-gray"></i>';
+                        //     header = "&nbsp;&nbsp;&nbsp;";
+                        // }
+
+                        if (dt[i].status_harga == 1) {
                             warnaTgl = "bg-blue";
-                            iconList = '<i class="fas fa-long-arrow-alt-up '+ warnaTgl +'"></i>';
+                            iconList = '<i class="fas fa-long-arrow-alt-up ' + warnaTgl + '"></i>';
                             header = "HARGA NAIK";
-                        } else if (dt[i].tgl_harga_turun != '0000-00-00') {
+                        } else if (dt[i].status_harga == 2) {
                             warnaTgl = "bg-yellow";
-                            iconList = '<i class="fas fa-long-arrow-alt-down '+ warnaTgl +'"></i>';
+                            iconList = '<i class="fas fa-long-arrow-alt-down ' + warnaTgl + '"></i>';
                             header = "HARGA TURUN";
-                        } else if (dt[i].tgl_harga_flashSale != '0000-00-00') {
+                        } else if (dt[i].status_harga == 3) {
                             warnaTgl = "bg-green";
-                            iconList = '<i class="fas fa-percentage '+ warnaTgl +'"></i>';
+                            iconList = '<i class="fas fa-percentage ' + warnaTgl + '"></i>';
                             header = "HARGA FLASH SALE";
                         } else {
                             warnaTgl = "bg-gray";
@@ -336,12 +354,12 @@
                                     <div class="timeline-item">
                                         <span class="time"><i class="fas fa-clock"></i> ` + waktu + `</span>
                                         <h3 class="timeline-header no-border"><strong>[` + dt[i].kd_gudang + `]</strong> ` + header + `</h3>
-                                        <div class="timeline-body"> Rp. ` + formatRupiah(dt[i].harga_now) +`</div>
+                                        <div class="timeline-body"> Rp. ` + formatRupiah(dt[i].harga_now) + `</div>
                                     </div>
                                 </div>`;
                     }
 
-                    if (dt != '' || dt != false) {                        
+                    if (dt != '' || dt != false) {
                         row += `<div>
                                     <i class="fas fa-star bg-gray"></i>
                                 </div>`;
