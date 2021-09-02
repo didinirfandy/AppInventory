@@ -51,6 +51,7 @@
                                                 <th>Harga Jual Sekarang</th>
                                                 <th>Harga Beli</th>
                                                 <th>Stok</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="dataBarang">
@@ -126,6 +127,71 @@
         <!-- /.modal-dialog -->
     </div>
 
+    <!-- Modal Edit Persentase -->
+    <div class="modal fade" id="modal-editPersentase" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="overlay-wrapper">
+                <span id="loadingEdit"></span>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Data Persentase Barang</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="" id="formEditPersen">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="persentaseBrg">Perentase Barang</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-sm btn-success" id="multiPersen" style="float: right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Persentase</button>
+                                </div>
+                            </div>
+                            <div class="row brgPersen">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="bulanKe">Bulan Ke</label>
+                                        <select class="form-control" name="bulanKe[]" id="bulanKe">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nilaiPersentase">Persentase</label>
+                                        <input type="text" name="nilaiPersentase[]" id="nilaiPersentase" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" id="closePersen" class="btn btn-sm btn-default" data-dismiss="modal" id="closeBtn">Close</button>
+                        <button type="submit" id="editPersen" class="btn btn-sm btn-primary editPersen" style="float: left;"><i class="fas fa-save"></i> Simpan</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <?php $this->load->view('Template/DataTablesJS') ?>
 
     <script type="text/javascript">
@@ -149,7 +215,52 @@
                 ],
                 "pageLength": 10
             }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
+
+            $("#multiPersen").click(function() {
+                let indexForm = $(".brgPersen").length
+                let newDetail = "newDetail-" + indexForm;
+
+                let formDetail = `<div class="row brgPersen newbrgPersen ` + newDetail + `">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="bulanKe">Bulan Ke</label>
+                                            <select class="form-control" name="bulanKe[]" id="bulanKe">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nilaiPersentase">Persentase</label>
+                                            <div class="input-group">
+                                                <input type="text" name="nilaiPersentase[]" id="nilaiPersentase" class="form-control">
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-sm btn-default" onClick="removeDetail('` + newDetail + `')"><i class="fas fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+                $("#formEditPersen").append(formDetail)
+            });
         });
+
+        function removeDetail() {
+            let indexDetailBrg = $('.brgPersen').length - 1
+            $(".newDetail-" + indexDetailBrg).remove()
+        }
 
         function formatRupiah(angka, prefix) {
             var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -196,12 +307,20 @@
                                     <td>` + formatRupiah(dt[i].harga_jual_start, '') + `</td>                                    
                                     <td>` + formatRupiah(dt[i].harga_jual_now, '') + `</td>                                    
                                     <td>` + formatRupiah(dt[i].harga_beli, '') + `</td>                                    
-                                    <td>` + dt[i].qty + `</td>                                    
+                                    <td>` + dt[i].qty + `</td> 
+                                    <td>
+                                        <button type="button" class="btn btn-xs btn-primary" onclick="editPersenBrg('` + dt[i].kd_gudang + `','`+ dt[i].kd_barang +`')"><i class="fas fa-edit"></i> Edit</button>
+                                    </td>                                   
                                 </tr>`;
                     }
                     $('#dataBarang').html(row);
                 }
             })
+        }
+
+        function editPersenBrg(kdGudang, kdBarang)
+        {
+            $("#modal-editPersentase").modal('show');
         }
 
         function getkode(kd_pembelian, kd_barang) {
@@ -307,24 +426,6 @@
                             tgl = "";
                             waktu = "";
                         }
-
-                        // if (dt[i].tgl_harga_naik != '0000-00-00') {
-                        //     warnaTgl = "bg-blue";
-                        //     iconList = '<i class="fas fa-long-arrow-alt-up '+ warnaTgl +'"></i>';
-                        //     header = "HARGA NAIK";
-                        // } else if (dt[i].tgl_harga_turun != '0000-00-00') {
-                        //     warnaTgl = "bg-yellow";
-                        //     iconList = '<i class="fas fa-long-arrow-alt-down '+ warnaTgl +'"></i>';
-                        //     header = "HARGA TURUN";
-                        // } else if (dt[i].tgl_harga_flashSale != '0000-00-00') {
-                        //     warnaTgl = "bg-green";
-                        //     iconList = '<i class="fas fa-percentage '+ warnaTgl +'"></i>';
-                        //     header = "HARGA FLASH SALE";
-                        // } else {
-                        //     warnaTgl = "bg-gray";
-                        //     iconList = '<i class="fas fa-star bg-gray"></i>';
-                        //     header = "&nbsp;&nbsp;&nbsp;";
-                        // }
 
                         if (dt[i].status_harga == 1) {
                             warnaTgl = "bg-blue";
