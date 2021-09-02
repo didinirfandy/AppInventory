@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Jakarta');
+set_time_limit(51600);
 
 class JobsHarga extends CI_Controller
 {
@@ -36,6 +37,7 @@ class JobsHarga extends CI_Controller
         )->result_array();
 
         $res = array();
+        $resdtl = array();
 
         for ($i = 0; $i < count($qry); $i++) {
             $kd_pembelian     = $qry[$i]['kd_pembelian'];
@@ -54,44 +56,52 @@ class JobsHarga extends CI_Controller
 
             //convert
             $timeStart = strtotime($tgl_mulai);
-            $timeEnd = strtotime($tgl_selesai);
-            $numBulan = 1 + (date("Y", $timeEnd) - date("Y", $timeStart)) * 12;
-            $numBulan += date("m", $timeEnd) - date("m", $timeStart);
+            $timeEnd   = strtotime($tgl_selesai);
+            $numBulan  = 1 + (date("Y", $timeEnd) - date("Y", $timeStart)) * 12;
+            $numBulan += (date("m", $timeEnd) - date("m", $timeStart)) - 1;
+
+            // var_dump($numBulan);
+            // die();
 
             $valdata = array();
             $a = 1;
-            $hrg = $status_no = $bln = 0;
+            $hrg = $status_no = 0;
             $status_txt = "";
             while ($a <= $numBulan) {
                 $hrgbeli = $a > 1 ? $hrg : $hrgbeli;
                 if ($a <= 7) {
                     $status_txt = "Harga Naik";
                     $status_no = 1;
-                    $bln = $a;
                     $hrg = $hrgbeli + ($persenNaik / 100 * $hrgbeli); // Rumus Harga Naik
                 } else if ($a >= 8 && $a <= 10) {
                     $status_txt = "Harga Turun / diskon";
                     $status_no = 2;
-                    $bln = $a;
                     $hrg = $hrgbeli - ($persenTurun / 100 * $hrgbeli); //  Rumus Harga Turun
-                } else if ($a >= 11 && $a <= 13) {
+                } else if ($a >= 11 && $a <= 12) {
                     $status_txt = "Harga Flash Sale";
                     $status_no = 3;
-                    $bln = $a;
-                    $hrg = $hrgJualStart; // Krmbalikan harga ke 1 bulan awal
+                    $hrg = $hrgJualStart; // Kembalikan harga ke 1 bulan awal
                 } else {
                     $status_txt = "Harga EXP";
                     $status_no = 3;
-                    $bln = $a;
                     $hrg = 0; // lebih dari 1 tahun set jdi 0
                 }
 
+                $date = date("Y-m-d", strtotime("+" . $a . " month", strtotime($tgl_mulai)));
+                $tanggal = date("Y-m-d", strtotime("-1 month", strtotime($date)));
+
                 $datalist = array(
-                    "hrgAwal"    => floor($hrgbeli),
-                    "hrgNow"        => floor($hrg),
-                    "status_txt" => $status_txt,
-                    "status_no"  => $status_no,
-                    "bulan"      => $bln
+                    "kd_pembelian"      => $kd_pembelian,
+                    "kd_barang"         => $kd_barang,
+                    "kd_gudang"         => $kd_gudang,
+                    "kd_supplier"       => $kd_supplier,
+                    "hrgJualStart"      => $hrgJualStart,
+                    "tgl_masuk_gudang"  => $tgl_masuk_gudang,
+                    "hrgAwal"           => floor($hrgbeli),
+                    "hrgNow"            => floor($hrg),
+                    "status_txt"        => $status_txt,
+                    "status_no"         => $status_no,
+                    "tanggal"           => $tanggal . " 23:59:59"
                 );
                 array_push($valdata, $datalist);
                 $a++;
@@ -108,6 +118,9 @@ class JobsHarga extends CI_Controller
 
             $data = array("header" => $header, "data" => $valdata);
             array_push($res, $data);
+
+            $dtlData = array("data" => $valdata);
+            array_push($resdtl, $dtlData);
         }
 
         // print_r($res);
@@ -118,10 +131,12 @@ class JobsHarga extends CI_Controller
             $hrgNow     = (int) $data['hrgNow'];
             $hargaUP    = array('harga_jual_now' => $hrgNow);
             $kd_gudang  = array($res[$d]['header']['kd_gudang']);
+            $dataDtl    = $res[$d]['data'];
 
-            $data = $this->Jobs->UpdateData($kd_gudang, $hargaUP, $res);
+            $data = $this->Jobs->UpdateData($kd_gudang, $hargaUP, $dataDtl);
             echo $data . "<br>";
-            // print_r($data);
+            // print_r($dataDtl);
         }
+        // die();
     }
 }

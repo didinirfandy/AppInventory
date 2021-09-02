@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="naikHeader">Persentase Barang</label>
@@ -118,7 +118,7 @@
                                         <input type="text" class="form-control" id="turunHeader" name="turunHeader" placeholder="Persentase Turun Harga" value="">
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row detailBrg">
                                 <div class="col-lg-4">
                                     <div class="form-group">
