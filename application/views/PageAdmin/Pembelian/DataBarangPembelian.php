@@ -138,9 +138,45 @@
                                 <textarea class="form-control" name="remarkGudangTerima" id="remarkGudangTerima" placeholder="Masukkan Deskripsi"></textarea>
                             </div>
                             <hr>
-                            <div class="form-group">
-                                <label for="persentaseBrg">Perentase</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="persentaseBrg">Perentase Barang</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-sm btn-success" id="multiPersen" style="float: right;"><i class="fas fa-plus-square"></i>&nbsp;&nbsp; Tambah Persentase</button>
+                                </div>
                             </div>
+                            <div class="row brgPersen">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="bulanKe">Bulan Ke</label>
+                                        <select class="form-control" name="bulanKe[]" id="bulanKe">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nilaiPersentase">Persentase</label>
+                                        <input type="text" name="nilaiPersentase[]" id="nilaiPersentase" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="persentaseBrgNew"></div>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-sm btn-default" id="closeSendBarang" data-dismiss="modal"><i class="fas fa-times"></i>&nbsp;&nbsp;Close</button>
@@ -223,6 +259,54 @@
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
 
+            $("#multiPersen").click(function() {
+                let indexForm = $(".brgPersen").length
+                let newDetail = "newDetail-" + indexForm;
+                // let kodeDetail = $(".brgPersen .kodeDetail").val()
+                // console.log(kodeDetail);
+                // if (indexForm > 1) {
+                //     let indexDetail = indexForm - 1
+                //     kodeDetail = $(".newDetail-" + indexDetail + " .kodeDetail").val()
+                // }
+                // kodeDetail = kodeDetail.replace('.', '')
+                // kodeDetail = String(parseInt(kodeDetail) + 1).padStart(2, '0') + '.';
+
+                let formDetail = `<div class="row brgPersen newbrgPersen ` + newDetail + `">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="bulanKe">Bulan Ke</label>
+                                            <select class="form-control" name="bulanKe[]" id="bulanKe">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nilaiPersentase">Persentase</label>
+                                            <div class="input-group">
+                                                <input type="text" name="nilaiPersentase[]" id="nilaiPersentase" class="form-control">
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-sm btn-default" onClick="removeDetail('` + newDetail + `')"><i class="fas fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+                $("#persentaseBrgNew").append(formDetail)
+            });
+
         });
 
         const Toast = Swal.mixin({
@@ -236,6 +320,11 @@
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         });
+
+        function removeDetail() {
+            let indexDetailBrg = $('.brgPersen').length - 1
+            $(".newDetail-" + indexDetailBrg).remove()
+        }
 
         function showInfoQty(obj) {
             $(obj).popover({
