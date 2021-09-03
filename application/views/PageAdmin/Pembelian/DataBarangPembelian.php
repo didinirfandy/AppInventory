@@ -131,7 +131,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="tglGudangTerima">Tanggal</label>
-                                <input type="text" class="form-control datetimepicker-input" name="tglGudangTerima" id="tglGudangTerima" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy">
+                                <input type="text" class="form-control datetimepicker-input" name="tglGudangTerima" id="tglGudangTerima" data-toggle="datetimepicker" data-target="#datetimepicker5" placeholder="dd-mm-yyyy" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="remarkGudangTerima">Deskripsi <span style="font-size: 11px;">(Opsional)</span></label>
@@ -218,7 +218,6 @@
                 "autoWidth": false,
                 "lengthMenu": [5, 10, 15, 20, 30, 50, 100],
             });
-
         });
 
         const Toast = Swal.mixin({
@@ -232,6 +231,11 @@
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         });
+
+        function removeDetail() {
+            let indexDetailBrg = $('.brgPersen').length - 1
+            $(".newDetail-" + indexDetailBrg).remove()
+        }
 
         function showInfoQty(obj) {
             $(obj).popover({
@@ -381,6 +385,7 @@
                             },
                             tglGudangTerima: "required",
                             remarkGudangTerima: "required",
+                            bulanKe: "required"
                         },
                         messages: {
                             qtyBeli_to_gd: {
@@ -407,35 +412,40 @@
                             let qtyBeli_to_gd = $("#qtyBeli_to_gd").val();
                             let tglGudangTerima = $("#tglGudangTerima").val();
                             let remarkGudangTerima = $("#remarkGudangTerima").val();
+                            let bulanKe = $("#bulanKe").val();
+                            let url = "<?= base_url('Admin/Pembelian/DataBarangPembelian/insertGudang') ?>";
 
-                            $.ajax({
-                                type: "POST",
-                                data: {
-                                    id_detail_br: id_detail_br,
-                                    qtyBeli_to_gd: qtyBeli_to_gd,
-                                    tglGudangTerima: tglGudangTerima,
-                                    remarkGudangTerima: remarkGudangTerima
-                                },
-                                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/insertGudang') ?>",
-                                dataType: "JSON",
-                                beforeSend: function() {
-                                    $("#sendBarang").prop("disabled", true);
-                                    $("#closeSendBarang").prop("disabled", true);
+                            console.log(bulanKe);
 
-                                    var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
-                                    $("#loadingKirim").html(loading);
-                                },
-                                success: function(hasil) {
-                                    console.log(hasil);
-                                    Toast.fire({
-                                        icon: 'success',
-                                        title: 'Berhasil Simpan Pembelian Barang!'
-                                    });
-                                    setInterval(function() {
-                                        location.reload();
-                                    }, 3000);
-                                }
-                            });
+                            // $.ajax({
+                            //     type: "POST",
+                            //     data: {
+                            //         id_detail_br: id_detail_br,
+                            //         qtyBeli_to_gd: qtyBeli_to_gd,
+                            //         tglGudangTerima: tglGudangTerima,
+                            //         remarkGudangTerima: remarkGudangTerima,
+                            //         bulanKe: bulanKe
+                            //     },
+                            //     url: url,
+                            //     dataType: "JSON",
+                            //     beforeSend: function() {
+                            //         $("#sendBarang").prop("disabled", true);
+                            //         $("#closeSendBarang").prop("disabled", true);
+
+                            //         var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                            //         $("#loadingKirim").html(loading);
+                            //     },
+                            //     success: function(hasil) {
+                            //         console.log(hasil);
+                            //         Toast.fire({
+                            //             icon: 'success',
+                            //             title: 'Berhasil Simpan Pembelian Barang!'
+                            //         });
+                            //         setInterval(function() {
+                            //             location.reload();
+                            //         }, 3000);
+                            //     }
+                            // });
                         }
                     });
 

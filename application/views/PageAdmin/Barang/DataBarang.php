@@ -75,10 +75,10 @@
 
     <!-- Modal Kode Barang -->
     <div class="modal fade" id="modal-timeline">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Timeline Barang</h4>
+                    <h4 class="modal-title"><span class="oi oi-graph"></span> Timeline Barang</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -101,10 +101,10 @@
     </div>
 
     <div class="modal fade" id="modal-timelineHarga">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Timeline Harga Barang</h4>
+                    <h4 class="modal-title"><span class="oi oi-tags"></span> Timeline Harga Barang</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -151,6 +151,11 @@
             }).buttons().container().appendTo('#tableDataBarang_wrapper .col-md-6:eq(0)');
         });
 
+        function removeDetail() {
+            let indexDetailBrg = $('.brgPersen').length - 1
+            $(".newDetail-" + indexDetailBrg).remove()
+        }
+
         function formatRupiah(angka, prefix) {
             var number_string = angka.replace(/[^,\d]/g, '').toString(),
                 split = number_string.split(','),
@@ -166,6 +171,21 @@
 
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
+        }
+
+        function getTheMonth(num) {
+            if (num == 0) return 'Januari';
+            else if (num == 1) return 'Februari';
+            else if (num == 2) return 'Maret';
+            else if (num == 3) return 'April';
+            else if (num == 4) return 'Mei';
+            else if (num == 5) return 'Juni';
+            else if (num == 6) return 'Juli';
+            else if (num == 7) return 'Agustus';
+            else if (num == 8) return 'September';
+            else if (num == 9) return 'Oktober';
+            else if (num == 10) return 'November';
+            else if (num == 11) return 'Desember';
         }
 
         function displayData() {
@@ -196,12 +216,16 @@
                                     <td>` + formatRupiah(dt[i].harga_jual_start, '') + `</td>                                    
                                     <td>` + formatRupiah(dt[i].harga_jual_now, '') + `</td>                                    
                                     <td>` + formatRupiah(dt[i].harga_beli, '') + `</td>                                    
-                                    <td>` + dt[i].qty + `</td>                                    
-                                </tr>`;
+                                    <td>` + dt[i].qty + `</td> 
+                                    </tr>`;
                     }
                     $('#dataBarang').html(row);
                 }
             })
+        }
+
+        function editPersenBrg(kdGudang, kdBarang) {
+            $("#modal-editPersentase").modal('show');
         }
 
         function getkode(kd_pembelian, kd_barang) {
@@ -272,7 +296,7 @@
                     }
 
                     row += `<div>
-                                <i class="fas fa-star bg-gray"></i>
+                                <i class="fas fa-play bg-gray"></i>
                             </div>`;
 
 
@@ -298,27 +322,28 @@
                 async: false,
                 success: function(dt) {
                     let row = warnaTgl = iconList = header = '';
+                    var tahun, bulan, nomorBulan, tgl, waktu;
                     for (let i = 0; i < dt.length; i++) {
                         if (dt[i].date_log != "") {
                             var date = new Date(dt[i].date_log);
-                            var tgl = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
-                            var waktu = ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2) + ":" + ("00" + date.getSeconds()).slice(-2);
-                        } else {
-                            tgl = "";
-                            waktu = "";
+                            nomorBulan = date.getMonth();
+                            tahun = date.getFullYear();
+                            bulan = getTheMonth(nomorBulan);
+                            // tgl = ("00" + date.getDate()).slice(-2) + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear();
+                            waktu = ("00" + date.getHours()).slice(-2) + ":" + ("00" + date.getMinutes()).slice(-2) + ":" + ("00" + date.getSeconds()).slice(-2);
                         }
 
-                        if (dt[i].tgl_harga_naik != '0000-00-00') {
-                            warnaTgl = "bg-blue";
-                            iconList = '<i class="fas fa-long-arrow-alt-up '+ warnaTgl +'"></i>';
-                            header = "HARGA NAIK";
-                        } else if (dt[i].tgl_harga_turun != '0000-00-00') {
-                            warnaTgl = "bg-yellow";
-                            iconList = '<i class="fas fa-long-arrow-alt-down '+ warnaTgl +'"></i>';
-                            header = "HARGA TURUN";
-                        } else if (dt[i].tgl_harga_flashSale != '0000-00-00') {
+                        if (dt[i].status_harga == 1) {
                             warnaTgl = "bg-green";
-                            iconList = '<i class="fas fa-percentage '+ warnaTgl +'"></i>';
+                            iconList = '<i class="fas fa-chart-line ' + warnaTgl + '"></i>';
+                            header = "HARGA NAIK";
+                        } else if (dt[i].status_harga == 2) {
+                            warnaTgl = "bg-yellow";
+                            iconList = '<i class="fas fa-percentage ' + warnaTgl + '"></i>';
+                            header = "HARGA DISKON";
+                        } else if (dt[i].status_harga == 3) {
+                            warnaTgl = "bg-red";
+                            iconList = '<i class="fas fa-bolt ' + warnaTgl + '"></i>';
                             header = "HARGA FLASH SALE";
                         } else {
                             warnaTgl = "bg-gray";
@@ -329,21 +354,21 @@
                         // remark = (dt[i].remark) ? dt[i].remark : "Menunggu Pengiriman .....";
 
                         row += `<div class="time-label col-md-8">
-                                    <span class="` + warnaTgl + `">` + tgl + `</span>
+                                    <span class="` + warnaTgl + `">` + bulan + ` ` + tahun + `</span>
                                 </div>
                                 <div>
                                     ` + iconList + `
                                     <div class="timeline-item">
                                         <span class="time"><i class="fas fa-clock"></i> ` + waktu + `</span>
                                         <h3 class="timeline-header no-border"><strong>[` + dt[i].kd_gudang + `]</strong> ` + header + `</h3>
-                                        <div class="timeline-body"> Rp. ` + formatRupiah(dt[i].harga_now) +`</div>
+                                        <div class="timeline-body"> Rp. ` + formatRupiah(dt[i].harga_now) + `</div>
                                     </div>
                                 </div>`;
                     }
 
-                    if (dt != '' || dt != false) {                        
+                    if (dt != '' || dt != false) {
                         row += `<div>
-                                    <i class="fas fa-star bg-gray"></i>
+                                    <i class="fas fa-play bg-gray"></i>
                                 </div>`;
                     }
 
