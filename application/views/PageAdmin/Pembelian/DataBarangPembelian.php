@@ -384,8 +384,7 @@
                                 max: qtySisa
                             },
                             tglGudangTerima: "required",
-                            remarkGudangTerima: "required",
-                            bulanKe: "required"
+                            remarkGudangTerima: "required"
                         },
                         messages: {
                             qtyBeli_to_gd: {
@@ -412,40 +411,35 @@
                             let qtyBeli_to_gd = $("#qtyBeli_to_gd").val();
                             let tglGudangTerima = $("#tglGudangTerima").val();
                             let remarkGudangTerima = $("#remarkGudangTerima").val();
-                            let bulanKe = $("#bulanKe").val();
-                            let url = "<?= base_url('Admin/Pembelian/DataBarangPembelian/insertGudang') ?>";
 
-                            console.log(bulanKe);
+                            $.ajax({
+                                type: "POST",
+                                data: {
+                                    id_detail_br: id_detail_br,
+                                    qtyBeli_to_gd: qtyBeli_to_gd,
+                                    tglGudangTerima: tglGudangTerima,
+                                    remarkGudangTerima: remarkGudangTerima
+                                },
+                                url: "<?= base_url('Admin/Pembelian/DataBarangPembelian/insertGudang') ?>",
+                                dataType: "JSON",
+                                beforeSend: function() {
+                                    $("#sendBarang").prop("disabled", true);
+                                    $("#closeSendBarang").prop("disabled", true);
 
-                            // $.ajax({
-                            //     type: "POST",
-                            //     data: {
-                            //         id_detail_br: id_detail_br,
-                            //         qtyBeli_to_gd: qtyBeli_to_gd,
-                            //         tglGudangTerima: tglGudangTerima,
-                            //         remarkGudangTerima: remarkGudangTerima,
-                            //         bulanKe: bulanKe
-                            //     },
-                            //     url: url,
-                            //     dataType: "JSON",
-                            //     beforeSend: function() {
-                            //         $("#sendBarang").prop("disabled", true);
-                            //         $("#closeSendBarang").prop("disabled", true);
-
-                            //         var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
-                            //         $("#loadingKirim").html(loading);
-                            //     },
-                            //     success: function(hasil) {
-                            //         console.log(hasil);
-                            //         Toast.fire({
-                            //             icon: 'success',
-                            //             title: 'Berhasil Simpan Pembelian Barang!'
-                            //         });
-                            //         setInterval(function() {
-                            //             location.reload();
-                            //         }, 3000);
-                            //     }
-                            // });
+                                    var loading = '<div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>';
+                                    $("#loadingKirim").html(loading);
+                                },
+                                success: function(hasil) {
+                                    console.log(hasil);
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil Simpan Pembelian Barang!'
+                                    });
+                                    setInterval(function() {
+                                        location.reload();
+                                    }, 3000);
+                                }
+                            });
                         }
                     });
 
