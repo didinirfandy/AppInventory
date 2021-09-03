@@ -30,10 +30,10 @@ class JobsHarga extends CI_Controller
                 LEFT JOIN master_pembelian c ON c.kd_pembelian = a.kd_pembelian
             WHERE
                 DATE(a.tgl_masuk_gudang) < DATE(CURDATE())
-                AND DATE(a.tgl_masuk_gudang) > DATE(CONCAT(YEAR(CURDATE())-1,'-',IF(MONTH(CURDATE()) < 10, CONCAT('0',MONTH(CURDATE())), MONTH(CURDATE())),'-01'))
+                AND DATE(a.tgl_masuk_gudang) > DATE(CONCAT(YEAR(CURDATE())-3,'-',IF(MONTH(CURDATE()) < 10, CONCAT('0',MONTH(CURDATE())), MONTH(CURDATE())),'-01'))
                 AND a.`status` = '0'
             GROUP BY a.kd_gudang
-            ORDER BY a.created_at ASC"
+            ORDER BY a.tgl_masuk_gudang ASC"
         )->result_array();
 
         $res = array();
@@ -68,7 +68,7 @@ class JobsHarga extends CI_Controller
             $status_txt = "";
             $a = 1;
             while ($a <= $numBulan) {
-                $hrgbeli = $a > 1 ? $hrg : $hrgbeli;
+                $hrgJualStart = $a > 1 ? $hrg : $hrgJualStart;
                 $persenNaik = random_int(1, 10); // random Persentase Naik 
                 $persenTurun = random_int(5, 10); // random Persentase Turun
                 $persenDiskonTH1 = random_int(10, 15); // diskon tahun pertama 
@@ -80,23 +80,25 @@ class JobsHarga extends CI_Controller
                     if ($nt == 1) {
                         $status_txt = "Harga Naik";
                         $status_no  = 1;
-                        $hrg        = $hrgbeli + ($persenNaik / 100 * $hrgbeli); // Rumus Harga Naik
+                        $hrg        = $hrgJualStart + ($persenNaik / 100 * $hrgJualStart); // Rumus Harga Naik
                     } else {
                         $status_txt = "Harga Turun / Diskon";
                         $status_no  = 2;
-                        $hrg        = $hrgbeli - ($persenTurun / 100 * $hrgbeli); //  Rumus Harga Turun
+                        $hrg        = $hrgJualStart - ($persenTurun / 100 * $hrgJualStart); //  Rumus Harga Turun
                     }
                 } else if ($a >= 10 && $a <= 12 || $a >= 22 && $a <= 24 || $a >= 34 && $a <= 36) {
-                    if ($a <= 12) {
+                    if ($a >= 10 && $a <= 12) {
                         $status_txt = "Harga Flash Sale";
                         $status_no  = 3;
-                        $hrg        = $hrgbeli - ($persenDiskonTH1 / 100 * $hrgbeli); //  Rumus Harga Flash Sale tahun pertama
-                    }
-
-                    if ($a >= 13) {
+                        $hrg        = $hrgJualStart - ($persenDiskonTH1 / 100 * $hrgJualStart); //  Rumus Harga Flash Sale tahun pertama
+                    } else if ($a >= 22 && $a <= 24) {
                         $status_txt = "Harga Flash Sale";
                         $status_no  = 3;
-                        $hrg        = $hrgbeli - ($persenDiskonTH2 / 100 * $hrgbeli); //  Rumus Harga Flash Sale tahun kedua
+                        $hrg        = $hrgJualStart - ($persenDiskonTH2 / 100 * $hrgJualStart); //  Rumus Harga Flash Sale tahun kedua
+                    } else if ($a >= 34 && $a <= 36) {
+                        $status_txt = "Harga Flash Sale";
+                        $status_no  = 3;
+                        $hrg        = $hrgJualStart - ($persenDiskonTH2 / 100 * $hrgJualStart); //  Rumus Harga Flash Sale tahun kedua
                     }
                 } else {
                     $status_txt = "Harga EXP";
